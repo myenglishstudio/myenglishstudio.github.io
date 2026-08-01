@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Game - When did you last say this?</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #f59e0b;
+            --accent-hover: #d97706;
+            --text-color: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            text-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+        }
+
+        .game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .wheel-outer-wrapper {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            margin-bottom: 25px;
+        }
+
+        /* Wheel Pointer / Ticker */
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+            background: #ef4444;
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+            z-index: 10;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.4));
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+        }
+
+        button:disabled {
+            background-color: #475569;
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .counter {
+            font-size: 1rem;
+            color: #cbd5e1;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* Modal Overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal h2 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .close-btn {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .close-btn:hover {
+            background-color: #059669;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Responsive scaling */
+        @media (max-width: 500px) {
+            .wheel-outer-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>When did you last say this?</h1>
+        <div class="subtitle">Spin the wheel and tell your story!</div>
+    </header>
+
+    <div class="game-container">
+        <div class="wheel-outer-wrapper">
+            <div class="pointer"></div>
+            <canvas id="wheel" width="800" height="800"></canvas>
+        </div>
+
+        <div class="controls">
+            <button id="spinBtn" onclick="spin()">SPIN!</button>
+            <button id="resetBtn" onclick="resetGame()" style="display: none; background-color: #64748b; color: white;">Reset Game</button>
+            <div class="counter" id="counter">Remaining: 25</div>
+        </div>
+    </div>
+
+    <!-- Question Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h2>When did you last say this?</h2>
+            <p id="questionText">"..."</p>
+            <button class="close-btn" onclick="closeModal()">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // Initial set of questions
+        const initialQuestions = [
+            "I could do with a nap.",
+            "I could do with a coffee.",
+            "I could do with a holiday.",
+            "I could do with a bite to eat.",
+            "I could do with a second opinion.",
+            "I could do with a bit of advice.",
+            "I could do with some fresh air.",
+            "I could do with a glass of water.",
+            "I could do with a helping hand.",
+            "I could do with some peace and quiet.",
+            "I could do with a warm shower.",
+            "I could do with a good workout.",
+            "I could do with a break from my phone.",
+            "It could do with a wash.",
+            "It could do with a heater.",
+            "It could do with a fresh coat of paint.",
+            "It could do with a bit of salt.",
+            "It could do with a proper cleaning.",
+            "It could do with some background music.",
+            "It could do with a good polish.",
+            "It could do with a bit more lighting.",
+            "It could do with a software update.",
+            "It could do with some new tires.",
+            "It could do with a bit of spice.",
+            "It could do with a battery change."
+        ];
+
+        let questions = [...initialQuestions];
+
+        // Vibrant Color Palette for slices
+        const palette = [
+            '#f43f5e', '#8b5cf6', '#06b6d4', '#10b981', 
+            '#f59e0b', '#ec4899', '#3b82f6', '#84cc16'
+        ];
+
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const counterEl = document.getElementById('counter');
+        const modal = document.getElementById('resultModal');
+        const questionText = document.getElementById('questionText');
+
+        let startAngle = 0;
+        let isSpinning = false;
+        let selectedIndex = -1;
+
+        function drawWheel() {
+            const numSlices = questions.length;
+            const radius = canvas.width / 2;
+            const arc = (2 * Math.PI) / numSlices;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (numSlices === 0) {
+                // Empty Wheel State
+                ctx.beginPath();
+                ctx.arc(radius, radius, radius - 10, 0, 2 * Math.PI);
+                ctx.fillStyle = '#334155';
+                ctx.fill();
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = 'bold 30px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('All questions answered!', radius, radius);
+                return;
+            }
+
+            for (let i = 0; i < numSlices; i++) {
+                const angle = startAngle + i * arc;
+                
+                // Draw Slice Segment
+                ctx.beginPath();
+                ctx.arc(radius, radius, radius - 10, angle, angle + arc);
+                ctx.lineTo(radius, radius);
+                ctx.fillStyle = palette[i % palette.length];
+                ctx.fill();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#1e293b';
+                ctx.stroke();
+
+                // Draw Text inside slice
+                ctx.save();
+                ctx.translate(
+                    radius + Math.cos(angle + arc / 2) * (radius - 120),
+                    radius + Math.sin(angle + arc / 2) * (radius - 120)
+                );
+                ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = "rgba(0,0,0,0.8)";
+                ctx.shadowBlur = 4;
+                ctx.font = 'bold 18px sans-serif';
+                ctx.textAlign = 'center';
+                
+                // Truncate text for slice view if too long
+                let text = questions[i];
+                if (text.length > 22) text = text.substring(0, 20) + '...';
+                
+                ctx.fillText(text, 0, 0);
+                ctx.restore();
+            }
+
+            // Draw Metallic Center Cap
+            ctx.beginPath();
+            ctx.arc(radius, radius, 50, 0, 2 * Math.PI);
+            const grad = ctx.createLinearGradient(radius - 50, radius - 50, radius + 50, radius + 50);
+            grad.addColorStop(0, '#f8fafc');
+            grad.addColorStop(1, '#64748b');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+        }
+
+        function spin() {
+            if (isSpinning || questions.length === 0) return;
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+
+            const numSlices = questions.length;
+            const extraRounds = 5 + Math.floor(Math.random() * 5); // 5 to 9 full spins
+            const randomSliceIndex = Math.floor(Math.random() * numSlices);
+            
+            // Calculate ending angle target so pointer lands on randomSliceIndex
+            const arc = (2 * Math.PI) / numSlices;
+            
+            // Top position is -PI/2 in Canvas coordinate space
+            const targetSliceAngle = (3 * Math.PI / 2) - (randomSliceIndex * arc) - (arc / 2);
+            const totalRotation = targetSliceAngle + (extraRounds * 2 * Math.PI);
+            
+            const duration = 4000; // 4 seconds
+            const startTime = performance.now();
+            const initialAngle = startAngle % (2 * Math.PI);
+
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing out cubic curve for smooth deceleration
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                startAngle = initialAngle + easeOut * (totalRotation - initialAngle);
+
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    isSpinning = false;
+                    selectedIndex = randomSliceIndex;
+                    showResult(questions[selectedIndex]);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        function showResult(question) {
+            questionText.textContent = `"${question}"`;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+
+            // Remove selected question from list so it doesn't repeat
+            if (selectedIndex !== -1) {
+                questions.splice(selectedIndex, 1);
+                selectedIndex = -1;
+            }
+
+            // Update Remaining Counter
+            counterEl.textContent = `Remaining: ${questions.length}`;
+
+            if (questions.length === 0) {
+                spinBtn.style.display = 'none';
+                resetBtn.style.display = 'inline-block';
+            } else {
+                spinBtn.disabled = false;
+            }
+
+            drawWheel();
+        }
+
+        function resetGame() {
+            questions = [...initialQuestions];
+            counterEl.textContent = `Remaining: ${questions.length}`;
+            spinBtn.style.display = 'inline-block';
+            spinBtn.disabled = false;
+            resetBtn.style.display = 'none';
+            drawWheel();
+        }
+
+        // Initialize wheel display
+        drawWheel();
+    </script>
+</body>
+</html>

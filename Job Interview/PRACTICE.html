@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Breakdown & XYZ Formula</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .static-box {
+            padding: 15px 20px;
+            background-color: #fafafa;
+            border-left: 5px solid #888;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .reveal-box {
+            display: none; /* Hidden by default */
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        .reveal-list-item {
+            display: none; /* Hidden by default, JS will change to list-item */
+            animation: fadeIn 0.4s ease-out;
+            margin-bottom: 5px;
+        }
+        .question {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+        .answer {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+        .task {
+            background-color: #e2e3e5;
+            border-left: 5px solid #6c757d;
+            font-weight: bold;
+        }
+        .polished {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        ol {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #004494;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Static Element -->
+        <div class="static-box">
+            <strong>Generic Summary:</strong><br><br>
+            "Results-driven professional and good communicator looking for a Data Analyst role. Highly motivated team player who pays attention to detail. Hoping to use my skills to help a company succeed."
+        </div>
+
+        <!-- Hidden Elements to Pop Up Sequence -->
+        
+        <!-- Step 1: The Question -->
+        <div id="step1" class="reveal-box question">
+            <strong>Question:</strong> Is it a good summary? Why?
+        </div>
+
+        <!-- Step 2: The Initial Answer (NO) -->
+        <div id="step2" class="reveal-box answer">
+            <strong>Answer: <span style="color: #a71d2a;">NO.</span></strong> It lacks the following info:
+            <ol>
+                <!-- Steps 3 to 6: The Bullet Points -->
+                <li id="step3" class="reveal-list-item">Who you are professionally.</li>
+                <li id="step4" class="reveal-list-item">Value proposition and evidence.</li>
+                <li id="step5" class="reveal-list-item">Supporting trait or memorable item.</li>
+                <li id="step6" class="reveal-list-item">Career goals.</li>
+            </ol>
+        </div>
+
+        <!-- Step 7: The Task -->
+        <div id="step7" class="reveal-box task">
+            <strong>Task 1:</strong> Can you improve it by adding the info mentioned above?
+        </div>
+
+        <!-- Step 8: The Polished Version -->
+        <div id="step8" class="reveal-box polished">
+            <strong>Polished Version:</strong><br><br>
+            "Experienced Data Analyst with a proven track record in statistical modeling and data visualization. Successfully led a data pipeline optimization project that boosted reporting efficiency by 40%. Recipient of the 2023 Data Analytics Excellence Award for innovative dashboard design. Aiming to apply my expertise in data analytics to help a dynamic company drive innovation and achieve its growth objectives."
+        </div>
+
+        <!-- NEW SECTION: XYZ FORMULA TASK -->
+
+        <!-- Step 9: Introduction to Task 2 -->
+        <div id="step9" class="reveal-box task">
+            <strong>Task 2: Mastering the Experience Section</strong><br><br>
+            Now let's review bullet points for a Data Analyst CV using the Google XYZ Formula: <em>"Accomplished [X] as measured by [Y] by doing [Z]"</em>.
+        </div>
+
+        <!-- Step 10: Example 1 Question -->
+        <div id="step10" class="reveal-box question">
+            <strong>Bullet Point 1:</strong> <em>"Processed 500,000 rows of customer data daily by writing automated Python scripts."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 11: Example 1 Answer -->
+        <div id="step11" class="reveal-box answer">
+            <strong>Answer: It is missing "X" (The Accomplishment / Business Impact).</strong><br><br>
+            It tells the recruiter what you did and how you did it, but it completely leaves out the business impact. Why does processing that data matter?<br><br>
+            <strong>The Fix:</strong> <em>"Accomplished a savings of 10 manual hours per week (X) by processing 500,000 rows of customer data daily (Y) using automated Python scripts (Z)."</em>
+        </div>
+
+        <!-- Step 12: Example 2 Question -->
+        <div id="step12" class="reveal-box question">
+            <strong>Bullet Point 2:</strong> <em>"Accomplished a massive reduction in weekly reporting time by building dynamic Tableau dashboards."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 13: Example 2 Answer -->
+        <div id="step13" class="reveal-box answer">
+            <strong>Answer: It is missing "Y" (The Measurement / Data).</strong><br><br>
+            Words like "massive reduction" are vague. As a Data Analyst, your job is to quantify things, so your resume must contain concrete numbers.<br><br>
+            <strong>The Fix:</strong> <em>"Accomplished a reduction in weekly reporting time (X) as measured by a drop from 15 hours to 2 hours per week (Y) by building dynamic Tableau dashboards (Z)."</em>
+        </div>
+
+        <!-- Step 14: Example 3 Question -->
+        <div id="step14" class="reveal-box question">
+            <strong>Bullet Point 3:</strong> <em>"Accomplished a 20% increase in marketing campaign ROI as measured by Q2 revenue reports."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 15: Example 3 Answer -->
+        <div id="step15" class="reveal-box answer">
+            <strong>Answer: It is missing "Z" (The Action / Tools Used).</strong><br><br>
+            While the business impact and metrics are fantastic, it does not tell the hiring manager what technical skills you used to achieve it.<br><br>
+            <strong>The Fix:</strong> <em>"Accomplished a 20% increase in marketing campaign ROI (X) as measured by Q2 revenue reports (Y) by conducting A/B testing on user conversion funnels (Z)."</em>
+        </div>
+
+        <!-- Step 16: Example 4 Question (Product Analytics) -->
+        <div id="step16" class="reveal-box question">
+            <strong>Bullet Point 4 (Product Analytics):</strong> <em>"Designed A/B test frameworks and performed conversion funnel analysis using Python and SQL across 4M monthly active users."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 17: Example 4 Answer -->
+        <div id="step17" class="reveal-box answer">
+            <strong>Answer: It is missing "X" (The Accomplishment / Outcome).</strong><br><br>
+            This shows great scale (4M users) and skills (Python, SQL, A/B testing), but forgets the business outcome! Did feature adoption go up? Did revenue increase?<br><br>
+            <strong>The Fix:</strong> <em>"Increased key feature adoption (X) by 18% generating $2.5M in incremental ARR across 4M monthly active users (Y) by designing A/B test frameworks and performing conversion funnel analysis in Python and SQL (Z)."</em>
+        </div>
+
+        <!-- Step 18: Example 5 Question (Data Infrastructure) -->
+        <div id="step18" class="reveal-box question">
+            <strong>Bullet Point 5 (Data Infrastructure):</strong> <em>"Decreased dashboard rendering latency and cut monthly expenditures by refactoring legacy SQL queries and partitioning tables in BigQuery."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 19: Example 5 Answer -->
+        <div id="step19" class="reveal-box answer">
+            <strong>Answer: It is missing "Y" (The Measurement / Quantifiable Data).</strong><br><br>
+            Saying you decreased latency and cut costs isn't enough for Google recruiters—they need exact percentages and dollar amounts to measure the scale of impact.<br><br>
+            <strong>The Fix:</strong> <em>"Reduced dashboard latency and saved compute costs (X) by 55% with $40K in monthly savings (Y) by refactoring legacy SQL queries and implementing partitioned tables in BigQuery (Z)."</em>
+        </div>
+
+        <!-- Step 20: Example 6 Question (Business Intelligence) -->
+        <div id="step20" class="reveal-box question">
+            <strong>Bullet Point 6 (Business Intelligence):</strong> <em>"Accelerated executive decision-making cycles by saving the cross-functional leadership team 20 hours per week in manual reporting."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 21: Example 6 Answer -->
+        <div id="step21" class="reveal-box answer">
+            <strong>Answer: It is missing "Z" (The Action / Technical Tools).</strong><br><br>
+            The metric and achievement are strong, but hiring managers want to know <em>how</em> you saved that time and what software or technical skills you utilized.<br><br>
+            <strong>The Fix:</strong> <em>"Accelerated executive decision-making (X) as measured by 20 hours per week saved in manual reporting (Y) through engineering automated, real-time operational dashboards in Looker (Z)."</em>
+        </div>
+
+        <!-- Step 22: Example 7 Question (Predictive Modeling) -->
+        <div id="step22" class="reveal-box question">
+            <strong>Bullet Point 7 (Predictive Modeling):</strong> <em>"Developed an XGBoost churn prediction model in Python to flag high-risk accounts 60 days before contract renewal."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 23: Example 7 Answer -->
+        <div id="step23" class="reveal-box answer">
+            <strong>Answer: It is missing "X" and "Y" (The Accomplishment & Measurement).</strong><br><br>
+            Building a model (Z) is an action, not a result. What business problem did this model solve, and how much money or customer retention resulted from it?<br><br>
+            <strong>The Fix:</strong> <em>"Reduced enterprise customer churn (X) by 8% representing $1.2M in retained revenue (Y) by developing an XGBoost predictive model in Python to flag high-risk accounts 60 days prior to renewal (Z)."</em>
+        </div>
+
+        <!-- Step 24: Example 8 Question (Data Quality) -->
+        <div id="step24" class="reveal-box question">
+            <strong>Bullet Point 8 (Data Quality):</strong> <em>"Prevented analytics data corruption across core product analytics by improving telemetry pipeline accuracy from 91% to 99.8%."</em><br><br>
+            What is missing? (X, Y, or Z)
+        </div>
+
+        <!-- Step 25: Example 8 Answer -->
+        <div id="step25" class="reveal-box answer">
+            <strong>Answer: It is missing "Z" (The Action / Implementation Method).</strong><br><br>
+            You stated what you prevented (X) and the numerical accuracy gain (Y), but omitted the specific technical methods or tools used to fix the data quality.<br><br>
+            <strong>The Fix:</strong> <em>"Prevented data corruption across core product analytics (X) by improving telemetry pipeline accuracy from 91% to 99.8% (Y) through writing automated validation scripts and anomaly detection alerts (Z)."</em>
+        </div>
+
+        <!-- Trigger Button -->
+        <button id="actionBtn" class="btn" onclick="revealNext()">Show Next</button>
+    </div>
+
+    <!-- JavaScript to Handle the Pop-Ups -->
+    <script>
+        let currentStep = 1;
+        const totalSteps = 25;
+
+        function revealNext() {
+            if (currentStep <= totalSteps) {
+                let element = document.getElementById('step' + currentStep);
+                
+                // Use 'list-item' display for <li> tags to keep numbers visible, 'block' for <div> tags
+                if (element.tagName === 'LI') {
+                    element.style.display = 'list-item';
+                } else {
+                    element.style.display = 'block';
+                }
+                
+                currentStep++;
+            }
+            
+            // Hide the button once all elements are revealed
+            if (currentStep > totalSteps) {
+                document.getElementById('actionBtn').style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

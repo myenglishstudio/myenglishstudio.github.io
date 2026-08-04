@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XYZ Formula vs. STAR Method Matching Game</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --success: #22c55e;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 30px 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .game-container {
+      max-width: 950px;
+      width: 100%;
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f172a;
+      margin: 0 0 10px 0;
+      font-size: 1.8rem;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #0f172a;
+      color: white;
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    td.locked-column {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #334155;
+      width: 18%;
+      text-align: center;
+    }
+
+    .drop-zone {
+      background-color: #fafafa;
+      min-height: 70px;
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .drop-zone.drag-over {
+      background-color: #eff6ff;
+      border-color: var(--primary);
+    }
+
+    .pool-section {
+      background-color: #f8fafc;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 100px;
+    }
+
+    .pool-header {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #475569;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .cards-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      min-height: 60px;
+    }
+
+    .draggable-card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--primary);
+      color: #1e40af;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: grab;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      user-select: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      width: calc(100% - 32px);
+    }
+
+    .draggable-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.15);
+    }
+
+    .draggable-card:active {
+      cursor: grabbing;
+    }
+
+    .draggable-card.dragging {
+      opacity: 0.4;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-content h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .modal-content h2 {
+      color: var(--success);
+      margin: 10px 0;
+      font-size: 1.8rem;
+    }
+
+    .modal-content p {
+      color: #475569;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .btn-reset {
+      margin-top: 20px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-reset:hover {
+      background-color: #1d4ed8;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-container">
+  <h1>Resume vs. Interview Strategy Matrix</h1>
+  <p class="subtitle">Drag and drop the correct cards into the table cells below!</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>The Google XYZ Formula</th>
+        <th>The STAR Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="locked-column">Primary Use</td>
+        <td><div class="drop-zone" data-target="xyz-use"></div></td>
+        <td><div class="drop-zone" data-target="star-use"></div></td>
+      </tr>
+      <tr>
+        <td class="locked-column">Format</td>
+        <td><div class="drop-zone" data-target="xyz-format"></div></td>
+        <td><div class="drop-zone" data-target="star-format"></div></td>
+      </tr>
+      <tr>
+        <td class="locked-column">The Structure</td>
+        <td><div class="drop-zone" data-target="xyz-structure"></div></td>
+        <td><div class="drop-zone" data-target="star-structure"></div></td>
+      </tr>
+      <tr>
+        <td class="locked-column">Goal</td>
+        <td><div class="drop-zone" data-target="xyz-goal"></div></td>
+        <td><div class="drop-zone" data-target="star-goal"></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pool-section">
+    <div class="pool-header">Available Cards (Drag from here)</div>
+    <div class="cards-pool" id="pool">
+      <!-- Cards generated dynamically to ensure random order -->
+    </div>
+  </div>
+</div>
+
+<!-- Victory Modal -->
+<div class="modal-overlay" id="praiseModal">
+  <div class="modal-content">
+    <h1>🎉🏆🌟</h1>
+    <h2>OUTSTANDING WORK!</h2>
+    <p><strong>Absolutely flawless execution!</strong> You’ve mastered the core distinction between standard resume building and high-impact interview communication!</p>
+    <p>You are officially primed to tackle top-tier technical recruiting processes with confidence. Keep up this relentless momentum!</p>
+    <button class="btn-reset" onclick="resetGame()">Try Again</button>
+  </div>
+</div>
+
+<script>
+  const cardData = [
+    { id: "xyz-use", text: "Writing your resume." },
+    { id: "star-use", text: "Answering interview questions." },
+    { id: "xyz-format", text: "A single, concise bullet point." },
+    { id: "star-format", text: "A short, spoken story (usually 2-3 minutes)." },
+    { id: "xyz-structure", text: "Accomplished [X] as measured by [Y] by doing [Z]." },
+    { id: "star-structure", text: "Situation, Task, Action, Result." },
+    { id: "xyz-goal", text: "To get your resume past the recruiter and secure the interview." },
+    { id: "star-goal", text: "To prove how you handle workplace challenges when speaking face-to-face." }
+  ];
+
+  let draggedElement = null;
+
+  function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  function initGame() {
+    const pool = document.getElementById('pool');
+    pool.innerHTML = '';
+    
+    // Clear all dropzones
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+      zone.innerHTML = '';
+    });
+
+    // Hide modal
+    document.getElementById('praiseModal').style.display = 'none';
+
+    // Shuffle and insert cards into pool
+    const shuffled = shuffle([...cardData]);
+    shuffled.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'draggable-card';
+      card.draggable = true;
+      card.dataset.id = item.id;
+      card.innerText = item.text;
+
+      addDragListeners(card);
+      pool.appendChild(card);
+    });
+  }
+
+  function addDragListeners(card) {
+    card.addEventListener('dragstart', (e) => {
+      draggedElement = card;
+      card.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', card.dataset.id);
+    });
+
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      draggedElement = null;
+      checkCompletion();
+    });
+  }
+
+  // Setup Drop Zones & Pool as targets
+  const dropTargets = [...document.querySelectorAll('.drop-zone'), document.getElementById('pool')];
+
+  dropTargets.forEach(target => {
+    target.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (target.classList.contains('drop-zone')) {
+        target.classList.add('drag-over');
+      }
+    });
+
+    target.addEventListener('dragleave', () => {
+      target.classList.remove('drag-over');
+    });
+
+    target.addEventListener('drop', (e) => {
+      e.preventDefault();
+      target.classList.remove('drag-over');
+
+      if (!draggedElement) return;
+
+      if (target.classList.contains('drop-zone')) {
+        // If cell already has a card, send existing card back to pool
+        if (target.children.length > 0) {
+          document.getElementById('pool').appendChild(target.children[0]);
+        }
+        target.appendChild(draggedElement);
+      } else if (target.id === 'pool') {
+        target.appendChild(draggedElement);
+      }
+    });
+  });
+
+  function checkCompletion() {
+    const zones = document.querySelectorAll('.drop-zone');
+    let filledCount = 0;
+    let correctCount = 0;
+
+    zones.forEach(zone => {
+      if (zone.children.length > 0) {
+        filledCount++;
+        const cardId = zone.children[0].dataset.id;
+        const targetId = zone.dataset.target;
+        if (cardId === targetId) {
+          correctCount++;
+        }
+      }
+    });
+
+    // If all 8 cells are correctly filled:
+    if (filledCount === 8 && correctCount === 8) {
+      setTimeout(() => {
+        document.getElementById('praiseModal').style.display = 'flex';
+      }, 200);
+    }
+  }
+
+  function resetGame() {
+    initGame();
+  }
+
+  // Initialize on load
+  initGame();
+</script>
+
+</body>
+</html>

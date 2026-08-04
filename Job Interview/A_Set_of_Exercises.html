@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume & Data Vocabulary Workbook</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --correct-bg: #dcfce7;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --incorrect-bg: #fee2e2;
+            --incorrect-border: #fca5a5;
+            --incorrect-text: #991b1b;
+            --accent-blue: #eff6ff;
+            --accent-blue-border: #93c5fd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Task Panels */
+        .task-panel {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .task-panel.active {
+            display: block;
+        }
+
+        .task-title {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.98rem;
+        }
+
+        /* Action Buttons */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn:active { transform: scale(0.98); }
+
+        /* Task 1 Specifics */
+        .t1-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 0.6rem;
+            background: #f8fafc;
+        }
+
+        .t1-sentence {
+            flex-grow: 1;
+            margin-right: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .t1-select {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            background: white;
+        }
+
+        /* Drag and Drop Grid for Task 2 & 4 */
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .match-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .match-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .drop-zone {
+            min-height: 46px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            padding: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .drop-zone.drag-over {
+            background-color: #e0f2fe;
+            border-color: var(--primary);
+        }
+
+        .bank-box {
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            min-height: 80px;
+            align-content: flex-start;
+        }
+
+        .draggable {
+            background-color: var(--accent-blue);
+            border: 1px solid var(--accent-blue-border);
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .drop-zone .draggable {
+            width: 100%;
+            text-align: center;
+        }
+
+        .draggable:active { cursor: grabbing; }
+
+        /* Interactive Unscramble (Task 3 & 5) */
+        .unscramble-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            background: white;
+        }
+
+        .scrambled-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            padding: 0.8rem;
+            border-radius: 6px;
+            min-height: 48px;
+        }
+
+        .word-chip {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .word-chip.used {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .answer-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            min-height: 48px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 0.5rem;
+            margin-bottom: 0.8rem;
+            background: #ffffff;
+        }
+
+        .feedback-msg {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .feedback-msg.correct {
+            display: block;
+            background: var(--correct-bg);
+            color: var(--correct-text);
+            border: 1px solid var(--correct-border);
+        }
+
+        .feedback-msg.incorrect {
+            display: block;
+            background: var(--incorrect-bg);
+            color: var(--incorrect-text);
+            border: 1px solid var(--incorrect-border);
+        }
+
+        /* Validation UI Classes */
+        .correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text) !important;
+        }
+
+        .incorrect {
+            background-color: var(--incorrect-bg) !important;
+            border-color: var(--incorrect-border) !important;
+            color: var(--incorrect-text) !important;
+        }
+
+        .score-box {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 6px;
+            background: #f1f5f9;
+        }
+    
+        /* Enhanced Drag & Drop Reorder Styles for Task 3 & 5 */
+        .word-chip.reorderable {
+            cursor: grab;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+        .word-chip.reorderable:active {
+            cursor: grabbing;
+        }
+        .word-chip.dragging-chip {
+            opacity: 0.3 !important;
+            border: 2px dashed #2563eb !important;
+            background: #eff6ff !important;
+        }
+        .word-chip.drag-over-left {
+            border-left: 4px solid #2563eb !important;
+            padding-left: 0.8rem !important;
+        }
+        .word-chip.drag-over-right {
+            border-right: 4px solid #2563eb !important;
+            padding-right: 0.8rem !important;
+        }
+        .answer-box {
+            align-items: center;
+        }
+
+
+        /* Smooth Auto-Scroll & Easy Dragging for Task 4 & Task 2 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .matching-grid {
+            position: relative;
+        }
+
+        .bank-box {
+            position: sticky;
+            top: 1rem;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 5;
+        }
+
+        .draggable {
+            touch-action: none;
+            cursor: grab;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+
+
+        .answer-box.box-drag-active {
+            border-color: #2563eb !important;
+            background-color: #eff6ff !important;
+            box-shadow: 0 0 0 2px #93c5fd;
+        }
+        .pool-chip {
+            cursor: grab !important;
+            user-select: none;
+        }
+        .pool-chip:active {
+            cursor: grabbing !important;
+        }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Executive Resume & Data Vocabulary</h1>
+        <p class="subtitle">Interactive Practice Workbook for Business & Data Professionals</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('task1')">Task 1: Weak vs Strong</button>
+        <button class="tab-btn" onclick="switchTab('task2')">Task 2: Upgrade Match</button>
+        <button class="tab-btn" onclick="switchTab('task3')">Task 3: Unscramble (Core)</button>
+        <button class="tab-btn" onclick="switchTab('task4')">Task 4: Collocations</button>
+        <button class="tab-btn" onclick="switchTab('task5')">Task 5: Unscramble (Advanced)</button>
+    </div>
+
+    <!-- TASK 1 -->
+    <div id="task1" class="task-panel active">
+        <h2 class="task-title">Task 1: Identify Weak Verbs vs. Strong Sentences</h2>
+        <p class="task-desc">Review each sentence below. Decide if it uses weak/vague phrasing or a strong professional verb.</p>
+        
+        <div id="t1-container"></div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn" onclick="checkTask1()">Check Task 1 Answers</button>
+        </div>
+        <div id="t1-score" class="score-box" style="display:none;"></div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div id="task2" class="task-panel">
+        <h2 class="task-title">Task 2: Match Weak Phrases to Senior Upgrades</h2>
+        <p class="task-desc">Drag the executive verb upgrades from the Word Bank into the matching weak phrase slots.</p>
+
+        <div class="matching-grid">
+            <div id="t2-slots"></div>
+            <div>
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-muted);">Word Bank</h4>
+                <div id="t2-bank" class="bank-box"></div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn" onclick="checkTask2()">Check Task 2 Answers</button>
+        </div>
+        <div id="t2-score" class="score-box" style="display:none;"></div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div id="task3" class="task-panel">
+        <h2 class="task-title">Task 3: Sentence Rebuilding (Core)</h2>
+        <p class="task-desc">Click the scrambled words to add them to your sentence. <b>Drag and drop words inside the box to reorder them</b>, or double-click a word to remove it!</p>
+        <div id="t3-container"></div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div id="task4" class="task-panel">
+        <h2 class="task-title">Task 4: Industry Collocations Matching</h2>
+        <p class="task-desc">Drag the matching completion from the Word Bank to complete each professional industry collocation.</p>
+
+        <div class="matching-grid">
+            <div id="t4-slots"></div>
+            <div>
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-muted);">Word Bank</h4>
+                <div id="t4-bank" class="bank-box"></div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn" onclick="checkTask4()">Check Task 4 Answers</button>
+        </div>
+        <div id="t4-score" class="score-box" style="display:none;"></div>
+    </div>
+
+    <!-- TASK 5 -->
+    <div id="task5" class="task-panel">
+        <h2 class="task-title">Task 5: Sentence Rebuilding (Advanced Data Contexts)</h2>
+        <p class="task-desc">Click the scrambled words to construct advanced data engineering & analytics statements.</p>
+        <div id="t5-container"></div>
+    </div>
+</div>
+
+<script>
+    // TAB SWITCHING
+    function switchTab(tabId) {
+        document.querySelectorAll('.task-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    // SHUFFLE HELPER
+    function shuffle(arr) {
+        let array = [...arr];
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // --- TASK 1 DATA & LOGIC ---
+    const task1Data = [
+        {
+                "text": "I audited our database to clean up duplicate customer accounts.",
+                "correct": "strong"
+        },
+        {
+                "text": "I worked on a script to process user data faster.",
+                "correct": "weak"
+        },
+        {
+                "text": "I helped with a new database to store daily search metrics.",
+                "correct": "weak"
+        },
+        {
+                "text": "I designed a clean dashboard for executive leadership.",
+                "correct": "strong"
+        },
+        {
+                "text": "I supported engineers to define how we track new features.",
+                "correct": "weak"
+        },
+        {
+                "text": "I queried millions of records in BigQuery to track feature usage.",
+                "correct": "strong"
+        },
+        {
+                "text": "I worked on a data audit to find errors in our billing system.",
+                "correct": "weak"
+        },
+        {
+                "text": "I helped with the training for our new dashboard tool.",
+                "correct": "weak"
+        },
+        {
+                "text": "I transformed raw click data into clean tables for the team.",
+                "correct": "strong"
+        },
+        {
+                "text": "I worked on the analysis on why users cancel their subscriptions.",
+                "correct": "weak"
+        },
+        {
+                "text": "I supported managers to track sales using daily automated reports.",
+                "correct": "weak"
+        },
+        {
+                "text": "I automated daily reports, saving our team 5 hours every week.",
+                "correct": "strong"
+        },
+        {
+                "text": "I helped with weekly data meetings between product and sales teams.",
+                "correct": "weak"
+        },
+        {
+                "text": "I supported high data accuracy across all our daily pipelines.",
+                "correct": "weak"
+        },
+        {
+                "text": "I assisted in A/B tests to improve website layout.",
+                "correct": "weak"
+        },
+        {
+                "text": "I drove key pricing changes by analyzing user buying habits.",
+                "correct": "strong"
+        },
+        {
+                "text": "I analyzed user behavior to find where people drop off.",
+                "correct": "strong"
+        },
+        {
+                "text": "I inspected website logs to find the reason for a traffic drop.",
+                "correct": "strong"
+        },
+        {
+                "text": "I developed a simple model to forecast next month's sales.",
+                "correct": "strong"
+        },
+        {
+                "text": "I deployed our new reporting pipeline to Google Cloud.",
+                "correct": "strong"
+        },
+        {
+                "text": "I extracted user data using SQL to prepare a monthly report.",
+                "correct": "strong"
+        },
+        {
+                "text": "I cleaned messy customer records before uploading them to the system.",
+                "correct": "strong"
+        },
+        {
+                "text": "I standardized metric names so every team used the same definitions.",
+                "correct": "strong"
+        },
+        {
+                "text": "I reconciled differences between our old and new tracking tools.",
+                "correct": "strong"
+        },
+        {
+                "text": "I consolidated three separate charts into one single dashboard.",
+                "correct": "strong"
+        }
+];
+
+    function initTask1() {
+        const container = document.getElementById('t1-container');
+        container.innerHTML = '';
+        task1Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 't1-item';
+            div.innerHTML = `
+                <span class="t1-sentence">${idx + 1}. ${item.text}</span>
+                <select class="t1-select" id="t1-select-${idx}">
+                    <option value="">Select Category...</option>
+                    <option value="weak">Weak / Needs Improvement</option>
+                    <option value="strong">Strong / Executive Verb</option>
+                </select>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function checkTask1() {
+        let score = 0;
+        task1Data.forEach((item, idx) => {
+            const sel = document.getElementById(`t1-select-${idx}`);
+            if (sel.value === item.correct) {
+                sel.className = 't1-select correct';
+                score++;
+            } else {
+                sel.className = 't1-select incorrect';
+            }
+        });
+        const scoreBox = document.getElementById('t1-score');
+        scoreBox.style.display = 'block';
+        scoreBox.textContent = `Score: ${score} / ${task1Data.length}`;
+    }
+
+    // --- TASK 2 DATA & LOGIC ---
+    const task2Data = [
+        { weak: '"Worked on..."', upgrade: "Engineered, Built, Executed" },
+        { weak: '"Helped with..."', upgrade: "Partnered with, Co-led, Spearheaded" },
+        { weak: '"Supported..."', upgrade: "Enabled, Facilitated, Sustained" },
+        { weak: '"Assisted in..."', upgrade: "Collaborated on, Drove" },
+        { weak: '"Looked at data..."', upgrade: "Analyzed, Audited, Inspected" },
+        { weak: '"Made a dashboard..."', upgrade: "Designed, Developed, Deployed" },
+        { weak: '"Ran SQL queries..."', upgrade: "Extracted, Queried, Transformed" },
+        { weak: '"Fixed the data..."', upgrade: "Cleaned, Standardized, Reconciled" },
+        { weak: '"Pulled reports..."', upgrade: "Automated, Consolidated, Extracted" }
+    ];
+
+    let draggedItem = null;
+
+    function initMatchingTask(data, slotContainerId, bankContainerId, prefix) {
+        const slotsContainer = document.getElementById(slotContainerId);
+        const bankContainer = document.getElementById(bankContainerId);
+        slotsContainer.innerHTML = '';
+        bankContainer.innerHTML = '';
+
+        const upgrades = shuffle(data.map(d => d.upgrade || d.part2));
+
+        data.forEach((item, idx) => {
+            const label = item.weak || item.part1;
+            const target = item.upgrade || item.part2;
+
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            row.innerHTML = `
+                <div class="match-label">${label}</div>
+                <div class="drop-zone" data-target="${target}" id="${prefix}-zone-${idx}"></div>
+            `;
+            slotsContainer.appendChild(row);
+        });
+
+        upgrades.forEach((text, idx) => {
+            const card = document.createElement('div');
+            card.className = 'draggable';
+            card.draggable = true;
+            card.textContent = text;
+            card.id = `${prefix}-card-${idx}`;
+
+            card.addEventListener('dragstart', (e) => {
+                draggedItem = card;
+                e.dataTransfer.setData('text/plain', card.id);
+            });
+
+            bankContainer.appendChild(card);
+        });
+
+        // Add Drop Logic
+        document.querySelectorAll(`#${slotContainerId} .drop-zone, #${bankContainerId}`).forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                if (!draggedItem) return;
+
+                if (zone.classList.contains('drop-zone')) {
+                    if (zone.children.length > 0) {
+                        bankContainer.appendChild(zone.children[0]);
+                    }
+                    zone.appendChild(draggedItem);
+                } else {
+                    zone.appendChild(draggedItem);
+                }
+            });
+        });
+    }
+
+    function checkMatchingTask(slotContainerId, scoreBoxId) {
+        const zones = document.querySelectorAll(`#${slotContainerId} .drop-zone`);
+        let score = 0;
+
+        zones.forEach(zone => {
+            const card = zone.querySelector('.draggable');
+            const target = zone.getAttribute('data-target');
+
+            if (card && card.textContent.trim() === target.trim()) {
+                zone.className = 'drop-zone correct';
+                score++;
+            } else {
+                zone.className = 'drop-zone incorrect';
+            }
+        });
+
+        const scoreBox = document.getElementById(scoreBoxId);
+        scoreBox.style.display = 'block';
+        scoreBox.textContent = `Score: ${score} / ${zones.length}`;
+    }
+
+    function checkTask2() { checkMatchingTask('t2-slots', 't2-score'); }
+    function checkTask4() { checkMatchingTask('t4-slots', 't4-score'); }
+
+    // --- TASK 4 DATA ---
+    const task4Data = [
+        { part1: "Petabyte-scale", part2: "datasets" },
+        { part1: "End-to-end data", part2: "pipelines" },
+        { part1: "Raw / Unstructured", part2: "data" },
+        { part1: "Data integrity / Data", part2: "quality" },
+        { part1: "Single source of", part2: "truth" },
+        { part1: "Data drift / Data", part2: "anomalies" },
+        { part1: "Actionable", part2: "insights" },
+        { part1: "Root-cause", part2: "analysis" },
+        { part1: "Statistical", part2: "significance" },
+        { part1: "Predictive", part2: "modeling" },
+        { part1: "User cohorts /", part2: "Segmentation" },
+        { part1: "Historical", part2: "trends" },
+        { part1: "Interactive", part2: "dashboards" },
+        { part1: "Core KPIs / Performance", part2: "metrics" },
+        { part1: "Cross-functional", part2: "visibility" },
+        { part1: "Executive-facing", part2: "reports" },
+        { part1: "Real-time", part2: "monitoring" },
+        { part1: "Data-driven", part2: "decisions" },
+        { part1: "Conversion rates / Funnel", part2: "optimization" },
+        { part1: "Customer Lifetime", part2: "Value (CLV)" },
+        { part1: "Churn drivers /", part2: "Retention rates" },
+        { part1: "Cross-functional", part2: "collaboration" }
+    ];
+
+    // --- UNSCRAMBLE LOGIC (TASK 3 & 5) ---
+    const task3Sentences = [
+        "I engineered a script to process user data faster.",
+        "I built a new database to store daily search metrics.",
+        "I executed a data audit to find errors in our billing system.",
+        "I partnered with engineers to define how we track new features.",
+        "I co-led the training for our new dashboard tool.",
+        "I spearheaded the analysis on why users cancel their subscriptions.",
+        "I enabled managers to track sales using daily automated reports.",
+        "I facilitated weekly data meetings between product and sales teams.",
+        "I sustained high data accuracy across all our daily pipelines.",
+        "I collaborated on A/B tests to improve website layout."
+    ];
+
+    const task5Sentences = [
+        "I used SQL to query petabyte-scale datasets without slowing down system performance.",
+        "I built end-to-end data pipelines to move data automatically from our app into the main database.",
+        "I cleaned raw / unstructured data from customer feedback logs to prepare it for analysis.",
+        "I ran daily checks to ensure high data integrity / data quality before sending reports to managers.",
+        "I created a central database so all teams would have a single source of truth for sales numbers.",
+        "I checked our machine learning models every week to catch any data drift / data anomalies early.",
+        "I analyzed user behavior and shared actionable insights with the product team to improve the app.",
+        "When web traffic dropped last month, I performed a root-cause analysis to find out why.",
+        "I ran an A/B test on our landing page and checked the results to confirm statistical significance.",
+        "I used predictive modeling in Python to estimate how many users might cancel their subscriptions."
+    ];
+
+    
+    let activeDragData = null; // Stores { source: 'pool'|'ansBox', element: HTMLElement, prefix: string, sIdx: number, wIdx: number, word: string }
+
+    function initUnscrambleTask(sentences, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        sentences.forEach((sentence, idx) => {
+            const rawWords = sentence.split(' ');
+            const scrambled = shuffle(rawWords);
+
+            const card = document.createElement('div');
+            card.className = 'unscramble-card';
+            card.id = `${containerId}-card-${idx}`;
+
+            card.innerHTML = `
+                <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700; margin-bottom:0.4rem;">SENTENCE ${idx + 1}</div>
+                <div class="scrambled-words" id="${containerId}-chips-${idx}"></div>
+                <div class="answer-box" id="${containerId}-ans-${idx}"></div>
+                <div style="display:flex; gap:0.5rem;">
+                    <button class="btn" style="padding:0.4rem 0.8rem; font-size:0.85rem;" onclick="checkSentence('${containerId}', ${idx}, '${sentence.replace(/'/g, "\'")}')">Check</button>
+                    <button class="btn" style="padding:0.4rem 0.8rem; font-size:0.85rem; background:#64748b;" onclick="resetSentence('${containerId}', ${idx})">Reset</button>
+                </div>
+                <div class="feedback-msg" id="${containerId}-fb-${idx}"></div>
+            `;
+            container.appendChild(card);
+
+            const chipsDiv = document.getElementById(`${containerId}-chips-${idx}`);
+            const ansBox = document.getElementById(`${containerId}-ans-${idx}`);
+
+            // --- DROP ZONE 1: SCRAMBLED WORDS BANK (Dropping an placed word back into pool) ---
+            chipsDiv.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            chipsDiv.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (activeDragData && activeDragData.source === 'ansBox' && activeDragData.prefix === containerId && activeDragData.sIdx === idx) {
+                    const poolChip = document.getElementById(`${containerId}-chip-${idx}-${activeDragData.wIdx}`);
+                    if (poolChip) {
+                        unuseWord(activeDragData.element, poolChip);
+                    }
+                }
+            });
+
+            // --- DROP ZONE 2: ANSWER BOX (Dropping word from pool into box) ---
+            ansBox.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                ansBox.classList.add('box-drag-active');
+            });
+
+            ansBox.addEventListener('dragleave', () => {
+                ansBox.classList.remove('box-drag-active');
+            });
+
+            ansBox.addEventListener('drop', (e) => {
+                e.preventDefault();
+                ansBox.classList.remove('box-drag-active');
+
+                // If dropped directly into the empty space of answer box
+                if (activeDragData && activeDragData.source === 'pool' && activeDragData.prefix === containerId && activeDragData.sIdx === idx) {
+                    if (e.target === ansBox) {
+                        useWord(containerId, idx, activeDragData.wIdx, activeDragData.word);
+                    }
+                }
+            });
+
+            // --- POPULATE SCRAMBLED WORD POOL ---
+            scrambled.forEach((word, wIdx) => {
+                const chip = document.createElement('span');
+                chip.className = 'word-chip pool-chip';
+                chip.textContent = word;
+                chip.draggable = true;
+                chip.id = `${containerId}-chip-${idx}-${wIdx}`;
+
+                chip.onclick = () => useWord(containerId, idx, wIdx, word);
+
+                // Dragging from Pool
+                chip.addEventListener('dragstart', (e) => {
+                    if (chip.classList.contains('used')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    activeDragData = {
+                        source: 'pool',
+                        element: chip,
+                        prefix: containerId,
+                        sIdx: idx,
+                        wIdx: wIdx,
+                        word: word
+                    };
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', word);
+                    chip.style.opacity = '0.4';
+                });
+
+                chip.addEventListener('dragend', () => {
+                    chip.style.opacity = chip.classList.contains('used') ? '0.3' : '1';
+                    activeDragData = null;
+                });
+
+                chipsDiv.appendChild(chip);
+            });
+        });
+    }
+
+    function useWord(prefix, sIdx, wIdx, word, insertBeforeElem = null) {
+        const poolChip = document.getElementById(`${prefix}-chip-${sIdx}-${wIdx}`);
+        if (!poolChip || poolChip.classList.contains('used')) return;
+
+        poolChip.classList.add('used');
+        const ansBox = document.getElementById(`${prefix}-ans-${sIdx}`);
+
+        const selectedWord = document.createElement('span');
+        selectedWord.className = 'word-chip reorderable';
+        selectedWord.textContent = word;
+        selectedWord.draggable = true;
+        selectedWord.dataset.prefix = prefix;
+        selectedWord.dataset.sIdx = sIdx;
+        selectedWord.dataset.wIdx = wIdx;
+        selectedWord.dataset.word = word;
+
+        // Double-click to remove
+        selectedWord.ondblclick = () => unuseWord(selectedWord, poolChip);
+
+        // --- DRAG EVENTS FOR WORDS INSIDE ANSWER BOX ---
+        selectedWord.addEventListener('dragstart', (e) => {
+            activeDragData = {
+                source: 'ansBox',
+                element: selectedWord,
+                prefix: prefix,
+                sIdx: sIdx,
+                wIdx: wIdx,
+                word: word
+            };
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', word);
+            selectedWord.classList.add('dragging-chip');
+        });
+
+        selectedWord.addEventListener('dragend', () => {
+            selectedWord.classList.remove('dragging-chip');
+            document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('drag-over-left', 'drag-over-right'));
+            activeDragData = null;
+        });
+
+        selectedWord.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            if (!activeDragData || activeDragData.prefix !== prefix || activeDragData.sIdx !== sIdx) return;
+
+            const rect = selectedWord.getBoundingClientRect();
+            const midpoint = rect.left + rect.width / 2;
+
+            if (e.clientX < midpoint) {
+                selectedWord.classList.add('drag-over-left');
+                selectedWord.classList.remove('drag-over-right');
+            } else {
+                selectedWord.classList.add('drag-over-right');
+                selectedWord.classList.remove('drag-over-left');
+            }
+        });
+
+        selectedWord.addEventListener('dragleave', () => {
+            selectedWord.classList.remove('drag-over-left', 'drag-over-right');
+        });
+
+        selectedWord.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            selectedWord.classList.remove('drag-over-left', 'drag-over-right');
+
+            if (!activeDragData || activeDragData.prefix !== prefix || activeDragData.sIdx !== sIdx) return;
+
+            const rect = selectedWord.getBoundingClientRect();
+            const midpoint = rect.left + rect.width / 2;
+            const isLeft = e.clientX < midpoint;
+
+            if (activeDragData.source === 'ansBox') {
+                // Reordering inside answer box
+                if (activeDragData.element !== selectedWord) {
+                    if (isLeft) {
+                        ansBox.insertBefore(activeDragData.element, selectedWord);
+                    } else {
+                        ansBox.insertBefore(activeDragData.element, selectedWord.nextSibling);
+                    }
+                }
+            } else if (activeDragData.source === 'pool') {
+                // Dropping new word from pool directly at a specific position in answer box
+                const newCard = useWord(prefix, sIdx, activeDragData.wIdx, activeDragData.word, isLeft ? selectedWord : selectedWord.nextSibling);
+            }
+        });
+
+        if (insertBeforeElem) {
+            ansBox.insertBefore(selectedWord, insertBeforeElem);
+        } else {
+            ansBox.appendChild(selectedWord);
+        }
+
+        return selectedWord;
+    }
+
+
+    function unuseWord(selectedWord, originalChip) {
+        originalChip.classList.remove('used');
+        selectedWord.remove();
+    }
+
+    function checkSentence(prefix, sIdx, targetSentence) {
+        const ansBox = document.getElementById(`${prefix}-ans-${sIdx}`);
+        const userSentence = Array.from(ansBox.children).map(c => c.textContent).join(' ');
+        const fb = document.getElementById(`${prefix}-fb-${sIdx}`);
+
+        if (userSentence.trim() === targetSentence.trim()) {
+            fb.className = 'feedback-msg correct';
+            fb.textContent = '🎉 Correct! Perfect sentence construction.';
+        } else {
+            fb.className = 'feedback-msg incorrect';
+            fb.textContent = `❌ Incorrect. Look closely at verb placement and word order. Target: "${targetSentence}"`;
+        }
+    }
+
+    function resetSentence(prefix, sIdx) {
+        const ansBox = document.getElementById(`${prefix}-ans-${sIdx}`);
+        ansBox.innerHTML = '';
+        document.querySelectorAll(`#${prefix}-chips-${sIdx} .word-chip`).forEach(c => c.classList.remove('used'));
+        const fb = document.getElementById(`${prefix}-fb-${sIdx}`);
+        fb.style.display = 'none';
+    }
+
+    // INITIALIZE ALL ACTIVITIES
+    window.onload = () => {
+        initTask1();
+        initMatchingTask(task2Data, 't2-slots', 't2-bank', 't2');
+        initMatchingTask(task4Data, 't4-slots', 't4-bank', 't4');
+        initUnscrambleTask(task3Sentences, 't3-container');
+        initUnscrambleTask(task5Sentences, 't5-container');
+    };
+
+    // Global Auto-Scroll logic for long drag operations (e.g. Task 4)
+    let autoScrollInterval = null;
+
+    document.addEventListener('dragover', (e) => {
+        const threshold = 100; // Distance in pixels from top/bottom edge to trigger auto-scroll
+        const scrollSpeed = 15;
+
+        if (e.clientY < threshold) {
+            // Near top of viewport
+            startAutoScroll(-scrollSpeed);
+        } else if (window.innerHeight - e.clientY < threshold) {
+            // Near bottom of viewport
+            startAutoScroll(scrollSpeed);
+        } else {
+            stopAutoScroll();
+        }
+    });
+
+    document.addEventListener('dragend', () => {
+        stopAutoScroll();
+    });
+
+    document.addEventListener('drop', () => {
+        stopAutoScroll();
+    });
+
+    function startAutoScroll(step) {
+        if (!autoScrollInterval) {
+            autoScrollInterval = setInterval(() => {
+                window.scrollBy(0, step);
+            }, 16);
+        }
+    }
+
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+
+</script>
+
+</body>
+</html>

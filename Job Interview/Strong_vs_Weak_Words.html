@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Vocabulary Activity</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --drag-bg: #eff6ff;
+            --drag-border: #93c5fd;
+            --drop-zone-bg: #f8fafc;
+            --drop-zone-hover: #e0f2fe;
+            --correct-bg: #dcfce7;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --incorrect-bg: #fee2e2;
+            --incorrect-border: #fca5a5;
+            --incorrect-text: #991b1b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        p.instructions {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.reset-btn {
+            background-color: #64748b;
+        }
+
+        button.reset-btn:hover {
+            background-color: #475569;
+        }
+
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-title {
+            background: #0f172a;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Sticky First Row */
+        tr:first-child th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th:nth-child(1), td:nth-child(1) { width: 25%; }
+        th:nth-child(2), td:nth-child(2) { width: 40%; }
+        th:nth-child(3), td:nth-child(3) { width: 35%; }
+
+        .not-good-word {
+            font-weight: 600;
+            color: #e11d48;
+            background: #fff1f2;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .reason {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        /* Drop Zone Styles */
+        .drop-zone {
+            min-height: 48px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            background-color: var(--drop-zone-bg);
+            padding: 0.3rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone.drag-over {
+            background-color: var(--drop-zone-hover);
+            border-color: var(--primary);
+        }
+
+        /* Item Bank Container below each table */
+        .bank-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .bank-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .item-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            min-height: 50px;
+            padding: 0.5rem;
+            background: #f1f5f9;
+            border-radius: 6px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* Draggable Cards */
+        .draggable {
+            background-color: var(--drag-bg);
+            border: 1px solid var(--drag-border);
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+        }
+
+        .drop-zone .draggable {
+            width: 100%;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+
+        .draggable.dragging {
+            opacity: 0.4;
+        }
+
+        /* Validation States */
+        .drop-zone.correct {
+            background-color: var(--correct-bg) !important;
+            border: 2px solid var(--correct-border) !important;
+        }
+
+        .drop-zone.correct .draggable {
+            background-color: transparent;
+            border: none;
+            color: var(--correct-text);
+            box-shadow: none;
+        }
+
+        .drop-zone.incorrect {
+            background-color: var(--incorrect-bg) !important;
+            border: 2px solid var(--incorrect-border) !important;
+        }
+
+        .drop-zone.incorrect .draggable {
+            background-color: transparent;
+            border: none;
+            color: var(--incorrect-text);
+            box-shadow: none;
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Resume Vocabulary Upgrade Activity</h1>
+            <p class="instructions">
+                Drag the professional upgrades from the word bank below each table into the empty cells in the 3rd column!
+            </p>
+            <div class="controls">
+                <button onclick="checkAnswers()">Check Answers</button>
+                <button class="reset-btn" onclick="resetActivity()">Reset / Reshuffle</button>
+            </div>
+            <div id="score" class="score-board"></div>
+        </header>
+
+        <!-- TABLE 1 -->
+        <div class="table-container">
+            <div class="table-title">Part 1: Action Verbs & Responsibilities</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Not-So-Good Word Choice</th>
+                        <th>Why It Weakens Your Impression</th>
+                        <th>Senior/Professional Upgrade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="not-good-word">"Worked on..."</span></td>
+                        <td class="reason">Completely vague. Doesn't say what you actually did or delivered.</td>
+                        <td><div class="drop-zone" data-correct="Engineered / Built / Executed"></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Helped with..."</span></td>
+                        <td class="reason">Signals that you weren't leading or accountable for the outcome.</td>
+                        <td><div class="drop-zone" data-correct="Partnered with / Co-led / Spearheaded"></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Supported..."</span></td>
+                        <td class="reason">Sounds like administrative assistance rather than analytical ownership.</td>
+                        <td><div class="drop-zone" data-correct="Enabled / Facilitated / Sustained"></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Assisted in..."</span></td>
+                        <td class="reason">Passive phrasing that minimizes your contribution.</td>
+                        <td><div class="drop-zone" data-correct="Collaborated on / Drove"></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Looked at data..."</span></td>
+                        <td class="reason">Sounds informal, untrained, and passive.</td>
+                        <td><div class="drop-zone" data-correct="Analyzed / Audited / Inspected"></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Made a dashboard..."</span></td>
+                        <td class="reason">Sounds like a basic high school project.</td>
+                        <td><div class="drop-zone" data-correct="Designed, developed, and deployed..."></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Ran SQL queries..."</span></td>
+                        <td class="reason">Running queries is a basic task, not an achievement.</td>
+                        <td><div class="drop-zone" data-correct="Extracted, queried, and transformed dataset..."></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Fixed the data..."</span></td>
+                        <td class="reason">Vague—doesn't explain what was wrong or how you fixed it.</td>
+                        <td><div class="drop-zone" data-correct="Cleaned, standardized, and reconciled data..."></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"Pulled reports..."</span></td>
+                        <td class="reason">Makes you sound like a human copy-paste button.</td>
+                        <td><div class="drop-zone" data-correct="Automated data extraction and reporting..."></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- WORD BANK FOR TABLE 1 -->
+        <div class="bank-section">
+            <div class="bank-title">📦 Word Bank - Part 1 (Drag items to Table 1)</div>
+            <div class="item-bank" id="bank-1"></div>
+        </div>
+
+        <!-- TABLE 2 -->
+        <div class="table-container">
+            <div class="table-title">Part 2: Quantifying Impact & Results</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Not-So-Good Word Choice</th>
+                        <th>Why It Weakens Your Impression</th>
+                        <th>Senior/Professional Upgrade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="not-good-word">"...to make things faster."</span></td>
+                        <td class="reason">Unquantified and imprecise.</td>
+                        <td><div class="drop-zone" data-correct='"...reducing pipeline runtime by 35%"'></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"...which improved accuracy."</span></td>
+                        <td class="reason">How much? Based on what baseline?</td>
+                        <td><div class="drop-zone" data-correct='"...increasing model precision from 78% to 92%"'></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"...saved the team time."</span></td>
+                        <td class="reason">Vague claim without proof.</td>
+                        <td><div class="drop-zone" data-correct='"...reclaiming 8 hours per week per analyst."'></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="not-good-word">"...for better decision-making."</span></td>
+                        <td class="reason">Generic buzzword sentence.</td>
+                        <td><div class="drop-zone" data-correct='"...guiding executive strategy for a $2M expansion."'></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- WORD BANK FOR TABLE 2 -->
+        <div class="bank-section">
+            <div class="bank-title">📦 Word Bank - Part 2 (Drag items to Table 2)</div>
+            <div class="item-bank" id="bank-2"></div>
+        </div>
+    </div>
+
+    <script>
+        const table1Items = [
+            "Engineered / Built / Executed",
+            "Partnered with / Co-led / Spearheaded",
+            "Enabled / Facilitated / Sustained",
+            "Collaborated on / Drove",
+            "Analyzed / Audited / Inspected",
+            "Designed, developed, and deployed...",
+            "Extracted, queried, and transformed dataset...",
+            "Cleaned, standardized, and reconciled data...",
+            "Automated data extraction and reporting..."
+        ];
+
+        const table2Items = [
+            '"...reducing pipeline runtime by 35%"',
+            '"...increasing model precision from 78% to 92%"',
+            '"...reclaiming 8 hours per week per analyst."',
+            '"...guiding executive strategy for a $2M expansion."'
+        ];
+
+        let draggedElement = null;
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function createDraggableCard(text, id) {
+            const card = document.createElement('div');
+            card.className = 'draggable';
+            card.draggable = true;
+            card.textContent = text;
+            card.id = id;
+
+            card.addEventListener('dragstart', (e) => {
+                draggedElement = card;
+                card.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', card.id);
+            });
+
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+                draggedElement = null;
+            });
+
+            return card;
+        }
+
+        function initGame() {
+            // Clear drop zones
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.innerHTML = '';
+                zone.classList.remove('correct', 'incorrect');
+            });
+
+            // Populate Bank 1
+            const bank1 = document.getElementById('bank-1');
+            bank1.innerHTML = '';
+            shuffle([...table1Items]).forEach((text, i) => {
+                bank1.appendChild(createDraggableCard(text, 't1-' + i));
+            });
+
+            // Populate Bank 2
+            const bank2 = document.getElementById('bank-2');
+            bank2.innerHTML = '';
+            shuffle([...table2Items]).forEach((text, i) => {
+                bank2.appendChild(createDraggableCard(text, 't2-' + i));
+            });
+
+            document.getElementById('score').style.display = 'none';
+        }
+
+        // Setup drop targets (both table drop zones and word banks)
+        function setupDropContainer(container, isDropZone = false) {
+            container.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                container.classList.add('drag-over');
+            });
+
+            container.addEventListener('dragleave', () => {
+                container.classList.remove('drag-over');
+            });
+
+            container.addEventListener('drop', (e) => {
+                e.preventDefault();
+                container.classList.remove('drag-over');
+
+                if (!draggedElement) return;
+
+                if (isDropZone) {
+                    // Drop Zone logic (table cell)
+                    const existingCard = container.querySelector('.draggable');
+                    const sourceParent = draggedElement.parentElement;
+
+                    if (existingCard) {
+                        // Swap with source container
+                        sourceParent.appendChild(existingCard);
+                    }
+                    container.appendChild(draggedElement);
+                } else {
+                    // Item Bank logic
+                    container.appendChild(draggedElement);
+                }
+
+                // Clear previous validation styling on changes
+                document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('correct', 'incorrect'));
+                document.getElementById('score').style.display = 'none';
+            });
+        }
+
+        // Apply drop event handlers
+        document.querySelectorAll('.drop-zone').forEach(zone => setupDropContainer(zone, true));
+        document.querySelectorAll('.item-bank').forEach(bank => setupDropContainer(bank, false));
+
+        function checkAnswers() {
+            const zones = document.querySelectorAll('.drop-zone');
+            let correctCount = 0;
+
+            zones.forEach(zone => {
+                const card = zone.querySelector('.draggable');
+                const expected = zone.getAttribute('data-correct');
+
+                if (card && card.textContent.trim() === expected.trim()) {
+                    zone.classList.add('correct');
+                    zone.classList.remove('incorrect');
+                    correctCount++;
+                } else {
+                    zone.classList.add('incorrect');
+                    zone.classList.remove('correct');
+                }
+            });
+
+            const scoreDisplay = document.getElementById('score');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.textContent = `Score: ${correctCount} / ${zones.length}`;
+
+            if (correctCount === zones.length) {
+                scoreDisplay.style.color = '#166534';
+                scoreDisplay.textContent += " 🎉 Perfect! All upgrades are correctly matched.";
+            } else {
+                scoreDisplay.style.color = '#991b1b';
+            }
+        }
+
+        function resetActivity() {
+            initGame();
+        }
+
+        window.onload = initGame;
+    </script>
+</body>
+</html>

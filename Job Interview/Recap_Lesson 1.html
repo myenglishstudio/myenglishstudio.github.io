@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive CV Tasks - My English Studio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #1A365D;
+            --accent-color: #D69E2E;
+            --bg-color: #F7FAFC;
+            --text-main: #2D3748;
+            --text-light: #4A5568;
+            --border-color: #E2E8F0;
+        }
+
+        body {
+            background-color: #e2e8f0;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 50px;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .brand {
+            font-family: 'Merriweather', serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .brand span {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+        }
+
+        h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+
+        .instructions {
+            background-color: var(--bg-color);
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-style: italic;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Interactive Element Styles */
+        details {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        summary {
+            background-color: var(--bg-color);
+            padding: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--primary-color);
+            list-style: none; /* Hide default arrow */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary:hover {
+            background-color: #edf2f7;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        details[open] summary::after {
+            content: '−';
+        }
+
+        .answer-content {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .weak-verb {
+            color: #E53E3E;
+            text-decoration: underline;
+            font-style: italic;
+        }
+
+        .strong-verb {
+            color: #38A169;
+            font-weight: bold;
+        }
+
+        .scenario-box {
+            background-color: #ebf8ff;
+            padding: 15px;
+            border-left: 4px solid #3182ce;
+            margin-bottom: 15px;
+        }
+
+        .interview-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <header>
+            <div class="brand">My English <span>Studio</span></div>
+            <h1>Interactive Practice Tasks</h1>
+            <p>Mastering the FAANG Data Analyst Vocabulary & Resume Frameworks</p>
+        </header>
+
+        <!-- TASK 1 -->
+        <section>
+            <h2>Task 1: Weak vs. Strong Verbs</h2>
+            <div class="instructions">
+                Read the following sentences commonly spoken by Data Analysts. Replace the underlined <span class="weak-verb">weak verb</span> with a professional, strong verb. Click to reveal the suggested answers.
+            </div>
+
+            <div class="question-text">1. I <span class="weak-verb">looked at</span> the user engagement data to find drop-off points in the funnel.</div>
+            <details>
+                <summary>Click to reveal options</summary>
+                <div class="answer-content">
+                    <b><span class="strong-verb">Analyzed, Investigated, Evaluated</span></b><br>
+                    <em>Example: "I <b>analyzed</b> the user engagement data..."</em>
+                </div>
+            </details>
+
+            <div class="question-text">2. I <span class="weak-verb">made</span> a new interactive dashboard in Tableau for the marketing team.</div>
+            <details>
+                <summary>Click to reveal options</summary>
+                <div class="answer-content">
+                    <b><span class="strong-verb">Developed, Engineered, Designed, Architected</span></b><br>
+                    <em>Example: "I <b>engineered</b> a new interactive dashboard..."</em>
+                </div>
+            </details>
+
+            <div class="question-text">3. I <span class="weak-verb">fixed</span> the slow legacy SQL queries in the main database.</div>
+            <details>
+                <summary>Click to reveal options</summary>
+                <div class="answer-content">
+                    <b><span class="strong-verb">Optimized, Streamlined, Refactored</span></b><br>
+                    <em>Example: "I <b>optimized</b> the slow legacy SQL queries..."</em>
+                </div>
+            </details>
+
+            <div class="question-text">4. I <span class="weak-verb">worked on</span> the data migration project with the software engineering team.</div>
+            <details>
+                <summary>Click to reveal options</summary>
+                <div class="answer-content">
+                    <b><span class="strong-verb">Collaborated on, Partnered on, Drove</span></b><br>
+                    <em>Example: "I <b>collaborated on</b> the data migration project..."</em>
+                </div>
+            </details>
+
+            <div class="question-text">5. I <span class="weak-verb">found</span> a new way to segment our customer cohorts for targeted ads.</div>
+            <details>
+                <summary>Click to reveal options</summary>
+                <div class="answer-content">
+                    <b><span class="strong-verb">Identified, Discovered, Uncovered</span></b><br>
+                    <em>Example: "I <b>identified</b> a new way to segment..."</em>
+                </div>
+            </details>
+        </section>
+
+        <!-- TASK 2 -->
+        <section>
+            <h2>Task 2: Interview Questions with Strong Verbs</h2>
+            <div class="instructions">
+                Below are 5 questions a FAANG recruiter might ask you, intentionally utilizing strong verbs. Practice answering them out loud using the STAR method, mirroring their strong vocabulary.
+            </div>
+            
+            <div class="interview-card"><b>Q1:</b> "Can you describe a time you <b>spearheaded</b> a data initiative from scratch when the requirements were initially unclear?"</div>
+            <div class="interview-card"><b>Q2:</b> "Tell me about a complex dataset you <b>analyzed</b> to uncover actionable insights that drove a major business decision."</div>
+            <div class="interview-card"><b>Q3:</b> "How have you <b>optimized</b> a slow or inefficient reporting process in your previous role?"</div>
+            <div class="interview-card"><b>Q4:</b> "Describe a situation where you successfully <b>collaborated</b> with cross-functional teams to deliver an analytics solution."</div>
+            <div class="interview-card"><b>Q5:</b> "Can you share an example of a time you <b>engineered</b> a dashboard or data pipeline that had a direct impact on company revenue?"</div>
+        </section>
+
+        <!-- TASK 3 -->
+        <section>
+            <h2>Task 3: Deconstruct the XYZ Formula</h2>
+            <div class="instructions">
+                Remember the Google XYZ Formula: <b>Accomplished [X] as measured by [Y] by doing [Z]</b>.<br>
+                <b>X:</b> The Business Impact (What you achieved)<br>
+                <b>Y:</b> The Measurement (The numbers, data, or metrics)<br>
+                <b>Z:</b> The Action (The tools, skills, or coding languages used)<br><br>
+                Read the isolated snippets below and identify if it is an X, Y, or Z.
+            </div>
+
+            <div class="question-text">1. "...by building dynamic interactive dashboards in Tableau."</div>
+            <details>
+                <summary>Is it X, Y, or Z?</summary>
+                <div class="answer-content">
+                    <b>It is Z (The Action/Tools).</b><br> <em>Explanation: This describes the technical skill and exact action taken to solve the problem.</em>
+                </div>
+            </details>
+
+            <div class="question-text">2. "...resulting in a 15% drop in customer churn rate."</div>
+            <details>
+                <summary>Is it X, Y, or Z?</summary>
+                <div class="answer-content">
+                    <b>It is Y (The Measurement).</b><br> <em>Explanation: This is the quantifiable metric that proves the success of the work.</em>
+                </div>
+            </details>
+
+            <div class="question-text">3. "Boosted quarterly marketing ROI..."</div>
+            <details>
+                <summary>Is it X, Y, or Z?</summary>
+                <div class="answer-content">
+                    <b>It is X (The Accomplishment).</b><br> <em>Explanation: This is the high-level business impact or achievement.</em>
+                </div>
+            </details>
+
+            <div class="question-text">4. "...as measured by saving the team 10 hours of manual labor per week."</div>
+            <details>
+                <summary>Is it X, Y, or Z?</summary>
+                <div class="answer-content">
+                    <b>It is Y (The Measurement).</b><br> <em>Explanation: Time saved is a classic "Y" metric to quantify efficiency.</em>
+                </div>
+            </details>
+
+            <div class="question-text">5. "Streamlined the legacy data reporting pipeline..."</div>
+            <details>
+                <summary>Is it X, Y, or Z?</summary>
+                <div class="answer-content">
+                    <b>It is X (The Accomplishment).</b><br> <em>Explanation: This highlights the overarching goal that was achieved.</em>
+                </div>
+            </details>
+        </section>
+
+        <!-- TASK 4 -->
+        <section>
+            <h2>Task 4: Real-World Scenarios to XYZ</h2>
+            <div class="instructions">
+                Read the short scenarios based on the daily reality of a Data Analyst. Find the X, Y, and Z elements, and write a single resume bullet point using the Google XYZ formula. Click to reveal the suggested answer.
+            </div>
+
+            <div class="scenario-box">
+                <b>Scenario 1: The Pricing Mistake</b><br>
+                A new pricing model was rolled out last week. You tracked user behavior and noticed a massive drop in checkout conversions. You built a dashboard in Tableau to show leadership exactly where users were abandoning their carts, resulting in them reverting the pricing and preventing an estimated $50,000 monthly revenue loss.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Prevented a $50,000 monthly revenue loss (X) as measured by user checkout conversion metrics (Y) by building a Tableau dashboard to track the impact of the new pricing model (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 2: The Support Ticket Overload</b><br>
+                Customer support tickets were piling up. You used Python's Natural Language Toolkit (NLTK) to analyze text from 100,000 recent tickets. You found that 40% of them were just people needing password resets. You proposed an automated reset flow to the product team, which reduced overall ticket volume by 40%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Accomplished a 40% reduction in support ticket volume (X) as measured by monthly helpdesk reports (Y) by using Python NLP libraries to categorize over 100,000 support logs (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 3: The Overstocked Warehouse</b><br>
+                The supply chain team was over-ordering inventory, leading to wasted warehouse space. You analyzed 3 years of historical sales data in SQL and built a predictive forecasting model in R to predict seasonal demand. Your model helped the team reduce inventory waste by 25%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Accomplished a 25% reduction in inventory waste (X) as measured by quarterly supply chain audits (Y) by analyzing historical sales data in SQL and building a predictive forecasting model in R (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 4: The Wasted Ad Spend</b><br>
+                Marketing was spending a fortune on Google Ads. You analyzed the ad data and found that mobile users were costing more per click but rarely buying anything. You advised the team to reallocate the budget strictly to desktop users, which increased the overall campaign ROI by 30%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Drove a 30% increase in marketing ROI (X) as measured by Google Ads conversion data (Y) by analyzing cross-platform user behavior to optimize ad budget reallocation (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 5: The Messy CRM</b><br>
+                The sales team's CRM data was full of duplicate and incomplete entries, causing them to call the same clients twice. You wrote a Python script to clean, format, and deduplicate 1 million customer records, increasing the database's data accuracy rate from 80% to 99%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Improved CRM data accuracy from 80% to 99% (X) as measured by the annual data quality audit (Y) by writing Python scripts to clean and deduplicate over 1 million customer records (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 6: The Ignored Feature</b><br>
+                The product team launched a new feature, but hardly anyone was using it. You ran a cohort analysis using SQL and found that a very specific demographic (users aged 18-24) actually loved it. You targeted them with a specialized push notification, boosting the feature's engagement by 45%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Boosted new feature engagement by 45% (X) as measured by weekly active user (WAU) metrics (Y) by conducting SQL cohort analysis to identify and target high-affinity user segments (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 7: The Fraudulent Transactions</b><br>
+                The company was losing money to fake credit card purchases. You implemented a machine learning anomaly detection algorithm using Python (scikit-learn) to flag suspicious buying patterns before the transactions processed, saving the company $100,000 annually in chargebacks.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Prevented $100,000 in annual chargeback losses (X) as measured by quarterly risk reports (Y) by implementing a machine learning anomaly detection algorithm using Python (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 8: The Cold Leads</b><br>
+                Sales reps were wasting time calling bad leads. You built a lead scoring model directly inside Salesforce by analyzing historical win/loss data to rank leads from 1 to 100. Because reps only called the top scores, their sales conversion rate went up by 20%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Accomplished a 20% increase in sales conversion rates (X) as measured by quarterly closed-won metrics (Y) by developing a data-driven lead scoring model within Salesforce (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 9: The Leaky Funnel</b><br>
+                The bounce rate on the website's homepage was a terrible 70%. You used Google Analytics to map user journeys and found a broken link loop on the mobile version of the site. You reported it to engineering to fix, and the bounce rate immediately dropped to 40%.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Improved homepage user retention (X) as measured by a 30% decrease in bounce rate (Y) by mapping user journeys in Google Analytics to identify and resolve UX friction points (Z).</b>
+                </div>
+            </details>
+
+            <div class="scenario-box">
+                <b>Scenario 10: The Tedious Board Report</b><br>
+                Every month, it took you 3 full days (24 working hours) to manually copy data into a PowerPoint for the executive board meeting. You finally connected Looker directly to your AWS Redshift data warehouse to fully automate the visualizations, saving those 24 hours every single month.
+            </div>
+            <details>
+                <summary>Click to reveal XYZ Answer</summary>
+                <div class="answer-content">
+                    <b>Accomplished the full automation of the monthly executive board report (X) as measured by 24 manual hours saved per month (Y) by connecting Looker directly to the AWS Redshift data warehouse (Z).</b>
+                </div>
+            </details>
+
+        </section>
+    </div>
+
+</body>
+</html>

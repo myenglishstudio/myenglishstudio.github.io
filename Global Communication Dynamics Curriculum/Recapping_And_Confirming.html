@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Vocabulary Checklist</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --accent-color: #2e7d32;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p.description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 12px;
+            width: 100%;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--accent-color);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .counter {
+            text-align: right;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: -18px;
+            margin-bottom: 20px;
+        }
+
+        /* Checklist Items */
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        .checklist-item.checked {
+            background-color: #e8f5e9;
+            border-color: var(--accent-color);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+            accent-color: var(--accent-color);
+        }
+
+        .checklist-item label {
+            font-size: 1.05em;
+            font-weight: 500;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .checklist-item.checked label {
+            text-decoration: line-through;
+            color: #555;
+        }
+
+        /* Controls */
+        .btn-reset {
+            display: block;
+            margin: 25px auto 0 auto;
+            background-color: #757575;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-reset:hover {
+            background-color: #424242;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lesson Phrase Tracker</h1>
+    <p class="description">Tick off the phrases you used or heard during today's lesson!</p>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="counter" id="counter">0 / 13 phrases used</div>
+
+    <div class="checklist" id="checklist">
+        <!-- Checklist items rendered dynamically via JS -->
+    </div>
+
+    <button class="btn-reset" onclick="resetChecklist()">Reset Checklist</button>
+</div>
+
+<script>
+const phrases = [
+    "Could you elaborate on what that looks like in practice?",
+    "Could you walk me through how that would work step-by-step?",
+    "Could you unpack that last point a little more?",
+    "When you say [X], do you mean…?",
+    "Correct me if I'm wrong, but my understanding is…",
+    "To put it simply, what you're saying is…",
+    "So, if I've understood correctly, the main takeaway is…",
+    "Does that alignment sound right to you?",
+    "Would you agree with that summary?",
+    "Have I missed anything important?",
+    "To confirm ownership, who will be taking the lead on…?",
+    "By when can we expect to see [X]?",
+    "Just to clarify, my understanding is that I will handle [A], while you take care of [B]. Is that right?"
+];
+
+function buildChecklist() {
+    const container = document.getElementById('checklist');
+    container.innerHTML = '';
+
+    phrases.forEach((phrase, index) => {
+        const item = document.createElement('div');
+        item.className = 'checklist-item';
+        item.id = `item-${index}`;
+        item.onclick = (e) => {
+            // Prevent double trigger when clicking directly on checkbox
+            if (e.target.tagName !== 'INPUT') {
+                const checkbox = item.querySelector('input');
+                checkbox.checked = !checkbox.checked;
+            }
+            toggleItem(index);
+        };
+
+        item.innerHTML = `
+            <input type="checkbox" id="check-${index}">
+            <label for="check-${index}">${phrase}</label>
+        `;
+
+        container.appendChild(item);
+    });
+}
+
+function toggleItem(index) {
+    const item = document.getElementById(`item-${index}`);
+    const checkbox = document.getElementById(`check-${index}`);
+
+    if (checkbox.checked) {
+        item.classList.add('checked');
+    } else {
+        item.classList.remove('checked');
+    }
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+    const total = checkboxes.length;
+    let checkedCount = 0;
+
+    checkboxes.forEach(cb => {
+        if (cb.checked) checkedCount++;
+    });
+
+    const percentage = (checkedCount / total) * 100;
+    document.getElementById('progress-bar').style.width = `${percentage}%`;
+    document.getElementById('counter').textContent = `${checkedCount} / ${total} phrases used`;
+}
+
+function resetChecklist() {
+    const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+    checkboxes.forEach((cb, index) => {
+        cb.checked = false;
+        document.getElementById(`item-${index}`).classList.remove('checked');
+    });
+    updateProgress();
+}
+
+document.addEventListener('DOMContentLoaded', buildChecklist);
+</script>
+
+</body>
+</html>

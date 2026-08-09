@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High vs. Low Context Business Communication Quiz</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1565c0;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --correct-bg: #e8f5e9;
+            --correct-border: #2e7d32;
+            --incorrect-bg: #ffebee;
+            --incorrect-border: #c62828;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p.description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .question-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .options {
+            display: flex;
+            gap: 20px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .feedback {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9em;
+        }
+
+        .feedback.correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct-border);
+            color: #1b5e20;
+        }
+
+        .feedback.incorrect {
+            background-color: var(--incorrect-bg);
+            border-left: 4px solid var(--incorrect-border);
+            color: #b71c1c;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+        }
+
+        #results-banner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary-color);
+        }
+
+        #results-banner h2 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Business Communication Quiz</h1>
+    <p class="description">Test your understanding of High-Context vs. Low-Context communication styles in global business environments.</p>
+
+    <div id="results-banner">
+        <h2>Your Score: <span id="score-text">0/20</span></h2>
+        <p id="score-comment"></p>
+    </div>
+
+    <form id="quiz-form">
+        <div class="section-header">Part 1: True or False Concepts</div>
+        <div id="part1-questions"></div>
+
+        <div class="section-header">Part 2: High-Context vs. Low-Context Scenarios</div>
+        <div id="part2-questions"></div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">Submit & Check Answers</button>
+    </form>
+</div>
+
+<script>
+const quizData = [
+    // Part 1: True / False
+    {
+        id: 1,
+        part: 1,
+        question: "1. In high-context cultures, the true meaning of a business message is usually stated directly and explicitly in spoken words.",
+        answer: "False",
+        explanation: "False. High-context communication relies on implicit messages hidden 'between the lines', non-verbal cues, and shared background knowledge."
+    },
+    {
+        id: 2,
+        part: 1,
+        question: "2. In low-context cultures, the primary goal of business communication is clarity, efficiency, and transparency.",
+        answer: "True",
+        explanation: "True. Low-context cultures prioritize explicit statements so there is no ambiguity or misinterpretation."
+    },
+    {
+        id: 3,
+        part: 1,
+        question: "3. A manager from a high-context culture might say 'that might be difficult' as a polite way to refuse a proposal.",
+        answer: "True",
+        explanation: "True. High-context speakers use intentional ambiguity to avoid direct confrontation and help others save face."
+    },
+    {
+        id: 4,
+        part: 1,
+        question: "4. In low-context cultures, silence or vague responses during a negotiation are viewed as signs of respect and politeness.",
+        answer: "False",
+        explanation: "False. In low-context cultures, vague language or silence is often interpreted as a lack of confidence, poor organization, or dishonesty."
+    },
+    {
+        id: 5,
+        part: 1,
+        question: "5. Maintaining social harmony and helping colleagues 'save face' is essential in high-context work environments.",
+        answer: "True",
+        explanation: "True. Preserving relationships and avoiding public embarrassment drives communication in high-context cultures."
+    },
+    {
+        id: 6,
+        part: 1,
+        question: "6. When receiving instructions from a low-context executive, you are expected to take their words literally.",
+        answer: "True",
+        explanation: "True. Low-context speakers spell out expectations explicitly, meaning what they say directly."
+    },
+    {
+        id: 7,
+        part: 1,
+        question: "7. Foreign managers in high-context companies often mistake polite hesitation for genuine agreement.",
+        answer: "True",
+        explanation: "True. High-context speakers may nod or hesitate politely to show attention, which low-context listeners misinterpret as approval."
+    },
+    {
+        id: 8,
+        part: 1,
+        question: "8. Low-context teams value unstated social rules over written commitments and direct feedback.",
+        answer: "False",
+        explanation: "False. Low-context teams explicitly value direct feedback, written contracts, and plain language over unstated rules."
+    },
+    {
+        id: 9,
+        part: 1,
+        question: "9. Non-verbal cues such as tone changes, pauses, and shifting eye contact carry critical meaning in high-context meetings.",
+        answer: "True",
+        explanation: "True. Body language and silence are heavily relied upon to convey subtle disagreement or approval."
+    },
+    {
+        id: 10,
+        part: 1,
+        question: "10. In low-context business cultures, giving direct feedback is seen as inherently rude and unprofessional.",
+        answer: "False",
+        explanation: "False. Being completely explicit and direct is viewed as the most respectful and efficient way to collaborate."
+    },
+
+    // Part 2: High Context vs Low Context Scenarios
+    {
+        id: 11,
+        part: 2,
+        question: "11. An executive says, 'This proposal has a few points we need to consider carefully,' while pausing and avoiding eye contact to signal that they reject the plan.",
+        options: ["High-Context", "Low-Context"],
+        answer: "High-Context",
+        explanation: "High-Context. The executive relies on subtle phrasing, pauses, and body language rather than saying 'no'."
+    },
+    {
+        id: 12,
+        part: 2,
+        question: "12. A project manager sends an email detailing every team member's exact responsibilities, deadlines, and deliverables so there is zero room for confusion.",
+        options: ["High-Context", "Low-Context"],
+        answer: "Low-Context",
+        explanation: "Low-Context. The focus is entirely on explicit, transparent, and precise written instructions."
+    },
+    {
+        id: 13,
+        part: 2,
+        question: "13. A department lead gives direct critique during a quarterly review: 'Your Q3 report contains errors in the financial model that must be fixed by 5 PM.'",
+        options: ["High-Context", "Low-Context"],
+        answer: "Low-Context",
+        explanation: "Low-Context. Direct, clear, and literal feedback is given without softening the message to preserve harmony."
+    },
+    {
+        id: 14,
+        part: 2,
+        question: "14. An engineer disagrees with a proposed strategy, but instead of saying 'I disagree,' they remain quiet and lower their head during the discussion.",
+        options: ["High-Context", "Low-Context"],
+        answer: "High-Context",
+        explanation: "High-Context. Silence and non-verbal cues are used to express disagreement indirectly."
+    },
+    {
+        id: 15,
+        part: 2,
+        question: "15. A global team prefers straightforward, plain language and believes that direct honesty is the most respectful way to work together.",
+        options: ["High-Context", "Low-Context"],
+        answer: "Low-Context",
+        explanation: "Low-Context. Straightforward clarity is valued above indirect politeness."
+    },
+    {
+        id: 16,
+        part: 2,
+        question: "16. A client states 'We will think about it' in a soft tone to politely decline a proposal without causing the salesperson to lose face.",
+        options: ["High-Context", "Low-Context"],
+        answer: "High-Context",
+        explanation: "High-Context. Intentional ambiguity is used to protect the relationship and save face."
+    },
+    {
+        id: 17,
+        part: 2,
+        question: "17. A team member criticizes a colleague for using vague language, calling it a sign of poor organization and lack of transparency.",
+        options: ["High-Context", "Low-Context"],
+        answer: "Low-Context",
+        explanation: "Low-Context. Low-context professionals expect explicit details and dislike unstated assumptions."
+    },
+    {
+        id: 18,
+        part: 2,
+        question: "18. To understand whether a agreement was actually reached in a meeting, you must evaluate the speakers' social hierarchy and surrounding situation.",
+        options: ["High-Context", "Low-Context"],
+        answer: "High-Context",
+        explanation: "High-Context. Meaning is deeply context-dependent, relying on hierarchy, relationships, and situation."
+    },
+    {
+        id: 19,
+        part: 2,
+        question: "19. A new hire reads the company handbook and takes all policy guidelines strictly at face value without looking for hidden meanings.",
+        options: ["High-Context", "Low-Context"],
+        answer: "Low-Context",
+        explanation: "Low-Context. Taking rules and language literally is a hallmark of low-context communication."
+    },
+    {
+        id: 20,
+        part: 2,
+        question: "20. Rather than saying 'We cannot meet this deadline,' a supplier uses long pauses and subtle hints to communicate that the schedule is impossible.",
+        options: ["High-Context", "Low-Context"],
+        answer: "High-Context",
+        explanation: "High-Context. Non-verbal cues and indirect hints are used instead of a direct refusal."
+    }
+];
+
+function buildQuiz() {
+    const p1Container = document.getElementById('part1-questions');
+    const p2Container = document.getElementById('part2-questions');
+
+    quizData.forEach((q) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `card-${q.id}`;
+
+        const optionsHtml = (q.options || ["True", "False"]).map(opt => `
+            <label>
+                <input type="radio" name="q${q.id}" value="${opt}"> ${opt}
+            </label>
+        `).join('');
+
+        card.innerHTML = `
+            <div class="question-text">${q.question}</div>
+            <div class="options">${optionsHtml}</div>
+            <div class="feedback" id="feedback-${q.id}"></div>
+        `;
+
+        if (q.part === 1) {
+            p1Container.appendChild(card);
+        } else {
+            p2Container.appendChild(card);
+        }
+    });
+}
+
+function checkAnswers() {
+    let score = 0;
+
+    quizData.forEach((q) => {
+        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+        const feedbackEl = document.getElementById(`feedback-${q.id}`);
+        const cardEl = document.getElementById(`card-${q.id}`);
+
+        if (selected) {
+            const userAns = selected.value;
+            if (userAns === q.answer) {
+                score++;
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = `<strong>✓ Correct!</strong> ${q.explanation}`;
+                cardEl.style.borderColor = "#2e7d32";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = `<strong>✗ Incorrect.</strong> Correct Answer: <strong>${q.answer}</strong>.<br>${q.explanation}`;
+                cardEl.style.borderColor = "#c62828";
+            }
+        } else {
+            feedbackEl.className = "feedback incorrect";
+            feedbackEl.innerHTML = `<strong>! No answer selected.</strong> Correct Answer: <strong>${q.answer}</strong>.<br>${q.explanation}`;
+            cardEl.style.borderColor = "#c62828";
+        }
+        feedbackEl.style.display = "block";
+    });
+
+    // Display Results
+    const banner = document.getElementById('results-banner');
+    const scoreText = document.getElementById('score-text');
+    const scoreComment = document.getElementById('score-comment');
+
+    scoreText.textContent = `${score} / ${quizData.length}`;
+    
+    if (score === 20) {
+        scoreComment.textContent = "Perfect score! You are a master of cross-cultural business communication.";
+    } else if (score >= 15) {
+        scoreComment.textContent = "Great job! You have a strong grasp of high vs. low context dynamics.";
+    } else {
+        scoreComment.textContent = "Good effort! Review the explanations above to strengthen your cross-cultural awareness.";
+    }
+
+    banner.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', buildQuiz);
+</script>
+
+</body>
+</html>

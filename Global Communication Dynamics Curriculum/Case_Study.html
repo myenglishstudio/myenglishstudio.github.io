@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Cultural Communication Case Study</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1565c0;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #2e7d32;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .dialogue-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 35px;
+        }
+
+        .dialogue-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .speaker {
+            font-weight: bold;
+            color: #111;
+        }
+
+        .action {
+            font-style: italic;
+            color: #666;
+        }
+
+        .dialogue-line {
+            margin-bottom: 12px;
+        }
+
+        .task-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: #fff;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .btn-reveal {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-reveal:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .answer-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .answer-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Case Study: High-Context vs. Low-Context Friction</h1>
+    <p class="subtitle">Read the dialogue below and answer the questions to decipher the implicit meanings.</p>
+
+    <!-- Dialogue Box -->
+    <div class="dialogue-box">
+        <div class="dialogue-title">🎭 Meeting Scenario: The Project Deadline</div>
+        
+        <div class="dialogue-line">
+            <span class="speaker">Alex:</span> "Hi Kenji. Here is the draft for the new campaign. I need you to approve it right now so I can send it to the client before 5 PM."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Kenji:</span> <span class="action">(Takes the printed report, flips through it slowly, and pauses on page 3 with a slight head tilt)</span> "Hmm... I see. You’ve put a lot of work into this. However, some parts of the market analysis might be a bit challenging for our client to digest."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Alex:</span> "Oh, don't worry about that! Our client is smart, they’ll understand it fine. So, can I get your stamp of approval?"
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Kenji:</span> <span class="action">(Places the report flat on the desk, looks down, and speaks in a soft tone)</span> "Well... with all due respect, Alex, our relationship with this client is delicate. I'll bear your layout in mind, but perhaps we could look at the data presentation from a slightly different perspective."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Alex:</span> "Wait, what's wrong with the layout? You aren't giving me any concrete feedback. Do you like the design or not? It's a simple yes or no."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Kenji:</span> <span class="action">(Silence for 5 seconds, followed by a polite smile)</span> "It's coming along... not bad, actually. But maybe we can reflect on page 3 over the weekend and revisit this on Monday."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Alex:</span> "Reflect over the weekend? But the deadline is today at 5 PM! If it’s 'not bad,' that means it’s good enough to send. I'll just email it now so we don't miss the deadline."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Kenji:</span> <span class="action">(Sighs softly, hands folded)</span> "Right, fine. Let's just agree to disagree for now. I think we have covered enough for today."
+        </div>
+        <div class="dialogue-line">
+            <span class="speaker">Alex:</span> "Great! Glad we agreed." <span class="action">(Leaves the room)</span>
+        </div>
+    </div>
+
+    <!-- Task 1 -->
+    <div class="task-card">
+        <div class="task-title">Task 1: Identify Cultural Backgrounds</div>
+        <div class="question-text">Who comes from a high-context culture and who comes from a low-context culture? What specific cues revealed this?</div>
+        
+        <button class="btn-reveal" onclick="toggleAnswer(1)">Reveal Answer</button>
+        <div class="answer-box" id="ans-1">
+            <div class="answer-title">Sample Answer:</div>
+            <ul>
+                <li><strong>Kenji = High-Context:</strong> Uses soft tones, long pauses, head tilts, non-verbal cues, and indirect phrases (<em>"challenging to digest"</em>, <em>"I'll bear it in mind"</em>) to avoid direct conflict and save face.</li>
+                <li><strong>Alex = Low-Context:</strong> Expects literal language, demands a clear "yes or no," takes polite understatement literally (<em>"not bad"</em>), and focuses strictly on efficiency and deadlines.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Task 2 -->
+    <div class="task-card">
+        <div class="task-title">Task 2: Translate "High-Context Code"</div>
+        <div class="question-text">Translate Kenji's indirect comments into the direct, blunt statements he actually meant:</div>
+        <ul>
+            <li><em>"Some parts... might be a bit challenging for our client to digest."</em></li>
+            <li><em>"With all due respect... I'll bear your layout in mind..."</em></li>
+            <li><em>"It's coming along... not bad, actually."</em></li>
+            <li><em>"Right, fine. Let's just agree to disagree for now."</em></li>
+        </ul>
+
+        <button class="btn-reveal" onclick="toggleAnswer(2)">Reveal Answer</button>
+        <div class="answer-box" id="ans-2">
+            <div class="answer-title">Direct Translations:</div>
+            <ul>
+                <li><strong>"Challenging to digest"</strong> &rarr; "This data is presented poorly and is too confusing for the client."</li>
+                <li><strong>"I'll bear it in mind"</strong> &rarr; "I dislike this layout and I will not approve it."</li>
+                <li><strong>"Not bad, actually"</strong> <small>(with flat tone/silence)</small> &rarr; "This needs significant improvement; it is not ready."</li>
+                <li><strong>"Let's agree to disagree"</strong> &rarr; "Stop arguing. Do NOT send this email today; the discussion is over."</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Task 3 -->
+    <div class="task-card">
+        <div class="task-title">Task 3: Improve Low-Context Sentences</div>
+        <div class="question-text">Rewrite Alex's blunt statements to make them more polite and diplomatic, while still getting clarity:</div>
+        <ul>
+            <li><strong>Blunt:</strong> <em>"I need you to approve it right now so I can send it to the client before 5 PM."</em></li>
+            <li><strong>Blunt:</strong> <em>"Do you like the design or not? It's a simple yes or no."</em></li>
+        </ul>
+
+        <button class="btn-reveal" onclick="toggleAnswer(3)">Reveal Answer</button>
+        <div class="answer-box" id="ans-3">
+            <div class="answer-title">Improved / Softened Options:</div>
+            <ul>
+                <li><strong>Item 1:</strong> "Could you take a quick look at this draft when you have a moment? We’re aiming to send it to the client by 5 PM if possible."</li>
+                <li><strong>Item 2:</strong> "Could you clarify if there are specific adjustments you'd like me to make to the design before we send it out?"</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Task 4 -->
+    <div class="task-card">
+        <div class="task-title">Task 4: Active Recapping & Confirming</div>
+        <div class="question-text">Write 3 clarifying or recapping questions Alex could have asked to verify Kenji's true meaning instead of assuming approval:</div>
+
+        <button class="btn-reveal" onclick="toggleAnswer(4)">Reveal Answer</button>
+        <div class="answer-box" id="ans-4">
+            <div class="answer-title">Sample Recapping Questions:</div>
+            <ul>
+                <li><strong>To clarify approval status:</strong> "When you say page 3 might be challenging to digest, do you mean we should hold off on sending the report today?"</li>
+                <li><strong>To confirm next steps:</strong> "So, if I’ve understood correctly, the main takeaway is that I need to redesign the market analysis section on Monday?"</li>
+                <li><strong>To verify alignment:</strong> "Just to make sure we're on the same page, should I inform the client that we will be delaying the submission until next week?"</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleAnswer(id) {
+    const box = document.getElementById(`ans-${id}`);
+    const button = box.previousElementSibling;
+
+    if (box.style.display === "block") {
+        box.style.display = "none";
+        button.textContent = "Reveal Answer";
+    } else {
+        box.style.display = "block";
+        button.textContent = "Hide Answer";
+    }
+}
+</script>
+
+</body>
+</html>

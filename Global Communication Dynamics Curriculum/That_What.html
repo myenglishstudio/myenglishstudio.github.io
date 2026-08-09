@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Grammar: WHAT vs. THAT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #1a365d;
+            font-size: 26px;
+            margin-bottom: 5px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        p.instructions {
+            color: #4a5568;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .q-number {
+            font-weight: bold;
+            width: 30px;
+            color: #2b6cb0;
+        }
+
+        input[type="text"] {
+            font-size: 15px;
+            padding: 6px 10px;
+            margin: 0 8px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            width: 90px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+            font-weight: 600;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 5px rgba(49, 130, 206, 0.3);
+        }
+
+        input.correct {
+            border-color: #38a169 !important;
+            background-color: #f0fff4 !important;
+            color: #276749 !important;
+        }
+
+        input.incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fff5f5 !important;
+            color: #9b2c2c !important;
+        }
+
+        .feedback {
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .feedback.correct-text {
+            color: #38a169;
+        }
+
+        .feedback.incorrect-text {
+            color: #e53e3e;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #2b6cb0;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        button:hover {
+            background-color: #2c5282;
+        }
+
+        #score-display {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>💼 Business Grammar: 'WHAT' vs. 'THAT'</h1>
+    <p class="instructions">Fill in the gaps with either <strong>what</strong> or <strong>that</strong>. Click the button at the bottom when you are finished to check your score!</p>
+
+    <form id="quizForm">
+        <div class="question"><span class="q-number">1.</span> I admire <input type="text" data-answer="what"> she achieved during her time as Managing Director. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">2.</span> I admire <input type="text" data-answer="that"> she achieved her Q3 sales targets so quickly. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">3.</span> The client didn't understand <input type="text" data-answer="what"> I meant when I asked for a project extension. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">4.</span> The client didn't understand <input type="text" data-answer="that"> I meant my request seriously. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">5.</span> I’m shocked by <input type="text" data-answer="what"> the consultant said about our financial forecast. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">6.</span> I’m shocked <input type="text" data-answer="that"> he said those things in front of the board of directors. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">7.</span> We forgot <input type="text" data-answer="what"> the HR manager told us about the new remote work policy. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">8.</span> We forgot <input type="text" data-answer="that"> she told us to sign the non-disclosure agreement. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">9.</span> I noticed <input type="text" data-answer="what"> the data analyst was doing with the quarterly report. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">10.</span> I noticed <input type="text" data-answer="that"> he was doing it on purpose to hide the budget deficit. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">11.</span> We visited a tech startup <input type="text" data-answer="that"> was surprisingly profitable. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">12.</span> I still remember <input type="text" data-answer="what"> we saw during that factory audit in Munich. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">13.</span> They operate out of a facility <input type="text" data-answer="that"> has state-of-the-art AI infrastructure. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">14.</span> I love <input type="text" data-answer="what"> they’ve done with the office layout in the new headquarters. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">15.</span> He bought enterprise software <input type="text" data-answer="that"> costs an absolute fortune. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">16.</span> I hate <input type="text" data-answer="that"> he bought it without consulting the IT department first. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">17.</span> I found a market research report <input type="text" data-answer="that"> is really interesting for investors. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">18.</span> I like <input type="text" data-answer="what"> it explains about consumer behavior in emerging markets. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">19.</span> She has a management style <input type="text" data-answer="that"> looks effective but causes high staff turnover. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">20.</span> I don’t like <input type="text" data-answer="what"> she proposed during yesterday’s strategy meeting! <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">21.</span> I met a senior partner <input type="text" data-answer="that"> speaks five different languages fluently. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">22.</span> I didn’t understand <input type="text" data-answer="what"> he said to me regarding the compliance regulation. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">23.</span> They hired a compliance officer <input type="text" data-answer="that"> is very strict about regulatory rules. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">24.</span> I know a consulting firm in London <input type="text" data-answer="that"> offers the best strategy advice. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">25.</span> I love <input type="text" data-answer="what"> they bring to the table during complex negotiations. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">26.</span> He owns an advertising agency <input type="text" data-answer="that"> produces custom marketing campaigns. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">27.</span> She has a colleague <input type="text" data-answer="that"> works as a Chief Financial Officer in Singapore. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">28.</span> I love <input type="text" data-answer="what"> her colleague does to support sustainable business practices. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">29.</span> We stayed at a corporate venue <input type="text" data-answer="that"> overlooked the financial district. <span class="feedback"></span></div>
+        <div class="question"><span class="q-number">30.</span> I can’t believe <input type="text" data-answer="what"> he claims about the competitor's market share! <span class="feedback"></span></div>
+
+        <div class="btn-container">
+            <button type="button" onclick="checkAnswers()">Check Answers</button>
+        </div>
+    </form>
+
+    <div id="score-display"></div>
+</div>
+
+<script>
+    function checkAnswers() {
+        const inputs = document.querySelectorAll('#quizForm input[type="text"]');
+        let score = 0;
+        const total = inputs.length;
+
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+            const feedbackSpan = input.nextElementSibling;
+
+            // Clear previous states
+            input.classList.remove('correct', 'incorrect');
+            feedbackSpan.className = 'feedback';
+            feedbackSpan.textContent = '';
+
+            if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+                feedbackSpan.textContent = '✓';
+                feedbackSpan.classList.add('correct-text');
+                score++;
+            } else {
+                input.classList.add('incorrect');
+                feedbackSpan.textContent = `✗ (${correctAnswer})`;
+                feedbackSpan.classList.add('incorrect-text');
+            }
+        });
+
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.textContent = `Your Score: ${score} / ${total} (${Math.round((score / total) * 100)}%)`;
+        
+        if (score === total) {
+            scoreDisplay.style.color = '#38a169';
+        } else {
+            scoreDisplay.style.color = '#2d3748';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Exercise: Which vs. What</title>
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1565c0;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --correct-color: #2e7d32;
+            --incorrect-color: #c62828;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        p.instructions {
+            text-align: center;
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .score-banner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .score-banner h2 {
+            margin: 0 0 5px 0;
+            color: var(--primary-color);
+        }
+
+        .exercise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sentence-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            transition: all 0.2s ease;
+        }
+
+        .sentence-card.correct-card {
+            border-left: 5px solid var(--correct-color);
+            background-color: #f1f8e9;
+        }
+
+        .sentence-card.incorrect-card {
+            border-left: 5px solid var(--incorrect-color);
+            background-color: #ffebee;
+        }
+
+        select {
+            font-family: inherit;
+            font-size: 0.95em;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #bbb;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            margin: 0 4px;
+        }
+
+        select.correct {
+            border: 2px solid var(--correct-color);
+            background-color: #e8f5e9;
+            color: var(--correct-color);
+        }
+
+        select.incorrect {
+            border: 2px solid var(--incorrect-color);
+            background-color: #ffebee;
+            color: var(--incorrect-color);
+        }
+
+        .num {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.15em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 35px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Grammar Exercise: Which vs. What</h1>
+    <p class="instructions">Complete the sentences below by choosing the correct relative pronoun (<strong>which</strong> or <strong>what</strong>).</p>
+
+    <div class="score-banner" id="score-banner">
+        <h2>Your Score: <span id="score-text">0/0</span></h2>
+        <p id="score-comment"></p>
+    </div>
+
+    <form id="gap-form">
+        <div class="exercise-list" id="exercise-list">
+            <!-- Dynamic sentence loading -->
+        </div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">Check Answers</button>
+    </form>
+</div>
+
+<script>
+const sentencesData = [
+    { parts: ["He didn't believe ", " ", " I said ", " ", " annoyed me very much."], ans: ["what", "which"] },
+    { parts: ["In detective stories the murderer is always caught ", " ", " doesn't happen in real life."], ans: ["which"] },
+    { parts: ["He wasn't surprised at ", " ", " he saw because I told him ", " ", " to expect."], ans: ["what", "what"] },
+    { parts: ["In hospitals they wake patients at 6 a.m. ", " ", " is much too early."], ans: ["which"] },
+    { parts: ["There was no directory in the first telephone box ", " ", " meant that I had to go to another one."], ans: ["which"] },
+    { parts: ["I did ", " ", " I could ", " ", " wasn't much."], ans: ["what", "which"] },
+    { parts: ["The clock struck thirteen ", " ", " made everyone laugh."], ans: ["which"] },
+    { parts: ["I am sure that ", " ", " you say is true."], ans: ["what"] },
+    { parts: ["We travelled second class ", " ", " is cheaper than first class but more crowded."], ans: ["which"] },
+    { parts: ["He didn't know the language ", " ", " made it difficult for him to get a job."], ans: ["which"] },
+    { parts: ["People whose names begin with A always get taken first ", " ", " is most unfair."], ans: ["which"] },
+    { parts: ["He played the violin all night ", " ", " annoyed the neighbours."], ans: ["which"] },
+    { parts: ["When the mechanic opened the bonnet he saw at once ", " ", " was wrong with the car."], ans: ["what"] },
+    { parts: ["I didn't buy anything because I didn't see ", " ", " I wanted."], ans: ["what"] },
+    { parts: ["They sang as they marched ", " ", " helped them to forget how tired they were."], ans: ["which"] },
+    { parts: ["I saw a coat marked down to £10 ", " ", " was just ", " ", " I was prepared to pay."], ans: ["which", "what"] },
+    { parts: ["He was very rude to the customs officer ", " ", " of course made things worse."], ans: ["which"] },
+    { parts: ["Show me ", " ", " you've got in your hand."], ans: ["what"] },
+    { parts: ["Tell me ", " ", " you want me to do."], ans: ["what"] },
+    { parts: ["The frogs croaked all night ", " ", " kept us awake."], ans: ["which"] },
+    { parts: ["All the roads were blocked by snow ", " ", " meant that help could not reach us till the following spring."], ans: ["which"] },
+    { parts: ["You needn't think you were unobserved! I saw ", " ", " you did!"], ans: ["what"] },
+    { parts: ["She was once bitten by a monkey ", " ", " made her dislike monkeys for the rest of her life."], ans: ["which"] },
+    { parts: ["Some dairies have given up electric milk floats and gone back to horsedrawn vehicles ", " ", " shows that the horse still has a place in modern transport."], ans: ["which"] },
+    { parts: ["She expects me to clean the house in half an hour ", " ", " is impossible."], ans: ["which"] },
+    { parts: ["He poured water on the burning oil stove ", " ", " was a crazy thing to do."], ans: ["which"] },
+    { parts: ["Would you know ", " ", " to do if you were bitten by a snake?"], ans: ["what"] },
+    { parts: ["They turned on the street lights ", " ", " made it suddenly seem much darker than it really was."], ans: ["which"] },
+    { parts: ["I don't know ", " ", " delayed the train, but it went much slower than usual ", " ", " made me late for my appointment."], ans: ["what", "which"] },
+    { parts: ["He asked a question ", " ", " I answered, and then he asked exactly the same question again ", " ", " showed me that he hadn't been listening."], ans: ["which", "which"] },
+    { parts: ["The crime was not discovered till 48 hours later ", " ", " gave the criminals plenty of time to get away."], ans: ["which"] },
+    { parts: ["My neighbours on either side of me have painted their houses ", " ", " of course only makes my house look shabbier than it really is."], ans: ["which"] },
+    { parts: ["The headmaster believed that children should do ", " ", " they liked ", " ", " meant, of course, that they didn't learn much."], ans: ["what", "which"] },
+    { parts: ["I couldn't remember the number of my own car ", " ", " made the police suspicious."], ans: ["which"] },
+    { parts: ["He said that ", " ", " frightened him was the appalling silence of the place."], ans: ["what"] },
+    { parts: ["You will be punished for ", " ", " you have done."], ans: ["what"] }
+];
+
+function buildExercise() {
+    const container = document.getElementById('exercise-list');
+    let selectCounter = 0;
+
+    sentencesData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'sentence-card';
+        card.id = `card-${index}`;
+
+        let html = `<span class="num">${index + 1}.</span>`;
+        let ansIndex = 0;
+
+        item.parts.forEach((part) => {
+            if (part === " ") {
+                const selectId = `sel-${selectCounter}`;
+                html += `
+                    <select id="${selectId}" data-ans="${item.ans[ansIndex]}" data-card="${index}">
+                        <option value="">---</option>
+                        <option value="which">which</option>
+                        <option value="what">what</option>
+                    </select>
+                `;
+                ansIndex++;
+                selectCounter++;
+            } else {
+                html += part;
+            }
+        });
+
+        card.innerHTML = html;
+        container.appendChild(card);
+    });
+}
+
+function checkAnswers() {
+    const selects = document.querySelectorAll('select');
+    let totalGaps = selects.length;
+    let correctGaps = 0;
+
+    const cardStatus = {};
+
+    selects.forEach(select => {
+        const userVal = select.value;
+        const correctVal = select.getAttribute('data-ans');
+        const cardId = select.getAttribute('data-card');
+
+        if (cardStatus[cardId] === undefined) cardStatus[cardId] = true;
+
+        if (userVal === correctVal) {
+            select.className = "correct";
+            correctGaps++;
+        } else {
+            select.className = "incorrect";
+            cardStatus[cardId] = false;
+        }
+    });
+
+    Object.keys(cardStatus).forEach(cardId => {
+        const card = document.getElementById(`card-${cardId}`);
+        if (cardStatus[cardId]) {
+            card.className = "sentence-card correct-card";
+        } else {
+            card.className = "sentence-card incorrect-card";
+        }
+    });
+
+    const banner = document.getElementById('score-banner');
+    const scoreText = document.getElementById('score-text');
+    const scoreComment = document.getElementById('score-comment');
+
+    scoreText.textContent = `${correctGaps} / ${totalGaps}`;
+
+    const percentage = (correctGaps / totalGaps) * 100;
+    if (percentage === 100) {
+        scoreComment.textContent = "Outstanding! Perfect score!";
+    } else if (percentage >= 80) {
+        scoreComment.textContent = "Great job! Review the red items to fix minor mistakes.";
+    } else {
+        scoreComment.textContent = "Keep practicing! Remember: 'what' means 'the thing that', while 'which' refers back to a whole clause or noun.";
+    }
+
+    banner.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('DOMContentLoaded', buildExercise);
+</script>
+
+</body>
+</html>

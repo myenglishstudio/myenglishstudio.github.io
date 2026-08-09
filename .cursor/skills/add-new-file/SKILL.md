@@ -1,17 +1,22 @@
 ---
 name: add-new-file
 description: >-
-  Adds a new HTML lesson/material file to My English Studio (myenglishstudio.github.io):
-  syncs with remote, works on branch addingnewfile, places the file in the chosen folder,
-  updates index.html links, merges to main, and cleans up temporary branches. Use when
-  the user asks to add a new file, upload a new lesson, or run the add-new-file workflow.
+  Adds one or more HTML lesson/material files to My English Studio
+  (myenglishstudio.github.io): syncs with remote, works on branch addingnewfile,
+  places file(s) in the chosen folder, updates index.html links, merges to main,
+  and cleans up temporary branches. Use when the user asks to add a new file,
+  add several files, upload a new lesson, or run the add-new-file workflow.
 ---
 
 # Add New File
 
-Workflow for adding a new material HTML file to [My English Studio](https://myenglishstudio.github.io/).
+Workflow for adding **one or more** material HTML files to [My English Studio](https://myenglishstudio.github.io/) in a single run.
 
 Answer the user in Russian. Follow the steps in order. Do not skip confirmation stops (steps 6–8). Prefer remote as source of truth.
+
+Supports:
+- **One file** → one link in `index.html`
+- **Several files** → all go into the **same** approved folder in one batch; one commit / one merge
 
 ## Progress checklist
 
@@ -24,15 +29,15 @@ Add New File Progress:
 - [ ] 3. Update local if it does not match remote
 - [ ] 4. Create and switch to branch addingnewfile
 - [ ] 5. Push branch to remote
-- [ ] 6. Ask user to upload the new file (if not already provided)
+- [ ] 6. Ask user to upload the new file(s) (if not already provided)
 - [ ] 7. Ask which folder; list existing folders
-- [ ] 8. After confirmation, place file in the approved folder
-- [ ] 9. Update index.html for the new file
-- [ ] 10. Verify the path to the new file
+- [ ] 8. After confirmation, place all file(s) in the approved folder
+- [ ] 9. Update index.html for every added file
+- [ ] 10. Verify paths for every new file
 - [ ] 11. Push latest changes to remote
 - [ ] 12. Merge into main on remote
 - [ ] 13. Delete temporary branches locally and remotely
-- [ ] 14. Confirm file opens from https://myenglishstudio.github.io/
+- [ ] 14. Confirm file(s) open from https://myenglishstudio.github.io/
 ```
 
 ## Steps (follow exactly)
@@ -48,7 +53,7 @@ git rev-parse HEAD
 git rev-parse origin/main
 ```
 
-Report whether local `main` and `origin/main` match.
+Report whether local `main` and `origin/main` match. Prefer `/usr/bin/git` if the default git fails with `unknown option trailer`.
 
 ### 2. Последняя и актуальная версия должна быть на удаленном
 
@@ -81,11 +86,19 @@ git push -u origin addingnewfile
 
 ### 6. На этой ветке локально попроси загрузить новый файл, если еще не загружен
 
-If the user has not already attached/provided the new file, ask them to upload or provide the file path now. Wait for the file before continuing.
+Accept **one file or several files** in the same run.
+
+If nothing is provided yet, ask the user to upload or give path(s). Make clear they can send:
+- one file, or
+- several files at once (list / multiple attachments / several paths)
+
+Wait until the batch for this run is complete before continuing. If the user sends files in multiple messages, keep collecting until they confirm the list is ready (or clearly intend to proceed with what was sent).
+
+List the pending files back to the user before step 7.
 
 ### 7. Спроси в какую папку добавить новый файл. Покажи какие есть папки
 
-List top-level material folders (exclude `.git`, `.cursor`, etc.), for example:
+List top-level material folders (exclude `.git`, `.cursor`, etc.). Refresh from disk each run, for example:
 
 - `A1`
 - `A2`
@@ -93,68 +106,72 @@ List top-level material folders (exclude `.git`, `.cursor`, etc.), for example:
 - `B2`
 - `C1`
 - `Job Interview`
+- `Global Communication Dynamics Curriculum`
 
-Ask which folder to use. Do not move the file until the user confirms.
+All files in this run go into **one** folder. Ask which folder to use. Do not move any files until the user confirms.
+
+If the user wants different folders for different files, finish this batch for one folder first, then run the skill again for the rest (or ask them to split into separate runs).
 
 ### 8. После подтверждения добавь предложенный файл в апрувнутую папку
 
-Copy/move the uploaded file into the approved folder.
+Copy/move **every** uploaded file into the approved folder.
 
-Filename rules (avoid 404s):
+Filename rules (avoid 404s) — apply to each file:
 - Prefer underscores over spaces in filenames (`Recap_Lesson_1.html`, not `Recap_Lesson 1.html`)
-- Keep the original display title for the link text in `index.html`
-- If renaming for URL safety, tell the user the final filename
+- Keep a human-readable display title for the link text in `index.html`
+- If renaming for URL safety, tell the user the final filename for each renamed file
+
+If the folder only had `.gitkeep` and you are adding real HTML materials, you may leave `.gitkeep` or remove it; either is fine. Do not link `.gitkeep` in `index.html`.
 
 ### 9. Обнови `index.html` с учетом добавленного файла
 
-Edit `index.html` in the matching section:
+Edit `index.html` once for the whole batch: add **one `<a>` per file**.
 
-**CEFR levels (`A1`–`C1`)** — inside the corresponding `<li>` under Materials:
-- If the level shows `<span class="level-empty">No materials yet</span>`, replace it with a `<div class="level-links">…</div>` and add class `is-ready` on the `<li>`
-- Append a new `<a>` inside existing `level-links`
+**CEFR levels (`A1`–`C1`) and Special Topics cards** — inside the corresponding `<li>`:
+- If the card shows `<span class="level-empty">No materials yet</span>`, replace it with a `<div class="level-links">…</div>` and add class `is-ready` on the `<li>`
+- Append each new `<a>` inside `level-links` (order: keep existing links, then new files in the order the user provided)
 
-**Special topics (`Job Interview`)** — append a new `<a>` inside that section’s `level-links`
-
-Link conventions:
-- Folder with a space → encode in `href`: `Job%20Interview/...`
+Link conventions (per file):
+- Folder with a space → encode in `href`: `Job%20Interview/...`, `Global%20Communication%20Dynamics%20Curriculum/...`
 - Filename must match the real file exactly (including underscores)
 - Link text: human-readable title (spaces OK)
 
-Example:
+Examples:
 
 ```html
+<a href="C1/Vague_Language.html">Vague Language</a>
 <a href="Job%20Interview/Tell_Us_about_Yourself.html">Tell Us about Yourself</a>
 ```
 
 ### 10. Проверь путь к новому файлу
 
-Verify before commit:
+Verify **every** new file before commit:
 
 ```bash
-# file exists at the linked path
-ls -la "<folder>/<filename>.html"
+ls -la "<folder>/"
+# each new file exists
 
-# href in index.html matches (account for %20 encoding)
 rg -n "href=.*<filename>" index.html
+# each new filename appears in index.html
 ```
 
-Mentally resolve the URL: `https://myenglishstudio.github.io/<folder-encoded>/<filename>` and confirm it matches disk.
+For each file, resolve `https://myenglishstudio.github.io/<folder-encoded>/<filename>` and confirm it matches disk.
 
 ### 11. Добавь последние изменения в удаленный репозиторий
 
-Commit on `addingnewfile` (only when this workflow is running — user invoked the skill), then push:
+One commit for the whole batch:
 
 ```bash
-git add "<folder>/<filename>.html" index.html
+git add "<folder>/<file1>.html" "<folder>/<file2>.html" ... index.html
 git commit -m "$(cat <<'EOF'
-Add <Title> to <Folder>.
+Add <Title1>[, <Title2>, ...] to <Folder>.
 
 EOF
 )"
 git push origin addingnewfile
 ```
 
-If `git commit` fails with `unknown option trailer` (old git wrapper), use `/usr/bin/git` for commit/push.
+If `git commit` fails with `unknown option trailer`, use `/usr/bin/git` for commit/push.
 
 Do not commit secrets or `.DS_Store`.
 
@@ -163,14 +180,14 @@ Do not commit secrets or `.DS_Store`.
 Preferred (GitHub CLI):
 
 ```bash
-gh pr create --base main --head addingnewfile --title "Add <Title>" --body "$(cat <<'EOF'
+gh pr create --base main --head addingnewfile --title "Add materials to <Folder>" --body "$(cat <<'EOF'
 ## Summary
-- Add <filename> to <folder>
-- Update index.html link
+- Add <file1>[, <file2>, ...] to <folder>
+- Update index.html link(s)
 
 ## Test plan
 - [ ] Open https://myenglishstudio.github.io/
-- [ ] Click the new link and confirm the page loads (no 404)
+- [ ] Open each new link and confirm it loads (no 404)
 
 EOF
 )"
@@ -199,16 +216,17 @@ git push origin --delete addingnewfile
 
 ### 14. Ожидаемый результат
 
-Новый файл добавлен в проект и открывается при открытии на главной странице https://myenglishstudio.github.io/
+Все добавленные в этом запуске файлы есть в проекте и открываются с главной страницы https://myenglishstudio.github.io/
 
 Confirm to the user:
-- File path on disk
-- Link text and `href` in `index.html`
-- That the material should appear on the live site after GitHub Pages deploys (usually within a minute)
+- Disk path for each file
+- Link text and `href` for each entry in `index.html`
+- That materials should appear after GitHub Pages deploys (usually within a minute)
 
 ## Hard stops
 
-- Do not place the file before the user confirms the folder (steps 7–8)
-- Do not merge to `main` before path verification (step 10) passes
+- Do not place files before the user confirms the folder (steps 7–8)
+- Do not merge to `main` before path verification passes for **all** new files (step 10)
 - Do not leave `addingnewfile` behind after a successful merge (step 13)
 - Prefer remote `main` over divergent local history when syncing (steps 2–3)
+- Do not split one multi-file batch across different folders in a single run

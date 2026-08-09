@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>British English Speaking Practice</title>
+    <style>
+        :root {
+            --primary: #00247D; /* British Royal Blue */
+            --accent: #CF142B;  /* British Red */
+            --bg: #F4F6F9;
+            --card-bg: #FFFFFF;
+            --text: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .tag-business {
+            background-color: #E3F2FD;
+            color: #0D47A1;
+        }
+
+        .tag-social {
+            background-color: #FCE4EC;
+            color: #880E4F;
+        }
+
+        .situation {
+            font-weight: 600;
+            font-size: 1.05em;
+            margin-bottom: 10px;
+        }
+
+        .instruction-box {
+            background-color: #FFF3E0;
+            border-left: 4px solid #EF6C00;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .instruction-title {
+            font-weight: bold;
+            color: #E65100;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            margin-bottom: 3px;
+        }
+
+        .btn-reveal {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-reveal:hover {
+            background-color: #001B5E;
+        }
+
+        .phrase-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #E8F5E9;
+            border-left: 4px solid #2E7D32;
+            border-radius: 4px;
+        }
+
+        .phrase-title {
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .phrase-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            font-style: italic;
+            color: #1B5E20;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Speak Like a Brit</h1>
+        <p class="subtitle">Roleplay Practice: How to say what you mean without sounding blunt</p>
+    </header>
+
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+const scenarios = [
+    {
+        type: "business",
+        situation: "Your team member pitches a brand-new software system during a meeting, but you think it's a terrible idea.",
+        instruction: "You don't want to sound blunt and say you dislike it. You want to politely reject it so everyone can move on.",
+        phrase: "“Hmm, yes, I'll bear it in mind.”",
+        delivery: "Deliver it with a nod and a polite, neutral tone."
+    },
+    {
+        type: "business",
+        situation: "A colleague suggests an idea that you think is completely foolish and wrong.",
+        instruction: "You want to strongly disagree, but you need to sound formal and polite in front of management.",
+        phrase: "“With all due respect, I think we need to look at this differently.”",
+        delivery: "Deliver it with a calm, serious expression."
+    },
+    {
+        type: "business",
+        situation: "Your client asks how you feel about the final version of a report you spent weeks working on.",
+        instruction: "You love it and think it's fantastic, but you want to use classic British understatement.",
+        phrase: "“Yeah, it’s not bad, actually!”",
+        delivery: "Say it with an upward inflection at the end to show enthusiasm."
+    },
+    {
+        type: "social",
+        situation: "A colleague invites you out to a noisy pub after work, but you just want to go home and relax.",
+        instruction: "You don't want to sound rude or flatly reject them.",
+        phrase: "“Ah, sounds great, I might join you later!”",
+        delivery: "Say it cheerfully as you walk towards the door."
+    },
+    {
+        type: "business",
+        situation: "You are stuck in an endless argument with a coworker during a meeting and neither of you will change your minds.",
+        instruction: "You want to stop arguing immediately without admitting defeat.",
+        phrase: "“Right, fine. Let's just agree to disagree.”",
+        delivery: "Say it firmly to close the discussion."
+    },
+    {
+        type: "social",
+        situation: "Your client asks if you want to go to a heavy metal music festival over the weekend.",
+        instruction: "You strongly dislike heavy metal, but you want to politely decline.",
+        phrase: "“Ah, heavy metal is just not my cup of tea, to be honest.”",
+        delivery: "Say it with a soft smile and a polite tone."
+    },
+    {
+        type: "business",
+        situation: "A colleague complains about how slow the company internet is today.",
+        instruction: "You agree completely because you've been struggling with it all morning, and you want to show solidarity.",
+        phrase: "“Ugh, tell me about it!”",
+        delivery: "Say it in a flat, empathetic tone."
+    },
+    {
+        type: "business",
+        situation: "An employee suggests a completely absurd budget plan.",
+        instruction: "You want to show you think it's a bad idea without being aggressive.",
+        phrase: "“...Interesting.”",
+        delivery: "Pause slightly, keep a blank facial expression, and use a flat tone."
+    },
+    {
+        type: "business",
+        situation: "Your teammate shares a surprisingly clever shortcut for your daily reporting.",
+        instruction: "You want to express genuine, pleasant surprise at their clever idea.",
+        phrase: "“Oh, interesting!”",
+        delivery: "Say it with an upward inflection and raised eyebrows."
+    },
+    {
+        type: "business",
+        situation: "Your director asks how the presentation draft is coming along.",
+        instruction: "You want to express confidence without sounding arrogant or overly proud.",
+        phrase: "“It’s coming along. Not bad, actually!”",
+        delivery: "Deliver it with a slight smile."
+    },
+    {
+        type: "social",
+        situation: "A neighbor asks if you want to come over for a late-night party.",
+        instruction: "You have no intention of going, but you want to keep good relations.",
+        phrase: "“Thanks! I might join you later once I clear up a few things.”",
+        delivery: "Say it with a friendly, casual wave."
+    },
+    {
+        type: "business",
+        situation: "A consultant suggests cutting the project budget by 50%.",
+        instruction: "You want to communicate that their proposal is totally unrealistic while remaining professional.",
+        phrase: "“With all due respect, that would compromise the entire deliverable.”",
+        delivery: "Use a calm, steady voice."
+    },
+    {
+        type: "business",
+        situation: "A vendor emails you offering a service you don't need or want.",
+        instruction: "You want to write a polite turn-down that ends the conversation.",
+        phrase: "“Thank you for the information. We will bear it in mind for the future.”",
+        delivery: "Standard polite corporate written response."
+    },
+    {
+        type: "business",
+        situation: "Two senior managers are debating strategy and time is running out in the meeting.",
+        instruction: "As the host, you need to cut off the debate politely.",
+        phrase: "“I think we'll have to agree to disagree on this point and move to item 3.”",
+        delivery: "Say it decisively while pointing to the agenda."
+    },
+    {
+        type: "social",
+        situation: "Your coworker asks if you want to try an ultra-spicy dish for lunch.",
+        instruction: "You hate spicy food and want to reject the offer gently.",
+        phrase: "“Spicy food is not really my cup of tea, I'm afraid!”",
+        delivery: "Deliver it lightheartedly."
+    },
+    {
+        type: "business",
+        situation: "Your teammate sighs about how confusing the new tax guidelines are.",
+        instruction: "You have spent three hours trying to understand them too and completely agree.",
+        phrase: "“Tell me about it! It's an absolute nightmare.”",
+        delivery: "Nod in agreement with a sympathetic voice."
+    },
+    {
+        type: "business",
+        situation: "Someone shows you a logo design that looks terrible.",
+        instruction: "You don't want to hurt their feelings, but you need them to know it needs work.",
+        phrase: "“Well... it's certainly interesting.”",
+        delivery: "Tilt your head slightly with a thoughtful, hesitant look."
+    },
+    {
+        type: "business",
+        situation: "You just finished leading a high-stakes webinar and ask your manager for feedback.",
+        instruction: "Your manager loved it and wants to give you top praise in British style.",
+        phrase: "“That was not bad, actually! Really well done.”",
+        delivery: "Warm tone with a smile."
+    },
+    {
+        type: "social",
+        situation: "A coworker asks if you want to join the company running club at 6 AM.",
+        instruction: "You definitely do not want to wake up that early, but you want to sound polite.",
+        phrase: "“6 AM? I might join you!”",
+        delivery: "Say it with a small chuckle."
+    },
+    {
+        type: "business",
+        situation: "A team member re-opens a closed topic about software choices from last week.",
+        instruction: "You want to remind them that the debate is over and the decision is final.",
+        phrase: "“We agreed to disagree on that last week, so let's stick to today's agenda.”",
+        delivery: "Polite but firm professional tone."
+    }
+];
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    
+    scenarios.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        const tagClass = item.type === 'business' ? 'tag-business' : 'tag-social';
+        
+        card.innerHTML = `
+            <span class="tag ${tagClass}">${item.type} Context</span>
+            <div class="situation"><strong>Situation ${index + 1}:</strong> ${item.situation}</div>
+            
+            <div class="instruction-box">
+                <div class="instruction-title">Your Goal / Instruction:</div>
+                ${item.instruction}
+            </div>
+
+            <button class="btn-reveal" onclick="togglePhrase(${index})">Reveal What To Say</button>
+            
+            <div class="phrase-box" id="phrase-${index}">
+                <div class="phrase-title">The Ideal British Reply:</div>
+                <div class="phrase-text">${item.phrase}</div>
+                <div style="margin-top: 5px; font-size: 0.9em; color: #555;"><strong>How to say it:</strong> ${item.delivery}</div>
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+}
+
+function togglePhrase(index) {
+    const phraseBox = document.getElementById(`phrase-${index}`);
+    const button = phraseBox.previousElementSibling;
+    
+    if (phraseBox.style.display === "block") {
+        phraseBox.style.display = "none";
+        button.textContent = "Reveal What To Say";
+    } else {
+        phraseBox.style.display = "block";
+        button.textContent = "Hide Answer";
+    }
+}
+
+// Initialize quiz on load
+document.addEventListener('DOMContentLoaded', renderQuiz);
+</script>
+
+</body>
+</html>

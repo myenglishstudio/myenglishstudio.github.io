@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Data Analyst Interview Prep — Interactive Student Trainer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #cbd5e1;
+        }
+
+        /* Branding Header */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #0f172a;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: #2563eb;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+
+        .course-tagline {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .target-tag {
+            display: inline-block;
+            margin-top: 10px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid #bfdbfe;
+            letter-spacing: 0.05em;
+        }
+
+        /* Outer Accordion (Requirements) */
+        .req-card {
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .req-header {
+            background-color: #f8fafc;
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1rem;
+            user-select: none;
+            border-bottom: 1px solid transparent;
+            transition: background-color 0.2s ease;
+        }
+
+        .req-header:hover {
+            background-color: #eff6ff;
+        }
+
+        .req-card.active .req-header {
+            background-color: #eff6ff;
+            border-bottom-color: #bfdbfe;
+            color: #1e3a8a;
+        }
+
+        .req-badge {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .req-toggle-icon {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2563eb;
+            transition: transform 0.3s ease;
+        }
+
+        .req-card.active .req-toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .req-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background-color: #ffffff;
+            padding: 0 24px;
+        }
+
+        .req-card.active .req-body {
+            padding: 20px 24px;
+            max-height: 2000px;
+        }
+
+        /* Inner Accordion (Stages) */
+        .stage-card {
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            background-color: #fafafa;
+        }
+
+        .stage-header {
+            padding: 14px 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .stage-header:hover {
+            background-color: #f1f5f9;
+        }
+
+        .stage-card.active .stage-header {
+            background-color: #f8fafc;
+        }
+
+        .stage-title-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stage-number-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .tag-p1 { background-color: #2563eb; } /* Blue */
+        .tag-p2 { background-color: #e11d48; } /* Red */
+        .tag-p3 { background-color: #16a34a; } /* Green */
+
+        .stage-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding: 0 18px;
+            background-color: #ffffff;
+            border-top: 1px solid transparent;
+        }
+
+        .stage-card.active .stage-body {
+            padding: 16px 18px;
+            max-height: 800px;
+            border-top-color: #e2e8f0;
+        }
+
+        .prompt-box {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .answer-box {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #0f172a;
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border-left: 3px solid #0f172a;
+        }
+
+        /* Final Script Accordion Section */
+        .script-section {
+            margin-top: 36px;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .script-header {
+            background-color: #f0fdf4;
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #15803d;
+            user-select: none;
+            border-left: 6px solid #16a34a;
+            transition: background-color 0.2s ease;
+        }
+
+        .script-header:hover {
+            background-color: #dcfce7;
+        }
+
+        .script-section.active .script-header {
+            background-color: #dcfce7;
+            border-bottom: 1px solid #bbf7d0;
+        }
+
+        .script-toggle-icon {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #16a34a;
+            transition: transform 0.3s ease;
+        }
+
+        .script-section.active .script-toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .script-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            padding: 0 24px;
+            background-color: #ffffff;
+        }
+
+        .script-section.active .script-body {
+            padding: 24px;
+            max-height: 2000px;
+        }
+
+        .script-intro {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 16px;
+        }
+
+        .script-quote {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #0f172a;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #16a34a;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .script-quote p {
+            margin-bottom: 12px;
+        }
+
+        .script-quote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .script-quote ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .script-quote li {
+            margin-bottom: 8px;
+        }
+
+        /* The Interactive Closing Technique Accordion */
+        .closing-card {
+            background-color: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .closing-header {
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #a16207;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .closing-header:hover {
+            background-color: #fef08a;
+        }
+
+        .closing-toggle-icon {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ca8a04;
+            transition: transform 0.3s ease;
+        }
+
+        .closing-card.active .closing-toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .closing-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding: 0 20px;
+            background-color: #fffde7;
+            border-top: 1px solid transparent;
+        }
+
+        .closing-card.active .closing-body {
+            padding: 18px 20px;
+            max-height: 500px;
+            border-top-color: #fef08a;
+        }
+
+        .closing-script {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #854d0e;
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px dashed #fde047;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .closing-rule {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #713f12;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brand Header -->
+        <div class="header">
+            <div class="brand-title">MY ENGLISH STUDIO</div>
+            <div class="brand-subtitle">ENGLISH FOR THE REAL WORLD • GAMIFIED & PERSONALIZED</div>
+            <div class="course-title">Google Data Analyst Interview Preparation</div>
+            <div class="course-tagline">Interactive Self-Testing Trainer: Requirement ➔ Think ➔ Verify</div>
+            <div class="target-tag">FRAMEWORK: PROBLEM ➔ IMPACT ➔ SOLUTION</div>
+        </div>
+
+        <!-- REQUIREMENT 1 -->
+        <div class="req-card">
+            <div class="req-header" onclick="toggleReq(this)">
+                <div>
+                    <span class="req-badge">REQUIREMENT 01</span>
+                    Requirement 1: Technical & Pipeline Sanitation
+                </div>
+                <span class="req-toggle-icon">+</span>
+            </div>
+            <div class="req-body">
+                
+                <!-- Stage 1 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p1">STEP 1</span>
+                            <span>Break Down the Responsibility (The Business Problem)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: What core business dilemma or operational risk is Google trying to solve when telemetry data is uncleaned?</div>
+                        <div class="answer-box">
+                            <strong>The Problem:</strong> Raw user telemetry data is inherently messy, duplicated, or missing logs. If engineers and product managers can't rely on clean data, they end up making critical product choices based on bad or corrupt signals.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p2">STEP 2</span>
+                            <span>Translate to Business Impact (What Happens If I Fail?)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: What financial, engineering, or user-experience damage occurs if you fail at this pipeline task?</div>
+                        <div class="answer-box">
+                            <strong>If I Fail:</strong> If the pipeline breaks or retains corrupted data, Google might misallocate millions of dollars in engineering resources toward fixing a "bug" that was actually just bad telemetry. Even worse, corrupt pipelines can cause latency spikes, degrading the user experience and causing user churn to competitors.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p3">STEP 3</span>
+                            <span>Map Past Experience (Your Answer/Story)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: How will you phrase your story to prove you built an automated sanitation pass using SQL?</div>
+                        <div class="answer-box">
+                            <strong>My Solution:</strong> "In my previous role, I noticed our telemetry pipeline had a 5% data duplication rate that was inflating daily active user metrics. I restructured our SQL queries using Common Table Expressions (CTEs) and window functions to build an automated sanitation pass. This restored data integrity for our product leadership, saved roughly 15 hours of manual data cleanup per week, and prevented misdirected feature development."
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- REQUIREMENT 2 -->
+        <div class="req-card">
+            <div class="req-header" onclick="toggleReq(this)">
+                <div>
+                    <span class="req-badge">REQUIREMENT 02</span>
+                    Requirement 2: Experimentation & Guardrail Metrics
+                </div>
+                <span class="req-toggle-icon">+</span>
+            </div>
+            <div class="req-body">
+                
+                <!-- Stage 1 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p1">STEP 1</span>
+                            <span>Break Down the Responsibility (The Business Problem)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: Why is launching feature changes based purely on "intuition" without statistical rigor dangerous?</div>
+                        <div class="answer-box">
+                            <strong>The Problem:</strong> Every product team wants to launch new features, but launching a feature that "feels good" without statistical rigor can inadvertently damage core revenue drivers or create hidden friction elsewhere in the product.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p2">STEP 2</span>
+                            <span>Translate to Business Impact (What Happens If I Fail?)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: What happens to long-term user retention if an experiment lacks guardrail metrics?</div>
+                        <div class="answer-box">
+                            <strong>If I Fail:</strong> A team might ship an update that boosts short-term clicks but secretly tanks long-term retention (e.g., D30 retention) or causes user ad fatigue. The business loses long-term customer lifetime value (LTV) and ad revenue.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p3">STEP 3</span>
+                            <span>Map Past Experience (Your Answer/Story)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: How do you explain setting p-value thresholds and identifying friction through guardrail metrics?</div>
+                        <div class="answer-box">
+                            <strong>My Solution:</strong> "When our product team proposed a new UI layout, I structured an A/B test with strict statistical significance thresholds (p&lt;0.05) and set D7 retention as a guardrail metric. While the test variant showed a 4% lift in initial clicks, my analysis revealed it caused a 6% drop in D7 retention due to user friction. By catching this before a full rollout, I saved the business from a permanent drop in active users and helped pivot the team to a refined UI that preserved retention."
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- REQUIREMENT 3 -->
+        <div class="req-card">
+            <div class="req-header" onclick="toggleReq(this)">
+                <div>
+                    <span class="req-badge">REQUIREMENT 03</span>
+                    Requirement 3: Stakeholder Alignment & Data Translation
+                </div>
+                <span class="req-toggle-icon">+</span>
+            </div>
+            <div class="req-body">
+                
+                <!-- Stage 1 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p1">STEP 1</span>
+                            <span>Break Down the Responsibility (The Business Problem)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: Why does communication break down between Engineers, PMs, and Executives during product syncs?</div>
+                        <div class="answer-box">
+                            <strong>The Problem:</strong> Engineers think in code, Product Managers think in features, and Executives think in revenue. Data is useless if the analyst cannot bridge these groups and convince stakeholders to act on the findings.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p2">STEP 2</span>
+                            <span>Translate to Business Impact (What Happens If I Fail?)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: What happens to strategic goals if analytical recommendations are delivered poorly?</div>
+                        <div class="answer-box">
+                            <strong>If I Fail:</strong> Key analytical insights get buried in a 40-slide presentation that nobody reads. Decision-makers default to "gut feeling" instead of data, leading to wasted quarter goals, missed market opportunities, and friction between cross-functional teams.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage-card">
+                    <div class="stage-header" onclick="toggleStage(this)">
+                        <div class="stage-title-text">
+                            <span class="stage-number-tag tag-p3">STEP 3</span>
+                            <span>Map Past Experience (Your Answer/Story)</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: #64748b;">Click to verify answer ▼</span>
+                    </div>
+                    <div class="stage-body">
+                        <div class="prompt-box">🧠 THINK FIRST: How did you translate a complex regression model into an easy visualization to align cross-functional teams?</div>
+                        <div class="answer-box">
+                            <strong>My Solution:</strong> "When our telemetry data conflicted with what the design team intuitively believed about user drop-off, I scheduled a cross-functional alignment sync. Instead of dumping raw statistical output on them, I translated the complex regression model into an easy-to-read funnel visualization comparing user cohorts. This bridged the gap between telemetry and intuition, aligned the team on a unified strategy, and reduced our feature deployment timeline by two weeks."
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CLICKABLE FINAL SCRIPT & CLOSING TECHNIQUE SECTION -->
+        <div class="script-section">
+            <div class="script-header" onclick="toggleScriptSection(this)">
+                <span>💡 Complete "Tell Me About Yourself" Interview Script</span>
+                <span class="script-toggle-icon">+</span>
+            </div>
+            <div class="script-body">
+                <div class="script-intro">
+                    Here is the complete, ready-to-deliver script for a Data Analyst candidate at Google combining all 3 requirements into the <strong>Logline ➔ Past ➔ Future</strong> framework:
+                </div>
+                
+                <div class="script-quote">
+                    <p>"Sure! I’m a Data Analyst specializing in telemetry pipelines, A/B testing rigor, and cross-functional product strategy. Day-to-day, I focus on turning massive, complex datasets into actionable insights that optimize user retention and drive product decisions.</p>
+                    
+                    <p>In my previous work, I’ve centered my focus on three key areas:</p>
+                    
+                    <ul>
+                        <li><strong>First, data integrity:</strong> I noticed a 5% data duplication rate in our telemetry pipelines that was inflating daily active user metrics. I restructured our SQL queries using CTEs and window functions to build an automated sanitation pass, restoring data accuracy for leadership and saving 15 hours of manual cleanup per week.</li>
+                        <li><strong>Second, experimentation rigor:</strong> When our product team proposed a new UI layout, I structured an A/B test with strict statistical significance thresholds (p &lt; 0.05) and set D7 retention as a guardrail metric. While clicks initially went up, my analysis revealed a 6% drop in D7 retention due to user friction. By catching this early, I prevented a full rollout that would have damaged user retention and helped pivot the team to a better design.</li>
+                        <li><strong>And third, stakeholder alignment:</strong> When telemetry data conflicted with design intuition regarding user drop-offs, I translated our complex regression models into clear, cohort-based funnel visualizations. This bridged the gap between engineering and product leadership, aligning everyone on a unified strategy and shortening our feature rollout timeline by two weeks.</li>
+                    </ul>
+                    
+                    <p>What draws me to Google is the opportunity to bring this exact diagnostic rigor, pipeline efficiency, and user-first perspective to the massive scale of <strong>[Product Team, e.g., Google Play / YouTube / Google Maps]</strong>."</p>
+                </div>
+
+                <!-- INTERACTIVE CLOSING TECHNIQUE ACCORDION -->
+                <div class="closing-card">
+                    <div class="closing-header" onclick="toggleClosing(this)">
+                        <span>⚡ THE STRATEGIC CLOSING TECHNIQUE (FLIP THE TABLE)</span>
+                        <span class="closing-toggle-icon">+</span>
+                    </div>
+                    <div class="closing-body">
+                        <div class="closing-script">
+                            "I’m excited to share more about my background today. Given our limited time together, can you tell me what you’d like to learn most about me so I can make sure I’m providing the most relevant information for this role?"
+                        </div>
+                        <div class="closing-rule">
+                            <strong>⚠️ THE GOLDEN RULE AFTER ASKING THIS:</strong> Say ABSOLUTELY NOTHING. Stay completely silent! Give the recruiter 5–10 seconds to process. This shows extreme confidence, adaptability, and emotional intelligence.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            MY ENGLISH STUDIO • Google Interview Preparation Framework
+        </div>
+    </div>
+
+    <!-- Toggle Scripts -->
+    <script>
+        function toggleReq(header) {
+            const card = header.parentElement;
+            document.querySelectorAll('.req-card').forEach(el => {
+                if (el !== card) {
+                    el.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
+
+        function toggleStage(header) {
+            event.stopPropagation(); // Prevents outer accordion from closing
+            const stageCard = header.parentElement;
+            stageCard.classList.toggle('active');
+        }
+
+        function toggleScriptSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('active');
+        }
+
+        function toggleClosing(header) {
+            event.stopPropagation(); // Prevents outer script section from closing
+            const closingCard = header.parentElement;
+            closingCard.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

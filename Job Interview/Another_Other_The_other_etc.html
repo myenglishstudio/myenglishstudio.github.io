@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar Exercise: Pronouns</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    h1 {
+      margin-top: 0;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+    }
+    p.instructions {
+      color: #555;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 12px;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .gap-fill-list {
+      padding-left: 20px;
+    }
+    .gap-fill-list li {
+      margin-bottom: 15px;
+      font-size: 1.02em;
+      line-height: 1.6;
+    }
+    input[type="text"] {
+      padding: 6px 10px;
+      font-size: 0.95em;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    table input[type="text"] {
+      width: 100%;
+    }
+    .gap-fill-list input[type="text"] {
+      width: 150px;
+      display: inline-block;
+      margin: 0 4px;
+    }
+    input.correct {
+      border-color: #2ecc71;
+      background-color: #e8f8f5;
+    }
+    input.incorrect {
+      border-color: #e74c3c;
+      background-color: #fdedec;
+    }
+    .btn-container {
+      position: sticky;
+      bottom: 20px;
+      background: #ffffff;
+      padding: 15px;
+      border-top: 2px solid #eee;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      color: white;
+      background-color: #2ecc71;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #27ae60;
+    }
+    button.reset-btn {
+      background-color: #e74c3c;
+    }
+    button.reset-btn:hover {
+      background-color: #c0392b;
+    }
+    #result-message {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>GRAMMAR PRACTICE</h1>
+  <p class="instructions">Topic: <strong>Another, other, the other, others, the others</strong></p>
+
+  <!-- SECTION 1: TABLE COMPLETION -->
+  <h2>Section 1: Complete the Table</h2>
+  <p class="instructions">Fill in the missing pronouns corresponding to their meaning and usage.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Pronoun</th>
+        <th style="width: 40%;">Meaning</th>
+        <th style="width: 35%;">Usage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" class="quiz-input" data-answer="another" placeholder="Type here..."></td>
+        <td>one more;<br>extra person or thing;<br>non-specific person or thing</td>
+        <td>countable nouns in the singular;<br>numerals</td>
+      </tr>
+      <tr>
+        <td><input type="text" class="quiz-input" data-answer="the other" placeholder="Type here..."></td>
+        <td>definite person(s) or thing(s);<br>choosing between two objects</td>
+        <td>countable/uncountable nouns in the singular/plural</td>
+      </tr>
+      <tr>
+        <td><input type="text" class="quiz-input" data-answer="other" placeholder="Type here..."></td>
+        <td>non-specific people or things</td>
+        <td>uncountable nouns;<br>countable nouns in the plural;<br>after a pronoun</td>
+      </tr>
+      <tr>
+        <td><input type="text" class="quiz-input" data-answer="others" placeholder="Type here..."></td>
+        <td>to refer to non-specific people or things to avoid repetition</td>
+        <td>no object</td>
+      </tr>
+      <tr>
+        <td><input type="text" class="quiz-input" data-answer="the others" placeholder="Type here..."></td>
+        <td>to refer to specific people or things to avoid repetition</td>
+        <td>no object</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- SECTION 2: ALL 100 GAP-FILL SENTENCES -->
+  <h2>Section 2: Sentence Gap-Fill</h2>
+  <p class="instructions">Fill in each blank with: <em>another, other, the other, others,</em> or <em>the others</em>.</p>
+
+  <ol class="gap-fill-list">
+    <li>The embassy website has general information about visas. <input type="text" class="quiz-input" data-answer="Other" placeholder="..."> travel information can be obtained by calling the freephone number.</li>
+    <li>What <input type="text" class="quiz-input" data-answer="other" placeholder="..."> books by Charles Dickens have you read, apart from 'Oliver Twist'?</li>
+    <li>The applications are examined by one committee, then passed on to <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>Here are only two magazines. Where are <input type="text" class="quiz-input" data-answer="the others" placeholder="...">?</li>
+    <li>I don't like the red one. I prefer <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> colour.</li>
+    <li>I don't like this place. Is there <input type="text" class="quiz-input" data-answer="another" placeholder="..."> café around here we could go to?</li>
+    <li>Jeremy is at university; our <input type="text" class="quiz-input" data-answer="other" placeholder="..."> son is still at school.</li>
+    <li>He never thinks of <input type="text" class="quiz-input" data-answer="others" placeholder="...">.</li>
+    <li>He got 100% in the final examination. No <input type="text" class="quiz-input" data-answer="other" placeholder="..."> student has ever achieved that.</li>
+    <li>After a month in Bolivia, I was ready to move to <input type="text" class="quiz-input" data-answer="another" placeholder="..."> country.</li>
+    <li>There's one <input type="text" class="quiz-input" data-answer="other" placeholder="..."> thing we need to discuss before we finish.</li>
+    <li>We have to solve this problem, more than any <input type="text" class="quiz-input" data-answer="other" placeholder="...">, today.</li>
+    <li>I'll attach two photos to this email and I'll send <input type="text" class="quiz-input" data-answer="others" placeholder="..."> tomorrow.</li>
+    <li>This computer here is new. <input type="text" class="quiz-input" data-answer="The other" placeholder="..."> computer is about five years old.</li>
+    <li>D'you know the Indian restaurant in Palmer Street? Yes. Well, the gift shop is on <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> side of the street, directly opposite.</li>
+    <li>Would you like <input type="text" class="quiz-input" data-answer="another" placeholder="..."> drink?</li>
+    <li>'Finished?' 'No, I've got <input type="text" class="quiz-input" data-answer="another" placeholder="..."> three questions to do'.</li>
+    <li>Joel and Karen are here, but where are <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> kids?</li>
+    <li>Where are <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> two dinner plates? I can only find four.</li>
+    <li>Let's do it <input type="text" class="quiz-input" data-answer="another" placeholder="..."> time.</li>
+    <li>He had his hat in one hand and a bunch of flowers in <input type="text" class="quiz-input" data-answer="the other" placeholder="...">.</li>
+    <li>She has two kittens, one is black and <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> is all white.</li>
+    <li>Would you like <input type="text" class="quiz-input" data-answer="another" placeholder="..."> cup of coffee?</li>
+    <li>The room's too small. Let's see if they've got <input type="text" class="quiz-input" data-answer="another" placeholder="..."> one.</li>
+    <li>Some scientists think we should reduce the number of flights to prevent global warming; <input type="text" class="quiz-input" data-answer="others" placeholder="..."> disagree.</li>
+    <li>I've posted the first package. What shall I do with that <input type="text" class="quiz-input" data-answer="other" placeholder="..."> package?</li>
+    <li>There is <input type="text" class="quiz-input" data-answer="another" placeholder="..."> car park a little further down the same street.</li>
+    <li><input type="text" class="quiz-input" data-answer="Other" placeholder="..."> interesting places to visit include the old harbour and the castle.</li>
+    <li>We've still got <input type="text" class="quiz-input" data-answer="another" placeholder="..."> forty miles to go.</li>
+    <li>'It's a bill'. 'Oh no, not <input type="text" class="quiz-input" data-answer="another" placeholder="...">!'</li>
+    <li>I got <input type="text" class="quiz-input" data-answer="another" placeholder="..."> of those calls yesterday.</li>
+    <li>You must ask one or <input type="text" class="quiz-input" data-answer="other" placeholder="..."> of your parents.</li>
+    <li>We need <input type="text" class="quiz-input" data-answer="another" placeholder="..."> computer.</li>
+    <li>We can try that - but whether it'll work is <input type="text" class="quiz-input" data-answer="another" placeholder="..."> matter.</li>
+    <li>This option is preferable to any <input type="text" class="quiz-input" data-answer="other" placeholder="...">.</li>
+    <li>I don't like this room. I'm going to ask for <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>There'll never be <input type="text" class="quiz-input" data-answer="another" placeholder="..."> like him.</li>
+    <li>We've all got problems of one kind or <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>The bills kept coming in, one after <input type="text" class="quiz-input" data-answer="another" data-alt="the other" placeholder="...">.</li>
+    <li>Mr Harris and Mrs Bate and three <input type="text" class="quiz-input" data-answer="other" placeholder="..."> teachers were there.</li>
+    <li>I want to stay for <input type="text" class="quiz-input" data-answer="another" placeholder="..."> three weeks.</li>
+    <li>Are there any <input type="text" class="quiz-input" data-answer="other" placeholder="..."> questions?</li>
+    <li>I can't see you now; some <input type="text" class="quiz-input" data-answer="other" placeholder="..."> time, maybe.</li>
+    <li>Two buildings were destroyed and many <input type="text" class="quiz-input" data-answer="others" placeholder="..."> damaged in the blast.</li>
+    <li>My <input type="text" class="quiz-input" data-answer="other" placeholder="..."> sister is a doctor.</li>
+    <li>One son went to live in Australia and <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> one was killed in a car crash.</li>
+    <li>We need <input type="text" class="quiz-input" data-answer="another" placeholder="..."> three chairs.</li>
+    <li>He raised one arm and then <input type="text" class="quiz-input" data-answer="the other" placeholder="...">.</li>
+    <li>I'll wear my <input type="text" class="quiz-input" data-answer="other" placeholder="..."> shoes; these are dirty.</li>
+    <li>'I like this one'. 'What about <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> ones?'</li>
+    <li>I'm staying for <input type="text" class="quiz-input" data-answer="another" placeholder="..."> few weeks.</li>
+    <li>I went swimming while <input type="text" class="quiz-input" data-answer="the others" placeholder="..."> played tennis.</li>
+    <li>I work on <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> side of the town.</li>
+    <li>He crashed into a car coming <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> way.</li>
+    <li>He found me, not <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> way round.</li>
+    <li>He's bought <input type="text" class="quiz-input" data-answer="another" placeholder="..."> car.</li>
+    <li>Where are <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> photos?</li>
+    <li>Could I have <input type="text" class="quiz-input" data-answer="another" placeholder="..."> piece of bread?</li>
+    <li>Those cakes are wonderful. Could I have <input type="text" class="quiz-input" data-answer="another" placeholder="...">?</li>
+    <li>Have you got any <input type="text" class="quiz-input" data-answer="other" placeholder="..."> cakes, or are these the only ones?</li>
+    <li>Why don't you think more about <input type="text" class="quiz-input" data-answer="other" placeholder="..."> people?</li>
+    <li>These are too small. Have you got any <input type="text" class="quiz-input" data-answer="others" placeholder="...">?</li>
+    <li>Give me <input type="text" class="quiz-input" data-answer="another" placeholder="..."> example.</li>
+    <li>The house is on <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> side of the street.</li>
+    <li>Where are <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> books that I gave you?</li>
+    <li>He has <input type="text" class="quiz-input" data-answer="other" placeholder="..."> intentions.</li>
+    <li>This is not a very good example; I want <input type="text" class="quiz-input" data-answer="another" placeholder="..."> one.</li>
+    <li>There is only one glove on the table. Where is <input type="text" class="quiz-input" data-answer="the other" placeholder="...">?</li>
+    <li>He will stay here <input type="text" class="quiz-input" data-answer="another" placeholder="..."> five days.</li>
+    <li>I can see Julie, but where have all <input type="text" class="quiz-input" data-answer="the others" placeholder="..."> gone?</li>
+    <li>Give me <input type="text" class="quiz-input" data-answer="another" placeholder="..."> two books.</li>
+    <li>I have given you one example; now I'll give you <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>I took this book because there were no <input type="text" class="quiz-input" data-answer="others" placeholder="..."> on this subject.</li>
+    <li>They have known each <input type="text" class="quiz-input" data-answer="other" placeholder="..."> for two years.</li>
+    <li>I think we should paint it <input type="text" class="quiz-input" data-answer="another" placeholder="..."> colour.</li>
+    <li>They love each <input type="text" class="quiz-input" data-answer="other" placeholder="...">.</li>
+    <li>They looked at one <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>They looked into each <input type="text" class="quiz-input" data-answer="other" placeholder="..."> 's eyes.</li>
+    <li>Without <input type="text" class="quiz-input" data-answer="another" placeholder="..."> word he left the room.</li>
+    <li>It was not a large garden. John and I walked right to <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> end of it in silence.</li>
+    <li>Would you like <input type="text" class="quiz-input" data-answer="another" placeholder="..."> cup of tea?</li>
+    <li>Then I read the novels of William Burroughs one after <input type="text" class="quiz-input" data-answer="another" data-alt="the other" placeholder="...">.</li>
+    <li><input type="text" class="quiz-input" data-answer="The other" placeholder="..."> day I made an epigram. I hope you'll like it.</li>
+    <li>Why are you alone? Where are <input type="text" class="quiz-input" data-answer="the others" placeholder="...">?</li>
+    <li>The bar was kept by two very nice girls; one was American and <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> English.</li>
+    <li><input type="text" class="quiz-input" data-answer="Other" placeholder="..."> people have told me the same thing.</li>
+    <li>The house on <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> side of the river was built of grey stone.</li>
+    <li>The shoes do not fit me. Will you kindly give me <input type="text" class="quiz-input" data-answer="another" placeholder="..."> pair?</li>
+    <li>Neither of them has seen even a photo of <input type="text" class="quiz-input" data-answer="the other" placeholder="...">.</li>
+    <li>I read the novels by O. Henry one after <input type="text" class="quiz-input" data-answer="another" data-alt="the other" placeholder="...">.</li>
+    <li>I met him at the club <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> night.</li>
+    <li>I see only five copies here. Where are <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> ones?</li>
+    <li>I have lost my fountain-pen. I must buy <input type="text" class="quiz-input" data-answer="another" placeholder="..."> one.</li>
+    <li>They are going to get punished one way or <input type="text" class="quiz-input" data-answer="another" placeholder="...">.</li>
+    <li>I can't find my <input type="text" class="quiz-input" data-answer="other" placeholder="..."> shoe.</li>
+    <li>One man was arrested, but <input type="text" class="quiz-input" data-answer="the other" placeholder="..."> one got away.</li>
+    <li>He kept shifting awkwardly from one foot to <input type="text" class="quiz-input" data-answer="the other" placeholder="...">.</li>
+    <li>We try to help <input type="text" class="quiz-input" data-answer="others" placeholder="...">.</li>
+    <li>I hope you will learn to show more respect for <input type="text" class="quiz-input" data-answer="others" placeholder="...">.</li>
+    <li>I chose this coat in the end because <input type="text" class="quiz-input" data-answer="the others" placeholder="..."> were all too expensive.</li>
+  </ol>
+
+  <!-- STICKY FOOTER CONTROLS -->
+  <div class="btn-container">
+    <button onclick="checkAnswers()">Check Answers</button>
+    <button class="reset-btn" onclick="resetForm()">Reset</button>
+    <div id="result-message"></div>
+  </div>
+</div>
+
+<script>
+  function checkAnswers() {
+    const inputs = document.querySelectorAll('.quiz-input');
+    let correctCount = 0;
+
+    inputs.forEach(input => {
+      const userAnswer = input.value.trim().toLowerCase();
+      const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+      const altAnswer = input.getAttribute('data-alt') ? input.getAttribute('data-alt').toLowerCase() : null;
+
+      if (userAnswer === correctAnswer || (altAnswer && userAnswer === altAnswer)) {
+        input.classList.add('correct');
+        input.classList.remove('incorrect');
+        correctCount++;
+      } else {
+        input.classList.add('incorrect');
+        input.classList.remove('correct');
+      }
+    });
+
+    const resultDiv = document.getElementById('result-message');
+    if (correctCount === inputs.length) {
+      resultDiv.style.color = '#2ecc71';
+      resultDiv.textContent = `Perfect! All ${inputs.length} answers are correct!`;
+    } else {
+      resultDiv.style.color = '#e74c3c';
+      resultDiv.textContent = `Score: ${correctCount} / ${inputs.length}`;
+    }
+  }
+
+  function resetForm() {
+    const inputs = document.querySelectorAll('.quiz-input');
+    inputs.forEach(input => {
+      input.value = '';
+      input.classList.remove('correct', 'incorrect');
+    });
+    document.getElementById('result-message').textContent = '';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low- vs. High-Context Cultures — Comprehension Check</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #cbd5e1;
+        }
+
+        /* Branding Header */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #0f172a;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: #2563eb;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .quiz-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #1e3a8a;
+        }
+
+        .quiz-description {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #2563eb;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            accent-color: #2563eb;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Feedback & Explanation Styles */
+        .question-card.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+        }
+
+        .question-card.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .question-card.correct .explanation-box {
+            display: block;
+            background-color: #dcfce7;
+            border-left: 4px solid #16a34a;
+            color: #14532d;
+        }
+
+        .question-card.incorrect .explanation-box {
+            display: block;
+            background-color: #fee2e2;
+            border-left: 4px solid #dc2626;
+            color: #7f1d1d;
+        }
+
+        /* Score Banner & Action Button */
+        .action-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-check {
+            background-color: #2563eb;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-check:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .score-banner {
+            display: none;
+            background-color: #1e3a8a;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Branding Header -->
+        <div class="header">
+            <div class="brand-title">MY ENGLISH STUDIO</div>
+            <div class="brand-subtitle">READING COMPREHENSION • THE CULTURE MAP</div>
+            <div class="quiz-title">Low- vs. High-Context Cultures Quiz</div>
+            <div class="quiz-description">Test your analytical understanding of communication styles across different world cultures.</div>
+        </div>
+
+        <!-- Score Banner -->
+        <div id="scoreBanner" class="score-banner"></div>
+
+        <form id="quizForm">
+
+            <!-- Question 1 -->
+            <div class="question-card" id="q1-card">
+                <div class="question-number">Question 01</div>
+                <div class="question-text">In Iran, if a visiting guest says "No, thank you" when offered food, why is the host expected to offer it at least two more times?</div>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="A">
+                            A) It is considered rude in Iranian culture to prepare food without first getting formal verbal confirmation.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="B">
+                            B) Shared politeness dictates that well-mannered guests refuse the first offer; "No" implicitly means "Please ask me again."
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="C">
+                            C) Iranian guests prefer to wait until the rest of the household sits down before accepting meals.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="D">
+                            D) High-context hosts use repetition to make sure the guest understood the English word for food.
+                        </label>
+                    </li>
+                </ul>
+                <div class="explanation-box" id="q1-exp"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" id="q2-card">
+                <div class="question-number">Question 02</div>
+                <div class="question-text">According to Erin Meyer, why is the United States the lowest-context culture in the world, whereas Japan is the highest-context?</div>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="A">
+                            A) English has significantly fewer vocabulary words than Japanese, requiring Americans to use more descriptive speech.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="B">
+                            B) American corporate laws mandate explicit written documentation, whereas Japanese companies rely on oral contracts.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="C">
+                            C) The US was built by waves of diverse immigrants with little shared context, while Japan had centuries of homogeneous isolation.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="D">
+                            D) Japanese schools teach complex linguistic codes in elementary school, while US schools teach public speaking.
+                        </label>
+                    </li>
+                </ul>
+                <div class="explanation-box" id="q2-exp"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" id="q3-card">
+                <div class="question-number">Question 03</div>
+                <div class="question-text">What does the French literary and business concept of <em>"deuxième degré"</em> (second degree) refer to?</div>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="A">
+                            A) Stating an explicit message first, and then repeating it two more times to eliminate any ambiguity.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="B">
+                            B) Speaking with an explicit first-degree statement that carries an unspoken, layered subtext intended for those with shared context.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="C">
+                            C) Translating high-context Romance languages directly into explicit low-context Anglo-Saxon business terms.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="D">
+                            D) Using sarcastic humor with a completely deadpan face during formal presentations.
+                        </label>
+                    </li>
+                </ul>
+                <div class="explanation-box" id="q3-exp"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" id="q4-card">
+                <div class="question-number">Question 04</div>
+                <div class="question-text">How does high education and senior professional status affect a person's communication style in high-context vs. low-context cultures?</div>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="A">
+                            A) Higher education makes executives in all world cultures adopt an explicit, low-context standard.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="B">
+                            B) In high-context cultures, top leaders are more implicit and layered; in low-context cultures, top leaders are more explicit and clear.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="C">
+                            C) Low-context executives rely more on "reading the air," while high-context executives prefer written reports.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="D">
+                            D) Professional education eliminates cultural differences entirely once a person reaches executive level.
+                        </label>
+                    </li>
+                </ul>
+                <div class="explanation-box" id="q4-exp"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" id="q5-card">
+                <div class="question-number">Question 05</div>
+                <div class="question-text">When an American manager repeatedly clarifies and repeats instructions to a European colleague like Paolo, how might the colleague interpret this?</div>
+                <ul class="options-list">
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="A">
+                            A) As a highly professional demonstration of effective active listening and clarity.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="B">
+                            B) As evidence that the American manager is secretive and lacking transparency.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="C">
+                            C) As patronizing or condescending, making them feel treated like a child who cannot pick up subtle signals.
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <label class="option-label">
+                            <input type="radio" name="q5" value="D">
+                            D) As proof that the American manager lacks formal education in corporate management.
+                        </label>
+                    </li>
+                </ul>
+                <div class="explanation-box" id="q5-exp"></div>
+            </div>
+
+            <!-- Check Button -->
+            <div class="action-area">
+                <button type="button" class="btn-check" onclick="checkQuiz()">Check Answers</button>
+            </div>
+
+        </form>
+
+        <div class="footer">
+            MY ENGLISH STUDIO • Based on "The Culture Map" by Erin Meyer
+        </div>
+    </div>
+
+    <script>
+        const answerKey = {
+            q1: {
+                correct: 'B',
+                exp: "<strong>Correct Answer: B.</strong><br>In high-context cultures like Iran, shared social assumptions dictate that a well-mannered guest will refuse food the first time out of politeness, even if starving. Both parties know that 'No, thank you' implicitly means 'Please ask me again.'"
+            },
+            q2: {
+                correct: 'C',
+                exp: "<strong>Correct Answer: C.</strong><br>The US has a short shared history shaped by massive inflows of diverse immigrants with different languages and backgrounds. Lacking shared reference points, Americans learned to be explicit and clear. Japan, an isolated island nation with thousands of years of homogeneous history, developed a highly implicit, shared context."
+            },
+            q3: {
+                correct: 'B',
+                exp: "<strong>Correct Answer: B.</strong><br><em>Deuxième degré</em> (second degree) means saying something explicitly at face value (the first degree), but delivering an unspoken, secondary message intended for those who share the context (such as La Fontaine's fables criticizing King Louis XIV under the guise of children's tales)."
+            },
+            q4: {
+                correct: 'B',
+                exp: "<strong>Correct Answer: B.</strong><br>The text notes a key paradox: education moves individuals toward an extreme version of their dominant culture. In high-context cultures (France/Japan), sophisticated leaders master layered, implicit speech. In low-context cultures (US/Australia), sophisticated leaders master simple, crystal-clear explicitness."
+            },
+            q5: {
+                correct: 'C',
+                exp: "<strong>Correct Answer: C.</strong><br>While low-context communicators view repetition as good practice, high-context listeners (like Paolo) find excessive repetition patronizing or condescending ('Erin, I am not a child... I understand very well what your point is')."
+            }
+        };
+
+        function checkQuiz() {
+            let score = 0;
+            const totalQuestions = 5;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qKey = 'q' + i;
+                const selectedCard = document.getElementById(qKey + '-card');
+                const expBox = document.getElementById(qKey + '-exp');
+                const selectedOption = document.querySelector(`input[name="${qKey}"]:checked`);
+
+                if (!selectedOption) {
+                    alert(`Please answer Question ${i} before submitting!`);
+                    return;
+                }
+
+                const userChoice = selectedOption.value;
+                const correctChoice = answerKey[qKey].correct;
+
+                selectedCard.classList.remove('correct', 'incorrect');
+
+                if (userChoice === correctChoice) {
+                    score++;
+                    selectedCard.classList.add('correct');
+                    expBox.innerHTML = "✨ " + answerKey[qKey].exp;
+                } else {
+                    selectedCard.classList.add('incorrect');
+                    expBox.innerHTML = `❌ <strong>Your answer (${userChoice}) is incorrect.</strong><br>` + answerKey[qKey].exp;
+                }
+            }
+
+            // Display Score Banner
+            const scoreBanner = document.getElementById('scoreBanner');
+            scoreBanner.style.display = 'block';
+            scoreBanner.innerHTML = `Quiz Completed! You scored <strong>${score} / ${totalQuestions}</strong> (${(score/totalQuestions)*100}%)`;
+
+            // Scroll smoothly to top score banner
+            scoreBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+
+</body>
+</html>

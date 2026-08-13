@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Interview Phrases - Practice & Exercises</title>
+    <style>
+        :root {
+            --google-blue: #1a73e8;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --border-color: #dadce0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--google-blue);
+            margin-bottom: 10px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--google-blue);
+            padding-bottom: 10px;
+            color: #3c4043;
+            margin-top: 0;
+        }
+
+        .instructions {
+            font-style: italic;
+            color: #5f6368;
+            margin-bottom: 20px;
+        }
+
+        /* Task 1 Styles: Matching */
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .match-item {
+            padding: 12px 15px;
+            background: #f1f3f4;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .match-item:hover {
+            background: #e8eaed;
+        }
+
+        .match-item.selected {
+            background: #e8f0fe;
+            border-color: var(--google-blue);
+            color: var(--google-blue);
+            font-weight: bold;
+        }
+
+        .match-item.matched {
+            background: #e6f4ea;
+            border-color: var(--google-green);
+            color: #137333;
+            cursor: default;
+        }
+
+        /* Task 2 Styles: Click to Add & Smooth Drag Reorder */
+        .sentence-builder-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .target-box {
+            min-height: 55px;
+            padding: 10px;
+            background: #ffffff;
+            border: 2px dashed #bdc1c6;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .target-box.drag-over-box {
+            background: #e8f0fe;
+            border-color: var(--google-blue);
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px;
+            background: #f1f3f4;
+            border-radius: 6px;
+            min-height: 48px;
+        }
+
+        .click-word {
+            padding: 6px 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            user-select: none;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .click-word:hover {
+            border-color: var(--google-blue);
+            background: #e8f0fe;
+        }
+
+        .active-drag-word {
+            padding: 6px 12px;
+            background: #ffffff;
+            border: 1px solid var(--google-blue);
+            border-radius: 4px;
+            cursor: grab;
+            font-weight: 500;
+            user-select: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .active-drag-word:active {
+            cursor: grabbing;
+        }
+
+        .active-drag-word.dragging {
+            opacity: 0.4;
+            border-style: dashed;
+            background: #e8f0fe;
+        }
+
+        .drop-indicator {
+            width: 4px;
+            height: 28px;
+            background-color: var(--google-blue);
+            border-radius: 2px;
+            margin: 0 2px;
+            box-shadow: 0 0 4px rgba(26, 115, 232, 0.6);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scaleY(0.9); opacity: 0.7; }
+            100% { transform: scaleY(1.1); opacity: 1; }
+        }
+
+        /* Task 3 Styles: Individual Sentence Cards */
+        .fill-card {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #fafafa;
+            font-size: 1.05rem;
+            line-height: 2.2;
+        }
+
+        .fill-input {
+            border: none;
+            border-bottom: 2px solid var(--google-blue);
+            background: #ffffff;
+            padding: 3px 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 4px 4px 0 0;
+            width: 90px;
+            margin: 0 2px;
+            text-align: center;
+        }
+
+        .fill-input:focus {
+            background: #e8f0fe;
+        }
+
+        .fill-input.correct {
+            border-bottom-color: var(--google-green);
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        .fill-input.incorrect {
+            border-bottom-color: var(--google-red);
+            background: #fce8e6;
+            color: #c5221f;
+        }
+
+        .correct-answer-text {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--google-green);
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* Buttons & Feedback */
+        .btn {
+            background-color: var(--google-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #1557b0;
+        }
+
+        .btn-small {
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .btn-reset {
+            background-color: #5f6368;
+            margin-left: 10px;
+        }
+
+        .btn-reset:hover {
+            background-color: #3c4043;
+        }
+
+        .feedback {
+            margin-top: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .feedback.success { color: var(--google-green); }
+        .feedback.error { color: var(--google-red); }
+        .feedback.warning { color: var(--google-yellow); filter: brightness(0.8); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Google Interview Phrases Practice</h1>
+        <p>Interactive exercises to master professional, time-buying phrases for your recruiter screen.</p>
+    </header>
+
+    <!-- TASK 1: MATCHING EXERCISE -->
+    <div class="section-card">
+        <h2>Task 1: Phrase Matching Exercise</h2>
+        <p class="instructions">Click a phrase on the left, then click its corresponding completion/purpose on the right to match them.</p>
+        
+        <div class="matching-container">
+            <div class="matching-column" id="left-column">
+                <!-- Javascript populated -->
+            </div>
+            <div class="matching-column" id="right-column">
+                <!-- Javascript populated -->
+            </div>
+        </div>
+        <div id="t1-feedback" class="feedback"></div>
+        <button class="btn btn-reset" onclick="initTask1()">Reset Matching</button>
+    </div>
+
+    <!-- TASK 2: CLICK TO ADD & DRAG TO REORDER -->
+    <div class="section-card">
+        <h2>Task 2: Sentence Builder</h2>
+        <p class="instructions">
+            • <strong>Click a word</strong> in the word bank below to add it into your sentence.<br>
+            • <strong>Click-hold-and-drag words</strong> inside the top box to position them exactly where you want (a vertical line shows where it will land!).<br>
+            • <strong>Double-click a word</strong> in the sentence box to remove it back to the bank.
+        </p>
+
+        <div id="t2-container">
+            <!-- JavaScript populated -->
+        </div>
+    </div>
+
+    <!-- TASK 3: FILL IN THE BLANKS WITH INDIVIDUAL CHECK BUTTONS -->
+    <div class="section-card">
+        <h2>Task 3: Fill in the Missing Words</h2>
+        <p class="instructions">Type each missing word into its box and click "Check Answer" under each sentence. You have 2 attempts per sentence before the answer is revealed!</p>
+
+        <div id="t3-container">
+            <!-- JavaScript populated -->
+        </div>
+        <button class="btn btn-reset" style="margin-top:15px;" onclick="initTask3()">Reset All Sentences</button>
+    </div>
+</div>
+
+<script>
+    /* ================= TASK 1 ================= */
+    const task1Data = [
+        { left: "Let me take a quick moment", right: "to structure my thoughts" },
+        { left: "So I can give you", right: "the best concise answer" },
+        { left: "Do you mind if", right: "I pause for five seconds" },
+        { left: "I need to pull up", right: "the most relevant example" },
+        { left: "Just to make sure I align my answer", right: "with what you're looking for" },
+        { left: "Give me a second to organise", right: "the key takeaways" },
+        { left: "I'm framing the response", right: "in my head right now" },
+        { left: "Let me quickly weigh which project", right: "highlights my SQL skills better" }
+    ];
+
+    let t1SelectedLeft = null;
+    let t1SelectedRight = null;
+    let t1MatchesCount = 0;
+
+    function initTask1() {
+        const leftCol = document.getElementById('left-column');
+        const rightCol = document.getElementById('right-column');
+        document.getElementById('t1-feedback').innerText = '';
+        leftCol.innerHTML = '';
+        rightCol.innerHTML = '';
+        t1SelectedLeft = null;
+        t1SelectedRight = null;
+        t1MatchesCount = 0;
+
+        const shuffledLeft = [...task1Data].sort(() => Math.random() - 0.5);
+        const shuffledRight = [...task1Data].sort(() => Math.random() - 0.5);
+
+        shuffledLeft.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = 'match-item';
+            div.innerText = item.left;
+            div.dataset.key = item.left;
+            div.onclick = () => selectTask1Item(div, 'left');
+            leftCol.appendChild(div);
+        });
+
+        shuffledRight.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = 'match-item';
+            div.innerText = item.right;
+            div.dataset.key = item.left;
+            div.onclick = () => selectTask1Item(div, 'right');
+            rightCol.appendChild(div);
+        });
+    }
+
+    function selectTask1Item(el, side) {
+        if (el.classList.contains('matched')) return;
+
+        if (side === 'left') {
+            if (t1SelectedLeft) t1SelectedLeft.classList.remove('selected');
+            t1SelectedLeft = el;
+            el.classList.add('selected');
+        } else {
+            if (t1SelectedRight) t1SelectedRight.classList.remove('selected');
+            t1SelectedRight = el;
+            el.classList.add('selected');
+        }
+
+        if (t1SelectedLeft && t1SelectedRight) {
+            if (t1SelectedLeft.dataset.key === t1SelectedRight.dataset.key) {
+                t1SelectedLeft.classList.remove('selected');
+                t1SelectedRight.classList.remove('selected');
+                t1SelectedLeft.classList.add('matched');
+                t1SelectedRight.classList.add('matched');
+                t1SelectedLeft = null;
+                t1SelectedRight = null;
+                t1MatchesCount++;
+                if (t1MatchesCount === task1Data.length) {
+                    document.getElementById('t1-feedback').className = 'feedback success';
+                    document.getElementById('t1-feedback').innerText = 'Great job! All phrases matched correctly.';
+                }
+            } else {
+                setTimeout(() => {
+                    if (t1SelectedLeft) t1SelectedLeft.classList.remove('selected');
+                    if (t1SelectedRight) t1SelectedRight.classList.remove('selected');
+                    t1SelectedLeft = null;
+                    t1SelectedRight = null;
+                }, 400);
+            }
+        }
+    }
+
+    /* ================= TASK 2 ================= */
+    const task2Sentences = [
+        "Let me take a quick moment to structure my thoughts so I can give you the best concise answer.",
+        "Do you mind if I pause for five seconds to pull up the most relevant example?",
+        "I want to make sure I cover the most impactful part of that project.",
+        "Give me just a second to organise the key takeaways.",
+        "Just to make sure I align my answer with what you’re looking for.",
+        "To confirm I have the full context: you're asking about building automated ETL pipelines, right?",
+        "Before I jump in, could you clarify which target metric was prioritized?",
+        "I’m framing the response in my head right now.",
+        "I have two different projects that come to mind.",
+        "Let me quickly weigh which one highlights my SQL skills better."
+    ];
+
+    let t2State = [];
+
+    function initTask2() {
+        const container = document.getElementById('t2-container');
+        container.innerHTML = '';
+        t2State = [];
+
+        task2Sentences.forEach((sentence, sIdx) => {
+            const rawWords = sentence.split(' ');
+            const wordObjs = rawWords.map((w, wIdx) => ({
+                id: `s${sIdx}-w${wIdx}`,
+                text: w
+            }));
+
+            const bankObjs = [...wordObjs].sort(() => Math.random() - 0.5);
+
+            t2State.push({
+                target: [],
+                bank: bankObjs,
+                original: sentence
+            });
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'sentence-builder-item';
+            itemDiv.id = `t2-item-${sIdx}`;
+
+            itemDiv.innerHTML = `
+                <div class="target-box" id="t2-target-${sIdx}"></div>
+                <div class="word-bank" id="t2-bank-${sIdx}"></div>
+                <button class="btn" onclick="checkTask2Sentence(${sIdx})">Check Answer</button>
+                <div class="feedback" id="t2-fb-${sIdx}"></div>
+            `;
+
+            container.appendChild(itemDiv);
+            setupTask2Events(sIdx);
+            renderTask2Item(sIdx);
+        });
+    }
+
+    function renderTask2Item(sIdx) {
+        const state = t2State[sIdx];
+        const targetBox = document.getElementById(`t2-target-${sIdx}`);
+        const bankBox = document.getElementById(`t2-bank-${sIdx}`);
+
+        targetBox.innerHTML = '';
+        bankBox.innerHTML = '';
+
+        state.target.forEach((wordObj, idx) => {
+            const el = document.createElement('div');
+            el.className = 'active-drag-word';
+            el.innerText = wordObj.text;
+            el.draggable = true;
+            el.dataset.idx = idx;
+
+            el.ondblclick = () => moveToBank(sIdx, idx);
+
+            el.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', idx);
+                el.classList.add('dragging');
+            });
+
+            el.addEventListener('dragend', () => {
+                el.classList.remove('dragging');
+                removeDropIndicator(targetBox);
+            });
+
+            targetBox.appendChild(el);
+        });
+
+        state.bank.forEach((wordObj, idx) => {
+            const wordBtn = document.createElement('span');
+            wordBtn.className = 'click-word';
+            wordBtn.innerText = wordObj.text;
+            wordBtn.onclick = () => moveToTarget(sIdx, idx);
+            bankBox.appendChild(wordBtn);
+        });
+    }
+
+    function setupTask2Events(sIdx) {
+        const targetBox = document.getElementById(`t2-target-${sIdx}`);
+
+        targetBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            targetBox.classList.add('drag-over-box');
+
+            const draggingEl = targetBox.querySelector('.dragging');
+            if (!draggingEl) return;
+
+            const afterElement = getInsertPosition(targetBox, e.clientX);
+            removeDropIndicator(targetBox);
+
+            const indicator = document.createElement('div');
+            indicator.className = 'drop-indicator';
+
+            if (afterElement == null) {
+                targetBox.appendChild(indicator);
+            } else {
+                targetBox.insertBefore(indicator, afterElement);
+            }
+        });
+
+        targetBox.addEventListener('dragleave', () => {
+            targetBox.classList.remove('drag-over-box');
+        });
+
+        targetBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            targetBox.classList.remove('drag-over-box');
+
+            const state = t2State[sIdx];
+            const fromIdx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+            if (isNaN(fromIdx)) return;
+
+            const afterElement = getInsertPosition(targetBox, e.clientX);
+            let toIdx = state.target.length;
+
+            if (afterElement) {
+                toIdx = parseInt(afterElement.dataset.idx, 10);
+            }
+
+            if (fromIdx < toIdx) {
+                toIdx--;
+            }
+
+            const [movedItem] = state.target.splice(fromIdx, 1);
+            state.target.splice(toIdx, 0, movedItem);
+
+            renderTask2Item(sIdx);
+        });
+    }
+
+    function removeDropIndicator(container) {
+        const existing = container.querySelector('.drop-indicator');
+        if (existing) existing.remove();
+    }
+
+    function getInsertPosition(container, x) {
+        const draggableElements = [...container.querySelectorAll('.active-drag-word:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = x - box.left - box.width / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function moveToTarget(sIdx, bankIdx) {
+        const state = t2State[sIdx];
+        const [word] = state.bank.splice(bankIdx, 1);
+        state.target.push(word);
+        renderTask2Item(sIdx);
+    }
+
+    function moveToBank(sIdx, targetIdx) {
+        const state = t2State[sIdx];
+        const [word] = state.target.splice(targetIdx, 1);
+        state.bank.push(word);
+        renderTask2Item(sIdx);
+    }
+
+    function checkTask2Sentence(sIdx) {
+        const state = t2State[sIdx];
+        const userSentence = state.target.map(w => w.text).join(' ');
+        const fb = document.getElementById(`t2-fb-${sIdx}`);
+
+        if (userSentence.trim() === state.original.trim()) {
+            fb.className = 'feedback success';
+            fb.innerText = 'Correct!';
+        } else {
+            fb.className = 'feedback error';
+            fb.innerText = 'Not quite right. Drag and drop words inside the box to adjust their positions!';
+        }
+    }
+
+    /* ================= TASK 3 ================= */
+    const task3Data = [
+        {
+            template: "1. That’s a great question. Let me take a quick moment to [structure] [my] [thoughts] so I can give you the best [concise] [answer]."
+        },
+        {
+            template: "2. Do you mind if I [pause] [for] [NUMBER] seconds to [pull] [up] the most [relevant] example?"
+        },
+        {
+            template: "3. I want to make sure I [cover] the most impactful part of that project - give me just a second to organise the key [takeaways]."
+        },
+        {
+            template: "4. Just to make sure I [align] [my] [answer] with what you’re looking for, do you want me to focus on SQL optimization?"
+        },
+        {
+            template: "5. To confirm I have the full [context]: you're asking about handling missing data pipelines, right?"
+        },
+        {
+            template: "6. Before I [jump] in, could you clarify the primary metric?"
+        },
+        {
+            template: "7. I’m [framing] the response in my head right now—let’s start with the context…"
+        },
+        {
+            template: "8. I have two different projects that come [to] [mind]. Let me quickly [weigh] which one [highlights] my skills better."
+        }
+    ];
+
+    let t3AttemptsMap = {};
+
+    function initTask3() {
+        const container = document.getElementById('t3-container');
+        container.innerHTML = '';
+        t3AttemptsMap = {};
+
+        task3Data.forEach((item, itemIdx) => {
+            t3AttemptsMap[itemIdx] = 0;
+
+            const div = document.createElement('div');
+            div.className = 'fill-card';
+            div.id = `t3-item-${itemIdx}`;
+
+            let html = item.template.replace(/\[(.*?)\]/g, (match, word) => {
+                const isFlexNum = (word === "NUMBER");
+                const width = isFlexNum ? 60 : Math.max(word.length * 12, 50);
+                const answerAttr = isFlexNum ? "NUMBER" : word;
+                return `<input type="text" class="fill-input" data-ans="${answerAttr}" style="width: ${width}px;" autocomplete="off">`;
+            });
+
+            div.innerHTML = `
+                <div>${html}</div>
+                <button class="btn btn-small" onclick="checkSingleSentenceTask3(${itemIdx})">Check Answer</button>
+                <div class="feedback" id="t3-fb-${itemIdx}"></div>
+                <span class="correct-answer-text" id="t3-ans-${itemIdx}" style="display:none;"></span>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function isValidNumberInput(val) {
+        if (!val) return false;
+        if (!isNaN(val) && !isNaN(parseFloat(val))) return true;
+        const numberWords = [
+            'one','two','three','four','five','six','seven','eight','nine','ten',
+            'eleven','twelve','fifteen','twenty','thirty'
+        ];
+        return numberWords.includes(val);
+    }
+
+    function checkSingleSentenceTask3(itemIdx) {
+        const itemDiv = document.getElementById(`t3-item-${itemIdx}`);
+        const inputs = itemDiv.querySelectorAll('.fill-input');
+        const feedback = document.getElementById(`t3-fb-${itemIdx}`);
+        const ansSpan = document.getElementById(`t3-ans-${itemIdx}`);
+
+        let allCorrect = true;
+        let expectedAnswers = [];
+
+        inputs.forEach(input => {
+            const expected = input.dataset.ans.toLowerCase().trim();
+            const userVal = input.value.toLowerCase().trim();
+
+            let isCorrect = false;
+
+            if (expected === "number") {
+                isCorrect = isValidNumberInput(userVal);
+                expectedAnswers.push("any number (e.g., 5, five)");
+            } else {
+                isCorrect = (userVal === expected);
+                expectedAnswers.push(input.dataset.ans);
+            }
+
+            if (isCorrect) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+                allCorrect = false;
+            }
+        });
+
+        if (allCorrect) {
+            feedback.className = 'feedback success';
+            feedback.innerText = 'Correct!';
+            ansSpan.style.display = 'none';
+        } else {
+            t3AttemptsMap[itemIdx]++;
+
+            if (t3AttemptsMap[itemIdx] === 1) {
+                feedback.className = 'feedback warning';
+                feedback.innerText = 'Not quite right. You have 1 attempt left for this sentence!';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.innerText = 'Incorrect.';
+                ansSpan.style.display = 'block';
+                ansSpan.innerText = `Missing words: ${expectedAnswers.join(', ')}`;
+            }
+        }
+    }
+
+    window.onload = () => {
+        initTask1();
+        initTask2();
+        initTask3();
+    };
+</script>
+
+</body>
+</html>

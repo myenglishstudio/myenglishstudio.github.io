@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Data Analyst Interview Preparation</title>
+  <style>
+    :root {
+      --primary: #4285F4;
+      --secondary: #34A853;
+      --warning: #FBBC05;
+      --danger: #EA4335;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #202124;
+      --text-muted: #5f6368;
+      --border-color: #dadce0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px 0;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    h1 {
+      color: var(--text-main);
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .question-title {
+      background-color: #ffffff;
+      padding: 18px 24px;
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    details {
+      border-bottom: 1px solid #f1f3f4;
+    }
+
+    details:last-child {
+      border-bottom: none;
+    }
+
+    summary {
+      padding: 14px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      background-color: #f1f3f4;
+      color: var(--text-main);
+      transition: background-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    summary:hover {
+      background-color: #e8eaed;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--text-muted);
+    }
+
+    details[open] summary::after {
+      content: '−';
+    }
+
+    .content {
+      padding: 20px 24px;
+      background-color: #ffffff;
+    }
+
+    .opening-line {
+      background-color: #e8f0fe;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-style: italic;
+      color: #174ea6;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .star-block {
+      margin-bottom: 12px;
+    }
+
+    .star-label {
+      font-weight: bold;
+      display: inline-block;
+      width: 90px;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    .skeleton-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .skeleton-list li {
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .tag-skeleton { background-color: #fef7e0; color: #b06000; }
+    .tag-full { background-color: #e6f4ea; color: #137333; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Google Data Analyst Interview Kit</h1>
+    <p class="subtitle">STAR Framework Answers & Structuring Templates</p>
+  </header>
+
+  <!-- Question 1 -->
+  <div class="question-card">
+    <h2 class="question-title">1. "Can you walk me through your background and technical experience?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Present Role & Core Focus:</strong> State current title, tools used (SQL, Python, BigQuery, Tableau), and scale of data handled.</li>
+          <li><strong>Key Technical Highlight (STAR):</strong>
+            <ul>
+              <li><strong>Situation/Task:</strong> Business context where data was leveraged.</li>
+              <li><strong>Action:</strong> Specific tools applied (e.g., ETL pipeline design, automated dashboarding, complex SQL joins).</li>
+              <li><strong>Result:</strong> Metric-driven outcome (% increase in efficiency, time saved, revenue impacted).</li>
+            </ul>
+          </li>
+          <li><strong>Future Alignment:</strong> Connect background directly to Google's data-driven scale.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>I am a Data Analyst with over 4 years of experience specializing in converting complex, multi-source datasets into actionable product strategies using SQL, Python, and Tableau.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> At my current role, our product engineering team struggled with high drop-off rates during user onboarding, but lacked visibility into the exact bottleneck.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I was tasked with analyzing clickstream data across 2M+ active users to diagnose the friction points.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I wrote complex SQL queries in BigQuery to parse user sessions, built a funnel visualization in Tableau, and ran statistical hypothesis testing in Python to isolate high-drop-off steps.</div>
+        <div class="star-block"><span class="star-label">Result:</span> We identified a redundant 2-step verification lag. Removing it reduced user drop-off by 18% and recovered ~$250K in ARR within 3 months.</div>
+        <p>I’m excited about Google because I want to apply this balance of technical rigor and product impact to planetary-scale datasets.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question-card">
+    <h2 class="question-title">2. "Why do you want to work at Google, and why this specific role?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Mission Alignment:</strong> Reference Google's mission (organizing world information) or specific product scale.</li>
+          <li><strong>Technical Challenge:</strong> Highlight desire to work with massive, distributed datasets (e.g., Spanner, BigQuery).</li>
+          <li><strong>Role Fit (STAR):</strong>
+            <ul>
+              <li><strong>Situation/Task:</strong> A time you optimized a system at smaller scale and wanted greater scale.</li>
+              <li><strong>Action:</strong> Applied analytical rigor to solve product problems.</li>
+              <li><strong>Result:</strong> Realized your passion lies in high-volume, real-time analytics like Google handles.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>Google’s focus on solving non-trivial problems at global scale is unmatched. As an analyst, working here means an insight doesn't just impact thousands—it impacts millions instantly.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> In my last project, I re-architected an internal data pipeline to handle a 10x spike in traffic during a major feature launch.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I needed to maintain reporting latency under 5 seconds for executive dashboards.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I optimized SQL queries, implemented partitioned tables, and aggregated key metrics upstream.</div>
+        <div class="star-block"><span class="star-label">Result:</span> Dashboard queries dropped from 45 seconds to 1.2 seconds, allowing leadership to make real-time ad spend reallocations.</div>
+        <p>This role at Google excites me because it directly combines my core technical strengths in scalable data pipelines with high-stakes product decision-making.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question-card">
+    <h2 class="question-title">3. "What types of problems are you passionate about solving?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Problem Theme:</strong> Uncovering hidden patterns in unstructured/messy data to optimize user experience.</li>
+          <li><strong>STAR Structure:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Ambiguous business query or fragmented metric.</li>
+              <li><strong>Task:</strong> Define the core KPI and build diagnostic frameworks.</li>
+              <li><strong>Action:</strong> Data cleaning, SQL/Python analytics, diagnostic visualization.</li>
+              <li><strong>Result:</strong> Root cause found, strategic pivot enacted.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>I am passionate about root-cause analysis—taking ambiguous, messy product behavior and translating it into clear mathematical truths.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> We saw an unexpected 12% dip in daily active users (DAU) for our core web app without any major code deployments.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I volunteered to lead the incident investigation to find why users were churning.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I segmented telemetry data by OS, browser version, and geographic region using SQL. I discovered a memory leak specifically affecting Safari v15 users.</div>
+        <div class="star-block"><span class="star-label">Result:</span> I handed the exact stack trace and affected user IDs to engineering. They patched it in 24 hours, restoring $80K/month in lost user activity.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="question-card">
+    <h2 class="question-title">4. "What are your strengths and weaknesses?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Do you mind if I pause for five seconds to pull up the most relevant example?"
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Strength (Data + Storytelling):</strong> Ability to translate complex SQL/Python models into plain English for non-technical stakeholders.</li>
+          <li><strong>Weakness (Real & Actionable):</strong> Tendency to over-engineer solutions initially or dive too deep into edge cases.</li>
+          <li><strong>STAR Mitigation:</strong>
+            <ul>
+              <li><strong>Situation:</strong> A project where the weakness manifested.</li>
+              <li><strong>Task/Action:</strong> Recognizing it and setting structured guardrails (e.g., setting strict MVP timeboxes).</li>
+              <li><strong>Result:</strong> Faster iteration and improved cross-functional trust.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Do you mind if I pause for five seconds to pull up the most relevant example?"
+        </div>
+        <p><strong>Strength:</strong> Data storytelling. I excel at converting complex statistical models into actionable insights that non-technical leaders can immediately act upon.</p>
+        <p><strong>Weakness:</strong> In the past, I sometimes over-engineered analysis by trying to account for every single edge case before sharing results.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> During an ad-hoc customer retention analysis, I spent 3 extra days trying to model a tiny 0.5% outlier segment.</div>
+        <div class="star-block"><span class="star-label">Task:</span> Realizing I was delaying the broader product decision, I shifted my workflow.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I now adopt an MVP mindset: I build 80% complete models fast, align with stakeholders, and iterate only if deeper analysis moves the business needle.</div>
+        <div class="star-block"><span class="star-label">Result:</span> This reduced my project delivery cycles by 35% while keeping business recommendations sharp.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="question-card">
+    <h2 class="question-title">5. "Tell me about a time you faced a challenge at work and how you handled it."</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "I have two different projects that come to mind. Let me quickly weigh which one highlights problem-solving under pressure better."
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Situation:</strong> Missing data, corrupt pipelines, or shifting business priorities before a major deadline.</li>
+          <li><strong>Task:</strong> Maintain data integrity while delivering strategic recommendations on time.</li>
+          <li><strong>Action:</strong> Diagnostic checks, fallback data modeling, proactive stakeholder communication.</li>
+          <li><strong>Result:</strong> Successful launch, preventative measures automated for the future.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "I have two different projects that come to mind. Let me quickly weigh which one highlights problem-solving under pressure better."
+        </div>
+        <div class="star-block"><span class="star-label">Situation:</span> 48 hours before an executive board review, our main ETL pipeline broke due to an upstream API change, corrupting 3 months of historical revenue data.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I needed to restore historical reporting accuracy and deliver the quarter-end analysis without delaying the executive meeting.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I wrote temporary Python validation scripts to clean raw log backups, recalculated missing metrics, and manually audited top accounts against transactional tables.</div>
+        <div class="star-block"><span class="star-label">Result:</span> The executive deck was delivered 4 hours ahead of schedule with 100% data accuracy. Afterward, I built automated data-quality alerts in Great Expectations to prevent silent failures.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 6 -->
+  <div class="question-card">
+    <h2 class="question-title">6. "How do you handle feedback and criticism?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "That’s a great question. Let me take a quick moment to structure my thoughts so I can give you the best concise answer."
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Mindset:</strong> View feedback as data points to optimize personal performance and analytical output.</li>
+          <li><strong>STAR Story:</strong>
+            <ul>
+              <li><strong>Situation:</strong> A code review or dashboard presentation where feedback was received.</li>
+              <li><strong>Task:</strong> Process constructive critique without defensiveness.</li>
+              <li><strong>Action:</strong> Implemented suggested changes, refactored code/dashboard, created best-practice templates.</li>
+              <li><strong>Result:</strong> Better performance and team alignment.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "That’s a great question. Let me take a quick moment to structure my thoughts so I can give you the best concise answer."
+        </div>
+        <p>I treat feedback like data: objectively evaluate it, extract the signal from the noise, and integrate it immediately.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> Early in my career, a Senior Lead criticized my executive reports for being too technically dense and lacking clear actionable summaries.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I needed to adjust my communication style to fit executive decision-making.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I asked the lead for examples of high-performing decks, implemented a "TL;DR Insights First" structure, and requested feedback prior to final reviews.</div>
+        <div class="star-block"><span class="star-label">Result:</span> My next project proposal was approved instantly by C-suite executives with specific praise for its clarity.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 7 -->
+  <div class="question-card">
+    <h2 class="question-title">7. "Can you explain a complex technical concept in simple terms?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Just to make sure I align my answer with what you’re looking for, do you want me to explain a core database optimization concept like indexing, or a statistical concept like p-values?"
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Concept Selection:</strong> Choose a core data concept (e.g., A/B Testing, P-values, Database Indexing).</li>
+          <li><strong>Analogy:</strong> Relate it to a simple, everyday real-world visual.</li>
+          <li><strong>STAR Business Context:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Explaining this concept to a non-technical product manager.</li>
+              <li><strong>Task:</strong> Gain alignment on project direction using the simplified concept.</li>
+              <li><strong>Action:</strong> Used the plain-English analogy to guide their decision.</li>
+              <li><strong>Result:</strong> Project launched without confusion or delay.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Just to make sure I align my answer with what you’re looking for, do you want me to explain a core database optimization concept like indexing, or a statistical concept like p-values?"
+        </div>
+        <p><strong>Concept: Database Indexing</strong></p>
+        <p>Imagine reading a 1,000-page book looking for every mention of 'Data Science'. Without an index, you must read line-by-line from page 1 to 1,000. An <em>Index</em> is the book's index back section—a sorted reference that tells you exactly which pages to turn to immediately.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> A Marketing PM was concerned that running daily user metrics reports was taking 20 minutes and crashing their dashboard.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I needed to explain why indexing their filtering columns was essential without getting bogged down in database architecture jargon.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I used the book index analogy to explain why our raw table was performing a full scan and demonstrated how adding an index on `user_id` fixes it.</div>
+        <div class="star-block"><span class="star-label">Result:</span> The PM supported the refactoring maintenance window. Dashboard load times dropped from 20 minutes to 3 seconds.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 8 -->
+  <div class="question-card">
+    <h2 class="question-title">8. "Tell me about a time you worked on a team project. What was your role?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Team Dynamics:</strong> Highlight cross-functional collaboration (Software Engineers, PMs, UX Designers).</li>
+          <li><strong>STAR Structure:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Multi-department product initiative.</li>
+              <li><strong>Task:</strong> Your specific ownership as the Data Analyst (defining metrics, building backend logging requirements).</li>
+              <li><strong>Action:</strong> Facilitated syncs, aligned conflicting data definitions, validated telemetry.</li>
+              <li><strong>Result:</strong> Seamless cross-functional rollout.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="star-block"><span class="star-label">Situation:</span> I worked on a cross-functional team with 3 Engineers, 1 Product Manager, and a UX Designer to overhaul our mobile app checkout funnel.</div>
+        <div class="star-block"><span class="star-label">Task:</span> My role was to define tracking specifications, ensure accurate data collection before launch, and evaluate post-launch success.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I created a unified data dictionary so engineers knew exactly which analytics events to trigger on user clicks. I then built an automated validation script in Python during staging.</div>
+        <div class="star-block"><span class="star-label">Result:</span> We launched with 0 missing event logs, tracking $1.2M in initial checkout transactions with zero tracking bugs.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 9 -->
+  <div class="question-card">
+    <h2 class="question-title">9. "How would you improve an existing Google product?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Before I jump in, could you clarify whether you'd like me to focus on a consumer product like Google Maps or a developer tool like BigQuery?"
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Product Selection:</strong> Pick a product you use daily (e.g., Google Maps, YouTube, Google Drive).</li>
+          <li><strong>Identify Friction:</strong> Point out a measurable user friction point.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Current state of feature and metric to target (e.g., retention, engagement).</li>
+              <li><strong>Task:</strong> Define hypothesis and metrics to test.</li>
+              <li><strong>Action:</strong> Design an A/B test framework and specify telemetry needed.</li>
+              <li><strong>Result:</strong> Predicted measurable lift in key metrics.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Just to make sure I align my answer with what you’re looking for, do you want me to focus on a consumer-facing app or a B2B enterprise tool?"
+        </div>
+        <p>I would improve Google Maps' EV Charging Station search by introducing real-time queue estimation.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> EV adoption is growing rapidly, but drivers face high friction when arriving at chargers that are occupied or broken.</div>
+        <div class="star-block"><span class="star-label">Task:</span> As an analyst, I’d formulate a data-driven model to predict station wait times using anonymous location telemetry.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I would define metrics like 'Dwell Time' at charger coordinates, cross-reference historical traffic density, and set up an A/B experiment showing wait estimates to 5% of users.</div>
+        <div class="star-block"><span class="star-label">Result:</span> If successful, this feature would boost user trust, increasing navigation completion rates by an estimated 5-8% among EV drivers.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 10 -->
+  <div class="question-card">
+    <h2 class="question-title">10. "Describe a time when you disagreed with a team member. How did you resolve it?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "That’s a great question. Let me take a quick moment to structure my thoughts so I can give you the best concise answer."
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Core Disagreement:</strong> Disagreement over metrics definition, technology choice, or methodology.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Team member preferred Intuition/Legacy approach; you advocated Data-backed approach.</li>
+              <li><strong>Task:</strong> Resolve conflict objectively without burning relationships.</li>
+              <li><strong>Action:</strong> Proposed objective A/B test or micro-experiment to gather data.</li>
+              <li><strong>Result:</strong> Data proved optimal path, team adopted consensus workflow.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "That’s a great question. Let me take a quick moment to structure my thoughts so I can give you the best concise answer."
+        </div>
+        <div class="star-block"><span class="star-label">Situation:</span> A Senior Product Manager wanted to change our subscription page layout based on a design trend he liked, but I strongly suspected it would reduce conversion rates.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I needed to challenge his perspective constructively without causing friction.</div>
+        <div class="star-block"><span class="star-label">Action:</span> Instead of arguing design preferences, I proposed a 50/50 A/B test for 2 weeks to let real user behavior decide. I set up tracking in Optimizely and evaluated statistical significance.</div>
+        <div class="star-block"><span class="star-label">Result:</span> The test showed the proposed design actually decreased checkout conversions by 7%. We maintained the original design, saving ~$40k in monthly revenue, and established a rule to always A/B test UX changes moving forward.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 11 -->
+  <div class="question-card">
+    <h2 class="question-title">11. "What is your approach to learning new technologies?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Learning Philosophy:</strong> Hands-on, project-driven learning.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Business required a tool you had never used before (e.g., dbt, Snowflake, Spark).</li>
+              <li><strong>Task:</strong> Rapidly upskill without slowing down project delivery.</li>
+              <li><strong>Action:</strong> Sandbox prototyping, reading documentation, applying best practices to a real task.</li>
+              <li><strong>Result:</strong> Successfully deployed model, documented learnings for the team.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>I learn best by doing—identifying a practical business problem and applying the new technology directly to solve it.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> My team needed to migrate from traditional SQL scripts to <strong>dbt (data build tool)</strong> for modular transformations, but no one on our team knew dbt.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I took the initiative to learn dbt and lead our internal migration.</div>
+        <div class="star-block"><span class="star-label">Action:</span> Over a weekend, I completed dbt courses, built a working prototype using sample data, and refactored our core revenue pipeline into modular dbt models with automated testing.</div>
+        <div class="star-block"><span class="star-label">Result:</span> We successfully adopted dbt company-wide, reducing pipeline execution errors by 40% and onboarding 3 new analysts in half the normal time.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 12 -->
+  <div class="question-card">
+    <h2 class="question-title">12. "How do you work as part of a remote team?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Remote Core Values:</strong> Over-communication, asynchronous documentation, clear data hand-offs.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Managing a multi-timezone remote team project.</li>
+              <li><strong>Task:</strong> Avoid project bottlenecks and communication lag.</li>
+              <li><strong>Action:</strong> Built centralized documentation, automated daily Slack status bots, maintained clear Jira tickets.</li>
+              <li><strong>Result:</strong> Project delivered smoothly with zero time-zone friction.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>Working remotely requires proactive asynchronous communication and rigorous documentation.</p>
+        <div class="star-block"><span class="star-label">Situation:</span> I collaborated with engineers based in London, San Francisco, and Tokyo on a global reporting dashboard.</div>
+        <div class="star-block"><span class="star-label">Task:</span> We faced communication delays due to an 8-hour time gap.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I established a standardized Loom video breakdown for daily data pushes, documented all SQL query logic in Notion, and clearly marked open decisions requiring async approval.</div>
+        <div class="star-block"><span class="star-label">Result:</span> We eliminated unnecessary midnight sync meetings and delivered the project 1 week ahead of deadline.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 13 -->
+  <div class="question-card">
+    <h2 class="question-title">13. "Tell me about a time you used data to solve a problem."</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Do you mind if I pause for five seconds to pull up the most relevant example?"
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Problem Impact:</strong> High-impact business problem solved directly via analytical insights.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Marketing spend was increasing, but customer acquisition was plateauing.</li>
+              <li><strong>Task:</strong> Analyze multi-touch attribution to reallocate spend effectively.</li>
+              <li><strong>Action:</strong> SQL data blending, Markov chain attribution modeling in Python.</li>
+              <li><strong>Result:</strong> Significant reduction in Customer Acquisition Cost (CAC).</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "Do you mind if I pause for five seconds to pull up the most relevant example?"
+        </div>
+        <div class="star-block"><span class="star-label">Situation:</span> Our marketing team noticed Customer Acquisition Cost (CAC) rose by 25% over two quarters, but they couldn't identify which channel was inefficient.</div>
+        <div class="star-block"><span class="star-label">Task:</span> I took on the challenge to build a multi-touch marketing attribution model.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I extracted raw ad campaign logs and user touchpoints using SQL, created a Markov chain attribution script in Python, and identified that paid search ads were receiving credit for organic user conversions.</div>
+        <div class="star-block"><span class="star-label">Result:</span> Reallocating 30% of the budget from paid search to content marketing lowered overall CAC by 19% within 60 days.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 14 -->
+  <div class="question-card">
+    <h2 class="question-title">14. "What is your biggest achievement?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "I want to make sure I highlight the project with the biggest business impact—give me just a second to organize the key metrics."
+        </div>
+        <ul class="skeleton-list">
+          <li><strong>Scale & Scope:</strong> Choose a project with maximum financial or scale impact.</li>
+          <li><strong>STAR Framework:</strong>
+            <ul>
+              <li><strong>Situation:</strong> Core system performing below benchmark or massive manual reporting bottleneck.</li>
+              <li><strong>Task:</strong> Architect a permanent, automated analytical solution.</li>
+              <li><strong>Action:</strong> Designed scalable pipelines, automated forecasting, empowered key executives.</li>
+              <li><strong>Result:</strong> Quantification ($ millions saved, hours reduced per week).</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <div class="opening-line">
+          "I want to make sure I highlight the project with the biggest business impact—give me just a second to organize the key metrics."
+        </div>
+        <div class="star-block"><span class="star-label">Situation:</span> At my previous company, customer churn analysis was calculated manually once a month, leading to delayed interventions.</div>
+        <div class="star-block"><span class="star-label">Task:</span> My achievement was building an automated early-warning churn prediction system.</div>
+        <div class="star-block"><span class="star-label">Action:</span> I aggregated usage telemetry using SQL in Snowflake, built a Logistic Regression model in Python to flag accounts with declining activity, and piped automated alerts into Salesforce for Customer Success managers.</div>
+        <div class="star-block"><span class="star-label">Result:</span> This enabled proactive outreach, saving $1.4M in annually recurring revenue and reducing churn by 14%.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question 15 -->
+  <div class="question-card">
+    <h2 class="question-title">15. "What is your current availability and timeline?"</h2>
+    
+    <details>
+      <summary>Model / Answer Skeleton <span class="tag tag-skeleton">Template</span></summary>
+      <div class="content">
+        <ul class="skeleton-list">
+          <li><strong>Direct Notice Period:</strong> State exact notice period (e.g., 2 weeks).</li>
+          <li><strong>Enthusiasm:</strong> Reiterate strong excitement for joining Google.</li>
+          <li><strong>Clarity:</strong> Mention any pending constraints or offer timelines cleanly.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Full Answer Example <span class="tag tag-full">STAR Method</span></summary>
+      <div class="content">
+        <p>I am currently employed and would need to provide a standard 2-week notice to my current employer to ensure a clean transition of my projects.</p>
+        <p>I am actively interviewing and near final stages with another company, but Google is my top priority. If extended an offer, I could start full-time within 3 weeks of signing.</p>
+      </div>
+    </details>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Code: Decoding Idioms</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --card-bg-front: linear-gradient(145deg, #1e3c72, #2a5298);
+            --card-border: #4facfe;
+            --text-color: #f0f8ff;
+            --accent-color: #00f2fe;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            color: #e0f7fa;
+        }
+
+        p.subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #b2ebf2;
+            font-size: 1.1rem;
+        }
+
+        .deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .card-container {
+            background-color: transparent;
+            height: 480px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .card-front {
+            background: var(--card-bg-front);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            border: 2px solid var(--card-border);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-color);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.3;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.85rem;
+            color: #b2ebf2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .card-back {
+            background-color: #0d1b2a;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            text-align: left;
+            border: 2px solid var(--card-border);
+            overflow-y: auto;
+        }
+
+        .card-back-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-back-number {
+            background: #e63946;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .card-back-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .card-back-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #e0f7fa;
+            margin-bottom: 15px;
+        }
+
+        .card-back-example {
+            font-style: italic;
+            color: #b2ebf2;
+        }
+
+        .card-back-img-wrapper {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cultural Code: Decoding Idioms</h1>
+    <p class="subtitle">Click any card to reveal its full explanation</p>
+
+    <div class="deck">
+        <!-- Card 1 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">1</span>
+                    <div class="card-title">Not rocket science</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">1</span>
+                        <span class="card-back-title">Not rocket science</span>
+                    </div>
+                    <div class="card-back-text">
+                        If something <strong>“isn't rocket science”</strong>, it isn't difficult to do or to understand: <span class="card-back-example">“Using this new accounting system isn't exactly rocket science – you just need to read over the 2-page manual and learn a few of the tricks.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop" alt="Person studying notes - Not rocket science">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">2</span>
+                    <div class="card-title">To tighten your belt</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">2</span>
+                        <span class="card-back-title">To tighten your belt</span>
+                    </div>
+                    <div class="card-back-text">
+                        If a company has to <strong>“tighten its belt”</strong>, it has to cut costs and spend less money: <span class="card-back-example">“With the economy doing so badly, many companies are tightening their belts.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop" alt="Person using calculator - Tighten your belt">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">3</span>
+                    <div class="card-title">Not set in stone</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">3</span>
+                        <span class="card-back-title">Not set in stone</span>
+                    </div>
+                    <div class="card-back-text">
+                        If something <strong>“isn't set in stone”</strong>, it isn't fixed or permanent, so it won't be difficult to change: <span class="card-back-example">“The meeting time isn't set in stone, so feel free to suggest an alternative day or time.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Person working flexibly on laptop - Not set in stone">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">4</span>
+                    <div class="card-title">Shape up or ship out</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">4</span>
+                        <span class="card-back-title">Shape up or ship out!</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you tell someone to <strong>“shape up or ship out”</strong>, you're telling them to either improve (shape up) or leave (ship out): <span class="card-back-example">“I've had enough of your negative attitude – either shape up or ship out!”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Strict manager in meeting - Shape up or ship out">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">5</span>
+                    <div class="card-title">Pull the plug</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">5</span>
+                        <span class="card-back-title">Pull the plug</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“pull the plug”</strong> on a project (for example), you stop it, often because it isn't going well: <span class="card-back-example">“After wasting millions investing on the new product and with very few sales, they finally decided to pull the plug on it.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?q=80&w=800&auto=format&fit=crop" alt="Stop gesture - Pull the plug">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">6</span>
+                    <div class="card-title">Give someone a heads up</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">6</span>
+                        <span class="card-back-title">Give someone a heads up</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“give someone a heads up”</strong>, you warn them about something bad, dangerous or worrying that might happen in the future: <span class="card-back-example">“This is just a heads up to let you know that the new president is coming next week to inspect the office.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Whispering / informing colleague - Heads up">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">7</span>
+                    <div class="card-title">Give you the hard sell</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">7</span>
+                        <span class="card-back-title">Give you the hard sell</span>
+                    </div>
+                    <div class="card-back-text">
+                        If someone <strong>“gives you the hard sell”</strong>, they are very <strong>persuasive, insistent</strong> and aggressive as they try to sell you something: <span class="card-back-example">“I hate it when I'm in a store and are the shop assistant gives me the hard sell.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop" alt="Sales assistant talking to customer in store - Hard sell">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">8</span>
+                    <div class="card-title">A back-of-the-envelope (calculation)</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">8</span>
+                        <span class="card-back-title">A back-of-the-envelope</span>
+                    </div>
+                    <div class="card-back-text">
+                        A <strong>“back-of-the-envelope calculation”</strong> is a quick calculation on a piece of paper (such as an envelope) that will give you a general understanding of the costs, figures or numbers: <span class="card-back-example">“I don't need the exact numbers right now – just give me a back-of-the-envelope calculation.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?q=80&w=800&auto=format&fit=crop" alt="Envelope with writing utensil - Back of the envelope">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">9</span>
+                    <div class="card-title">Throw good money after bad</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">9</span>
+                        <span class="card-back-title">Throw good money after bad</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“throw good money after bad”</strong>, you waste money by spending it on something that's useless, worthless, or impossible to repair: <span class="card-back-example">“Trying to fix this old car is like throwing good money after bad. It would be cheaper to get a new one.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop" alt="Mechanic working on an old car engine - Throw good money after bad">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">10</span>
+                    <div class="card-title">Reality check</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">10</span>
+                        <span class="card-back-title">Reality check</span>
+                    </div>
+                    <div class="card-back-text">
+                        If someone needs a <strong>“reality check”</strong>, they need to know the truth about a situation because they don't understand what's really happening: <span class="card-back-example">“If you think your company can compete against all the other big ones, you need a reality check.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" alt="Team reviewing analytics at a table - Reality check">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">11</span>
+                    <div class="card-title">Jump through hoops</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">11</span>
+                        <span class="card-back-title">Jump through hoops</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“jump through hoops”</strong>, you do what people want so you can get something. These things often appear to be ridiculous or unnecessary, but you have to do them if you want that thing: <span class="card-back-example">“We had to jump through hoops to get the bank loan but it was worth it in the end.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" alt="Businessman pointing - Jump through hoops">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">12</span>
+                    <div class="card-title">Keep your eye on the prize</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">12</span>
+                        <span class="card-back-title">Keep your eye on the prize</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“keep your eye on the prize”</strong>, you focus on the end result, and you try not to let the small problems distract you: <span class="card-back-example">“I know there's a lot of work to do right now, but just keep your eye on the prize: this time next year we'll be making a lot of money!”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="Focused man with glasses - Keep your eye on the prize">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 13 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">13</span>
+                    <div class="card-title">Keep something under wraps</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">13</span>
+                        <span class="card-back-title">Keep something under wraps</span>
+                    </div>
+                    <div class="card-back-text">
+                        If you <strong>“keep an idea or plan under wraps”</strong>, you don't tell anyone about it and it is a secret: <span class="card-back-example">“I can't tell you anything about the new product right now – they told us to keep it all under wraps.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Secret meeting through glass - Keep under wraps">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 14 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">14</span>
+                    <div class="card-title">My gut tells me</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">14</span>
+                        <span class="card-back-title">My gut tells me</span>
+                    </div>
+                    <div class="card-back-text">
+                        If your <strong>“gut tells you something”</strong>, you know what to do naturally, without having to think about it or analyse it: <span class="card-back-example">“I don't know Jenny very well, but my gut tells me that she'd be perfect for the job.”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=800&auto=format&fit=crop" alt="Thoughtful man reflecting - My gut tells me">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 15 -->
+        <div class="card-container" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-number">15</span>
+                    <div class="card-title">Pass the buck</div>
+                    <div class="hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-header">
+                        <span class="card-back-number">15</span>
+                        <span class="card-back-title">Pass the buck</span>
+                    </div>
+                    <div class="card-back-text">
+                        If someone <strong>“passes the buck”</strong>, they blame somebody else for their mistakes: <span class="card-back-example">“Losing that contract was your fault, so stop trying to pass the buck!”</span>
+                    </div>
+                    <div class="card-back-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Colleagues arguing and placing blame - Pass the buck">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Data Analyst Prep - Executive Explanations</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-hover: #1557b0;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --border-color: #dadce0;
+            --answer-bg: #e8f0fe;
+            --answer-border: #4285f4;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #202124;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: #5f6368;
+            font-size: 0.95rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.08);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 2px 6px rgba(60,64,67,0.15);
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .check-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .check-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .answer-box {
+            display: none;
+            margin-top: 14px;
+            padding: 16px;
+            background-color: var(--answer-bg);
+            border-left: 4px solid var(--answer-border);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+            color: #174ea6;
+            line-height: 1.6;
+        }
+
+        .answer-box.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Google Data Analyst Concept Check</h1>
+        <p class="subtitle">Practice explaining technical concepts out loud to a business partner, then click "Check Answer" to review.</p>
+    </header>
+
+    <!-- Question 1: ETL Pipeline -->
+    <div class="question-card">
+        <div class="question-number">Question 1</div>
+        <div class="question-text">How would you explain what an ETL pipeline is to a business partner who only cares about the final dashboard?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            In plain language, think of an ETL pipeline like a restaurant's kitchen prep team. Just as prep cooks unpack raw ingredients, wash them, and chop them before plating, an ETL pipeline extracts raw data from multiple apps, cleans it up, and loads it into a central dashboard.
+        </div>
+    </div>
+
+    <!-- Question 2: Database Indexing -->
+    <div class="question-card">
+        <div class="question-number">Question 2</div>
+        <div class="question-text">How would you explain Database Indexing to a non-technical stakeholder using an everyday physical system?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            To put it simply, think of database indexing like the index at the back of a textbook. Just as you check the textbook index to jump straight to a topic instead of flipping through 500 pages one by one, a database index lets SQL jump directly to the exact row requested.
+        </div>
+    </div>
+
+    <!-- Question 3: A/B Testing -->
+    <div class="question-card">
+        <div class="question-number">Question 3</div>
+        <div class="question-text">How would you explain the business value of A/B Testing to a product manager before launching a new feature?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            In non-technical terms, without A/B testing, we run the risk of committing engineering resources to product changes based purely on opinion. By using A/B testing, we ensure every rollout is mathematically proven to drive user engagement before full deployment.
+        </div>
+    </div>
+
+    <!-- Question 4: Data Imputation -->
+    <div class="question-card">
+        <div class="question-number">Question 4</div>
+        <div class="question-text">How would you explain Data Imputation to a business partner concerned about missing survey responses?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            To frame it plainly, without data imputation, dropping every row with a missing survey answer means losing 30% of our sample size and skewing our results. By using data imputation, we preserve data volume without distorting final insights.
+        </div>
+    </div>
+
+    <!-- Question 5: P-Value -->
+    <div class="question-card">
+        <div class="question-number">Question 5</div>
+        <div class="question-text">How would you explain Statistical Significance (p-value) to an executive without getting bogged down in math?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            Simply speaking, technically a p-value is the probability of obtaining test results at least as extreme as observed, assuming the null hypothesis is true. In plain terms for a non-technical stakeholder, it's our luck detector—it tells us whether a traffic spike was a random fluke or a true result caused by our feature launch.
+        </div>
+    </div>
+
+    <!-- Question 6: Cohort Analysis -->
+    <div class="question-card">
+        <div class="question-number">Question 6</div>
+        <div class="question-text">How would you explain Cohort Analysis and its impact on tracking long-term user loyalty to a business partner?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            In plain language, technically cohort analysis isolates and tracks specific user segments bound by a shared time-based event. In plain terms for a non-technical stakeholder, it measures long-term loyalty—telling us whether user retention is actually improving over time.
+        </div>
+    </div>
+
+    <!-- Question 7: Precision vs. Recall -->
+    <div class="question-card">
+        <div class="question-number">Question 7</div>
+        <div class="question-text">How would you explain the difference between Precision and Recall to a cross-functional teammate?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            To put it simply, to clarify precision, it helps to contrast it with recall. While precision asks, 'Of all the spam emails our filter caught, how many were actually spam?', recall asks, 'Of all the actual spam emails sent to the inbox, how many did our filter manage to catch?'
+        </div>
+    </div>
+
+    <!-- Question 8: Correlation vs. Causation -->
+    <div class="question-card">
+        <div class="question-number">Question 8</div>
+        <div class="question-text">How would you explain Correlation vs. Causation to a product manager eager to ship a feature based on co-occurring trends?</div>
+        <button class="check-btn" onclick="toggleAnswer(this)">Check Answer</button>
+        <div class="answer-box">
+            In non-technical terms, to clarify correlation, it helps to contrast it with causation. While correlation asks, 'Are these two metrics moving in the same direction at the same time?', causation asks, 'Did changing the first metric directly force the second metric to change?'
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAnswer(button) {
+        const answerBox = button.nextElementSibling;
+        if (answerBox.classList.contains('active')) {
+            answerBox.classList.remove('active');
+            button.textContent = 'Check Answer';
+        } else {
+            answerBox.classList.add('active');
+            button.textContent = 'Hide Answer';
+        }
+    }
+</script>
+
+</body>
+</html>

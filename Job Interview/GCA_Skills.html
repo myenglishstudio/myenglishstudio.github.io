@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collocation Matching Game</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            
+            /* Term Card Style (Dark Navy) */
+            --term-bg: #1e293b;
+            --term-border: #334155;
+            --term-text: #f1f5f9;
+            
+            /* Definition Card Style (Cold Frosty Ice Blue) */
+            --def-bg: #172554;
+            --def-border: #1d4ed8;
+            --def-text: #bae6fd;
+
+            /* Interactive States */
+            --accent-hover: #38bdf8;
+            --selected-bg: #0284c7;
+            --selected-border: #7dd3fc;
+            --wrong-bg: #991b1b;
+            --wrong-border: #f87171;
+            --success-text: #38bdf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #e2e8f0;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            margin-top: 0;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .legend-box {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        .legend-term {
+            background-color: var(--term-bg);
+            border: 2px solid var(--term-border);
+        }
+
+        .legend-def {
+            background-color: var(--def-bg);
+            border: 2px solid var(--def-border);
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border-radius: 10px;
+            padding: 16px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.95rem;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Styling for Terms */
+        .card.card-term {
+            background-color: var(--term-bg);
+            border: 2px solid var(--term-border);
+            color: var(--term-text);
+            font-weight: 600;
+        }
+
+        /* Styling for Definitions */
+        .card.card-def {
+            background-color: var(--def-bg);
+            border: 2px solid var(--def-border);
+            color: var(--def-text);
+        }
+
+        .card:hover {
+            border-color: var(--accent-hover) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(56, 189, 248, 0.3);
+        }
+
+        .card.selected {
+            background-color: var(--selected-bg) !important;
+            border-color: var(--selected-border) !important;
+            color: #ffffff !important;
+            transform: scale(1.02);
+        }
+
+        .card.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: #ffffff !important;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        .card.matched-hidden {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #win-message {
+            display: none;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #win-message h2 {
+            color: var(--success-text);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        button.reset-btn {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button.reset-btn:hover {
+            background-color: #0369a1;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Collocation Matching Challenge</h1>
+    <p class="subtitle">Click a term card and match it with its correct definition card.</p>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-box legend-term"></div>
+            <span>Terms</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box legend-def"></div>
+            <span>Definitions</span>
+        </div>
+    </div>
+
+    <div class="game-board" id="gameBoard"></div>
+
+    <div id="win-message">
+        <h2>Great Job! All Pairs Matched!</h2>
+        <button class="reset-btn" onclick="initGame()">Play Again</button>
+    </div>
+
+    <script>
+        const pairsData = [
+            { term: "central tenets", def: "Main ideas or foundational principles." },
+            { term: "reasoning skills", def: "Abilities to think logically and analyze situations." },
+            { term: "emergent leadership", def: "Spontaneous leadership shown without holding an official title." },
+            { term: "role-related knowledge", def: "Technical information and practical skills required for a specific job." },
+            { term: "transferable skills", def: "Abilities learned in one context that apply effectively to another." },
+            { term: "intellectual curiosity", def: "Active desire to learn, explore, and ask questions." },
+            { term: "break down problems", def: "Divide complex issues into smaller, manageable parts." },
+            { term: "behavioural interview", def: "Interview format assessing past actions to predict future performance." },
+            { term: "situational interview", def: "Interview format evaluating responses to hypothetical future scenarios." },
+            { term: "excess noise", def: "Irrelevant or distracting information masking key facts." },
+            { term: "parse through information", def: "Read, sort, and analyze data systematically." },
+            { term: "coherent response", def: "Clear, logical, and well-structured answer." },
+            { term: "open-ended questions", def: "Prompts requiring detailed answers rather than yes/no responses." },
+            { term: "justify solutions", def: "Provide reasons and evidence supporting a chosen approach." },
+            { term: "logical assumptions", def: "Sensible, reasonable guesses based on available facts." },
+            { term: "logical leaps", def: "Conclusions drawn quickly by connecting gaps in evidence logically." },
+            { term: "succinct manner", def: "Expressed briefly, clearly, and without unnecessary words." },
+            { term: "pros and cons", def: "Advantages and disadvantages of a situation." },
+            { term: "tie it back to your experience", def: "Connect your answer directly to your past background." }
+        ];
+
+        let selectedCards = [];
+        let matchedCount = 0;
+        let isProcessing = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function initGame() {
+            const board = document.getElementById("gameBoard");
+            const winMessage = document.getElementById("win-message");
+            board.innerHTML = "";
+            winMessage.style.display = "none";
+            selectedCards = [];
+            matchedCount = 0;
+            isProcessing = false;
+
+            let cardsData = [];
+            pairsData.forEach((pair, index) => {
+                cardsData.push({ id: index, text: pair.term, type: "term" });
+                cardsData.push({ id: index, text: pair.def, type: "def" });
+            });
+
+            cardsData = shuffle(cardsData);
+
+            cardsData.forEach(item => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.classList.add(item.type === "term" ? "card-term" : "card-def");
+                card.textContent = item.text;
+                card.dataset.pairId = item.id;
+                card.dataset.type = item.type;
+
+                card.addEventListener("click", () => handleCardClick(card));
+                board.appendChild(card);
+            });
+        }
+
+        function handleCardClick(card) {
+            if (isProcessing || card.classList.contains("selected") || card.classList.contains("matched-hidden")) {
+                return;
+            }
+
+            card.classList.add("selected");
+            selectedCards.push(card);
+
+            if (selectedCards.length === 2) {
+                isProcessing = true;
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = selectedCards;
+            const isMatch = card1.dataset.pairId === card2.dataset.pairId && card1.dataset.type !== card2.dataset.type;
+
+            if (isMatch) {
+                setTimeout(() => {
+                    card1.classList.remove("selected");
+                    card2.classList.remove("selected");
+                    card1.classList.add("matched-hidden");
+                    card2.classList.add("matched-hidden");
+                    
+                    selectedCards = [];
+                    isProcessing = false;
+                    matchedCount++;
+
+                    if (matchedCount === pairsData.length) {
+                        document.getElementById("win-message").style.display = "block";
+                    }
+                }, 300);
+            } else {
+                card1.classList.add("wrong");
+                card2.classList.add("wrong");
+
+                setTimeout(() => {
+                    card1.classList.remove("selected", "wrong");
+                    card2.classList.remove("selected", "wrong");
+                    selectedCards = [];
+                    isProcessing = false;
+                }, 800);
+            }
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

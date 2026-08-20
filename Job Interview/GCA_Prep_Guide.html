@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google GCA Interview Framework & Practice Scenarios</title>
+    <style>
+        :root {
+            --google-blue: #1a73e8;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc05;
+            --google-green: #34a853;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --border-color: #dadce0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--google-blue);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #5f6368;
+            margin-bottom: 30px;
+        }
+
+        /* Framework Card */
+        .framework-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .framework-card h2 {
+            margin-top: 0;
+            color: var(--google-blue);
+            font-size: 1.25rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .step-pill {
+            background: #e8f0fe;
+            color: var(--google-blue);
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .category-header {
+            color: #3c4043;
+            font-size: 1.2rem;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid var(--google-blue);
+            padding-bottom: 5px;
+        }
+
+        /* Accordion Styles */
+        .accordion-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 18px 20px;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #f1f3f4;
+        }
+
+        .accordion-header::after {
+            content: '\25BC';
+            font-size: 0.8rem;
+            color: #5f6368;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+            background-color: #fff;
+        }
+
+        .accordion-content-inner {
+            padding: 15px 0 20px 0;
+            border-top: 1px solid #f1f3f4;
+        }
+
+        /* Internal Structure Formatting */
+        .section-title {
+            font-weight: bold;
+            color: var(--google-blue);
+            margin-top: 15px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .eval-box {
+            background-color: #fce8e6;
+            border-left: 4px solid var(--google-red);
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Google GCA Interview Prep Guide</h1>
+    <p class="subtitle">General Cognitive Ability (GCA) Framework & Practice Scenarios</p>
+
+    <!-- Framework Cheat Sheet -->
+    <div class="framework-card">
+        <h2>The 5-Step GCA Response Framework</h2>
+        <div class="steps-grid">
+            <div class="step-pill">1. Pause & Reflect</div>
+            <div class="step-pill">2. Ask Clarifying Questions</div>
+            <div class="step-pill">3. State Logical Assumptions</div>
+            <div class="step-pill">4. Show Solution & Options</div>
+            <div class="step-pill">5. Measure Success / Trade-offs</div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 1 -->
+    <h3 class="category-header">Scenario 1: Event Planning — Office Grand Opening</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"Imagine you are in charge of organizing the grand opening event of a new Google Office. How would you plan this event?"</em></p>
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>Location: Where is the office? <em>(Cambridge, MA)</em></li>
+                    <li>Budget: What is the allocated budget? <em>(You decide; NYC spent $50k last year)</em></li>
+                    <li>Scale: How many attendees? <em>(100 people)</em></li>
+                </ul>
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>On-site facilities exist; budget is $10k ($100/head); vendors handle extra logistics.</li>
+                </ul>
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li>Coordinate with local facilities, split $10k between food/drinks/decor, design inclusive activities, apply NYC post-event survey learnings.</li>
+                </ul>
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>Attendee satisfaction scores, keeping within $10k budget, 100% target headcount met.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 2 -->
+    <h3 class="category-header">Scenario 2: Competitor Email Pricing Response</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"A competitor starts charging a $5 monthly fee for their email product. How do you assess and recommend next steps?"</em></p>
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>What is our model? Is the competitor a market leader? Has churn spiked yet?</li>
+                </ul>
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>Our product is freemium; users will resist sudden paywalls unless distinct value is added.</li>
+                </ul>
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li><strong>Option A:</strong> Keep product free, run an acquisition campaign targeting disgruntled competitor users.</li>
+                    <li><strong>Option B:</strong> Launch a $5 premium tier with extra storage/AI features.</li>
+                    <li><strong>Recommendation:</strong> Execute Option A immediately to capture market share, then evaluate Option B.</li>
+                </ul>
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>Net user growth, market share acquisition rate, LTV/CAC ratio over 6 months.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 3 -->
+    <h3 class="category-header">Scenario 3: Parallel / Duplicate Internal Projects</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"You have 12 months to deliver a critical project. Six months in, you discover another team inside Google has been building the exact same thing for 3 months. How do you respond?"</em></p>
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>What are the technical architectures of both projects? Is there an executive mandate favoring one?</li>
+                </ul>
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>Both teams share the ultimate business goal, but duplicate effort wastes resources.</li>
+                </ul>
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li><strong>Option A (Merge):</strong> Combine codebases—use our core infrastructure with their UI/specialized features.</li>
+                    <li><strong>Option B (Pivot):</strong> Re-scope one team to address an unserved niche or sub-feature set.</li>
+                    <li><strong>Action:</strong> Set up an immediate sync with the lead PM/Engineering Manager to map feature overlap before escalating.</li>
+                </ul>
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>Zero duplicated head-count hours, accelerated launch timeline, unified product roadmap.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 4 -->
+    <h3 class="category-header">Scenario 4: Key Dependency Breaks 2 Hours Before Keynote</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"You are launching a major feature at an upcoming key event/conference, but a core dependency breaks 2 hours before the keynote. What is your action plan?"</em></p>
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>Is the presentation live on stage or recorded video? Can we roll back to a stable build?</li>
+                </ul>
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>The keynote speaker cannot be canceled; preserving brand trust is priority #1.</li>
+                </ul>
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li><strong>Immediate Triage:</strong> Assess fixing time vs fallback setup with engineering lead.</li>
+                    <li><strong>Option A (Mock/Pre-record):</strong> Switch live demo to a pre-recorded video or fallback sandbox environment.</li>
+                    <li><strong>Option B (Cut Segment):</strong> Pivot presentation focus to stable aspects of the platform.</li>
+                </ul>
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>Zero public downtime during presentation, fast root-cause resolution post-event.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 5 -->
+    <h3 class="category-header">Scenario 5: Re-energizing a Stagnant Team</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"You take over a team that produces high-quality work on time, but hasn't innovated or launched a new idea in 2 years. How do you fix this?"</em></p>
+                
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>What are the team's current KPIs—are they incentivized strictly on risk mitigation and maintenance?</li>
+                    <li>Has leadership shot down previous innovative ideas, creating learned helplessness?</li>
+                    <li>Is there operational bandwidth available, or is the team completely overworked maintaining existing systems?</li>
+                </ul>
+
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>The team possesses technical capability (given high quality), but lacks psychological safety or incentive to take risks.</li>
+                    <li>We have leadership backing to adjust team bandwidth and OKRs for experimentation.</li>
+                </ul>
+
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li><strong>Diagnosis (Week 1-2):</strong> Hold 1-on-1s to uncover underlying friction (e.g., fear of failure, burnout, poor processes).</li>
+                    <li><strong>Process Change (Week 3-4):</strong> Introduce dedicated "20% time" or a quarterly team hackathon for unconstrained ideation.</li>
+                    <li><strong>Incentive Realignment:</strong> Update OKRs to explicitly include an "Innovation/Experimental" objective, rewarding well-executed risks regardless of outcome.</li>
+                </ul>
+
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>Number of experimental prototypes produced per quarter.</li>
+                    <li>Employee eNPS / sentiment improvement in internal surveys regarding growth and creative freedom.</li>
+                    <li>At least 1 new feature candidate moved into the official product roadmap within 6 months.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENARIO 6 -->
+    <h3 class="category-header">Scenario 6: Resolving Stakeholder Deadlocks (Without Authority)</h3>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Task Solution & Breakdown</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <span class="section-title">Prompt:</span>
+                <p><em>"A senior engineer and a product manager disagree on whether to delay a launch for a minor feature. You don't have authority over either. How do you drive consensus?"</em></p>
+                
+                <span class="section-title">1. Clarifying Questions:</span>
+                <ul>
+                    <li>What is the strict deadline, and are there contractual or marketing commitments tied to the launch date?</li>
+                    <li>What is the root cause of the engineer's objection—technical debt, security/stability risk, or purely aesthetic polish?</li>
+                    <li>What value does the PM believe the minor feature adds to the launch day user experience?</li>
+                </ul>
+
+                <span class="section-title">2. Assumptions:</span>
+                <ul>
+                    <li>Both stakeholders want a successful product, but prioritize different risks (delay penalty vs technical/quality flaw).</li>
+                    <li>We can leverage feature flag infrastructure for post-launch rollouts.</li>
+                </ul>
+
+                <span class="section-title">3. Execution Plan:</span>
+                <ul>
+                    <li><strong>Data Objective:</strong> Quantify user impact (How many users need this feature on Day 1?) vs Technical Risk (Does launching it introduce system instability?).</li>
+                    <li><strong>Compromise Framework:</strong> Propose launching on time *without* the minor feature enabled, putting it behind a feature flag for a gradual rollout to 5% of users post-launch.</li>
+                    <li><strong>Escalation Path:</strong> If deadlock persists, draft a joint decision document outlining options, trade-offs, and data to present to the director for a final call.</li>
+                </ul>
+
+                <span class="section-title">4. Success Metrics:</span>
+                <ul>
+                    <li>On-time product launch without degrading core platform stability or user trust.</li>
+                    <li>Both stakeholders express alignment and support for the compromised deployment path.</li>
+                    <li>Zero critical bugs or rollbacks reported during the feature flag rollout phase.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evaluation Criteria -->
+    <div class="accordion-item">
+        <button class="accordion-header">Interviewer Evaluation Rubric (What They Look For)</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <div class="eval-box">
+                    <strong>Key Assessment Criteria:</strong>
+                    <ul>
+                        <li><strong>Problem Understanding:</strong> Did you grasp the core issue before jumping into answers?</li>
+                        <li><strong>Clarifying Questions:</strong> Did you narrow down ambiguous details effectively?</li>
+                        <li><strong>Handling Ambiguity:</strong> Were you comfortable setting realistic assumptions when told "you decide"?</li>
+                        <li><strong>Structured Thinking:</strong> Did you outline multiple solution paths and justify your recommendation?</li>
+                        <li><strong>Adaptability:</strong> Did you listen to interviewer probes and pivot your plan smoothly?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordionItem = button.parentElement;
+                const content = accordionItem.querySelector('.accordion-content');
+                
+                // Toggle active class
+                accordionItem.classList.toggle('active');
+
+                if (accordionItem.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = "0";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

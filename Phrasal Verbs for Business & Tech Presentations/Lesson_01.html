@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khaki Nordic Phrasal Verb Mastery - Business & IT</title>
+  <style>
+    /* --- KHAKI & WARM EARTH SCANDINAVIAN PALETTE --- */
+    :root {
+      --bg-khaki-bone: #F7F6EE;
+      --card-bg: #FFFFFF;
+      --slate-dark: #2C3531;
+      --slate-muted: #5C6B66;
+      
+      /* Khaki Palette */
+      --khaki-dark: #585131;        /* Deep khaki accent */
+      --khaki-sage: #80774D;        /* Warm khaki sage */
+      --khaki-light: #ECE8D9;       /* Light warm khaki background fill */
+      --khaki-border: #D8D2BC;      /* Border tone */
+
+      /* Feedback Colors */
+      --flash-green-bg: #22C55E;
+      --flash-green-glow: rgba(34, 197, 94, 0.4);
+      --flash-red-bg: #EF4444;
+      --flash-red-glow: rgba(239, 68, 68, 0.4);
+
+      --terracotta: #D96B52;
+      --soft-red: #FEE2E2;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-khaki-bone);
+      color: var(--slate-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: inset 0 0 0 0 transparent;
+    }
+
+    /* Full-viewport Flash States */
+    body.flash-green { 
+      background-color: #DCFCE7 !important;
+      box-shadow: inset 0 0 120px var(--flash-green-bg) !important;
+    }
+    
+    body.flash-red { 
+      background-color: #FEE2E2 !important;
+      box-shadow: inset 0 0 120px var(--flash-red-bg) !important;
+    }
+
+    /* CONTAINER */
+    .app-container {
+      width: 100%;
+      max-width: 980px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--khaki-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .app-container.card-pulse-green {
+      border-color: var(--flash-green-bg) !important;
+      box-shadow: 0 0 35px var(--flash-green-glow) !important;
+      transform: scale(1.005);
+    }
+
+    .app-container.card-pulse-red {
+      border-color: var(--flash-red-bg) !important;
+      box-shadow: 0 0 35px var(--flash-red-glow) !important;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* BOTANICAL PROGRESS HEADER */
+    .progress-header {
+      padding: 22px 28px;
+      background: var(--khaki-light);
+      border-bottom: 1px solid var(--khaki-border);
+      display: none; /* Shown after welcome screen */
+    }
+
+    .stages-container {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .stages-container::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background-color: #D1CCA9;
+      z-index: 1;
+    }
+
+    .stage-item {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.35;
+      transition: all 0.3s ease;
+      cursor: not-allowed;
+    }
+
+    .stage-item.unlocked {
+      opacity: 0.75;
+      cursor: pointer;
+    }
+
+    .stage-item.unlocked:hover {
+      opacity: 1.0;
+      transform: translateY(-2px);
+    }
+
+    .stage-item.active {
+      opacity: 1.0;
+      transform: scale(1.06);
+      cursor: default;
+    }
+
+    .stage-item.completed { opacity: 0.9; }
+
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #D1CCA9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .stage-item.active .icon-circle {
+      border-color: var(--khaki-sage);
+      background-color: var(--bg-khaki-bone);
+    }
+
+    .stage-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--khaki-dark);
+    }
+
+    /* NAVIGATION BAR */
+    .task-nav-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .btn-nav {
+      background: transparent;
+      border: 1px solid var(--khaki-border);
+      color: var(--khaki-dark);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      background-color: var(--khaki-light);
+      border-color: var(--khaki-sage);
+    }
+
+    /* CONTENT VIEWPORT */
+    .task-content {
+      padding: 40px 48px;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .task-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--slate-dark);
+      text-align: center;
+    }
+
+    .task-instruction {
+      font-size: 15px;
+      color: var(--slate-muted);
+      margin-bottom: 28px;
+      text-align: center;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .progress-tracker-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--khaki-dark);
+      margin-bottom: 16px;
+    }
+
+    /* WELCOME SCREEN STYLING */
+    .welcome-hero {
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .welcome-badge {
+      display: inline-block;
+      background-color: var(--khaki-light);
+      color: var(--khaki-dark);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .welcome-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--slate-dark);
+      line-height: 1.25;
+      margin-bottom: 18px;
+    }
+
+    .welcome-desc {
+      font-size: 16px;
+      color: var(--slate-muted);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .benefit-card {
+      background: var(--bg-khaki-bone);
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+      justify-content: flex-start;
+    }
+
+    .benefit-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .benefit-card h4 {
+      font-size: 16px;
+      color: var(--khaki-dark);
+      margin-bottom: 6px;
+    }
+
+    .benefit-card p {
+      font-size: 13px;
+      color: var(--slate-muted);
+      line-height: 1.4;
+    }
+
+    .btn-cta-primary {
+      background-color: var(--khaki-dark);
+      color: white;
+      border: none;
+      padding: 18px 44px;
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(88, 81, 49, 0.25);
+      transition: all 0.25s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .btn-cta-primary:hover {
+      background-color: #403B23;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(88, 81, 49, 0.35);
+    }
+
+    /* LARGE FULL-SCREEN FLASHCARDS FOR TASK 0 */
+    .large-flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 36px;
+    }
+
+    .flip-card-large {
+      background-color: transparent;
+      height: 220px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card-large.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flip-card-front {
+      background-color: white;
+      border: 2px solid var(--khaki-border);
+      color: var(--khaki-dark);
+    }
+
+    .flip-card-front strong {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--khaki-dark);
+      background: var(--khaki-light);
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .flip-card-front .tap-hint {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--slate-muted);
+      margin-top: 14px;
+      font-weight: 600;
+    }
+
+    .flip-card-back {
+      background-color: var(--khaki-light);
+      border: 2px solid var(--khaki-sage);
+      color: var(--slate-dark);
+      transform: rotateY(180deg);
+      font-size: 12px;
+      line-height: 1.4;
+      text-align: center;
+      justify-content: space-around;
+    }
+
+    .flip-card-back strong {
+      color: var(--khaki-dark);
+      font-size: 14px;
+    }
+
+    .flip-card-back .dict-def {
+      font-style: italic;
+      color: #3B443F;
+    }
+
+    .flip-card-back .context-box {
+      background: rgba(255, 255, 255, 0.7);
+      border-left: 3px solid var(--khaki-sage);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--slate-dark);
+      text-align: left;
+      width: 100%;
+    }
+
+    .flip-card-back .context-box b {
+      color: var(--khaki-dark);
+    }
+
+    /* TASK 1: MATCHING */
+    .matching-columns {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .col-header {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--khaki-dark);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .card {
+      background: var(--bg-khaki-bone);
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card:hover { 
+      border-color: var(--khaki-sage);
+      background-color: var(--khaki-light);
+    }
+
+    .card.selected {
+      background: var(--khaki-dark);
+      color: white;
+      border-color: var(--khaki-dark);
+    }
+
+    .card.matched {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* TASK 2 & 3: SENTENCE BOX & SELECTION CHIPS */
+    .sentence-box {
+      background: var(--bg-khaki-bone);
+      padding: 28px;
+      border-radius: var(--radius-md);
+      font-size: 19px;
+      line-height: 1.5;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 28px;
+      border: 1px solid var(--khaki-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .chip-btn {
+      background-color: var(--khaki-light);
+      color: var(--slate-dark);
+      border: 1px solid var(--khaki-border);
+      border-radius: 24px;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip-btn:hover {
+      background-color: var(--khaki-sage);
+      color: white;
+      border-color: var(--khaki-sage);
+      transform: translateY(-2px);
+    }
+
+    /* TASK 4: BINARY BUTTONS & EXPLANATIONS */
+    .binary-buttons {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .btn-val {
+      flex: 1;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.1s;
+    }
+
+    .btn-val:active { transform: scale(0.97); }
+    .btn-correct { background-color: var(--khaki-sage); }
+    .btn-incorrect { background-color: var(--terracotta); }
+
+    .explanation-card {
+      width: 100%;
+      background-color: #FEF2F2;
+      border: 2px solid var(--flash-red-bg);
+      color: #991B1B;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    /* TASK 5: PRODUCTION & MULTIPLE SAMPLE ANSWERS */
+    .input-box {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    .sample-answer-card {
+      width: 100%;
+      background-color: var(--khaki-light);
+      border: 1px dashed var(--khaki-sage);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      font-size: 14px;
+      color: var(--slate-dark);
+      margin-bottom: 20px;
+      display: none;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .sample-answer-card ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .sample-answer-card li {
+      margin-bottom: 8px;
+    }
+
+    .sample-answer-card li:last-child {
+      margin-bottom: 0;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .btn-action {
+      flex: 1;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-secondary { background-color: var(--khaki-light); color: var(--slate-dark); }
+    .btn-primary { background-color: var(--khaki-dark); color: white; }
+
+    /* MILESTONE / REWARD SCREEN STYLING */
+    .milestone-card {
+      text-align: center;
+      max-width: 680px;
+      padding: 20px 10px;
+    }
+
+    .milestone-icon {
+      font-size: 90px;
+      margin: 10px 0 20px 0;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .milestone-badge {
+      display: inline-block;
+      background-color: var(--khaki-light);
+      color: var(--khaki-dark);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .milestone-quote {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--slate-dark);
+      background-color: var(--bg-khaki-bone);
+      padding: 22px;
+      border-radius: var(--radius-md);
+      border-left: 5px solid var(--khaki-dark);
+      margin: 24px 0 32px 0;
+      text-align: left;
+    }
+
+    /* FINALE STYLING */
+    .finale-card {
+      text-align: center;
+      padding: 10px;
+      max-width: 820px;
+    }
+
+    .finale-img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--khaki-border);
+      margin: 18px 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .finale-quote {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--slate-dark);
+      background-color: var(--khaki-light);
+      padding: 24px;
+      border-radius: var(--radius-md);
+      border-left: 5px solid var(--khaki-dark);
+      margin-top: 18px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container" id="app-card">
+  <!-- BOTANICAL PROGRESS HEADER -->
+  <div class="progress-header" id="progress-header">
+    <div class="stages-container">
+      <div class="stage-item active unlocked" id="stage-0" onclick="jumpToTask(0)">
+        <div class="icon-circle">🌱</div>
+        <span class="stage-label">Soil</span>
+      </div>
+      <div class="stage-item" id="stage-1" onclick="jumpToTask(1)">
+        <div class="icon-circle">🌱</div>
+        <span class="stage-label">Seed</span>
+      </div>
+      <div class="stage-item" id="stage-2" onclick="jumpToTask(2)">
+        <div class="icon-circle">🌿</div>
+        <span class="stage-label">Sprout</span>
+      </div>
+      <div class="stage-item" id="stage-3" onclick="jumpToTask(3)">
+        <div class="icon-circle">🪴</div>
+        <span class="stage-label">Growing</span>
+      </div>
+      <div class="stage-item" id="stage-4" onclick="jumpToTask(4)">
+        <div class="icon-circle">🌳</div>
+        <span class="stage-label">Tree</span>
+      </div>
+      <div class="stage-item" id="stage-5" onclick="jumpToTask(5)">
+        <div class="icon-circle">🍎</div>
+        <span class="stage-label">Fruit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TASK VIEWPORT -->
+  <div class="task-content" id="task-container">
+    <!-- Rendered dynamically -->
+  </div>
+</div>
+
+<script>
+  // --- DATASETS ---
+
+  const matchingPairs = [
+    { 
+      verb: "jump on", 
+      synonym: "join / attend",
+      oxfordDef: "To join or participate eagerly in an activity or communication channel.",
+      context: "Can everyone <b>jump on</b> the sync call to review the urgent fix?"
+    },
+    { 
+      verb: "kick off", 
+      synonym: "begin / start",
+      oxfordDef: "To start an event, meeting, discussion, or activity.",
+      context: "Let's <b>kick off</b> today's sprint planning with a quick demo."
+    },
+    { 
+      verb: "get into", 
+      synonym: "become involved in / start",
+      oxfordDef: "To become involved in or start doing a particular activity, subject, or task.",
+      context: "She wants to <b>get into</b> machine learning workflows this quarter."
+    },
+    { 
+      verb: "set out", 
+      synonym: "outline / explain",
+      oxfordDef: "To present, explain, or outline facts, plans, or reasons clearly in detail.",
+      context: "The tech lead <b>set out</b> clear guidelines for API security."
+    },
+    { 
+      verb: "map out", 
+      synonym: "plan in detail",
+      oxfordDef: "To plan or arrange the details of something carefully and systematically.",
+      context: "We need to <b>map out</b> our release roadmap before Q3 starts."
+    },
+    { 
+      verb: "come out", 
+      synonym: "be released / launch",
+      oxfordDef: "To become available to the public; to be published, launched, or made public.",
+      context: "Version 2.0 of our platform is scheduled to <b>come out</b> next month."
+    },
+    { 
+      verb: "get through", 
+      synonym: "cover / complete",
+      oxfordDef: "To complete or deal with a task, a list of items, or a period of work.",
+      context: "Did you manage to <b>get through</b> all 15 bug reports today?"
+    },
+    { 
+      verb: "set aside", 
+      synonym: "reserve",
+      oxfordDef: "To save, reserve, or keep time or money available for a specific purpose.",
+      context: "Please <b>set aside</b> two hours tomorrow for deep code review."
+    },
+    { 
+      verb: "talk through", 
+      synonym: "discuss carefully",
+      oxfordDef: "To discuss something thoroughly in order to reach an agreement or understanding.",
+      context: "Let's sit down and <b>talk through</b> the outage incident step by step."
+    }
+  ];
+
+  const task2Sentences = [
+    { text: "Thanks everyone for jumping ... the emergency Zoom call.", answer: "on" },
+    { text: "Let's kick things ... with a quick status report from DevOps.", answer: "off" },
+    { text: "She wants to get ... machine learning algorithms this quarter.", answer: "into" },
+    { text: "The lead architect set ... the guidelines for the new API.", answer: "out" },
+    { text: "We mapped ... the sprint schedule for the entire quarter.", answer: "out" },
+    { text: "The security patch is coming ... at midnight tonight.", answer: "out" },
+    { text: "Can we get ... all 15 bug reports before the standup ends?", answer: "through" },
+    { text: "Please set ... two hours for code review tomorrow.", answer: "aside" },
+    { text: "Let's talk things ... with product design before pushing changes.", answer: "through" },
+    { text: "Can everyone jump ... the emergency sync call right now?", answer: "on" },
+    { text: "The keynote speaker kicked ... the conference with a demo.", answer: "off" },
+    { text: "After onboarding, new engineers can get ... active sprint tasks.", answer: "into" },
+    { text: "This deck sets ... our cloud migration plan.", answer: "out" },
+    { text: "They mapped ... the database schema on the whiteboard.", answer: "out" },
+    { text: "Version 2.0 will come ... after QA completes testing.", answer: "out" },
+    { text: "Did you manage to get ... the automated test suite?", answer: "through" },
+    { text: "We need to set ... extra server budget for high traffic.", answer: "aside" },
+    { text: "We sat down to talk ... the outage incident step by step.", answer: "through" },
+    { text: "I'll jump ... the client call as soon as my build finishes.", answer: "on" },
+    { text: "Let's kick ... the meeting by reviewing the pull requests.", answer: "off" }
+  ];
+
+  let initialTask3Deck = [
+    { text: "We need to ________ our strategy before meeting with stakeholders.", options: ["map out", "come out", "jump on"], answer: "map out" },
+    { text: "Let's ________ the session with a product demonstration.", options: ["kick off", "set aside", "talk through"], answer: "kick off" },
+    { text: "When will the updated iOS app ________?", options: ["come out", "set out", "get into"], answer: "come out" },
+    { text: "We should ________ 30 minutes to address client questions.", options: ["set aside", "jump on", "map out"], answer: "set aside" },
+    { text: "It took us two hours to ________ all the quarterly metrics.", options: ["get through", "come out", "kick off"], answer: "get through" },
+    { text: "I'd like to ________ open-source development this weekend.", options: ["get into", "set out", "jump on"], answer: "get into" },
+    { text: "The founder ________ the vision during yesterday's town hall.", options: ["set out", "talk through", "come out"], answer: "set out" },
+    { text: "Feel free to ________ the video call whenever you're ready.", options: ["jump on", "map out", "get through"], answer: "jump on" },
+    { text: "We need to ________ the contract terms with legal.", options: ["talk through", "come out", "kick off"], answer: "talk through" },
+    { text: "Our team managed to ________ the backlog in record time.", options: ["get through", "set out", "get into"], answer: "get through" },
+    { text: "The new SaaS platform will ________ Q3.", options: ["come out", "jump on", "set aside"], answer: "come out" },
+    { text: "Before writing code, let's ________ the user flow.", options: ["map out", "talk through", "kick off"], answer: "map out" },
+    { text: "Let's ________ the meeting by introducing our new CTO.", options: ["kick off", "get into", "set out"], answer: "kick off" },
+    { text: "Did you ________ time for employee training this month?", options: ["set aside", "jump on", "get through"], answer: "set aside" },
+    { text: "The whitepaper ________ the technical advantages of microservices.", options: ["sets out", "comes out", "jumps on"], answer: "sets out" },
+    { text: "I'll ________ that call right after I finish this deployment.", options: ["jump on", "map out", "talk through"], answer: "jump on" },
+    { text: "Many junior developers want to ________ cybersecurity projects.", options: ["get into", "come out", "set aside"], answer: "get into" },
+    { text: "We should ________ these customer feedback reports together.", options: ["talk through", "kick off", "set out"], answer: "talk through" },
+    { text: "The enterprise solution will ________ early next year.", options: ["come out", "map out", "get through"], answer: "come out" },
+    { text: "How fast can we ________ these pull request approvals?", options: ["get through", "jump on", "set out"], answer: "get through" }
+  ];
+
+  let initialTask4Deck = [
+    { text: "The team set out the software requirements in detail.", correct: true, explanation: "Correct! 'Set out' means to outline or explain clearly." },
+    { text: "We should jump off the client call right away.", correct: false, explanation: "Incorrect. The correct phrasal verb is 'jump on' (to join a call or task eagerly/quickly)." },
+    { text: "Her new cybersecurity book will come out next month.", correct: true, explanation: "Correct! 'Come out' means to be released or published." },
+    { text: "Let's set away an hour for sprint planning.", correct: false, explanation: "Incorrect. The correct phrasal verb is 'set aside' (to reserve time or resources)." },
+    { text: "We need to talk things through before launching the campaign.", correct: true, explanation: "Correct! 'Talk through' means to discuss something carefully." },
+    { text: "Can you get over all these logs before noon?", correct: false, explanation: "Incorrect. The correct phrase is 'get through' (to finish or complete a task/list)." },
+    { text: "They mapped out the system architecture on the board.", correct: true, explanation: "Correct! 'Map out' means to plan something in detail." },
+    { text: "Let's kick things away with a team check-in.", correct: false, explanation: "Incorrect. The correct phrasal verb is 'kick off' (to begin or start)." },
+    { text: "She wants to get into cloud automation next month.", correct: true, explanation: "Correct! 'Get into' means to become involved in or start an activity." },
+    { text: "Many engineers jumped on the sync meeting to discuss the outage.", correct: true, explanation: "Correct! 'Jumped on' means joined or attended eagerly." },
+    { text: "The deployment will come in at 2 AM tonight.", correct: false, explanation: "Incorrect. Should be 'come out' (be released or launched)." },
+    { text: "He set out his concerns regarding cloud compliance.", correct: true, explanation: "Correct! 'Set out' means presented or outlined clearly." },
+    { text: "We must map in the network dependencies first.", correct: false, explanation: "Incorrect. The correct expression is 'map out' (plan/identify details)." },
+    { text: "Did you set aside time for unit testing?", correct: true, explanation: "Correct! 'Set aside' means reserved time." },
+    { text: "Let's kick off the workshop with a quick quiz.", correct: true, explanation: "Correct! 'Kick off' means start or launch an event." },
+    { text: "We spent two hours talking off the strategy.", correct: false, explanation: "Incorrect. The correct preposition is 'talk through' (discuss thoroughly)." },
+    { text: "How quickly can we get through this compliance audit?", correct: true, explanation: "Correct! 'Get through' means to complete or deal with a long task." },
+    { text: "I want to get on automated testing tools next.", correct: false, explanation: "Incorrect. The correct phrasal verb is 'get into' (start doing/becoming involved in)." },
+    { text: "The fix came out in patch release 1.0.4.", correct: true, explanation: "Correct! 'Came out' means was released." },
+    { text: "They set out a clear strategy for expansion.", correct: true, explanation: "Correct! 'Set out' means outlined or defined." }
+  ];
+
+  let task3Deck = JSON.parse(JSON.stringify(initialTask3Deck));
+  let task4Deck = JSON.parse(JSON.stringify(initialTask4Deck));
+
+  const task5Questions = [
+    { 
+      verb: "kick off", 
+      q: "How do you usually like to kick off a new project meeting with your team?", 
+      samples: [
+        "I like to kick off meetings by briefly reviewing the agenda and aligning on our key goals.",
+        "We usually kick off by letting everyone share a quick round of status updates.",
+        "To kick off effectively, I prefer to start with a short demo of what we accomplished last sprint.",
+        "I always kick off project kickoffs by setting clear expectations and defining deliverables.",
+        "Normally, I kick off by introducing the core stakeholders and stating the main objective."
+      ] 
+    },
+    { 
+      verb: "jump on", 
+      q: "How do you feel when someone asks you to jump on an unscheduled call?", 
+      samples: [
+        "If I'm in deep focus, I find it slightly disruptive when someone asks me to jump on a call unexpectedly.",
+        "I don't mind jumping on an unscheduled call if it helps resolve a critical blocker quickly.",
+        "I usually prefer a quick Slack message first before jumping on an impromptu call.",
+        "It depends on the urgency—I'm happy to jump on a call if there's an emergency deployment issue.",
+        "I try to stay flexible, so I'm generally fine jumping on a brief call if my schedule allows."
+      ] 
+    },
+    { 
+      verb: "get into", 
+      q: "Is there a project or topic you've been excited to get into lately?", 
+      samples: [
+        "I've been really excited to get into artificial intelligence workflows and automated testing tools.",
+        "Lately, I've been eager to get into cloud architecture optimization for our backend services.",
+        "I'm looking forward to getting into user experience design for our upcoming mobile update.",
+        "I've been wanting to get into cross-functional project management to expand my skill set.",
+        "Recently, I got into data analytics to help our team make more evidence-based decisions."
+      ] 
+    },
+    { 
+      verb: "map out", 
+      q: "How do you map out your key tasks for a busy week or project?", 
+      samples: [
+        "I map out my priorities every Monday morning using a digital kanban board.",
+        "To map out my schedule, I break large milestones down into daily actionable steps.",
+        "I map out key deliverables by coordinating closely with project managers and leads.",
+        "Using time-blocking on my calendar helps me clearly map out focused work sessions.",
+        "I map out critical dependencies first so my team knows exactly what needs to be delivered."
+      ] 
+    },
+    { 
+      verb: "come out", 
+      q: "When is your team's next major deliverable or product scheduled to come out?", 
+      samples: [
+        "Our next major software release is scheduled to come out by the end of Q3.",
+        "The updated user portal should come out early next month after QA sign-off.",
+        "We have a major feature patch coming out at midnight tonight.",
+        "The new client onboarding deck is expected to come out by Friday afternoon.",
+        "Version 2.0 of our platform will come out as soon as security audits complete."
+      ] 
+    },
+    { 
+      verb: "set aside", 
+      q: "How much time do you set aside each week for learning and skill development?", 
+      samples: [
+        "I try to set aside about two hours every Friday afternoon for professional learning.",
+        "Our company encourages us to set aside 10% of our week for skill development.",
+        "I set aside 30 minutes every morning to read technical documentation and industry news.",
+        "I always set aside dedicated deep-work blocks so I can learn new tools uninterrupted.",
+        "It's tough during busy sprints, but I aim to set aside at least one hour weekly for research."
+      ] 
+    },
+    { 
+      verb: "get through", 
+      q: "What strategies help you get through a heavy workload on busy days?", 
+      samples: [
+        "Turning off non-essential notifications helps me get through my task list efficiently.",
+        "I prioritize my top three high-impact tasks first thing in the morning to get through the day smoothly.",
+        "Taking short, structured breaks enables me to get through heavy workloads without burnout.",
+        "I use the Pomodoro technique to stay focused and get through complex technical tasks.",
+        "Delegating secondary tasks to team members helps us get through large sprint backlogs."
+      ] 
+    },
+    { 
+      verb: "talk through", 
+      q: "When did you last have to talk through a complex idea with people who weren't familiar with it?", 
+      samples: [
+        "Just yesterday, I had to talk through our cloud migration plan with non-technical stakeholders.",
+        "Last week during a client pitch, I talked through our technical architecture using simple analogies.",
+        "I recently had to talk through a new API integration with our junior developers step by step.",
+        "During my last presentation, I talked through complex data models with the leadership team.",
+        "Last sprint, I talked through a complicated security compliance change with product design."
+      ] 
+    },
+    { 
+      verb: "set out", 
+      q: "Can you briefly set out your primary professional goals for this quarter?", 
+      samples: [
+        "This quarter, I want to set out a clearer roadmap for automated test coverage across our apps.",
+        "My main goal is to set out streamlined documentation for our engineering workflows.",
+        "I plan to set out a structured onboarding process for new hires joining our department.",
+        "I aim to set out measurable benchmarks for improving system performance and response times.",
+        "I want to set out key strategic objectives that align our engineering team with sales goals."
+      ] 
+    }
+  ];
+
+  const milestoneData = {
+    0: {
+      title: "Root System Established!",
+      badge: "Soil Stage Complete",
+      icon: "🌱",
+      quote: "Excellent start! You've successfully absorbed the core vocabulary in context. Your roots are grounded—now let's move to matching phrasal verbs with their definitions!",
+      nextTask: 1
+    },
+    1: {
+      title: "Seed Planted!",
+      badge: "Seed Stage Complete",
+      icon: "🌰",
+      quote: "Great job matching synonyms! You've planted the seed of phrasal verb recognition. Let's nourish it further in Task 2 with real-world IT preposition practice!",
+      nextTask: 2
+    },
+    2: {
+      title: "First Sprout Emerged!",
+      badge: "Sprout Stage Complete",
+      icon: "🌿",
+      quote: "Fantastic work completing 20 IT preposition challenges! Your language confidence is sprouting quickly. Time to make deeper connections in Task 3's gap fills!",
+      nextTask: 3
+    },
+    3: {
+      title: "Plant Growing Strong!",
+      badge: "Growing Stage Complete",
+      icon: "🪴",
+      quote: "Impressive accuracy! You've mastered contextual usage across complex business scenarios. Next, test your analytical sharp eye in Task 4's sentence validation!",
+      nextTask: 4
+    },
+    4: {
+      title: "Tree Fully Grown!",
+      badge: "Tree Stage Complete",
+      icon: "🌳",
+      quote: "Outstanding sentence validation skills! Your linguistic tree is tall, sturdy, and fully developed. Now, step into Task 5 to produce your own active spoken responses!",
+      nextTask: 5
+    }
+  };
+
+  // --- APP STATE ---
+  let currentTask = -1; // -1 represents Welcome Screen
+  let isShowingMilestone = false;
+  let activeMilestoneStage = null;
+  let maxUnlockedTask = 0;
+
+  let t1SelectedVerb = null;
+  let t1SelectedSyn = null;
+  let t1MatchesLeft = matchingPairs.length;
+  let t1Lives = 3;
+
+  let t2Index = 0;
+  let t2Lives = 3;
+
+  let t3Index = 0;
+  let t3Lives = 3;
+
+  let t4Index = 0;
+  let t4Lives = 3;
+
+  let t5Index = 0;
+
+  // RESET TASK FUNCTION
+  function resetCurrentTask() {
+    if (currentTask === 0) {
+      document.querySelectorAll('.flip-card-large').forEach(c => c.classList.remove('flipped'));
+    } else if (currentTask === 1) {
+      delete window.t1Verbs;
+      delete window.t1Synonyms;
+      t1SelectedVerb = null;
+      t1SelectedSyn = null;
+      t1MatchesLeft = matchingPairs.length;
+      t1Lives = 3;
+    } else if (currentTask === 2) {
+      t2Index = 0;
+      t2Lives = 3;
+    } else if (currentTask === 3) {
+      t3Index = 0;
+      t3Lives = 3;
+      task3Deck = JSON.parse(JSON.stringify(initialTask3Deck));
+    } else if (currentTask === 4) {
+      t4Index = 0;
+      t4Lives = 3;
+      task4Deck = JSON.parse(JSON.stringify(initialTask4Deck));
+    } else if (currentTask === 5) {
+      t5Index = 0;
+    }
+    renderTask();
+  }
+
+  // --- NAVIGATION CONTROLLERS ---
+  function jumpToTask(taskNum) {
+    if (taskNum <= maxUnlockedTask && currentTask !== -1) {
+      isShowingMilestone = false;
+      currentTask = taskNum;
+      renderTask();
+    }
+  }
+
+  function startNextTaskFromTask0() {
+    triggerMilestone(0);
+  }
+
+  function goPreviousTask() {
+    if (isShowingMilestone) {
+      isShowingMilestone = false;
+      renderTask();
+      return;
+    }
+    if (currentTask > 0) {
+      currentTask--;
+      renderTask();
+    }
+  }
+
+  function startModule() {
+    currentTask = 0;
+    document.getElementById('progress-header').style.display = 'block';
+    renderTask();
+  }
+
+  function triggerMilestone(completedTaskNum) {
+    isShowingMilestone = true;
+    activeMilestoneStage = completedTaskNum;
+    maxUnlockedTask = Math.max(maxUnlockedTask, completedTaskNum + 1);
+    renderTask();
+  }
+
+  function proceedFromMilestone() {
+    isShowingMilestone = false;
+    currentTask = milestoneData[activeMilestoneStage].nextTask;
+    renderTask();
+  }
+
+  function updateProgressUI() {
+    if (currentTask < 0) return;
+    maxUnlockedTask = Math.max(maxUnlockedTask, currentTask);
+    
+    for (let i = 0; i <= 5; i++) {
+      const el = document.getElementById(`stage-${i}`);
+      el.classList.remove('active', 'completed', 'unlocked');
+      
+      if (i <= maxUnlockedTask) {
+        el.classList.add('unlocked');
+      }
+      if (i < currentTask || (isShowingMilestone && i <= activeMilestoneStage)) {
+        el.classList.add('completed');
+      }
+      if (i === currentTask && !isShowingMilestone) {
+        el.classList.add('active');
+      }
+    }
+  }
+
+  function renderTask() {
+    const container = document.getElementById('task-container');
+
+    // --- WELCOME SCREEN ---
+    if (currentTask === -1) {
+      document.getElementById('progress-header').style.display = 'none';
+      container.innerHTML = `
+        <div class="welcome-hero">
+          <span class="welcome-badge">Executive English Mastery</span>
+          <h1 class="welcome-title">Master Executive & IT Phrasal Verbs</h1>
+          <p class="welcome-desc">Transform natural business English into your competitive career advantage. Learn the 9 essential phrasal verbs top professionals use every day to lead meetings, present roadmaps, and solve critical issues with authority.</p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Command Meetings" class="benefit-img" />
+              <h4>Command Meetings</h4>
+              <p>Learn how to smoothly <em>start</em> presentations, drive agendas, and hold attention.</p>
+            </div>
+            <div class="benefit-card">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Project Clarity" class="benefit-img" />
+              <h4>Project Clarity</h4>
+              <p>Master how to clearly <em>frame</em> strategies, <em>outline</em> project roadmaps, and manage deliverables.</p>
+            </div>
+            <div class="benefit-card">
+              <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Career Advancement" class="benefit-img" />
+              <h4>Career Advancement</h4>
+              <p>Speak naturally with international clients and leadership.</p>
+            </div>
+          </div>
+
+          <button class="btn-cta-primary" onclick="startModule()">Begin Learning Journey ➔</button>
+        </div>
+      `;
+      return;
+    }
+
+    updateProgressUI();
+
+    // --- INTER-TASK MILESTONE / REWARD SLIDE ---
+    if (isShowingMilestone && milestoneData[activeMilestoneStage]) {
+      const data = milestoneData[activeMilestoneStage];
+      container.innerHTML = `
+        <div class="milestone-card">
+          <span class="milestone-badge">${data.badge}</span>
+          <div class="milestone-icon">${data.icon}</div>
+          <h2 class="welcome-title">${data.title}</h2>
+          <div class="milestone-quote">${data.quote}</div>
+          <button class="btn-cta-primary" type="button" onclick="proceedFromMilestone()">
+            Continue to Task ${data.nextTask} ➔
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    const navBarHtml = `
+      <div class="task-nav-bar">
+        ${currentTask > 0 ? `<button class="btn-nav" onclick="goPreviousTask()">← Back to Task ${currentTask - 1}</button>` : '<div></div>'}
+        <button class="btn-nav" onclick="resetCurrentTask()">🔄 Reset Task</button>
+      </div>
+    `;
+
+    // --- TASK 0: SOIL (PROMINENT PHRASAL VERBS WITH CONTEXTS) ---
+    if (currentTask === 0) {
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 0: Soil (Contextual Immersion)</h2>
+        <p class="task-instruction">Welcome to your vocabulary foundation! Explore the core phrasal verbs below. <strong>Click each card to flip it</strong> and reveal its Oxford Dictionary definition and context before starting practice.</p>
+
+        <div class="large-flashcards-grid">
+          ${matchingPairs.map(item => `
+            <div class="flip-card-large" onclick="this.classList.toggle('flipped')">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <strong>${item.verb}</strong>
+                  <span class="tap-hint">Tap to flip 🔄</span>
+                </div>
+                <div class="flip-card-back">
+                  <strong>Oxford Definition:</strong>
+                  <div class="dict-def">"${item.oxfordDef}"</div>
+                  <div class="context-box">${item.context}</div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <button class="btn-cta-primary" type="button" onclick="startNextTaskFromTask0()">Start Practice (Task 1) ➔</button>
+      `;
+    }
+
+    // --- TASK 1 (WITH LIFE COUNT SYSTEM) ---
+    else if (currentTask === 1) {
+      if (!window.t1Verbs) {
+        window.t1Verbs = matchingPairs.map((p, i) => ({ id: i, text: p.verb, matched: false }));
+        window.t1Synonyms = matchingPairs.map((p, i) => ({ id: i, text: p.synonym, matched: false })).sort(() => Math.random() - 0.5);
+        t1Lives = 3;
+        t1MatchesLeft = matchingPairs.length;
+      }
+
+      const livesDisplay = "❤️ ".repeat(t1Lives) + "🖤 ".repeat(3 - t1Lives);
+
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 1: Seed (Matching)</h2>
+        <p class="task-instruction">Select a phrasal verb on the left, then select its matching synonym on the right.</p>
+        <div class="progress-tracker-text">Attempts Remaining: ${livesDisplay}</div>
+        <div class="matching-columns">
+          <div class="col">
+            <div class="col-header">Phrasal Verbs</div>
+            ${window.t1Verbs.map((v, i) => `
+              <div class="card ${v.matched ? 'matched' : ''} ${t1SelectedVerb === i ? 'selected' : ''}" onclick="handleT1VerbClick(${i})">${v.text}</div>
+            `).join('')}
+          </div>
+          <div class="col">
+            <div class="col-header">Synonyms</div>
+            ${window.t1Synonyms.map((s, i) => `
+              <div class="card ${s.matched ? 'matched' : ''} ${t1SelectedSyn === i ? 'selected' : ''}" onclick="handleT1SynClick(${i})">${s.text}</div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // --- TASK 2 (WITH LIFE COUNT SYSTEM) ---
+    else if (currentTask === 2) {
+      if (t2Index >= task2Sentences.length) {
+        triggerMilestone(2);
+        return;
+      }
+      const item = task2Sentences[t2Index];
+      const preps = ["off", "out", "aside", "through", "into", "on"];
+      const livesDisplay = "❤️ ".repeat(t2Lives) + "🖤 ".repeat(3 - t2Lives);
+
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 2: Sprout (IT Prepositions)</h2>
+        <p class="task-instruction">Select the correct preposition to complete the sentence.</p>
+        <div class="progress-tracker-text">Sentence ${t2Index + 1} of ${task2Sentences.length} &nbsp;|&nbsp; Attempts Remaining: ${livesDisplay}</div>
+        <div class="sentence-box">${item.text}</div>
+        <div class="chip-container">
+          ${preps.map(p => `<button class="chip-btn" onclick="handleT2Choice('${p}')">${p}</button>`).join('')}
+        </div>
+      `;
+    }
+
+    // --- TASK 3 (WITH LIFE COUNT SYSTEM) ---
+    else if (currentTask === 3) {
+      if (t3Index >= task3Deck.length) {
+        triggerMilestone(3);
+        return;
+      }
+      const item = task3Deck[t3Index];
+      const livesDisplay = "❤️ ".repeat(t3Lives) + "🖤 ".repeat(3 - t3Lives);
+
+      if (!item.shuffledOptions) {
+        item.shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
+      }
+
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 3: Growing Plant (Gap Fill)</h2>
+        <p class="task-instruction">Choose the correct phrasal verb chip for the context.</p>
+        <div class="progress-tracker-text">Card ${t3Index + 1} (Remaining: ${task3Deck.length - t3Index}) &nbsp;|&nbsp; Attempts Remaining: ${livesDisplay}</div>
+        <div class="sentence-box">${item.text}</div>
+        <div class="chip-container">
+          ${item.shuffledOptions.map(opt => `<button class="chip-btn" onclick="handleT3Choice('${opt}')">${opt}</button>`).join('')}
+        </div>
+      `;
+    }
+
+    // --- TASK 4 (WITH LIFE COUNT SYSTEM) ---
+    else if (currentTask === 4) {
+      if (t4Index >= task4Deck.length) {
+        triggerMilestone(4);
+        return;
+      }
+      const item = task4Deck[t4Index];
+      const livesDisplay = "❤️ ".repeat(t4Lives) + "🖤 ".repeat(3 - t4Lives);
+
+      const options = [
+        { label: "Correct 🟢", value: true, class: "btn-correct" },
+        { label: "Incorrect 🔴", value: false, class: "btn-incorrect" }
+      ];
+      if (!item.btnOrder) {
+        item.btnOrder = options.sort(() => Math.random() - 0.5);
+      }
+
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 4: Tree (Sentence Validation)</h2>
+        <p class="task-instruction">Is the phrasal verb used correctly in this context?</p>
+        <div class="progress-tracker-text">Card ${t4Index + 1} (Remaining: ${task4Deck.length - t4Index}) &nbsp;|&nbsp; Attempts Remaining: ${livesDisplay}</div>
+        <div class="sentence-box">${item.text}</div>
+        <div class="binary-buttons">
+          ${item.btnOrder.map(b => `
+            <button class="btn-val ${b.class}" onclick="handleT4Choice(${b.value})">${b.label}</button>
+          `).join('')}
+        </div>
+        <div id="t4-explanation" class="explanation-card"></div>
+      `;
+    }
+
+    // --- TASK 5 (5 SAMPLE ANSWERS PER QUESTION) ---
+    else if (currentTask === 5) {
+      if (t5Index >= task5Questions.length) {
+        renderFruitScreen();
+        return;
+      }
+      const item = task5Questions[t5Index];
+
+      container.innerHTML = `
+        ${navBarHtml}
+        <h2 class="task-title">Task 5: Fruit (Production)</h2>
+        <p class="task-instruction">Answer the question using the target phrasal verb: <strong>${item.verb}</strong></p>
+        <div class="progress-tracker-text">Question ${t5Index + 1} of ${task5Questions.length}</div>
+        <div class="sentence-box">${item.q}</div>
+        <textarea id="t5-input" class="input-box" rows="3" placeholder="Type your answer..."></textarea>
+        <div id="sample-card" class="sample-answer-card">
+          <strong>💡 5 Model Ways to Answer:</strong>
+          <ul>
+            ${item.samples.map(sampleText => `<li>${sampleText}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="action-row">
+          <button class="btn-action btn-secondary" onclick="toggleSample()">💡 Show Sample Answers</button>
+          <button class="btn-action btn-primary" onclick="handleT5Next()">Next Question ➔</button>
+        </div>
+      `;
+    }
+  }
+
+  // --- LOGIC HANDLERS ---
+  function handleT1VerbClick(idx) {
+    if (window.t1Verbs[idx].matched) return;
+    t1SelectedVerb = idx;
+    checkT1Match();
+    renderTask();
+  }
+
+  function handleT1SynClick(idx) {
+    if (window.t1Synonyms[idx].matched) return;
+    t1SelectedSyn = idx;
+    checkT1Match();
+    renderTask();
+  }
+
+  function checkT1Match() {
+    if (t1SelectedVerb !== null && t1SelectedSyn !== null) {
+      const verbObj = window.t1Verbs[t1SelectedVerb];
+      const synObj = window.t1Synonyms[t1SelectedSyn];
+
+      if (verbObj.id === synObj.id) {
+        verbObj.matched = true;
+        synObj.matched = true;
+        t1MatchesLeft--;
+        if (t1MatchesLeft === 0) {
+          setTimeout(() => { triggerMilestone(1); }, 400);
+        }
+      } else {
+        // MISTAKE HANDLER FOR TASK 1
+        t1Lives--;
+        const appCard = document.getElementById('app-card');
+        document.body.classList.add('flash-red');
+        appCard.classList.add('card-pulse-red');
+
+        setTimeout(() => {
+          document.body.classList.remove('flash-red');
+          appCard.classList.remove('card-pulse-red');
+        }, 450);
+
+        if (t1Lives <= 0) {
+          setTimeout(() => {
+            alert("You have run out of attempts! Task 1 will start anew.");
+            resetCurrentTask();
+          }, 500);
+        }
+      }
+      t1SelectedVerb = null;
+      t1SelectedSyn = null;
+    }
+  }
+
+  function handleT2Choice(choice) {
+    if (choice === task2Sentences[t2Index].answer) {
+      t2Index++;
+      renderTask();
+    } else {
+      // MISTAKE HANDLER FOR TASK 2
+      t2Lives--;
+      const appCard = document.getElementById('app-card');
+      document.body.classList.add('flash-red');
+      appCard.classList.add('card-pulse-red');
+
+      setTimeout(() => {
+        document.body.classList.remove('flash-red');
+        appCard.classList.remove('card-pulse-red');
+      }, 450);
+
+      if (t2Lives <= 0) {
+        setTimeout(() => {
+          alert("You have run out of attempts! Task 2 will start anew.");
+          resetCurrentTask();
+        }, 500);
+      } else {
+        renderTask();
+      }
+    }
+  }
+
+  function handleT3Choice(choice) {
+    const item = task3Deck[t3Index];
+    if (choice === item.answer) {
+      t3Index++;
+      renderTask();
+    } else {
+      // MISTAKE HANDLER FOR TASK 3
+      t3Lives--;
+      const appCard = document.getElementById('app-card');
+      document.body.classList.add('flash-red');
+      appCard.classList.add('card-pulse-red');
+
+      setTimeout(() => {
+        document.body.classList.remove('flash-red');
+        appCard.classList.remove('card-pulse-red');
+      }, 450);
+
+      if (t3Lives <= 0) {
+        setTimeout(() => {
+          alert("You have run out of attempts! Task 3 will start anew.");
+          resetCurrentTask();
+        }, 500);
+      } else {
+        const recycledItem = { ...item, shuffledOptions: null };
+        task3Deck.push(recycledItem);
+        t3Index++;
+        renderTask();
+      }
+    }
+  }
+
+  function handleT4Choice(choice) {
+    const item = task4Deck[t4Index];
+    const isCorrect = choice === item.correct;
+    const appCard = document.getElementById('app-card');
+    const expCard = document.getElementById('t4-explanation');
+
+    if (isCorrect) {
+      document.body.classList.add('flash-green');
+      appCard.classList.add('card-pulse-green');
+
+      setTimeout(() => {
+        document.body.classList.remove('flash-green');
+        appCard.classList.remove('card-pulse-green');
+        t4Index++;
+        renderTask();
+      }, 450);
+    } else {
+      // MISTAKE HANDLER FOR TASK 4
+      t4Lives--;
+      document.body.classList.add('flash-red');
+      appCard.classList.add('card-pulse-red');
+      
+      expCard.innerText = `${item.explanation} (This sentence will be recycled for practice).`;
+      expCard.style.display = 'block';
+
+      if (t4Lives <= 0) {
+        setTimeout(() => {
+          alert("You have run out of attempts! Task 4 will start anew.");
+          resetCurrentTask();
+        }, 800);
+      } else {
+        const recycledItem = { ...item, btnOrder: null };
+        task4Deck.push(recycledItem);
+
+        setTimeout(() => {
+          document.body.classList.remove('flash-red');
+          appCard.classList.remove('card-pulse-red');
+          
+          setTimeout(() => {
+            t4Index++;
+            renderTask();
+          }, 1800);
+        }, 450);
+      }
+    }
+  }
+
+  function toggleSample() {
+    const card = document.getElementById('sample-card');
+    card.style.display = card.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function handleT5Next() {
+    t5Index++;
+    renderTask();
+  }
+
+  function renderFruitScreen() {
+    updateProgressUI();
+    const container = document.getElementById('task-container');
+    container.innerHTML = `
+      <div class="finale-card">
+        <h2 class="task-title">Mastery Achieved!</h2>
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Achievement Accomplished" class="finale-img" />
+        <p class="task-instruction">You've successfully cultivated your vocabulary from a seed to full executive mastery!</p>
+        <div class="finale-quote">
+          "Congratulations! By mastering these essential phrasal verbs, you can smoothly kick off any presentation, map out complex ideas with total clarity, and talk through solutions effortlessly. A strong start guarantees outstanding results, and you have everything it takes to command the room!"
+        </div>
+      </div>
+    `;
+  }
+
+  // Initialize Welcome Screen
+  renderTask();
+</script>
+
+</body>
+</html>

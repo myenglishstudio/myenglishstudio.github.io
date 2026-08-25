@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business English Practice: Interrupting Politely</title>
+    <style>
+        :root {
+            --bg-primary: #f0f4f8;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --primary-blue: #3a7bd5;
+            --deep-ice: #00d2ff;
+            --dark-slate: #1e293b;
+            --ice-accent: #e0f2fe;
+            --ice-border: #bae6fd;
+            --text-main: #334155;
+            --correct-green: #10b981;
+            --wrong-red: #ef4444;
+            --shadow: 0 10px 25px -5px rgba(58, 123, 213, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e6f0fa 0%, #d5e6f7 50%, #b9daf3 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--dark-slate);
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+        }
+
+        .task-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--ice-border);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .task-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            border-bottom: 2px solid var(--ice-accent);
+            padding-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        /* TASK 1: FLASHCARDS */
+        .flashcard-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 250px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            border: 1px solid var(--ice-border);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ffffff, #f0f9ff);
+            color: var(--dark-slate);
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            color: var(--dark-slate);
+            transform: rotateY(180deg);
+        }
+
+        .card-back .translation {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0369a1;
+            margin-bottom: 15px;
+        }
+
+        .card-back .context {
+            font-size: 15px;
+            font-style: italic;
+            color: #334155;
+            background: rgba(255,255,255,0.6);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* TASK 2: INLINE GAP INPUTS */
+        .gap-item {
+            margin-bottom: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+            padding: 4px 0;
+            background: transparent;
+            border: none;
+        }
+
+        .gap-input {
+            border: none;
+            border-bottom: 2px solid var(--primary-blue);
+            background: transparent;
+            padding: 2px 6px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-slate);
+            width: 120px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .gap-input:focus {
+            background: var(--ice-accent);
+            border-bottom-color: #0284c7;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .gap-input.correct {
+            border-bottom: 3px solid var(--correct-green);
+            background-color: #ecfdf5;
+            color: var(--correct-green);
+        }
+
+        .gap-input.wrong {
+            border-bottom: 3px solid var(--wrong-red);
+            background-color: #fef2f2;
+            color: var(--wrong-red);
+        }
+
+        .correction {
+            color: var(--correct-green);
+            font-weight: bold;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        /* TASK 3: DRAG AND DROP SCRAMBLE */
+        .scramble-item {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--ice-border);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .scramble-context {
+            font-size: 14px;
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .word-pool, .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            min-height: 48px;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .word-pool {
+            background: #e2e8f0;
+        }
+
+        .drop-zone {
+            background: #ffffff;
+            border: 2px dashed var(--ice-border);
+        }
+
+        .drop-zone.drag-over {
+            background: var(--ice-accent);
+            border-color: var(--primary-blue);
+        }
+
+        .word-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        .word-card:active {
+            cursor: grabbing;
+        }
+
+        .word-card.dragging {
+            opacity: 0.4;
+            transform: scale(1.05);
+        }
+
+        .word-card:hover {
+            border-color: var(--primary-blue);
+            background: var(--ice-accent);
+        }
+
+        .scramble-result {
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .text-correct { color: var(--correct-green); }
+        .text-wrong { color: var(--wrong-red); }
+
+        .hint-text {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: -5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Business English: Politely Interrupting</h1>
+
+    <!-- TASK 1 -->
+    <div id="task1" class="task-card active">
+        <h2>Task 1: Flashcards</h2>
+        <p class="hint-text">Click on the card to reveal the Russian translation and contextual usage.</p>
+        
+        <div class="flashcard-container" onclick="flipCard()">
+            <div id="flashcard" class="flashcard">
+                <div class="card-front">
+                    <span id="card-en">Loading...</span>
+                </div>
+                <div class="card-back">
+                    <div id="card-ru" class="translation">...</div>
+                    <div id="card-ctx" class="context">...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" style="background: #64748b;" onclick="prevCard()">Previous</button>
+            <span id="card-counter" style="font-weight: bold; color: var(--primary-blue);">1 / 16</span>
+            <button class="btn" onclick="nextCard()">Next Phrase</button>
+        </div>
+
+        <div style="text-align: right; margin-top: 30px;">
+            <button class="btn" style="background: var(--dark-slate);" onclick="showTask(2)">Go to Task 2 &rarr;</button>
+        </div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div id="task2" class="task-card">
+        <h2>Task 2: Fill in the Blanks</h2>
+        <p class="hint-text">Type the missing word inside each underline field and click "Check Answers".</p>
+        
+        <div id="gap-container"></div>
+
+        <button class="btn" onclick="checkGaps()">Check Answers</button>
+        
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn" style="background: var(--dark-slate);" onclick="showTask(3)">Go to Task 3 &rarr;</button>
+        </div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div id="task3" class="task-card">
+        <h2>Task 3: Unscramble the Sentences</h2>
+        <p class="hint-text">Hold & drag words to arrange them, reorder them, or click to move them instantly.</p>
+        
+        <div id="scramble-container"></div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn" style="background: #64748b;" onclick="showTask(2)">&larr; Back to Task 2</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = [
+        { en: "Sorry to ___ in, but could you clarify...", gap: "jump", ru: "Извините, что вклиниваюсь, но не могли бы вы уточнить...", ctx: "Context: 'Sorry to jump in, but could you clarify the deadline for this project?'" },
+        { en: "Just to ___ sure I’m following...", gap: "make", ru: "Просто чтобы убедиться, что я улавливаю суть...", ctx: "Context: 'Just to make sure I’m following, you want us to redesign the main page?'" },
+        { en: "Before we move ___ that point, can I ask...", gap: "past", ru: "Прежде чем мы перейдём дальше, могу я спросить...", ctx: "Context: 'Before we move past that point, can I ask about the budget allocations?'" },
+        { en: "Sorry, quickly—what did you ___ by...", gap: "mean", ru: "Извините, короткий вопрос — что вы имели в виду под...", ctx: "Context: 'Sorry, quickly—what did you mean by offline integration?'" },
+        { en: "If I could add a quick ___ on that...", gap: "perspective", ru: "Если я могу кратко поделиться своим взглядом на это...", ctx: "Context: 'If I could add a quick perspective on that, users usually prefer simplicity.'" },
+        { en: "Can I just jump in with an alternative ___ here?", gap: "view", ru: "Могу я вклиниться с альтернативной точкой зрения?", ctx: "Context: 'Can I just jump in with an alternative view here? I think we should delay.'" },
+        { en: "To ___ on what you're saying...", gap: "build", ru: "В дополнение к тому, что вы говорите...", ctx: "Context: 'To build on what you're saying, we can also automate the emails.'" },
+        { en: "I hear you, though I’d ___ that...", gap: "argue", ru: "Я вас понимаю, хотя я бы поспорил, что...", ctx: "Context: 'I hear you, though I’d argue that our budget is sufficient.'" },
+        { en: "Forgive the ___, but in the interest of time...", gap: "interruption", ru: "Простите, что перебиваю, но в целях экономии времени...", ctx: "Context: 'Forgive the interruption, but in the interest of time, let's move to item 3.'" },
+        { en: "Mind if I ____ us back to...", gap: "steer", ru: "Не против, если я верну нас к теме...", ctx: "Context: 'Mind if I steer us back to our main topic today?'" },
+        { en: "Before we go too far down this ___, let's...", gap: "path", ru: "Прежде чем мы уйдём слишком далеко от темы, давайте...", ctx: "Context: 'Before we go too far down this path, let's check our legal requirements.'" },
+        { en: "Sorry to cut ___, but to keep us on track...", gap: "across", ru: "Извините, что перебиваю, но чтобы не сбиваться с курса...", ctx: "Context: 'Sorry to cut across, but to keep us on track, who is taking notes?'" },
+        { en: "Can I stop you right there before I ___ this thought?", gap: "lose", ru: "Могу я остановить вас прямо сейчас, пока я не потерял мысль?", ctx: "Context: 'Can I stop you right there before I lose this thought? Did you contact the client?'" },
+        { en: "Sorry, I just need to ___ this out while it's fresh...", gap: "get", ru: "Извините, мне просто нужно высказать это, пока мысль свежа...", ctx: "Context: 'Sorry, I just need to get this out while it's fresh: we have a server error.'" },
+        { en: "Not to take over the ___, but...", gap: "floor", ru: "Не хочу перехватывать инициативу, но...", ctx: "Context: 'Not to take over the floor, but I have already prepared the slides.'" },
+        { en: "I know I’m ___ in, but I couldn't resist saying...", gap: "cutting", ru: "Я знаю, что вклиниваюсь, но не мог удержаться...", ctx: "Context: 'I know I’m cutting in, but I couldn't resist saying how great this design looks!'" }
+    ];
+
+    const scrambleData = [
+        { ctx: "1. Seeking Information & Clarity (Clarifying a point):", full: "Sorry to jump in but could you clarify that last point" },
+        { ctx: "2. Seeking Information & Clarity (Verifying understanding):", full: "Just to make sure I am following you want us to launch tomorrow" },
+        { ctx: "3. Seeking Information & Clarity (Asking before moving on):", full: "Before we move past that point can I ask a quick question" },
+        { ctx: "4. Seeking Information & Clarity (Quick question on meaning):", full: "Sorry quickly what did you mean by complete overhaul" },
+        { ctx: "5. Contributing & Expressing Views (Sharing perspective):", full: "If I could add a quick perspective on that users like simple designs" },
+        { ctx: "6. Contributing & Expressing Views (Offering alternative view):", full: "Can I just jump in with an alternative view here" },
+        { ctx: "7. Contributing & Expressing Views (Building on ideas):", full: "To build on what you are saying we can automate the emails" },
+        { ctx: "8. Contributing & Expressing Views (Respectfully counter-arguing):", full: "I hear you though I would argue that we need more budget" },
+        { ctx: "9. Conversation Management (Saving time):", full: "Forgive the interruption but in the interest of time let us move on" },
+        { ctx: "10. Conversation Management (Steering back to topic):", full: "Mind if I steer us back to our main agenda" },
+        { ctx: "11. Conversation Management (Preventing off-track discussions):", full: "Before we go too far down this path let us check the rules" },
+        { ctx: "12. Conversation Management (Keeping on track):", full: "Sorry to cut across but to keep us on track who takes notes" },
+        { ctx: "13. Psychological & Behavioural Drives (Capturing thoughts):", full: "Can I stop you right there before I lose this thought" },
+        { ctx: "14. Psychological & Behavioural Drives (Expressing fresh ideas):", full: "Sorry I just need to get this out while it is fresh" },
+        { ctx: "15. Psychological & Behavioural Drives (Taking the floor politely):", full: "Not to take over the floor but I prepared the slides" },
+        { ctx: "16. Psychological & Behavioural Drives (Spontaneous input):", full: "I know I am cutting in but I could not resist saying how great this looks" }
+    ];
+
+    // NAVIGATION
+    function showTask(taskNum) {
+        document.querySelectorAll('.task-card').forEach(card => card.classList.remove('active'));
+        document.getElementById(`task${taskNum}`).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // TASK 1: FLASHCARDS
+    let currentCardIndex = 0;
+    const cardEl = document.getElementById('flashcard');
+
+    function updateCard() {
+        cardEl.classList.remove('flipped');
+        setTimeout(() => {
+            const cleanText = data[currentCardIndex].en.replace(/_{3,4}/, data[currentCardIndex].gap);
+            document.getElementById('card-en').innerText = cleanText;
+            document.getElementById('card-ru').innerText = data[currentCardIndex].ru;
+            document.getElementById('card-ctx').innerText = data[currentCardIndex].ctx;
+            document.getElementById('card-counter').innerText = `${currentCardIndex + 1} / ${data.length}`;
+        }, 150);
+    }
+
+    function flipCard() {
+        cardEl.classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        currentCardIndex = (currentCardIndex + 1) % data.length;
+        updateCard();
+    }
+
+    function prevCard() {
+        currentCardIndex = (currentCardIndex - 1 + data.length) % data.length;
+        updateCard();
+    }
+
+    // TASK 2: INLINE GAP FILL
+    function renderGaps() {
+        const container = document.getElementById('gap-container');
+        container.innerHTML = '';
+
+        data.forEach((item, index) => {
+            const gapPattern = /_{3,4}/;
+            const parts = item.en.split(gapPattern);
+            const div = document.createElement('div');
+            div.className = 'gap-item';
+            div.innerHTML = `
+                ${index + 1}. ${parts[0]}
+                <input type="text" class="gap-input" data-answer="${item.gap}" id="gap-${index}">
+                ${parts[1] || ''}
+                <span id="corr-${index}" class="correction"></span>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function checkGaps() {
+        data.forEach((item, index) => {
+            const input = document.getElementById(`gap-${index}`);
+            const corr = document.getElementById(`corr-${index}`);
+            const val = input.value.trim().toLowerCase();
+            const target = item.gap.toLowerCase();
+
+            if (val === target) {
+                input.className = 'gap-input correct';
+                corr.innerText = '';
+            } else {
+                input.className = 'gap-input wrong';
+                corr.innerText = `(${item.gap})`;
+            }
+        });
+    }
+
+    // TASK 3: DRAG & DROP + CLICK UNSCRAMBLE
+    let draggedElement = null;
+
+    function renderScramble() {
+        const container = document.getElementById('scramble-container');
+        container.innerHTML = '';
+
+        scrambleData.forEach((item, idx) => {
+            const words = item.full.split(' ');
+            const shuffled = [...words].sort(() => Math.random() - 0.5);
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'scramble-item';
+            
+            itemDiv.innerHTML = `
+                <div class="scramble-context">${item.ctx}</div>
+                <div class="drop-zone" id="dz-${idx}"></div>
+                <div class="word-pool" id="wp-${idx}"></div>
+                <button class="btn btn-check" onclick="checkScramble(${idx})">Check</button>
+                <span class="scramble-result" id="res-${idx}"></span>
+            `;
+            container.appendChild(itemDiv);
+
+            const dz = document.getElementById(`dz-${idx}`);
+            const wp = document.getElementById(`wp-${idx}`);
+
+            [dz, wp].forEach(container => {
+                container.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    container.classList.add('drag-over');
+                    const afterElement = getDragAfterElement(container, e.clientX);
+                    if (afterElement == null) {
+                        container.appendChild(draggedElement);
+                    } else {
+                        container.insertBefore(draggedElement, afterElement);
+                    }
+                });
+
+                container.addEventListener('dragleave', () => {
+                    container.classList.remove('drag-over');
+                });
+
+                container.addEventListener('drop', () => {
+                    container.classList.remove('drag-over');
+                });
+            });
+
+            shuffled.forEach((word) => {
+                const wBtn = document.createElement('div');
+                wBtn.className = 'word-card';
+                wBtn.innerText = word;
+                wBtn.draggable = true;
+
+                // Drag Events
+                wBtn.addEventListener('dragstart', () => {
+                    draggedElement = wBtn;
+                    wBtn.classList.add('dragging');
+                });
+
+                wBtn.addEventListener('dragend', () => {
+                    draggedElement = null;
+                    wBtn.classList.remove('dragging');
+                });
+
+                // Fallback Click Event
+                wBtn.onclick = () => {
+                    if (wBtn.parentElement === wp) {
+                        dz.appendChild(wBtn);
+                    } else {
+                        wp.appendChild(wBtn);
+                    }
+                };
+
+                wp.appendChild(wBtn);
+            });
+        });
+    }
+
+    function getDragAfterElement(container, x) {
+        const draggableElements = [...container.querySelectorAll('.word-card:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = x - box.left - box.width / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function checkScramble(idx) {
+        const dz = document.getElementById(`dz-${idx}`);
+        const res = document.getElementById(`res-${idx}`);
+        const userWords = Array.from(dz.children).map(c => c.innerText.trim());
+        const targetWords = scrambleData[idx].full.split(' ');
+
+        if (userWords.join(' ') === targetWords.join(' ')) {
+            res.innerText = "✓ Correct!";
+            res.className = "scramble-result text-correct";
+        } else {
+            res.innerText = "✗ Try again!";
+            res.className = "scramble-result text-wrong";
+        }
+    }
+
+    // INIT
+    window.onload = () => {
+        updateCard();
+        renderGaps();
+        renderScramble();
+    };
+</script>
+
+</body>
+</html>

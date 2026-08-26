@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Idioms - Step-by-Step Practice</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-overlay: rgba(248, 250, 252, 0.88);
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --accent: #f0fdf4;
+            --accent-border: #86efac;
+            --ccq-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2.5rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 2.25rem;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .progress-bar {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2.75rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .context {
+            font-size: 1.35rem;
+            color: #1e293b;
+            background-color: #f8fafc;
+            padding: 1.6rem;
+            border-left: 6px solid var(--primary);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .context strong {
+            color: var(--primary);
+            font-size: 1.45rem;
+            background-color: #dbeafe;
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.6rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #334155;
+        }
+
+        .btn-answer {
+            background-color: #0891b2;
+        }
+
+        .btn-answer:hover {
+            background-color: #0e7490;
+        }
+
+        .btn-nav {
+            background-color: #059669;
+        }
+
+        .btn-nav:hover {
+            background-color: #047857;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .ccq-container {
+            margin-top: 1.25rem;
+        }
+
+        .ccq-item {
+            background-color: var(--ccq-bg);
+            border-radius: 10px;
+            padding: 1.35rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .ccq-question {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .ccq-answer {
+            color: #15803d;
+            font-size: 1.15rem;
+            font-weight: 700;
+            background-color: #dcfce7;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 0.6rem;
+            border: 1px solid #86efac;
+        }
+
+        .meaning-section {
+            margin-top: 1.75rem;
+            background-color: var(--accent);
+            border: 2px solid var(--accent-border);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .meaning-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        .meaning-text {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            color: #14532d;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .finish-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .finish-screen h2 {
+            font-size: 2.2rem;
+        }
+        
+        .finish-screen p {
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Travel Idioms Practice</h1>
+    <p class="subtitle">Step-by-step concept checking exercise</p>
+
+    <div class="progress-bar" id="progress">Idiom 1 of 13</div>
+
+    <div id="quiz-container">
+        <div class="card">
+            <div>
+                <div class="context" id="context-text">Loading context...</div>
+                
+                <div id="ccq-container" class="ccq-container"></div>
+
+                <button class="btn" id="next-step-btn" onclick="advanceStep()">Ask Question 1</button>
+
+                <div id="meaning-section" class="meaning-section hidden">
+                    <div class="meaning-title" id="idiom-name"></div>
+                    <div class="meaning-text" id="idiom-meaning"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="prev-btn" onclick="prevIdiom()" disabled>← Previous</button>
+                <button class="btn btn-nav" id="next-btn" onclick="nextIdiom()">Next Idiom →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="finish-screen" class="card finish-screen hidden">
+        <h2>🎉 All Done!</h2>
+        <p>You have completed all 13 travel idioms.</p>
+        <button class="btn" onclick="restartQuiz()">Start Over</button>
+    </div>
+</div>
+
+<script>
+    const data = [
+        {
+            context: 'We decided to stay in a small village high up in the mountains rather than visiting the main resort town. It was completely <strong>off the beaten track</strong>—there were no tourists, no big hotels, and we had to ask locals for directions.',
+            idiom: "Off the beaten track",
+            meaning: "Far away from main roads, tourist crowds, or well-known locations.",
+            ccqs: [
+                { q: "Are many tourists visiting this village?", a: "No" },
+                { q: "Is this place popular and easy for most travelers to visit?", a: "No" },
+                { q: "Is it far away from standard tourist areas?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'For my two-week trip across Europe, I managed to <strong>travel light</strong>. I only brought a small backpack with three t-shirts and two pairs of shorts, so I didn\'t need to check any luggage at the airport.',
+            idiom: "Travel light",
+            meaning: "To travel with very few items or very little luggage.",
+            ccqs: [
+                { q: "Am I carrying heavy suitcases?", a: "No" },
+                { q: "Am I bringing a lot of extra clothing and items?", a: "No" },
+                { q: "Am I traveling with minimal luggage?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'After spending a month backpacking through Southeast Asia, Sarah <strong>caught the travel bug</strong>. As soon as she stepped off the plane back home, she started reading guidebooks for her next journey.',
+            idiom: "Catch the travel bug / Have itchy feet",
+            meaning: "To develop a strong impulse, desire, or passion to travel to new places.",
+            ccqs: [
+                { q: "Is Sarah happy staying home permanently now?", a: "No" },
+                { q: "Does she have a strong urge or desire to travel again?", a: "Yes" },
+                { q: "Was this passion triggered by her recent trip?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'Our flight was scheduled early, so our alarm went off <strong>at the crack of dawn</strong> at 4:30 AM. The sky was still completely dark when we arrived at the terminal.',
+            idiom: "At the crack of dawn",
+            meaning: "Very early in the morning, right as the sun is beginning to rise.",
+            ccqs: [
+                { q: "Did we wake up late in the morning?", a: "No" },
+                { q: "Was the sun fully up when we left?", a: "No" },
+                { q: "Did we leave extremely early in the morning?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'When Mark was a university student, he traveled across Europe <strong>on a shoestring budget</strong>. He slept in cheap hostels, ate local street food, and took overnight buses to save every penny.',
+            idiom: "On a shoestring (budget)",
+            meaning: "Traveling or living with very little money.",
+            ccqs: [
+                { q: "Did Mark spend a lot of money on his holiday?", a: "No" },
+                { q: "Did he stay in luxury hotels or eat at fancy restaurants?", a: "No" },
+                { q: "Was he traveling with a very limited amount of money?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'David has been moving to a different hotel every night for the past three weeks. He hasn\'t unpacked his bags once and is getting really tired of <strong>living out of a suitcase</strong>.',
+            idiom: "Live out of a suitcase",
+            meaning: "To stay in temporary places briefly without unpacking, moving frequently from place to place.",
+            ccqs: [
+                { q: "Is David staying in one fixed place for a long time?", a: "No" },
+                { q: "Has he put his clothes neatly away in a wardrobe?", a: "No" },
+                { q: "Is he constantly moving and pulling clothes straight out of his bag?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'We loaded all our luggage into the car trunk, checked the GPS, locked the house front door, and finally <strong>hit the road</strong> for our 8-hour drive.',
+            idiom: "Hit the road",
+            meaning: "To depart or start a journey (especially a driving trip).",
+            ccqs: [
+                { q: "Are we finishing our journey?", a: "No" },
+                { q: "Are we starting our road trip right now?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'Work has been extremely stressful for the past three months. I really just need <strong>to get away</strong> for a few days to a quiet beach town and turn off my phone.',
+            idiom: "To get away",
+            meaning: "To go on a holiday or short break to escape daily routine, work, or stress.",
+            ccqs: [
+                { q: "Do I want to remain in my normal daily routine?", a: "No" },
+                { q: "Do I want to leave my hometown to relax and rest?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'Instead of rushing to see five different museums in one day, Elena sat outside at a street café for three hours, drinking coffee and <strong>soaking it all in</strong>.',
+            idiom: "Soak (it) all in",
+            meaning: "To completely absorb, enjoy, and experience an atmosphere or surroundings without rushing.",
+            ccqs: [
+                { q: "Is Elena rushing around in a hurry?", a: "No" },
+                { q: "Is she giving herself time to enjoy the atmosphere around her?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'The driver charged us $80 for a 5-minute taxi ride from the train station. Later, a local told us the regular price was only $10. We were completely <strong>ripped off</strong>!',
+            idiom: "To be ripped off",
+            meaning: "To be cheated by being charged far too much money for something.",
+            ccqs: [
+                { q: "Did we pay a fair price for the taxi?", a: "No" },
+                { q: "Did the driver charge us much more than the real price?", a: "Yes" },
+                { q: "Were we taken advantage of financially?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'I don\'t have exact hotel reservations or train tickets yet. I just put together a <strong>rough itinerary</strong> listing the three cities I hope to visit next week.',
+            idiom: "Rough itinerary",
+            meaning: "An informal, flexible travel schedule without exact times or details confirmed.",
+            ccqs: [
+                { q: "Is every single hour of the trip strictly booked and fixed?", a: "No" },
+                { q: "Is this an approximate, flexible plan?", a: "Yes" }
+            ]
+        },
+        {
+            context: 'Our travel group has a very <strong>packed itinerary</strong> tomorrow: a museum tour at 8:00 AM, a boat ride at 11:00 AM, a castle visit at 2:00 PM, and a traditional dinner show at 7:00 PM.',
+            idiom: "Packed itinerary",
+            meaning: "A travel schedule filled with many activities leaving little or no free time.",
+            ccqs: [
+                { q: "Are there many activities scheduled throughout the day?", a: "Yes" },
+                { q: "Do we have lots of free time to relax?", a: "No" }
+            ]
+        },
+        {
+            context: 'That souvenir shop next to the famous tower sells cheap plastic keychains for $20 each. It is a complete <strong>tourist trap</strong> created only to make money from visitors.',
+            idiom: "Tourist trap",
+            meaning: "A crowded place that attracts tourists and overcharges them for low-quality goods or services.",
+            ccqs: [
+                { q: "Is this shop intended primarily for locals?", a: "No" },
+                { q: "Does it offer good value and authentic local items?", a: "No" },
+                { q: "Is its primary purpose to overcharge tourists?", a: "Yes" }
+            ]
+        }
+    ];
+
+    let currentIndex = 0;
+    let currentStep = 0; 
+
+    function renderIdiom() {
+        const item = data[currentIndex];
+        currentStep = 0;
+        
+        document.getElementById('progress').innerText = `Idiom ${currentIndex + 1} of ${data.length}`;
+        document.getElementById('context-text').innerHTML = item.context;
+
+        document.getElementById('ccq-container').innerHTML = '';
+        document.getElementById('meaning-section').classList.add('hidden');
+        
+        document.getElementById('idiom-name').innerText = `Idiom: ${item.idiom}`;
+        document.getElementById('idiom-meaning').innerHTML = `<strong>Meaning:</strong> ${item.meaning}`;
+
+        const nextStepBtn = document.getElementById('next-step-btn');
+        nextStepBtn.innerText = "Ask Question 1";
+        nextStepBtn.className = "btn";
+        nextStepBtn.classList.remove('hidden');
+
+        document.getElementById('prev-btn').disabled = currentIndex === 0;
+        document.getElementById('next-btn').innerText = (currentIndex === data.length - 1) ? "Finish Quiz →" : "Next Idiom →";
+    }
+
+    function advanceStep() {
+        const item = data[currentIndex];
+        const ccqContainer = document.getElementById('ccq-container');
+        const totalCCQs = item.ccqs.length;
+        const nextStepBtn = document.getElementById('next-step-btn');
+
+        const qIndex = Math.floor(currentStep / 2);
+        const isAnswering = currentStep % 2 === 1;
+
+        if (qIndex < totalCCQs) {
+            if (!isAnswering) {
+                const div = document.createElement('div');
+                div.className = 'ccq-item';
+                div.id = `ccq-item-${qIndex}`;
+                div.innerHTML = `
+                    <div class="ccq-question">Question ${qIndex + 1}: ${item.ccqs[qIndex].q}</div>
+                    <div class="ccq-answer hidden" id="ans-${qIndex}">Answer: ${item.ccqs[qIndex].a}</div>
+                `;
+                ccqContainer.appendChild(div);
+                
+                nextStepBtn.innerText = `Show Answer ${qIndex + 1}`;
+                nextStepBtn.className = "btn btn-answer";
+            } else {
+                document.getElementById(`ans-${qIndex}`).classList.remove('hidden');
+                
+                if (qIndex + 1 < totalCCQs) {
+                    nextStepBtn.innerText = `Ask Question ${qIndex + 2}`;
+                    nextStepBtn.className = "btn";
+                } else {
+                    nextStepBtn.innerText = "Reveal Idiom Meaning";
+                    nextStepBtn.className = "btn btn-secondary";
+                }
+            }
+            currentStep++;
+        } else {
+            document.getElementById('meaning-section').classList.remove('hidden');
+            nextStepBtn.classList.add('hidden');
+        }
+    }
+
+    function nextIdiom() {
+        if (currentIndex < data.length - 1) {
+            currentIndex++;
+            renderIdiom();
+        } else {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('progress').classList.add('hidden');
+            document.getElementById('finish-screen').classList.remove('hidden');
+        }
+    }
+
+    function prevIdiom() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderIdiom();
+        }
+    }
+
+    function restartQuiz() {
+        currentIndex = 0;
+        document.getElementById('finish-screen').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        document.getElementById('progress').classList.remove('hidden');
+        renderIdiom();
+    }
+
+    renderIdiom();
+</script>
+
+</body>
+</html>

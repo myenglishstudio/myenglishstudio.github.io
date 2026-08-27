@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Practice: Future Forms</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-overlay: rgba(248, 250, 252, 0.92);
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --correct-bg: #dcfce7;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --incorrect-bg: #fee2e2;
+            --incorrect-border: #fca5a5;
+            --incorrect-text: #991b1b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2.5rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--border);
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #d97706;
+            margin-bottom: 1.5rem;
+            background-color: #fef3c7;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .multi-choice-notice {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #d97706;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .dialogue-line {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dialogue-speaker {
+            font-weight: 700;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .option-btn {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 1.05rem;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .option-btn.selected-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: var(--correct-text);
+            font-weight: 700;
+        }
+
+        .option-btn.selected-incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+            color: var(--incorrect-text);
+            font-weight: 700;
+        }
+
+        .verb-hint {
+            font-weight: 700;
+            color: #2563eb;
+            margin: 0 0.2rem;
+        }
+
+        .feedback-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct-border);
+            color: var(--correct-text);
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--incorrect-bg);
+            border: 1px solid var(--incorrect-border);
+            color: var(--incorrect-text);
+        }
+
+        .gap-input {
+            font-size: 1.05rem;
+            padding: 0.35rem 0.6rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            width: 180px;
+            margin: 0 0.25rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .gap-input:focus {
+            border-color: var(--primary);
+        }
+
+        .gap-input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .gap-input.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+            color: #b91c1c;
+            font-weight: 700;
+        }
+
+        .btn-check {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.75rem;
+        }
+
+        .btn-check:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Future Forms Grammar Practice</h1>
+    <p class="subtitle">Complete the tasks below to test your knowledge of present forms for future reference, <em>will</em>, and <em>be going to</em>.</p>
+
+    <!-- TASK 1 HEADER -->
+    <div class="section-title">Task 1: Multiple Choice Quiz (New English File)</div>
+    <div class="section-subtitle">📌 Notice: Some questions have TWO valid choices!</div>
+
+    <!-- Question 1 -->
+    <div class="task-card" id="t1-q1">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">1 A:</span> ______________________?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> Tomorrow. My flight is in the morning.</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q1', 'a', false, 'The present continuous (&quot;are you leaving&quot;) or &quot;going to&quot; is used for fixed arrangements/plans. &quot;Will&quot; is not used for pre-planned decisions.')">a) When will you leave</button>
+            <button class="option-btn" onclick="checkTask1('t1-q1', 'b', true, '')">b) When are you leaving</button>
+            <button class="option-btn" onclick="checkTask1('t1-q1', 'c', true, '')">c) When are you going to leave</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="task-card" id="t1-q2">
+        <div class="dialogue-line"><span class="dialogue-speaker">2 A:</span> You must bring the money tomorrow.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> Don't worry, ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q2', 'a', false, 'We use &quot;will/won\'t&quot; for promises made at the moment of speaking. Present continuous is for fixed arrangements.')">a) I'm not forgetting</button>
+            <button class="option-btn" onclick="checkTask1('t1-q2', 'b', false, 'We use &quot;won\'t&quot; for instant promises. &quot;Going to&quot; is used for prior intentions or plans.')">b) I'm not going to forget</button>
+            <button class="option-btn" onclick="checkTask1('t1-q2', 'c', true, '')">c) I won't forget</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="task-card" id="t1-q3">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">3 A:</span> Do you have any plans for tonight?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> Yes, ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q3', 'a', false, '&quot;Will&quot; is for instant decisions made now. Both (b) and (c) are correct here because both Present Continuous and &quot;going to&quot; express future plans/arrangements.')">a) I'll meet some friends</button>
+            <button class="option-btn" onclick="checkTask1('t1-q3', 'b', true, '')">b) I'm going to meet some friends</button>
+            <button class="option-btn" onclick="checkTask1('t1-q3', 'c', true, '')">c) I'm meeting some friends</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="task-card" id="t1-q4">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">4 A:</span> The interviews for the new manager were yesterday.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> I think ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q4', 'a', false, 'Present continuous is for arranged future events, not predictions. Both &quot;be going to&quot; and &quot;will&quot; are correct for predictions.')">a) Bob is getting the job</button>
+            <button class="option-btn" onclick="checkTask1('t1-q4', 'b', true, '')">b) Bob is going to get the job</button>
+            <button class="option-btn" onclick="checkTask1('t1-q4', 'c', true, '')">c) Bob will get the job</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="task-card" id="t1-q5">
+        <div class="dialogue-line"><span class="dialogue-speaker">5 A:</span> This suitcase is too heavy for me.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q5', 'a', true, '')">a) I'll carry it for you</button>
+            <button class="option-btn" onclick="checkTask1('t1-q5', 'b', false, 'We use &quot;I\'ll&quot; for spontaneous offers to help made at the moment of speaking, not Present Continuous.')">b) I'm carrying it for you</button>
+            <button class="option-btn" onclick="checkTask1('t1-q5', 'c', false, 'We use &quot;I\'ll&quot; for instant offers. &quot;Going to&quot; implies a plan made before the conversation.')">c) I'm going to carry it for you</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="task-card" id="t1-q6">
+        <div class="dialogue-line"><span class="dialogue-speaker">6 A:</span> What would you like to drink?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q6', 'a', true, '')">a) I'll have a cappuccino, please</button>
+            <button class="option-btn" onclick="checkTask1('t1-q6', 'b', false, 'Use &quot;I\'ll have&quot; for instant decisions made at the moment of ordering, not &quot;going to&quot;.')">b) I'm going to have a cappuccino, please</button>
+            <button class="option-btn" onclick="checkTask1('t1-q6', 'c', false, 'Present Continuous is used for arrangements, not ordering at a restaurant/cafe.')">c) I'm having a cappuccino, please</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="task-card" id="t1-q7">
+        <div class="dialogue-line"><span class="dialogue-speaker">7 A:</span> Here's my email address.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> Thanks. ______________________ tomorrow.</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q7', 'a', false, 'Use &quot;I\'ll send&quot; for spontaneous decisions or promises made right now upon receiving the email address.')">a) I'm going to send you the photos</button>
+            <button class="option-btn" onclick="checkTask1('t1-q7', 'b', false, 'Present Continuous is for arranged events, not instant promises/decisions.')">b) I'm sending you the photos</button>
+            <button class="option-btn" onclick="checkTask1('t1-q7', 'c', true, '')">c) I'll send you the photos</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="task-card" id="t1-q8">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">8 A:</span> ______________________ this weekend?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> No, I have to work on Saturday.</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q8', 'a', true, '')">a) Are you going to go away</button>
+            <button class="option-btn" onclick="checkTask1('t1-q8', 'b', false, '&quot;Will&quot; is not used to ask about someone\'s weekend plans or arrangements. Both (a) and (c) are correct.')">b) Will you go away</button>
+            <button class="option-btn" onclick="checkTask1('t1-q8', 'c', true, '')">c) Are you going away</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="task-card" id="t1-q9">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">9 A:</span> England are playing Brazil tomorrow.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> I'm sure ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q9', 'a', true, '')">a) they'll lose</button>
+            <button class="option-btn" onclick="checkTask1('t1-q9', 'b', false, 'Present continuous cannot be used for future predictions. Both &quot;they\'ll lose&quot; and &quot;they\'re going to lose&quot; are correct predictions.')">b) they're losing</button>
+            <button class="option-btn" onclick="checkTask1('t1-q9', 'c', true, '')">c) they're going to lose</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="task-card" id="t1-q10">
+        <div class="dialogue-line"><span class="dialogue-speaker">10 A:</span> My train arrives at 2.15.</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> OK, ______________________ by the information desk.</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q10', 'a', true, '')">a) I'll meet you</button>
+            <button class="option-btn" onclick="checkTask1('t1-q10', 'b', false, 'Use &quot;I\'ll meet&quot; for an instant decision/offer made right now in response to hearing the arrival time.')">b) I'm going to meet you</button>
+            <button class="option-btn" onclick="checkTask1('t1-q10', 'c', false, 'Present continuous is for pre-planned arrangements, not decisions made on the spot.')">c) I'm meeting you</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 11 -->
+    <div class="task-card" id="t1-q11">
+        <div class="dialogue-line"><span class="dialogue-speaker">11 A:</span> What time does the film start?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> I don't know. ______________________ phone the cinema and check?</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q11', 'a', false, 'We use &quot;Shall I...?&quot; to offer help or suggest an action in the first person singular (I/we).')">a) Will I</button>
+            <button class="option-btn" onclick="checkTask1('t1-q11', 'b', false, '&quot;Am I going to&quot; is not used for making instant offers/suggestions.')">b) Am I going to</button>
+            <button class="option-btn" onclick="checkTask1('t1-q11', 'c', true, '')">c) Shall I</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Question 12 -->
+    <div class="task-card" id="t1-q12">
+        <div class="multi-choice-notice">💡 Note: Two correct answers are possible here!</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">12 A:</span> Do I need to bring an umbrella?</div>
+        <div class="dialogue-line"><span class="dialogue-speaker">B:</span> No, I don't think ______________________</div>
+        <div class="options-group">
+            <button class="option-btn" onclick="checkTask1('t1-q12', 'a', false, 'Present simple is for facts/habits/schedules. Both &quot;it\'ll rain&quot; and &quot;it\'s going to rain&quot; are correct predictions after &quot;I don\'t think...&quot;.')">a) it rains</button>
+            <button class="option-btn" onclick="checkTask1('t1-q12', 'b', true, '')">b) it'll rain</button>
+            <button class="option-btn" onclick="checkTask1('t1-q12', 'c', true, '')">c) it's going to rain</button>
+        </div>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+
+    <!-- TASK 2 -->
+    <div class="section-title">Task 2: Fill in the Correct Future Form</div>
+    
+    <!-- Sentence 1 -->
+    <div class="task-card" id="t2-s1">
+        <p>1. John and Anna <span class="verb-hint">(fly)</span> <input type="text" class="gap-input" data-answers="are flying"> to Paris on Monday for a holiday. Their flight <span class="verb-hint">(take off)</span> <input type="text" class="gap-input" data-answers="takes off"> at 7.10 in the morning and <span class="verb-hint">(arrive)</span> <input type="text" class="gap-input" data-answers="arrives"> in Paris at 8.10.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s1', 'Arrangements use Present Continuous (&quot;are flying&quot;). Timetables/schedules use Present Simple (&quot;takes off&quot;, &quot;arrives&quot;).')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 2 -->
+    <div class="task-card" id="t2-s2">
+        <p>2. Dave is a sales manager and today he <span class="verb-hint">(see)</span> <input type="text" class="gap-input" data-answers="is seeing"> a new client.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s2', 'Use Present Continuous (&quot;is seeing&quot;) for personal arrangements and appointments.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 3 -->
+    <div class="task-card" id="t2-s3">
+        <p>3. A new supermarket <span class="verb-hint">(open)</span> <input type="text" class="gap-input" data-answers="is opening"> today and I <span class="verb-hint">(meet)</span> <input type="text" class="gap-input" data-answers="am meeting"> my friend there in the afternoon.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s3', 'Use Present Continuous (&quot;is opening&quot;, &quot;am meeting&quot;) for scheduled events and personal arrangements.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 4 -->
+    <div class="task-card" id="t2-s4">
+        <p>4. According to the programme the show <span class="verb-hint">(start)</span> <input type="text" class="gap-input" data-answers="starts"> at 7 p.m.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s4', 'Use Present Simple (&quot;starts&quot;) for events that follow an official timetable or programme.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 5 -->
+    <div class="task-card" id="t2-s5">
+        <p>5. The National Theatre <span class="verb-hint">(celebrate)</span> <input type="text" class="gap-input" data-answers="celebrates|is celebrating"> its thirtieth anniversary soon.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s5', 'Either Present Simple (&quot;celebrates&quot;) for a scheduled event or Present Continuous (&quot;is celebrating&quot;) for an arranged event is accepted.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 6 -->
+    <div class="task-card" id="t2-s6">
+        <p>6. Next month the National Theatre <span class="verb-hint">(put on)</span> <input type="text" class="gap-input" data-answers="is putting on"> a new production of Hamlet.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s6', 'Use Present Continuous (&quot;is putting on&quot;) for fixed future plans/arrangements.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 7 -->
+    <div class="task-card" id="t2-s7">
+        <p>7. I <span class="verb-hint">(have)</span> <input type="text" class="gap-input" data-answers="am having|'m having"> another English lesson this week.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s7', 'Use Present Continuous (&quot;am having&quot; or &quot;\'m having&quot;) for arranged personal plans/lessons.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 8 -->
+    <div class="task-card" id="t2-s8">
+        <p>8. The match <span class="verb-hint">(start)</span> <input type="text" class="gap-input" data-answers="starts"> in half an hour. We must hurry up.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s8', 'Use Present Simple (&quot;starts&quot;) for scheduled public events and fixtures.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 9 -->
+    <div class="task-card" id="t2-s9">
+        <p>9. The Prime Minister <span class="verb-hint">(travel)</span> <input type="text" class="gap-input" data-answers="is travelling|is traveling|'s travelling|'s traveling"> to Brussels tomorrow.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s9', 'Use Present Continuous (&quot;is travelling / is traveling&quot;) for fixed official arrangements.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 10 -->
+    <div class="task-card" id="t2-s10">
+        <p>10. Look at the sun! It <span class="verb-hint">(be)</span> <input type="text" class="gap-input" data-answers="is going to be"> a hot day tomorrow.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s10', 'Use &quot;is going to be&quot; for predictions based on present evidence (the sunny sky).')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 11 -->
+    <div class="task-card" id="t2-s11">
+        <p>11. Watch out! Those boxes <span class="verb-hint">(fall)</span> <input type="text" class="gap-input" data-answers="are going to fall">!</p>
+        <button class="btn-check" onclick="checkTask2('t2-s11', 'Use &quot;are going to fall&quot; for an immediate prediction based on clear physical evidence.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 12 -->
+    <div class="task-card" id="t2-s12">
+        <p>12. Does your tooth really hurt? – Yes, I <span class="verb-hint">(see)</span> <input type="text" class="gap-input" data-answers="am seeing|'m seeing"> my dentist tomorrow.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s12', 'Use Present Continuous (&quot;am seeing&quot; or &quot;\'m seeing&quot;) for fixed medical/personal appointments.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 13 -->
+    <div class="task-card" id="t2-s13">
+        <p>13. He <span class="verb-hint">(open)</span> <input type="text" class="gap-input" data-answers="is opening"> a new branch shop in Denmark next month.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s13', 'Use Present Continuous (&quot;is opening&quot;) for a confirmed business arrangement.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 14 -->
+    <div class="task-card" id="t2-s14">
+        <p>14. He <span class="verb-hint">(be)</span> <input type="text" class="gap-input" data-answers="will be|'ll be"> a successful writer one day.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s14', 'Use &quot;will be&quot; for general predictions about the distant future without present evidence.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 15 -->
+    <div class="task-card" id="t2-s15">
+        <p>15. The plane <span class="verb-hint">(take off)</span> <input type="text" class="gap-input" data-answers="takes off"> at 10.45, so we’d better check in by 8.45.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s15', 'Use Present Simple (&quot;takes off&quot;) for flight schedules and transport timetables.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 16 -->
+    <div class="task-card" id="t2-s16">
+        <p>16. Look at the baby! He <span class="verb-hint">(eat)</span> <input type="text" class="gap-input" data-answers="is going to eat"> that flower!</p>
+        <button class="btn-check" onclick="checkTask2('t2-s16', 'Use &quot;is going to eat&quot; for an immediate action about to happen based on present observation.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 17 -->
+    <div class="task-card" id="t2-s17">
+        <p>17. The men <span class="verb-hint">(deliver)</span> <input type="text" class="gap-input" data-answers="are delivering"> the furniture tomorrow.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s17', 'Use Present Continuous (&quot;are delivering&quot;) for confirmed arrangements.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 18 -->
+    <div class="task-card" id="t2-s18">
+        <p>18. Our daughter <span class="verb-hint">(appear)</span> <input type="text" class="gap-input" data-answers="is appearing"> in the school production of Miss Saigon next month.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s18', 'Use Present Continuous (&quot;is appearing&quot;) for arranged future events.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 19 -->
+    <div class="task-card" id="t2-s19">
+        <p>19. I’ve just heard a rumour that your favourite jazz singer <span class="verb-hint">(come)</span> <input type="text" class="gap-input" data-answers="is going to come"> to give a concert in our town.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s19', 'Use &quot;is going to come&quot; for intention/plan based on news or information heard.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 20 -->
+    <div class="task-card" id="t2-s20">
+        <p>20. The car <span class="verb-hint">(come)</span> <input type="text" class="gap-input" data-answers="comes"> at eleven to collect the guest speakers and they <span class="verb-hint">(arrive)</span> <input type="text" class="gap-input" data-answers="arrive"> at the hall at 11.30.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s20', 'Use Present Simple (&quot;comes&quot;, &quot;arrive&quot;) for fixed timetable events/itineraries.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 21 -->
+    <div class="task-card" id="t2-s21">
+        <p>21. We <span class="verb-hint">(have)</span> <input type="text" class="gap-input" data-answers="have"> our weekly meeting tomorrow, so I <span class="verb-hint">(present)</span> <input type="text" class="gap-input" data-answers="will present|'ll present"> your proposal then.</p>
+        <button class="btn-check" onclick="checkTask2('t2-s21', 'Present Simple (&quot;have&quot;) is used for fixed regular routines/schedules. &quot;Will present&quot; (or &quot;\'ll present&quot;) is used for a decision/offer to take action.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+    <!-- Sentence 22 -->
+    <div class="task-card" id="t2-s22">
+        <p>22. Do you know I <span class="verb-hint">(get)</span> <input type="text" class="gap-input" data-answers="am going to get|'m going to get"> a new job?</p>
+        <button class="btn-check" onclick="checkTask2('t2-s22', 'Use &quot;am going to get&quot; (or &quot;\'m going to get&quot;) for personal intentions and future plans already decided.')">Check</button>
+        <div class="feedback-box hidden"></div>
+    </div>
+
+</div>
+
+<script>
+    // TASK 1 FUNCTIONALITY
+    function checkTask1(cardId, option, isCorrect, explanation) {
+        const card = document.getElementById(cardId);
+        const buttons = card.querySelectorAll('.option-btn');
+        const feedback = card.querySelector('.feedback-box');
+
+        buttons.forEach(btn => {
+            btn.classList.remove('selected-correct', 'selected-incorrect');
+        });
+
+        const clickedBtn = event.target;
+        feedback.classList.remove('hidden', 'correct', 'incorrect');
+
+        if (isCorrect) {
+            clickedBtn.classList.add('selected-correct');
+            feedback.classList.add('correct');
+            feedback.innerHTML = "<strong>Correct!</strong> Great job.";
+        } else {
+            clickedBtn.classList.add('selected-incorrect');
+            feedback.classList.add('incorrect');
+            feedback.innerHTML = `<strong>Incorrect.</strong> ${explanation}`;
+        }
+    }
+
+    // TASK 2 FUNCTIONALITY
+    function checkTask2(cardId, explanation) {
+        const card = document.getElementById(cardId);
+        const inputs = card.querySelectorAll('.gap-input');
+        const feedback = card.querySelector('.feedback-box');
+        
+        let allCorrect = true;
+        let expectedAnswersFormatted = [];
+
+        inputs.forEach(input => {
+            const val = input.value.trim().toLowerCase();
+            const validOptions = input.dataset.answers.toLowerCase().split('|');
+            
+            expectedAnswersFormatted.push(validOptions.join(' / '));
+
+            if (validOptions.includes(val)) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+                allCorrect = false;
+            }
+        });
+
+        feedback.classList.remove('hidden', 'correct', 'incorrect');
+
+        if (allCorrect) {
+            feedback.classList.add('correct');
+            feedback.innerHTML = `<strong>Correct!</strong> ${explanation}`;
+        } else {
+            feedback.classList.add('incorrect');
+            feedback.innerHTML = `<strong>Incorrect.</strong> Correct answer(s): <strong>${expectedAnswersFormatted.join(', ')}</strong>.<br>${explanation}`;
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Forms Speaking Wheel</title>
+    <style>
+        :root {
+            --bg-overlay: rgba(247, 249, 251, 0.90);
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --text-muted: #718096;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: var(--text-color);
+            margin: 0;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+            color: #0f172a;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            max-width: 950px;
+            width: 100%;
+        }
+
+        /* Enlarged Wheel Container */
+        .wheel-wrapper {
+            position: relative;
+            width: 560px;
+            height: 560px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Enlarged Pointer Marker */
+        .pointer {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 34px solid #334155;
+            z-index: 10;
+            filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.25));
+        }
+
+        canvas {
+            border-radius: 50%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 4s cubic-bezier(0.15, 0.99, 0.35, 1);
+        }
+
+        /* Enlarged Spin Button */
+        .spin-btn {
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            background-color: #ffffff;
+            color: #1e293b;
+            border: 5px solid #cbd5e0;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            transition: all 0.2s ease;
+        }
+
+        .spin-btn:hover {
+            transform: scale(1.06);
+            border-color: #94a3b8;
+            background-color: #f8fafc;
+        }
+
+        .spin-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        /* Enlarged Result Card and Question Text */
+        .result-card {
+            background-color: var(--card-bg);
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .result-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .remaining-count {
+            margin-top: 0.75rem;
+            font-size: 1.05rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Future Speaking Wheel</h1>
+    <p class="subtitle">Spin the wheel and answer using the correct future form!</p>
+
+    <div class="main-layout">
+        <div class="wheel-wrapper">
+            <div class="pointer"></div>
+            <canvas id="wheelCanvas" width="560" height="560"></canvas>
+            <button class="spin-btn" id="spinBtn" onclick="spin()">SPIN</button>
+        </div>
+
+        <div class="result-card">
+            <div class="result-title">Selected Question</div>
+            <div class="result-text" id="resultText">Click SPIN to get a question!</div>
+            <div class="remaining-count" id="remainingCount">Questions remaining: 23</div>
+        </div>
+    </div>
+
+    <script>
+        const initialQuestions = [
+            "Your car has just broken down. What will you do?",
+            "What specific project or big task are you going to start working on next month?",
+            "Look out the window right now. Based on what you see, what is the weather going to be like?",
+            "Imagine your doctor tells you to cut down on coffee today. What will you replace it with?",
+            "You’ve just got your credit card blocked. What will you do?",
+            "What are your plans for your career?",
+            "You’ve just found out you’ve won the lottery. What will you do?",
+            "Your plane has just been announced to be 6 hours late. What will you do?",
+            "What are your thoughts on the future of mankind?",
+            "What are you up to next week?",
+            "The doctor has just said that you’ve got an incurable disease. What will you do?",
+            "If a friend texts you right now asking for money, what will you reply?",
+            "What are your plans for the next year?",
+            "Are you attending any weddings, concerts, or birthday parties in the next couple of months?",
+            "How do you see the future of your country?",
+            "What are your thoughts on the future of Europe?",
+            "What are your plans for retirement?",
+            "Which hotel or country are you staying at for your next vacation, and who are you traveling with?",
+            "What time does your local supermarket or favourite coffee shop close on weekdays?",
+            "You’ve just realised you’ve run out of money. What will you do?",
+            "Who are you meeting for dinner or drinks this week? Where are you going together?",
+            "What are your predictions regarding the most powerful country in the world in the next 20 years?",
+            "What time does your gym class, language course, or favourite weekly event start?"
+        ];
+
+        let activeQuestions = initialQuestions.map((text, i) => ({ text, label: `Q ${i + 1}` }));
+
+        // Quiet pastel color palette
+        const colors = [
+            "#D4E09B", "#F6D4BA", "#E6BEAE", "#B2C9AB",
+            "#C5D3E8", "#D6C7B2", "#C9E4DE", "#F7D6C8",
+            "#D8E2DC", "#ECE4DB", "#C4D7D1", "#E3D5CA"
+        ];
+
+        const canvas = document.getElementById("wheelCanvas");
+        const ctx = canvas.getContext("2d");
+        const spinBtn = document.getElementById("spinBtn");
+        const resultText = document.getElementById("resultText");
+        const remainingCount = document.getElementById("remainingCount");
+
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        function drawWheel() {
+            const numSegments = activeQuestions.length;
+            const segmentAngle = (2 * Math.PI) / numSegments;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < numSegments; i++) {
+                const angle = i * segmentAngle;
+
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + segmentAngle);
+                ctx.closePath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.fill();
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = "#ffffff";
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + segmentAngle / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#334155";
+                ctx.font = "bold 14px 'Segoe UI', sans-serif";
+                
+                ctx.fillText(activeQuestions[i].label, radius - 20, 5);
+                ctx.restore();
+            }
+        }
+
+        function spin() {
+            if (isSpinning) return;
+
+            if (activeQuestions.length === 0) {
+                activeQuestions = initialQuestions.map((text, i) => ({ text, label: `Q ${i + 1}` }));
+                drawWheel();
+            }
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+            resultText.innerText = "Spinning...";
+
+            const numSegments = activeQuestions.length;
+            const targetIndex = Math.floor(Math.random() * numSegments);
+
+            const degreesPerSegment = 360 / numSegments;
+            const targetSegmentCenterDegree = (targetIndex * degreesPerSegment) + (degreesPerSegment / 2);
+            
+            const targetAngleInWheel = (270 - targetSegmentCenterDegree + 360) % 360;
+            const extraFullSpins = (Math.floor(Math.random() * 3) + 5) * 360;
+            
+            const currentMod = currentRotation % 360;
+            let neededDegrees = targetAngleInWheel - currentMod;
+            if (neededDegrees < 0) neededDegrees += 360;
+
+            currentRotation += extraFullSpins + neededDegrees;
+            canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+
+                const pickedQuestion = activeQuestions[targetIndex];
+                resultText.innerText = pickedQuestion.text;
+
+                activeQuestions.splice(targetIndex, 1);
+                remainingCount.innerText = `Questions remaining: ${activeQuestions.length}`;
+
+                if (activeQuestions.length > 0) {
+                    drawWheel();
+                } else {
+                    remainingCount.innerText = "All questions completed! Click SPIN to restart.";
+                }
+            }, 4000);
+        }
+
+        drawWheel();
+    </script>
+</body>
+</html>

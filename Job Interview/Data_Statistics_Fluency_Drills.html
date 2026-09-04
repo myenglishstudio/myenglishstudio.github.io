@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & Statistics Fluency Drills</title>
+    <style>
+        :root {
+            /* Winter Cold Blue Theme */
+            --bg-deep-frost: #070d19;
+            --card-bg: rgba(13, 25, 44, 0.88);
+            --card-border: #1e3a5f;
+            --accent-ice: #38bdf8;
+            --accent-glow: #0284c7;
+            --accent-hover: #0ea5e9;
+            --text-snow: #f1f5f9;
+            --text-frost: #94a3b8;
+            --success-color: #10b981;
+            --error-color: #f43f5e;
+            --drop-bg: rgba(14, 165, 233, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-deep-frost);
+            color: var(--text-snow);
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* DATA ANALYST BACKDROP LAYER */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(14, 165, 233, 0.12) 0%, transparent 50%),
+                linear-gradient(rgba(7, 13, 25, 0.88), rgba(7, 13, 25, 0.94)),
+                url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            filter: blur(2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--text-snow);
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        h2 {
+            color: var(--accent-ice);
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        .task-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .instructions {
+            color: var(--text-frost);
+            margin-bottom: 22px;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Task 1 Drag & Drop Styles */
+        .bank-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent-ice);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            min-height: 65px;
+            padding: 16px;
+            background-color: rgba(7, 13, 25, 0.7);
+            border: 1px dashed var(--card-border);
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .draggable {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: var(--text-snow);
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 9px 16px;
+            cursor: grab;
+            user-select: none;
+            font-size: 0.92rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .draggable:hover {
+            border-color: var(--accent-ice);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+
+        .draggable.dragging {
+            opacity: 0.4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid var(--card-border);
+            padding: 14px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: rgba(15, 23, 42, 0.85);
+            color: var(--accent-ice);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .symbol-cell {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-align: center;
+            width: 10%;
+            background-color: rgba(15, 23, 42, 0.95);
+            color: var(--accent-ice);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        .drop-zone {
+            min-height: 48px;
+            background-color: var(--drop-bg);
+            border: 1px dashed #334155;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            box-sizing: border-box;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .drop-zone.over {
+            background-color: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-ice);
+        }
+
+        .correct {
+            border: 2px solid var(--success-color) !important;
+            background-color: rgba(16, 185, 129, 0.15) !important;
+        }
+
+        .incorrect {
+            border: 2px solid var(--error-color) !important;
+            background-color: rgba(244, 63, 94, 0.15) !important;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent-hover));
+            color: white;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-top: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-check:hover {
+            box-shadow: 0 6px 18px rgba(14, 165, 233, 0.6);
+            transform: translateY(-1px);
+        }
+
+        /* Task 2 Sentence List Styles */
+        .sentence-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sentence-item {
+            background-color: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .sentence-item:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .sentence-text {
+            font-size: 1.05rem;
+            color: var(--text-snow);
+            margin-bottom: 8px;
+        }
+
+        .toggle-spoken {
+            background: none;
+            border: none;
+            color: var(--accent-ice);
+            cursor: pointer;
+            font-size: 0.88rem;
+            padding: 0;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .toggle-spoken:hover {
+            text-decoration: underline;
+        }
+
+        .spoken-guide {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background-color: rgba(2, 132, 199, 0.12);
+            border-left: 3px solid var(--accent-ice);
+            border-radius: 0 6px 6px 0;
+            color: #e2e8f0;
+            font-style: italic;
+            font-size: 0.98rem;
+        }
+
+        .spoken-guide.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Data & Statistics Fluency Drills</h1>
+
+    <!-- TASK 1 SECTION -->
+    <div class="task-section">
+        <h2>Task 1: Matching Symbols to Meanings & Spoken Variations</h2>
+        <p class="instructions">Drag each card from the bank below into its corresponding cell in the table.</p>
+
+        <div class="bank-title">Item Bank</div>
+        <div class="bank" id="item-bank">
+            <div class="draggable" draggable="true" data-id="m-lt">Less than</div>
+            <div class="draggable" draggable="true" data-id="m-gt">Greater than</div>
+            <div class="draggable" draggable="true" data-id="m-lte">Less than or equal to</div>
+            <div class="draggable" draggable="true" data-id="m-gte">Greater than or equal to</div>
+            <div class="draggable" draggable="true" data-id="m-approx">Approximately</div>
+            
+            <div class="draggable" draggable="true" data-id="v-lt">"p is less than..." / "under..." / "below..."</div>
+            <div class="draggable" draggable="true" data-id="v-gt">"greater than..." / "over..." / "exceeding..."</div>
+            <div class="draggable" draggable="true" data-id="v-lte">"at most..." / "up to..." / "no more than..."</div>
+            <div class="draggable" draggable="true" data-id="v-gte">"at least..." / "a minimum of..."</div>
+            <div class="draggable" draggable="true" data-id="v-approx">"roughly..." / "around..." / "about..." / "hovering around..."</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Meaning</th>
+                    <th>Spoken Variations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="symbol-cell">&lt;</td>
+                    <td><div class="drop-zone" data-target="m-lt"></div></td>
+                    <td><div class="drop-zone" data-target="v-lt"></div></td>
+                </tr>
+                <tr>
+                    <td class="symbol-cell">&gt;</td>
+                    <td><div class="drop-zone" data-target="m-gt"></div></td>
+                    <td><div class="drop-zone" data-target="v-gt"></div></td>
+                </tr>
+                <tr>
+                    <td class="symbol-cell">&le;</td>
+                    <td><div class="drop-zone" data-target="m-lte"></div></td>
+                    <td><div class="drop-zone" data-target="v-lte"></div></td>
+                </tr>
+                <tr>
+                    <td class="symbol-cell">&ge;</td>
+                    <td><div class="drop-zone" data-target="m-gte"></div></td>
+                    <td><div class="drop-zone" data-target="v-gte"></div></td>
+                </tr>
+                <tr>
+                    <td class="symbol-cell">&approx;</td>
+                    <td><div class="drop-zone" data-target="m-approx"></div></td>
+                    <td><div class="drop-zone" data-target="v-approx"></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn-check" onclick="checkTask1()">Check Answers</button>
+    </div>
+
+    <!-- TASK 2 SECTION -->
+    <div class="task-section">
+        <h2>Task 2: Rapid-Fire Spoken Delivery Practice</h2>
+        <p class="instructions">Read each sentence out loud rapidly and fluently. Focus on pronouncing symbols, percentages, decimals, and metrics naturally. Click "Show Spoken Guide" to verify.</p>
+
+        <ol class="sentence-list">
+            <li class="sentence-item">
+                <div class="sentence-text">1. The test results were statistically significant with <strong>p &lt; 0.05</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The test results were statistically significant with <strong>p less than point-oh-five</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">2. We achieved a <strong>12% lift</strong> in quarterly conversions.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"We achieved a <strong>twelve percent lift</strong> in quarterly conversions."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">3. Keep the bounce rate <strong>&le; 0.08</strong> across all landing pages.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Keep the bounce rate <strong>at most point-oh-eight</strong> (OR: <strong>up to point-oh-eight</strong>) across all landing pages."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">4. Revenue growth was <strong>&gt; 15%</strong> year-over-year.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Revenue growth was <strong>greater than fifteen percent</strong> (OR: <strong>exceeding fifteen percent</strong>) year-over-year."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">5. Current site latency is <strong>&approx; 0.02 seconds</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Current site latency is <strong>roughly point-oh-two seconds</strong> (OR: <strong>hovering around point-oh-two seconds</strong>)."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">6. Ensure the margin of error remains <strong>&le; 0.01</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Ensure the margin of error remains <strong>no more than point-oh-one</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">7. We observed an uplift <strong>&ge; 8.5%</strong> in open rates.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"We observed an uplift <strong>of at least eight point five percent</strong> in open rates."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">8. The probability value settled at <strong>p &lt; 0.001</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The probability value settled at <strong>p less than point-oh-oh-one</strong> (OR: <strong>p below point double-oh-one</strong>)."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">9. Annual churn is currently running at <strong>&approx; 2.4%</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Annual churn is currently running at <strong>around two point four percent</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">10. Target an ROI <strong>&gt; 3.5x</strong> on this campaign.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Target an ROI <strong>above three point five times</strong> on this campaign."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">11. Server downtime was kept to <strong>&lt; 0.05%</strong> last month.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Server downtime was kept to <strong>under point-oh-five percent</strong> last month."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">12. User engagement increased by <strong>&approx; 18%</strong> after the update.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"User engagement increased by <strong>about eighteen percent</strong> after the update."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">13. The confidence interval threshold is set at <strong>&ge; 95%</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The confidence interval threshold is set at <strong>a minimum of ninety-five percent</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">14. The new feature generated a <strong>0.75% lift</strong> in daily active users.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The new feature generated a <strong>point-seven-five percent lift</strong> in daily active users."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">15. The error rate dropped to <strong>&lt; 0.005</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The error rate dropped to <strong>below point-oh-oh-five</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">16. Maintain customer satisfaction scores <strong>&ge; 4.8</strong> out of 5.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Maintain customer satisfaction scores <strong>at least four point eight</strong> out of five."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">17. Organic search traffic expanded by <strong>&gt; 22%</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Organic search traffic expanded by <strong>more than twenty-two percent</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">18. Cost per acquisition is holding at <strong>&approx; $0.45</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Cost per acquisition is <strong>holding at around forty-five cents</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">19. We require a sample size yield <strong>&ge; 1,500 units</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"We require a sample size yield of <strong>at least fifteen hundred units</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">20. The variation was minimal, showing <strong>p &approx; 0.12</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The variation was minimal, showing <strong>p roughly point-one-two</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">21. Ad click-through rates must be <strong>&ge; 2.1%</strong> to stay active.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Ad click-through rates must be <strong>at least two point one percent</strong> to stay active."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">22. Defect density fell to <strong>&le; 0.03%</strong> per batch.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Defect density fell to <strong>no more than point-oh-three percent</strong> per batch."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">23. Total conversion lift reached <strong>&approx; 9.4%</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Total conversion lift reached <strong>around nine point four percent</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">24. Alpha risk is capped at <strong>&le; 0.05</strong> for this model.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Alpha risk is capped at <strong>point-oh-five</strong> for this model."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">25. Quarterly retention grew by <strong>&gt; 6.8%</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Quarterly retention grew by <strong>over six point eight percent</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">26. Non-significant variations were dropped at <strong>p &ge; 0.10</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Non-significant variations were dropped at <strong>p greater than or equal to point-one-oh</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">27. Average page load speed is <strong>&approx; 1.2 seconds</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Average page load speed is <strong>about one point two seconds</strong>."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">28. Ensure cart abandonment is <strong>&lt; 45%</strong> this quarter.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Ensure cart abandonment is <strong>under forty-five percent</strong> this quarter."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">29. The algorithm delivered a <strong>3.2% lift</strong> in output.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"The algorithm delivered a <strong>three point two percent lift</strong> in output."</div>
+            </li>
+            <li class="sentence-item">
+                <div class="sentence-text">30. Target audience reach was expanded by <strong>&gt; 50,000 users</strong>.</div>
+                <button class="toggle-spoken" onclick="toggleGuide(this)">Show Spoken Guide</button>
+                <div class="spoken-guide">"Target audience reach was expanded by <strong>over fifty thousand users</strong>."</div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    // Task 1 Drag and Drop Logic
+    let draggedItem = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        shuffleBank();
+        setupDragAndDrop();
+    });
+
+    function shuffleBank() {
+        const bank = document.getElementById("item-bank");
+        for (let i = bank.children.length; i > 0; i--) {
+            bank.appendChild(bank.children[Math.floor(Math.random() * i)]);
+        }
+    }
+
+    function setupDragAndDrop() {
+        const draggables = document.querySelectorAll(".draggable");
+        const dropZones = document.querySelectorAll(".drop-zone, .bank");
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener("dragstart", (e) => {
+                draggedItem = draggable;
+                draggable.classList.add("dragging");
+                e.dataTransfer.setData("text/plain", draggable.dataset.id);
+            });
+
+            draggable.addEventListener("dragend", () => {
+                draggedItem = null;
+                draggable.classList.remove("dragging");
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                zone.classList.add("over");
+            });
+
+            zone.addEventListener("dragleave", () => {
+                zone.classList.remove("over");
+            });
+
+            zone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                zone.classList.remove("over");
+
+                if (!draggedItem) return;
+
+                if (zone.classList.contains("drop-zone")) {
+                    if (zone.children.length > 0) {
+                        document.getElementById("item-bank").appendChild(zone.children[0]);
+                    }
+                    zone.appendChild(draggedItem);
+                } else if (zone.classList.contains("bank")) {
+                    zone.appendChild(draggedItem);
+                }
+            });
+        });
+    }
+
+    function checkTask1() {
+        const dropZones = document.querySelectorAll(".drop-zone");
+        
+        dropZones.forEach(zone => {
+            zone.classList.remove("correct", "incorrect");
+            const expectedId = zone.dataset.target;
+            const child = zone.children[0];
+
+            if (child) {
+                if (child.dataset.id === expectedId) {
+                    zone.classList.add("correct");
+                } else {
+                    zone.classList.add("incorrect");
+                }
+            } else {
+                zone.classList.add("incorrect");
+            }
+        });
+    }
+
+    // Task 2 Toggle Logic
+    function toggleGuide(button) {
+        const guide = button.nextElementSibling;
+        if (guide.classList.contains("show")) {
+            guide.classList.remove("show");
+            button.textContent = "Show Spoken Guide";
+        } else {
+            guide.classList.add("show");
+            button.textContent = "Hide Spoken Guide";
+        }
+    }
+</script>
+
+</body>
+</html>

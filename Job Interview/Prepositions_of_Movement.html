@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analyst Metrics: Prepositions Drill</title>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.94)),
+                url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 840px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 6px;
+            font-size: 2rem;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        .section-header {
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 6px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .chart-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cheat-sheet {
+            background-color: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            font-size: 0.92rem;
+            color: #1e293b;
+        }
+        .cheat-sheet ul {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+        .cheat-sheet li {
+            margin-bottom: 4px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+        .question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        .answer-box {
+            display: none;
+            margin-top: 12px;
+            padding: 14px;
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            border-radius: 6px;
+            color: #14532d;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prepositions of Movement Drill</h1>
+    <p class="subtitle">Analyze the chart data and complete the sentences using the correct prepositions (<strong>to, by, at, from, around</strong>).</p>
+
+    <!-- Rule Summary -->
+    <div class="cheat-sheet">
+        <strong>Quick Preposition Reference:</strong>
+        <ul>
+            <li><strong>TO</strong> = The final destination/endpoint (e.g., <em>dropped <strong>to</strong> 10%</em>).</li>
+            <li><strong>BY</strong> = The amount of change/difference (e.g., <em>dropped <strong>by</strong> 5%</em> [from 15% to 10%]).</li>
+            <li><strong>AT</strong> = A specific fixed point or peak (e.g., <em>peaked <strong>at</strong> 30%</em>).</li>
+            <li><strong>FROM / TO</strong> = The starting point and endpoint (e.g., <em>rose <strong>from</strong> 10% <strong>to</strong> 25%</em>).</li>
+            <li><strong>AROUND / HOVERED AT</strong> = Fluctuating near a value (e.g., <em>hovered <strong>around</strong> 15%</em>).</li>
+        </ul>
+    </div>
+
+    <!-- CHART 1 -->
+    <h2 class="section-header">Chart 1: Customer Churn Rate</h2>
+    <div class="chart-box">
+        <canvas id="chart1" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">1. In Q1, the churn rate started at 12 per cent and then decreased _____ 8 per cent in Q2.</div>
+        <button class="btn" onclick="toggleAnswer(1)">Show Answer</button>
+        <div id="answer-1" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">to</span><br>
+            <em>Explanation:</em> 8 per cent is the final level/destination at Q2.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">2. Between Q1 (12%) and Q2 (8%), the churn rate dropped _____ 4 percentage points.</div>
+        <button class="btn" onclick="toggleAnswer(2)">Show Answer</button>
+        <div id="answer-2" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> 4 percentage points represents the amount of difference (12 - 8 = 4).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">3. In Q3, the churn rate surged _____ a peak of 18 per cent.</div>
+        <button class="btn" onclick="toggleAnswer(3)">Show Answer</button>
+        <div id="answer-3" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">to</span> (or peaked <span class="highlight">at</span>)<br>
+            <em>Explanation:</em> "Surged to a peak" or "peaked at 18 per cent" marks the highest point reached.
+        </div>
+    </div>
+
+    <!-- CHART 2 -->
+    <h2 class="section-header">Chart 2: Landing Page Conversion Rate</h2>
+    <div class="chart-box">
+        <canvas id="chart2" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">4. Following the redesign in Month 2, conversion rates grew _____ 2.5 per cent _____ 5.5 per cent in Month 3.</div>
+        <button class="btn" onclick="toggleAnswer(4)">Show Answer</button>
+        <div id="answer-4" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">from ... to</span><br>
+            <em>Explanation:</em> Identifies the starting point (2.5%) and the ending point (5.5%).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">5. Month 3 saw a major lift, where conversion rates increased _____ 3 percentage points.</div>
+        <button class="btn" onclick="toggleAnswer(5)">Show Answer</button>
+        <div id="answer-5" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> 3 percentage points is the size of the gain (5.5 - 2.5 = 3.0).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">6. From Month 4 onwards, conversion rates stabilized and hovered _____ 5.8 per cent.</div>
+        <button class="btn" onclick="toggleAnswer(6)">Show Answer</button>
+        <div id="answer-6" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">around</span> (or hovered <span class="highlight">at</span>)<br>
+            <em>Explanation:</em> Used when performance remains roughly level around a central value.
+        </div>
+    </div>
+
+    <!-- CHART 3 -->
+    <h2 class="section-header">Chart 3: Monthly Operational Expenses ($k)</h2>
+    <div class="chart-box">
+        <canvas id="chart3" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">7. Operational expenses peaked _____ $95,000 during the system migration in May.</div>
+        <button class="btn" onclick="toggleAnswer(7)">Show Answer</button>
+        <div id="answer-7" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">at</span><br>
+            <em>Explanation:</em> Use "at" after verbs like <em>peaked, plateaued, or stabilized</em> to state a specific figure.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">8. Thanks to automation, expenses fell _____ $35,000 between May ($95k) and July ($60k).</div>
+        <button class="btn" onclick="toggleAnswer(8)">Show Answer</button>
+        <div id="answer-8" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> $35,000 is the total savings/reduction gap ($95k - $60k = $35k).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">9. By August, spending decreased _____ a new baseline of $42,000.</div>
+        <button class="btn" onclick="toggleAnswer(9)">Show Answer</button>
+        <div id="answer-9" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">to</span><br>
+            <em>Explanation:</em> $42,000 represents the final value reached.
+        </div>
+    </div>
+
+    <!-- CHART 4 -->
+    <h2 class="section-header">Chart 4: Active Platform Users (Millions)</h2>
+    <div class="chart-box">
+        <canvas id="chart4" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">10. User growth surged _____ 0.4 million users between Q1 (0.8M) and Q2 (1.2M).</div>
+        <button class="btn" onclick="toggleAnswer(10)">Show Answer</button>
+        <div id="answer-10" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> 0.4 million is the margin of growth (1.2M - 0.8M = 0.4M).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">11. By Q3, active users rose _____ 1.9 million.</div>
+        <button class="btn" onclick="toggleAnswer(11)">Show Answer</button>
+        <div id="answer-11" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">to</span><br>
+            <em>Explanation:</em> 1.9 million is the new total destination figure.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">12. User adoption grew _____ 0.8 million in Q1 _____ 2.1 million by Q4.</div>
+        <button class="btn" onclick="toggleAnswer(12)">Show Answer</button>
+        <div id="answer-12" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">from ... to</span><br>
+            <em>Explanation:</em> Maps out the starting benchmark (0.8M) and the ultimate result (2.1M).
+        </div>
+    </div>
+
+    <!-- CHART 5 -->
+    <h2 class="section-header">Chart 5: Market Share Distribution (%)</h2>
+    <div class="chart-box">
+        <canvas id="chart5"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">13. Our flagship product holds the leading position, standing _____ 45 per cent of the total market share.</div>
+        <button class="btn" onclick="toggleAnswer(13)">Show Answer</button>
+        <div id="answer-13" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">at</span><br>
+            <em>Explanation:</em> Indicates a fixed metric point on a static proportion chart.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">14. Competitor A leads Competitor B _____ a margin of 10 per cent (25% vs 15%).</div>
+        <button class="btn" onclick="toggleAnswer(14)">Show Answer</button>
+        <div id="answer-14" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> "By" defines the gap or margin between two static values (25 - 15 = 10).
+        </div>
+    </div>
+
+    <!-- CHART 6 -->
+    <h2 class="section-header">Chart 6: Support Tickets by Channel (Stacked Bar)</h2>
+    <div class="chart-box">
+        <canvas id="chart6" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">15. In Q1, email support tickets were recorded _____ 400 cases before rising _____ 550 in Q2.</div>
+        <button class="btn" onclick="toggleAnswer(15)">Show Answer</button>
+        <div id="answer-15" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">at ... to</span><br>
+            <em>Explanation:</em> Starts at a fixed initial level (at 400) and moves to an endpoint destination (to 550).
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">16. Chat tickets increased _____ 150 requests between Q1 (200) and Q2 (350).</div>
+        <button class="btn" onclick="toggleAnswer(16)">Show Answer</button>
+        <div id="answer-16" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">by</span><br>
+            <em>Explanation:</em> 150 represents the differential increase (350 - 200 = 150).
+        </div>
+    </div>
+
+    <!-- CHART 7 -->
+    <h2 class="section-header">Chart 7: Feature Satisfaction Scores (out of 10)</h2>
+    <div class="chart-box">
+        <canvas id="chart7"></canvas>
+    </div>
+
+    <div class="card">
+        <div class="question">17. User satisfaction for Speed peaked _____ 9.0 out of 10, whereas Pricing lagged behind _____ 5.5.</div>
+        <button class="btn" onclick="toggleAnswer(17)">Show Answer</button>
+        <div id="answer-17" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">at ... at</span><br>
+            <em>Explanation:</em> Use "at" to report exact coordinates or ratings on evaluation scales.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="question">18. Usability ratings fluctuated _____ 8.0 following minor release updates.</div>
+        <button class="btn" onclick="toggleAnswer(18)">Show Answer</button>
+        <div id="answer-18" class="answer-box">
+            <strong>Correct Answer:</strong> <span class="highlight">around</span><br>
+            <em>Explanation:</em> "Around" signifies slight variances close to a central figure.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Chart 1: Churn Rate
+    new Chart(document.getElementById('chart1').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Churn Rate (%)',
+                data: [12, 8, 18, 5],
+                borderColor: '#ef4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.2
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Chart 2: Conversion Rate
+    new Chart(document.getElementById('chart2').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5'],
+            datasets: [{
+                label: 'Conversion Rate (%)',
+                data: [2.1, 2.5, 5.5, 5.8, 5.7],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.2
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Chart 3: Expenses
+    new Chart(document.getElementById('chart3').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['March', 'April', 'May', 'June', 'July', 'August'],
+            datasets: [{
+                label: 'Expenses ($k)',
+                data: [70, 75, 95, 80, 60, 42],
+                backgroundColor: '#3b82f6',
+                borderRadius: 6
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Chart 4: Active Users
+    new Chart(document.getElementById('chart4').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Active Users (Millions)',
+                data: [0.8, 1.2, 1.9, 2.1],
+                borderColor: '#8b5cf6',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.2
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Chart 5: Market Share (Doughnut Chart)
+    new Chart(document.getElementById('chart5').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Our Product', 'Competitor A', 'Competitor B', 'Others'],
+            datasets: [{
+                data: [45, 25, 15, 15],
+                backgroundColor: ['#2563eb', '#f59e0b', '#ef4444', '#94a3b8']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // Chart 6: Support Tickets (Stacked Bar)
+    new Chart(document.getElementById('chart6').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [
+                { label: 'Email', data: [400, 550, 500, 450], backgroundColor: '#3b82f6' },
+                { label: 'Live Chat', data: [200, 350, 400, 480], backgroundColor: '#10b981' },
+                { label: 'Phone', data: [150, 120, 100, 80], backgroundColor: '#f59e0b' }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
+        }
+    });
+
+    // Chart 7: Feature Satisfaction (Radar Chart)
+    new Chart(document.getElementById('chart7').getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['Speed', 'Usability', 'Reliability', 'Pricing', 'Support'],
+            datasets: [{
+                label: 'Satisfaction Score (1-10)',
+                data: [9.0, 8.1, 8.5, 5.5, 7.8],
+                borderColor: '#ec4899',
+                backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { r: { min: 0, max: 10 } }
+        }
+    });
+
+    function toggleAnswer(num) {
+        const box = document.getElementById(`answer-${num}`);
+        if (box.style.display === "block") {
+            box.style.display = "none";
+        } else {
+            box.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>

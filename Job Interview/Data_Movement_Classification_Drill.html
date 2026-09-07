@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Movement Classification Activity</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1b2a;
+            color: #e0e1dd;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Flash effects */
+        body.flash-green {
+            animation: flashGreen 0.6s ease;
+        }
+
+        body.flash-red {
+            animation: flashRed 0.6s ease;
+        }
+
+        @keyframes flashGreen {
+            0% { background-color: #0d1b2a; }
+            30% { background-color: #166534; }
+            100% { background-color: #0d1b2a; }
+        }
+
+        @keyframes flashRed {
+            0% { background-color: #0d1b2a; }
+            30% { background-color: #991b1b; }
+            100% { background-color: #0d1b2a; }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #e0e1dd;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: #778da9;
+            font-size: 0.95rem;
+        }
+
+        /* Card Reservoir */
+        .card-deck {
+            background-color: #1b263b;
+            border: 2px dashed #415a77;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drag-card {
+            background-color: #415a77;
+            color: #e0e1dd;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: grab;
+            font-size: 0.92rem;
+            font-weight: 600;
+            user-select: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid #778da9;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .drag-card:active {
+            cursor: grabbing;
+        }
+
+        .drag-card.dragging {
+            opacity: 0.4;
+            transform: scale(0.98);
+        }
+
+        /* Split Screen Container */
+        .split-container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .drop-zone {
+            flex: 1;
+            background-color: #1b263b;
+            border: 3px dashed #415a77;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #e0e1dd;
+            background-color: #273852;
+        }
+
+        .zone-header {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .zone-negative .zone-header {
+            color: #ef4444;
+        }
+
+        .zone-positive .zone-header {
+            color: #22c55e;
+        }
+
+        .zone-title {
+            font-size: 1.1rem;
+            color: #778da9;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .placed-cards {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Data Movement Classification Drill</h1>
+        <p class="subtitle">Drag each sentence and drop it into <strong>– (Negative / Downward)</strong> or <strong>+ (Positive / Upward)</strong> depending on the meaning.</p>
+    </header>
+
+    <!-- Sentence Bank (Shuffled Order) -->
+    <div class="card-deck" id="cardDeck">
+        <div class="drag-card" draggable="true" data-type="negative">Conversion rates dipped slightly in Week 3.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Active users surged by 0.6 million in Q2.</div>
+        <div class="drag-card" draggable="true" data-type="negative">Our market share shrank by 2 percentage points.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Sign-ups shot up following the marketing campaign.</div>
+        <div class="drag-card" draggable="true" data-type="negative">Customer churn plummeted by 3 percentage points.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Live Chat growth outpaced Email tickets by 20%.</div>
+        <div class="drag-card" draggable="true" data-type="negative">Operational expenses fell to $42,000 in August.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Conversion rates jumped from 4% to 6.5%.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Sales rallied in June after a disappointing May.</div>
+        <div class="drag-card" draggable="true" data-type="negative">User engagement slumped to an all-time low.</div>
+        <div class="drag-card" draggable="true" data-type="positive">The metric gained 2.5 percentage points in May.</div>
+        <div class="drag-card" draggable="true" data-type="positive">Revenue climbed steadily throughout the quarter.</div>
+    </div>
+
+    <!-- Split Drop Zones -->
+    <div class="split-container">
+        <!-- Negative Zone -->
+        <div class="drop-zone zone-negative" id="negativeZone" data-expected="negative">
+            <div class="zone-header">–</div>
+            <div class="zone-title">Downward / Decreasing Movement</div>
+            <div class="placed-cards"></div>
+        </div>
+
+        <!-- Positive Zone -->
+        <div class="drop-zone zone-positive" id="positiveZone" data-expected="positive">
+            <div class="zone-header">+</div>
+            <div class="zone-title">Upward / Increasing Movement</div>
+            <div class="placed-cards"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cardDeck = document.getElementById('cardDeck');
+
+            // Automatically shuffle cards on every load
+            for (let i = cardDeck.children.length; i > 0; i--) {
+                cardDeck.appendChild(cardDeck.children[Math.floor(Math.random() * i)]);
+            }
+
+            let draggedCard = null;
+
+            // Add drag listeners to cards
+            document.querySelectorAll('.drag-card').forEach(card => {
+                card.addEventListener('dragstart', function () {
+                    draggedCard = this;
+                    setTimeout(() => this.classList.add('dragging'), 0);
+                });
+
+                card.addEventListener('dragend', function () {
+                    this.classList.remove('dragging');
+                    draggedCard = null;
+                });
+            });
+
+            // Set up drop zones
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    this.classList.add('drag-over');
+                });
+
+                zone.addEventListener('dragleave', function () {
+                    this.classList.remove('drag-over');
+                });
+
+                zone.addEventListener('drop', function (e) {
+                    e.preventDefault();
+                    this.classList.remove('drag-over');
+
+                    if (!draggedCard) return;
+
+                    const expectedType = this.getAttribute('data-expected');
+                    const actualType = draggedCard.getAttribute('data-type');
+
+                    if (actualType === expectedType) {
+                        // Correct drop -> Flash Green
+                        triggerFlash('flash-green');
+                        this.querySelector('.placed-cards').appendChild(draggedCard);
+                    } else {
+                        // Incorrect drop -> Flash Red
+                        triggerFlash('flash-red');
+                    }
+                });
+            });
+
+            function triggerFlash(className) {
+                document.body.classList.remove('flash-green', 'flash-red');
+                // Trigger reflow to restart CSS animation
+                void document.body.offsetWidth;
+                document.body.classList.add(className);
+
+                setTimeout(() => {
+                    document.body.classList.remove(className);
+                }, 600);
+            }
+        });
+    </script>
+
+</body>
+</html>

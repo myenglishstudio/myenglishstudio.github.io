@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Data Analysis Verbs Practice</title>
+<style>
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #f1f5f9;
+        line-height: 1.6;
+        margin: 0;
+        padding: 15px;
+        touch-action: manipulation;
+        background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)),
+                    url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        min-height: 100vh;
+    }
+    .container {
+        max-width: 950px;
+        margin: 0 auto;
+        background: rgba(30, 41, 59, 0.95);
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        border: 1px solid #334155;
+    }
+    h1 {
+        text-align: center;
+        color: #38bdf8;
+        font-size: 26px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    h2 {
+        font-size: 20px;
+        color: #cbd5e1;
+        margin-top: 0;
+    }
+    p {
+        color: #94a3b8;
+    }
+
+    /* Navy Blue Tab Buttons */
+    .tab-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #334155;
+        padding-bottom: 12px;
+    }
+    .tab-btn {
+        background: #0f172a;
+        border: 1px solid #334155;
+        padding: 12px 16px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        color: #94a3b8;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        min-height: 44px;
+    }
+    .tab-btn.active {
+        background: #0284c7;
+        color: white;
+        border-color: #38bdf8;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    .task-content {
+        display: none;
+    }
+    .task-content.active {
+        display: block;
+    }
+
+    /* Navy Form Controls */
+    input[type="text"] {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid #475569;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #0f172a;
+        color: #f8fafc;
+        -webkit-appearance: none;
+    }
+    input[type="text"]:focus {
+        outline: none;
+        border-color: #38bdf8;
+        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    button.action-btn {
+        background-color: #0284c7;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        margin-top: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        transition: all 0.2s;
+    }
+    button.action-btn:active {
+        background-color: #0369a1;
+        transform: scale(0.98);
+    }
+    button.secondary-btn {
+        background-color: #334155;
+        color: white;
+        border: 1px solid #475569;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 44px;
+    }
+
+    .item {
+        background: #0f172a;
+        border: 1px solid #334155;
+        padding: 16px;
+        margin-bottom: 14px;
+        border-radius: 10px;
+    }
+    .feedback {
+        margin-top: 10px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .correct { color: #4ade80; }
+    .incorrect { color: #f87171; }
+    .info { color: #38bdf8; }
+
+    /* Task 0 Flashcard Styles */
+    .flashcard-container {
+        perspective: 1000px;
+        width: 100%;
+        max-width: 450px;
+        height: 250px;
+        margin: 20px auto;
+        cursor: pointer;
+    }
+    .flashcard {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .flashcard.flipped {
+        transform: rotateY(180deg);
+    }
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        border-radius: 12px;
+        border: 2px solid #0284c7;
+    }
+    .card-front {
+        background: #0f172a;
+        color: #38bdf8;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .card-back {
+        background: #1e293b;
+        color: #f8fafc;
+        transform: rotateY(180deg);
+    }
+    .card-back .translation {
+        font-size: 22px;
+        font-weight: bold;
+        color: #4ade80;
+        margin-bottom: 10px;
+    }
+    .card-back .context {
+        font-size: 16px;
+        font-style: italic;
+        color: #cbd5e1;
+    }
+    .card-nav {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    /* Task 1 Drag & Drop Categorization */
+    .drag-source {
+        background: #0f172a;
+        border: 2px dashed #0284c7;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        min-height: 80px;
+    }
+    .draggable-card {
+        background: #1e293b;
+        border: 2px solid #38bdf8;
+        color: #f8fafc;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        display: inline-block;
+        cursor: grab;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        user-select: none;
+        margin: 5px;
+    }
+    .columns-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 15px;
+    }
+    .drop-column {
+        background: #0f172a;
+        border: 2px dashed #475569;
+        border-radius: 10px;
+        padding: 15px;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .drop-column.drag-over {
+        background: #1e293b;
+        border-color: #38bdf8;
+    }
+    .drop-column h3 {
+        margin-top: 0;
+        font-size: 15px;
+        color: #38bdf8;
+        text-align: center;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #334155;
+    }
+
+    /* Placed item styling inside category boxes */
+    .placed-item {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-left: 4px solid #38bdf8;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-size: 13.5px;
+        color: #e2e8f0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Task 2 & 3 Synonyms/Antonyms Box */
+    .syn-item {
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* Huge Celebration Modal Overlay */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .modal-card {
+        background: #1e293b;
+        border: 2px solid #38bdf8;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 550px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        animation: popupScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popupScale {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-icon {
+        font-size: 70px;
+        margin-bottom: 15px;
+    }
+    .modal-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #38bdf8;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .modal-text {
+        font-size: 18px;
+        color: #cbd5e1;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    .modal-btn {
+        background: linear-gradient(135deg, #0284c7, #38bdf8);
+        color: #ffffff;
+        border: none;
+        padding: 15px 35px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .modal-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Data Analysis Verbs Practice</h1>
+
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="showTask(0)">Task 0: Flashcards</button>
+        <button class="tab-btn" onclick="showTask(1)">Task 1: Categorize</button>
+        <button class="tab-btn" onclick="showTask(2)">Task 2: Synonyms</button>
+        <button class="tab-btn" onclick="showTask(3)">Task 3: Antonyms</button>
+        <button class="tab-btn" onclick="showTask(4)">Task 4: Prepositions</button>
+    </div>
+
+    <!-- TASK 0: FLASHCARDS -->
+    <div id="task0" class="task-content active">
+        <h2>Verb Vocabulary Flashcards</h2>
+        <p>Tap/click the card to flip and reveal the translation and example context.</p>
+        
+        <div class="flashcard-container" onclick="flipCard()">
+            <div class="flashcard" id="card">
+                <div class="card-face card-front" id="card-front">verb</div>
+                <div class="card-face card-back">
+                    <div class="translation" id="card-trans">Перевод</div>
+                    <div class="context" id="card-context">"Context sentence goes here."</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-nav">
+            <button class="secondary-btn" onclick="prevCard()">Previous</button>
+            <span id="card-counter" style="align-self: center; font-weight: bold; color:#38bdf8;">1 / 24</span>
+            <button class="secondary-btn" onclick="nextCard()">Next</button>
+        </div>
+    </div>
+
+    <!-- TASK 1: CATEGORIZE -->
+    <div id="task1" class="task-content">
+        <h2>Task 1: Categorize Sentences One by One</h2>
+        <p>Drag the sentence below into the correct category box (or tap a box on touch devices). Sentences will remain in the box once placed!</p>
+        
+        <div class="drag-source" id="drag-source-container">
+            <div id="current-drag-item" class="draggable-card" draggable="true">Sentence loading...</div>
+        </div>
+
+        <div style="text-align:center; font-weight:bold; margin-bottom:15px; color:#38bdf8;" id="t1-progress">Sentence 1 of 30</div>
+
+        <div class="columns-container">
+            <div class="drop-column" id="col-up" onclick="mobileAssignCategory('up')">
+                <h3>Upward Movement (+)</h3>
+            </div>
+            <div class="drop-column" id="col-down" onclick="mobileAssignCategory('down')">
+                <h3>Downward Movement (−)</h3>
+            </div>
+            <div class="drop-column" id="col-stab" onclick="mobileAssignCategory('stab')">
+                <h3>Stability / Highs / Lows / Fluctuations</h3>
+            </div>
+        </div>
+
+        <div id="t1-feedback" class="feedback" style="text-align: center;"></div>
+    </div>
+
+    <!-- TASK 2: SYNONYMS -->
+    <div id="task2" class="task-content">
+        <h2>Task 2: Write Synonyms</h2>
+        <p>Write as many synonyms as you remember for each given verb (separated by commas).</p>
+        <div id="synonyms-container"></div>
+        <button class="action-btn" onclick="checkSynonyms()">Check Synonyms</button>
+        <div id="syn-global-fb" class="feedback"></div>
+    </div>
+
+    <!-- TASK 3: ANTONYMS -->
+    <div id="task3" class="task-content">
+        <h2>Task 3: Write Antonyms</h2>
+        <p>Write as many antonyms as you remember for each given verb (separated by commas).</p>
+        <div id="antonyms-container"></div>
+        <button class="action-btn" onclick="checkAntonyms()">Check Antonyms</button>
+        <div id="ant-global-fb" class="feedback"></div>
+    </div>
+
+    <!-- TASK 4: PREPOSITIONS -->
+    <div id="task4" class="task-content">
+        <h2>Task 4: Preposition Fill-in-the-Blank</h2>
+        <p>Fill in the missing prepositions for all 30 data analysis sentences.</p>
+        <div id="prep-container"></div>
+        <button class="action-btn" onclick="checkPrepositions()">Check Prepositions</button>
+        <div id="prep-global-fb" class="feedback"></div>
+    </div>
+</div>
+
+<!-- Huge Popup Modal for Praise -->
+<div class="modal-overlay" id="praiseModal">
+    <div class="modal-card">
+        <div class="modal-icon">🏆🚀</div>
+        <div class="modal-title">Outstanding Work!</div>
+        <div class="modal-text">
+            You've successfully completed the entire Data Analysis module! Your precision with trend terminology and prepositions is top-notch. Keep soaring!
+        </div>
+        <button class="modal-btn" onclick="closeModal()">Awesome!</button>
+    </div>
+</div>
+
+<script>
+// --- VOCABULARY DATA ---
+const flashcardsData = [
+    { verb: "surge", ru: "взлетать, резко возрастать", ctx: "Sales surged by 20% in the last quarter." },
+    { verb: "jump", ru: "подскакивать, резко увеличиваться", ctx: "Profits jumped from $1M to $3M." },
+    { verb: "climb", ru: "подниматься, расти", ctx: "Stock prices climbed steadily throughout the year." },
+    { verb: "shoot up", ru: "стремительно расти", ctx: "Demand shot up to unprecedented levels." },
+    { verb: "gain", ru: "прибавлять, расти", ctx: "The currency gained 2% in value yesterday." },
+    { verb: "rally / bounce back", ru: "восстанавливаться, оживляться", ctx: "The market bounced back after a tough week." },
+    { verb: "rise", ru: "расти, подниматься", ctx: "Inflation rose from 2% to 4%." },
+    { verb: "skyrocket", ru: "взлетать до небес", ctx: "Energy costs skyrocketed to an all-time high." },
+    { verb: "outpace", ru: "опережать, расти быстрее", ctx: "Revenue growth outpaced expectations by 5%." },
+    { verb: "plummet", ru: "стремительно падать", ctx: "Shares plummeted by 45% after the announcement." },
+    { verb: "fall", ru: "падать, снижаться", ctx: "Temperatures fell from 20C to 10C." },
+    { verb: "dip", ru: "ненадолго снижаться, проседать", ctx: "Sales dipped slightly in May." },
+    { verb: "slump", ru: "резко упадать, переживать спад", ctx: "Production slumped to its lowest point." },
+    { verb: "shrink", ru: "сокращаться, уменьшаться", ctx: "The market shrank by 10% during the crisis." },
+    { verb: "drop", ru: "падать, понижаться", ctx: "Unemployment dropped from 8% to 6%." },
+    { verb: "plunge", ru: "погружаться, резко падать", ctx: "Oil prices plunged to negative values." },
+    { verb: "tumble", ru: "обваливаться, падать", ctx: "House prices tumbled by 15%." },
+    { verb: "lag behind", ru: "отставать", ctx: "Local growth lagged behind national averages at 1%." },
+    { verb: "hover", ru: "колебаться вблизи отметки", ctx: "Prices hovered around $50 per barrel." },
+    { verb: "stand", ru: "составлять, находиться на уровне", ctx: "Unemployment currently stands at 5%." },
+    { verb: "peak", ru: "достигать пика", ctx: "Sales peaked at $10M in December." },
+    { verb: "bottom out", ru: "достигать нижнего предела", ctx: "The market finally bottomed out at $100." },
+    { verb: "plateau / level off", ru: "стабилизироваться, выравниваться", ctx: "Growth leveled off at 3% per year." },
+    { verb: "fluctuate", ru: "колебаться, меняться", ctx: "Temperatures fluctuated between 15C and 25C." }
+];
+
+// --- TASK 1 CATEGORIZATION DATA (30 SENTENCES) ---
+const task1Sentences = [
+    { text: "Sales surged by 25% following the ad campaign.", cat: "up" },
+    { text: "Oil prices plummeted by 30% overnight.", cat: "down" },
+    { text: "Inflation hovered around 3% for most of the year.", cat: "stab" },
+    { text: "Tech stock values jumped from $50 to $80.", cat: "up" },
+    { text: "The company's revenue dropped by 12% in Q3.", cat: "down" },
+    { text: "Exports peaked at an all-time high in July.", cat: "stab" },
+    { text: "Share values climbed steadily throughout the spring.", cat: "up" },
+    { text: "Production dipped slightly during the holiday week.", cat: "down" },
+    { text: "The market bottomed out at $150 per share.", cat: "stab" },
+    { text: "Subscription numbers shot up to 100,000 users.", cat: "up" },
+    { text: "Car sales slumped to a record low in winter.", cat: "down" },
+    { text: "Interest rates currently stand at 4.5%.", cat: "stab" },
+    { text: "The national economy gained 3% in overall value.", cat: "up" },
+    { text: "The GDP shrank by 2.5% during the recession.", cat: "down" },
+    { text: "Growth leveled off at 5% for the rest of the quarter.", cat: "stab" },
+    { text: "The stock market bounced back after the slump.", cat: "up" },
+    { text: "Housing prices plunged to unexpected lows.", cat: "down" },
+    { text: "Exchange rates fluctuated between 1.10 and 1.25.", cat: "stab" },
+    { text: "Global profits rose from $2M to $4M.", cat: "up" },
+    { text: "Retail figures tumbled by 18% in November.", cat: "down" },
+    { text: "Production plateaued at 500 units per day.", cat: "stab" },
+    { text: "Energy demand skyrocketed to unprecedented levels.", cat: "up" },
+    { text: "The local branch lagged behind rival stores by 10%.", cat: "down" },
+    { text: "Temperatures hovered at 20 degrees all week.", cat: "stab" },
+    { text: "Company revenue outpaced industry averages by 4%.", cat: "up" },
+    { text: "Customer satisfaction fell from 80% to 60%.", cat: "down" },
+    { text: "The exchange rate stands at 1.30 dollars per pound.", cat: "stab" },
+    { text: "Crypto values rallied after a sudden drop.", cat: "up" },
+    { text: "User engagement dropped from 5000 to 3000.", cat: "down" },
+    { text: "The graph fluctuates around the mean line.", cat: "stab" }
+];
+
+// --- TASK 2 SYNONYMS DATA ---
+const task2Verbs = [
+    { verb: "surge", synonyms: ["jump", "climb", "shoot up", "gain", "rise", "skyrocket"] },
+    { verb: "plummet", synonyms: ["fall", "dip", "slump", "shrink", "drop", "plunge", "tumble"] },
+    { verb: "hover", synonyms: ["stand", "fluctuate"] },
+    { verb: "plateau", synonyms: ["level off", "stand", "bottom out"] },
+    { verb: "plunge", synonyms: ["plummet", "fall", "dip", "slump", "shrink", "drop", "tumble"] }
+];
+
+// --- TASK 3 ANTONYMS DATA ---
+const task3Verbs = [
+    { verb: "surge", antonyms: ["plummet", "fall", "dip", "slump", "shrink", "drop", "plunge", "tumble"] },
+    { verb: "fall", antonyms: ["surge", "jump", "climb", "shoot up", "gain", "rise", "skyrocket", "rally", "bounce back"] },
+    { verb: "drop", antonyms: ["surge", "jump", "climb", "shoot up", "gain", "rise", "skyrocket", "rally", "bounce back"] },
+    { verb: "skyrocket", antonyms: ["plummet", "fall", "dip", "slump", "shrink", "drop", "plunge", "tumble"] }
+];
+
+// --- TASK 4 PREPOSITIONS DATA (30 SENTENCES) ---
+const task4Sentences = [
+    { sentence: "Sales surged ___ 25% following the campaign.", ans: ["by"] },
+    { sentence: "Prices climbed ___ $100 last week.", ans: ["to"] },
+    { sentence: "Tech stock values jumped ___ $50 to $80.", ans: ["from"] },
+    { sentence: "Profits jumped from $50 ___ $80.", ans: ["to"] },
+    { sentence: "Demand shot up ___ unprecedented levels.", ans: ["to"] },
+    { sentence: "The currency gained 2% ___ value.", ans: ["in"] },
+    { sentence: "The stock market bounced back ___ a tough month.", ans: ["after", "from"] },
+    { sentence: "Inflation rose ___ 2% to 4%.", ans: ["from"] },
+    { sentence: "Costs skyrocketed ___ an all-time high.", ans: ["to"] },
+    { sentence: "Revenue outpaced market expectations ___ 5%.", ans: ["by"] },
+    { sentence: "Oil prices plummeted ___ 30% overnight.", ans: ["by"] },
+    { sentence: "Temperatures fell ___ 20C to 10C.", ans: ["from"] },
+    { sentence: "Production dipped ___ May.", ans: ["in"] },
+    { sentence: "Production slump ___ its lowest point.", ans: ["to"] },
+    { sentence: "The economy shrank ___ 2% during the crisis.", ans: ["by"] },
+    { sentence: "Sales dropped ___ 1000 to 800 units.", ans: ["from"] },
+    { sentence: "Prices plunged ___ 15% in one hour.", ans: ["by"] },
+    { sentence: "Property values tumbled ___ 10%.", ans: ["by"] },
+    { sentence: "Growth lagged behind ___ 3%.", ans: ["by"] },
+    { sentence: "Inflation hovered ___ 3% all year.", ans: ["around", "at"] },
+    { sentence: "Unemployment currently stands ___ 5%.", ans: ["at"] },
+    { sentence: "Sales peaked ___ $10M in December.", ans: ["at"] },
+    { sentence: "The market bottomed out ___ $100.", ans: ["at"] },
+    { sentence: "Growth leveled off ___ 5%.", ans: ["at"] },
+    { sentence: "Rates fluctuated ___ 1.10 and 1.25.", ans: ["between"] },
+    { sentence: "Numbers fluctuated ___ the average.", ans: ["around"] },
+    { sentence: "The economy rallied ___ the fourth quarter.", ans: ["in"] },
+    { sentence: "Revenue dipped ___ 2% before recovering.", ans: ["by"] },
+    { sentence: "Profits plunged ___ $1M last quarter.", ans: ["by", "to"] },
+    { sentence: "Prices plateaued ___ $50 per barrel.", ans: ["at"] }
+];
+
+// --- TAB NAVIGATION ---
+function showTask(taskNum) {
+    document.querySelectorAll('.task-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById(`task${taskNum}`).classList.add('active');
+    document.querySelectorAll('.tab-btn')[taskNum].classList.add('active');
+}
+
+// --- TASK 0 LOGIC: FLASHCARDS ---
+let currentCardIndex = 0;
+
+function updateCard() {
+    const cardEl = document.getElementById("card");
+    cardEl.classList.remove("flipped");
+    setTimeout(() => {
+        const item = flashcardsData[currentCardIndex];
+        document.getElementById("card-front").innerText = item.verb;
+        document.getElementById("card-trans").innerText = item.ru;
+        document.getElementById("card-context").innerText = `"${item.ctx}"`;
+        document.getElementById("card-counter").innerText = `${currentCardIndex + 1} / ${flashcardsData.length}`;
+    }, 200);
+}
+
+function flipCard() {
+    document.getElementById("card").classList.toggle("flipped");
+}
+
+function nextCard() {
+    if (currentCardIndex < flashcardsData.length - 1) {
+        currentCardIndex++;
+        updateCard();
+    }
+}
+
+function prevCard() {
+    if (currentCardIndex > 0) {
+        currentCardIndex--;
+        updateCard();
+    }
+}
+
+// --- TASK 1 LOGIC: CATEGORIZE AND REMAIN IN BOXES ---
+let t1Index = 0;
+
+function renderTask1Item() {
+    if (t1Index >= task1Sentences.length) {
+        document.getElementById("drag-source-container").innerHTML = "<strong style='color:#4ade80;'>All 30 sentences categorized successfully! Great job! 🎉</strong>";
+        document.getElementById("t1-progress").innerText = "Completed 30 of 30";
+        document.getElementById("t1-feedback").innerHTML = "";
+        return;
+    }
+
+    document.getElementById("t1-progress").innerText = `Sentence ${t1Index + 1} of ${task1Sentences.length}`;
+    const dragCard = document.getElementById("current-drag-item");
+    dragCard.innerText = task1Sentences[t1Index].text;
+    dragCard.style.display = "inline-block";
+}
+
+function handleCategoryChoice(chosenCat) {
+    if (t1Index >= task1Sentences.length) return;
+
+    const currentItem = task1Sentences[t1Index];
+    const fb = document.getElementById("t1-feedback");
+
+    if (chosenCat === currentItem.cat) {
+        fb.innerHTML = "<span class='correct'>Correct! Moving to next sentence... ⭐</span>";
+        
+        const targetColId = chosenCat === 'up' ? 'col-up' : chosenCat === 'down' ? 'col-down' : 'col-stab';
+        const placedDiv = document.createElement("div");
+        placedDiv.className = "placed-item";
+        placedDiv.innerText = `${t1Index + 1}. ${currentItem.text}`;
+        document.getElementById(targetColId).appendChild(placedDiv);
+
+        t1Index++;
+        setTimeout(() => {
+            fb.innerHTML = "";
+            renderTask1Item();
+        }, 500);
+    } else {
+        let correctCatName = currentItem.cat === "up" ? "Upward Movement (+)" : currentItem.cat === "down" ? "Downward Movement (−)" : "Stability / Highs / Lows / Fluctuations";
+        fb.innerHTML = `<span class='incorrect'>Incorrect! That sentence belongs in: <strong>${correctCatName}</strong>. Try again!</span>`;
+    }
+}
+
+// Drag & Drop Event Listeners
+const dragItem = document.getElementById("current-drag-item");
+dragItem.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", "current");
+});
+
+['col-up', 'col-down', 'col-stab'].forEach(colId => {
+    const col = document.getElementById(colId);
+    col.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        col.classList.add("drag-over");
+    });
+    col.addEventListener("dragleave", () => {
+        col.classList.remove("drag-over");
+    });
+    col.addEventListener("drop", (e) => {
+        e.preventDefault();
+        col.classList.remove("drag-over");
+        const cat = colId === 'col-up' ? 'up' : colId === 'col-down' ? 'down' : 'stab';
+        handleCategoryChoice(cat);
+    });
+});
+
+function mobileAssignCategory(cat) {
+    handleCategoryChoice(cat);
+}
+
+// --- TASK 2 LOGIC: SYNONYMS ---
+function renderTask2() {
+    const container = document.getElementById("synonyms-container");
+    container.innerHTML = "";
+    task2Verbs.forEach((item, idx) => {
+        container.innerHTML += `
+            <div class="syn-item">
+                <label>Verb: <strong style="color:#38bdf8;">"${item.verb}"</strong></label><br>
+                <input type="text" id="syn-input-${idx}" placeholder="Type synonyms separated by commas..." autocomplete="off" autocapitalize="none">
+                <div id="syn-fb-${idx}" class="feedback"></div>
+            </div>
+        `;
+    });
+}
+
+function checkSynonyms() {
+    task2Verbs.forEach((item, idx) => {
+        const val = document.getElementById(`syn-input-${idx}`).value.toLowerCase();
+        const fb = document.getElementById(`syn-fb-${idx}`);
+        
+        const userWords = val.split(',').map(w => w.trim()).filter(w => w.length > 0);
+        const validSyns = item.synonyms;
+        
+        let found = userWords.filter(w => validSyns.includes(w));
+        let missing = validSyns.filter(w => !userWords.includes(w));
+
+        if (found.length > 0) {
+            fb.innerHTML = `<span class='correct'>Found (${found.length}): ${found.join(', ')}.</span><br>` +
+                           `<span class='info'>Other possibilities from list: ${missing.join(', ')}</span>`;
+        } else {
+            fb.innerHTML = `<span class='incorrect'>None recognized yet. Key synonyms include: ${validSyns.join(', ')}</span>`;
+        }
+    });
+}
+
+// --- TASK 3 LOGIC: ANTONYMS ---
+function renderTask3() {
+    const container = document.getElementById("antonyms-container");
+    container.innerHTML = "";
+    task3Verbs.forEach((item, idx) => {
+        container.innerHTML += `
+            <div class="syn-item">
+                <label>Verb: <strong style="color:#38bdf8;">"${item.verb}"</strong></label><br>
+                <input type="text" id="ant-input-${idx}" placeholder="Type antonyms separated by commas..." autocomplete="off" autocapitalize="none">
+                <div id="ant-fb-${idx}" class="feedback"></div>
+            </div>
+        `;
+    });
+}
+
+function checkAntonyms() {
+    task3Verbs.forEach((item, idx) => {
+        const val = document.getElementById(`ant-input-${idx}`).value.toLowerCase();
+        const fb = document.getElementById(`ant-fb-${idx}`);
+        
+        const userWords = val.split(',').map(w => w.trim()).filter(w => w.length > 0);
+        const validAnts = item.antonyms;
+        
+        let found = userWords.filter(w => validAnts.includes(w));
+        let missing = validAnts.filter(w => !userWords.includes(w));
+
+        if (found.length > 0) {
+            fb.innerHTML = `<span class='correct'>Found (${found.length}): ${found.join(', ')}.</span><br>` +
+                           `<span class='info'>Other possibilities from list: ${missing.join(', ')}</span>`;
+        } else {
+            fb.innerHTML = `<span class='incorrect'>None recognized yet. Key antonyms include: ${validAnts.join(', ')}</span>`;
+        }
+    });
+}
+
+// --- TASK 4 LOGIC: PREPOSITIONS & POPUP ---
+function renderTask4() {
+    const container = document.getElementById("prep-container");
+    container.innerHTML = "";
+    task4Sentences.forEach((item, idx) => {
+        const parts = item.sentence.split("___");
+        container.innerHTML += `
+            <div class="item">
+                <label>${idx + 1}. ${parts[0]} <input type="text" id="prep-input-${idx}" style="width:100px; display:inline-block;" autocomplete="off" autocapitalize="none"> ${parts[1]}</label>
+                <div id="prep-fb-${idx}" class="feedback"></div>
+            </div>
+        `;
+    });
+}
+
+function checkPrepositions() {
+    let correctCount = 0;
+    task4Sentences.forEach((item, idx) => {
+        const val = document.getElementById(`prep-input-${idx}`).value.trim().toLowerCase();
+        const fb = document.getElementById(`prep-fb-${idx}`);
+        
+        if (item.ans.includes(val)) {
+            fb.innerHTML = "<span class='correct'>Correct! ⭐</span>";
+            correctCount++;
+        } else {
+            fb.innerHTML = `<span class='incorrect'>Incorrect. Answer: <strong>${item.ans.join(" / ")}</strong></span>`;
+        }
+    });
+
+    document.getElementById("prep-global-fb").innerHTML = `<span class='info'>Total Score: ${correctCount} / ${task4Sentences.length} correct.</span>`;
+
+    // Trigger the Huge Praise Popup Modal!
+    showModal();
+}
+
+function showModal() {
+    document.getElementById("praiseModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("praiseModal").style.display = "none";
+}
+
+// --- INITIALIZATION ---
+updateCard();
+renderTask1Item();
+renderTask2();
+renderTask3();
+renderTask4();
+</script>
+
+</body>
+</html>

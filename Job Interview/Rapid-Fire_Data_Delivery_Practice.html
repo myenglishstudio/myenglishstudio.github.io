@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Interview: Rapid-Fire Data Delivery Practice</title>
+    <style>
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #202124;
+            --border-color: #dadce0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border-top: 6px solid var(--google-blue);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #1a73e8;
+            font-size: 26px;
+        }
+
+        .alert-box {
+            background-color: #fce8e6;
+            border-left: 5px solid var(--google-red);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .alert-title {
+            color: #c5221f;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* Briefing Section Styles */
+        .orientation-box {
+            background-color: #e8f0fe;
+            border-left: 5px solid var(--google-blue);
+            padding: 18px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .orientation-title {
+            color: #174ea6;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .orientation-box ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+            font-size: 13.5px;
+        }
+
+        .orientation-box li {
+            margin-bottom: 6px;
+        }
+
+        /* Example Contrast Box inside Header */
+        .example-contrast {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .example-bad {
+            background-color: #fdf2f2;
+            border-left: 4px solid var(--google-red);
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .example-good {
+            background-color: #e6f4ea;
+            border-left: 4px solid var(--google-green);
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .example-good u {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #137333;
+        }
+
+        .cheat-sheet {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .category-title {
+            font-weight: bold;
+            color: #174ea6;
+            font-size: 14px;
+            border-bottom: 2px solid #aecbfa;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+        }
+
+        .cheat-sheet ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f3f4;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #3c4043;
+            margin: 0;
+        }
+
+        .tag {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Context / Briefing Box inside Cards */
+        .chart-context {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--google-blue);
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #3c4043;
+            margin-bottom: 12px;
+        }
+
+        .chart-context strong {
+            color: #1a73e8;
+        }
+
+        /* Generic Visualizations Styling */
+        .data-display {
+            background-color: #fafafa;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Specific Graphic Components */
+        .bar-container { display: flex; align-items: flex-end; gap: 15px; height: 120px; padding-top: 20px; }
+        .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+        .bar { width: 100%; max-width: 40px; background-color: var(--google-blue); border-radius: 4px 4px 0 0; }
+        .bar-label { font-size: 11px; margin-top: 5px; color: #5f6368; }
+
+        .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; }
+        .metric-card { background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .metric-val { font-size: 22px; font-weight: bold; }
+        .metric-lbl { font-size: 12px; color: #5f6368; }
+        .trend-up { color: var(--google-green); }
+        .trend-down { color: var(--google-red); }
+
+        table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        table.data-table th, table.data-table td { border: 1px solid #e0e0e0; padding: 8px 12px; text-align: left; }
+        table.data-table th { background-color: #f1f3f4; }
+
+        .funnel-stage { background: var(--google-blue); color: white; padding: 8px; margin: 3px auto; text-align: center; border-radius: 4px; font-size: 12px; }
+
+        /* Delivery Input & Action Controls */
+        .response-area {
+            margin-top: 15px;
+        }
+
+        .response-area label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #5f6368;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 90px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--google-blue);
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+
+        .action-row {
+            margin-top: 10px;
+        }
+
+        .btn-sample {
+            background-color: #f1f3f4;
+            color: #3c4043;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-sample:hover {
+            background-color: #e8eaed;
+            color: #202124;
+        }
+
+        .sample-box {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 15px;
+            background-color: #e8f0fe;
+            border-left: 4px solid var(--google-blue);
+            border-radius: 4px;
+            font-size: 13.5px;
+            color: #1f1f1f;
+        }
+
+        .sample-box u {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Google Interview: Rapid-Fire Data Delivery Practice</h1>
+        
+        <!-- STUDENT ORIENTATION BRIEFING -->
+        <div class="orientation-box">
+            <div class="orientation-title">📋 STUDENT BRIEFING: WHAT GOOGLE LOOKS FOR IN DATA INTERVIEWS</div>
+            <p style="margin: 0 0 10px 0; font-size: 14px;">
+                At Google (and Big Tech interview rounds), interviewers do not want a list of raw figures. They evaluate your <strong>General Cognitive Ability (GCA)</strong>, <strong>Business Acumen</strong>, and <strong>Data Storytelling</strong>. Keep these three core principles in mind before analyzing any chart:
+            </p>
+            <ul>
+                <li><strong>1. Practice "Executive Summary First":</strong> Give the high-level takeaway immediately. Do not build up to a grand reveal—state the core insight in your first sentence.</li>
+                <li><strong>2. Use the 4-Step Rapid Structure:</strong> Every report must flow: <i>Overall Context &rarr; Key Anomaly/Trend &rarr; Underlying Cause/Contrast &rarr; Actionable Recommendation</i>.</li>
+                <li><strong>3. Connect Data to Business Impact:</strong> A drop in a graph isn't just a line going down—it represents lost user engagement, degraded UX, or leaking revenue. Always pivot to the "So what?".</li>
+            </ul>
+
+            <!-- EXAMPLE SHOWCASE INSIDE BRIEFING -->
+            <div class="example-contrast">
+                <div class="example-bad">
+                    <strong style="color: #c5221f;">❌ BAD ANSWER (Data Dump):</strong><br>
+                    "100k people visited the landing page. 70k signed up, which is 70%. Then 14k verified email, which is 20%. Then 10.5k made a document. The lowest step is email verification."
+                    <br><br>
+                    <small><i>Why it fails: No executive summary, simply lists numbers, ignores business impact, offers no solution.</i></small>
+                </div>
+                <div class="example-good">
+                    <strong style="color: #137333;">✅ EXCELLENT ANSWER (Structured Delivery):</strong><br>
+                    "<u>The data clearly illustrates</u> a severe activation bottleneck at verification, losing 80% of sign-ups. <u>When examining the funnel</u>, initial sign-up is strong at 70%, but <u>an anomaly occurs at</u> email verification where conversion plummets to 20%. <u>In stark contrast to</u> landing page success, forced verification creates extreme UX friction. <u>Consequently, I recommend</u> testing deferred verification to recover lost users."
+                    <br><br>
+                    <small><i>Why it succeeds: Executive summary first, mandatory linking words, clear root cause, concrete recommendation.</i></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-title">⚠️ STRICT EVALUATION RULE: CONNECTING WORDS ARE MANDATORY</div>
+            <p style="margin: 0; font-size: 14px;">
+                Your report <strong>WILL NOT COUNT</strong> if you simply describe numbers without cohesive linking phrases. You must connect your observations using mandatory transition phrases (see Cheat Sheet below).
+            </p>
+        </div>
+
+        <h3>Required Linking Words & Transitions Cheat Sheet</h3>
+        <div class="cheat-sheet">
+            <div>
+                <div class="category-title">1. Introductions & Big Picture</div>
+                <ul>
+                    <li>"Looking at the overarching trend..."</li>
+                    <li>"The data clearly illustrates..."</li>
+                    <li>"At a high level, we observe..."</li>
+                </ul>
+            </div>
+            <div>
+                <div class="category-title">2. Highlighting Anomalies</div>
+                <ul>
+                    <li>"Strikingly, there is a sharp..."</li>
+                    <li>"An anomaly occurs when..."</li>
+                    <li>"Most notably, we see a spike/dip..."</li>
+                </ul>
+            </div>
+            <div>
+                <div class="category-title">3. Contrast & Comparison</div>
+                <ul>
+                    <li>"Conversely, when compared to..."</li>
+                    <li>"While [A] experienced X, [B]..."</li>
+                    <li>"In stark contrast to..."</li>
+                </ul>
+            </div>
+            <div>
+                <div class="category-title">4. Cause, Effect & Next Steps</div>
+                <ul>
+                    <li>"This implies that..."</li>
+                    <li>"Consequently, this leads to..."</li>
+                    <li>"As a direct result of this, I recommend..."</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- ITEM 1 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">1. Line Chart: Daily Active Users (DAU) Post-Feature Launch</h2>
+            <span class="tag">Product Performance</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are a PM at Google Photos. On Day 14, your team launched a new AI-powered editing tool. Review the 30-day DAU trajectory below and give a 30-second executive debrief.
+        </div>
+        <div class="data-display">
+            <svg viewBox="0 0 500 100" style="width: 100%; height: 120px;">
+                <line x1="0" y1="20" x2="500" y2="20" stroke="#eee" />
+                <line x1="0" y1="50" x2="500" y2="50" stroke="#eee" />
+                <line x1="0" y1="80" x2="500" y2="80" stroke="#eee" />
+                <path d="M 10 70 L 100 68 L 200 65 L 210 20 L 250 85 L 350 80 L 480 82" fill="none" stroke="#4285F4" stroke-width="3" />
+                <circle cx="210" cy="20" r="4" fill="#EA4335" />
+                <text x="215" y="18" font-size="10" fill="#EA4335">Day 14: Feature Launch (Spike)</text>
+                <circle cx="250" cy="85" r="4" fill="#EA4335" />
+                <text x="255" y="95" font-size="10" fill="#EA4335">Day 17: Severe Drop</text>
+            </svg>
+        </div>
+        <div class="response-area">
+            <label for="resp1">Deliver your rapid-fire report (Must use: <i>"Looking at the overarching trend", "Strikingly", "This implies that"</i>):</label>
+            <textarea id="resp1" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(1)">Show Sample Answer</button>
+                <div id="sample1" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Looking at the overarching trend</u>, user engagement remained stable until a massive usage spike on Day 14 following our feature deployment. <u>Strikingly</u>, this initial adoption collapsed within 72 hours, dropping below our historical baseline on Day 17. <u>This implies that</u> while marketing successfully generated initial novelty, severe friction or technical bugs damaged product retention. I recommend immediately analyzing Day 17 crash logs and user drop-off flows."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">2. Bar Chart: Cloud Revenue Growth by Region (YoY)</h2>
+            <span class="tag">Financial / Regional</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> As Google Cloud Regional Strategy Lead, review this quarter's Year-over-Year revenue expansion numbers across global markets to advise where next quarter's sales engineering capital should go.
+        </div>
+        <div class="data-display">
+            <div class="bar-container">
+                <div class="bar-group">
+                    <div class="bar" style="height: 40%; background-color: #34A853;"></div>
+                    <div class="bar-label">NA (+12%)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height: 35%; background-color: #34A853;"></div>
+                    <div class="bar-label">EMEA (+10%)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height: 95%; background-color: #4285F4;"></div>
+                    <div class="bar-label">APAC (+48%)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height: 15%; background-color: #FBBC05;"></div>
+                    <div class="bar-label">LATAM (+3%)</div>
+                </div>
+            </div>
+        </div>
+        <div class="response-area">
+            <label for="resp2">Deliver your rapid-fire report (Must use: <i>"At a high level", "In stark contrast to", "Consequently"</i>):</label>
+            <textarea id="resp2" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(2)">Show Sample Answer</button>
+                <div id="sample2" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>At a high level</u>, global cloud revenue shows strong overall momentum driven predominantly by emerging markets. APAC experienced explosive enterprise adoption, delivering an extraordinary +48% YoY growth rate. <u>In stark contrast to</u> APAC's acceleration, LATAM stagnated with a modest +3% increase, lagging well behind North America and EMEA. <u>Consequently</u>, we should reallocate sales engineering budget from saturated territories to capture APAC market share while auditing LATAM channel partnerships."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">3. Metric Scorecard: E-Commerce Conversion Health Dashboard</h2>
+            <span class="tag">KPI Overview</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are managing growth for Google Shopping merchants. Analyze this top-level health dashboard following a recent platform re-design to identify where revenue is being lost.
+        </div>
+        <div class="data-display">
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-lbl">Total Impressions</div>
+                    <div class="metric-val">1.2M</div>
+                    <div class="trend-up" style="font-size: 11px;">▲ +14% YoY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-lbl">Click-Through Rate (CTR)</div>
+                    <div class="metric-val">4.8%</div>
+                    <div class="trend-up" style="font-size: 11px;">▲ +0.5% YoY</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-lbl">Cart Abandonment</div>
+                    <div class="metric-val">68.2%</div>
+                    <div class="trend-down" style="font-size: 11px;">▲ +12% (Worse)</div>
+                </div>
+            </div>
+        </div>
+        <div class="response-area">
+            <label for="resp3">Deliver your rapid-fire report (Must use: <i>"The data clearly illustrates", "Most notably", "As a direct result"</i>):</label>
+            <textarea id="resp3" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(3)">Show Sample Answer</button>
+                <div id="sample3" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>The data clearly illustrates</u> top-of-funnel marketing health, evidenced by impressions reaching 1.2M alongside a rising 4.8% CTR. <u>Most notably</u>, however, cart abandonment surged drastically by +12%, creating a severe bottleneck at checkout. <u>As a direct result</u> of this drop-off, top-of-funnel acquisition gains are being wasted, making a full checkout checkout-UX and payment gateway audit our highest priority."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">4. Conversion Funnel: User Onboarding Flow</h2>
+            <span class="tag">UX / Growth Funnel</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are leading growth for Google Workspace. This funnel represents 100,000 new visitors attempting to register for a free trial. Highlight where users drop off and pitch a fix.
+        </div>
+        <div class="data-display">
+            <div class="funnel-stage" style="width: 90%;">1. Landing Page Visit (100,000)</div>
+            <div class="funnel-stage" style="width: 70%;">2. Account Sign-Up (70,000 / 70%)</div>
+            <div class="funnel-stage" style="width: 20%; background-color: #EA4335;">3. Email Verification (14,000 / 20%)</div>
+            <div class="funnel-stage" style="width: 15%;">4. First Profile Setup (10,500 / 75%)</div>
+        </div>
+        <div class="response-area">
+            <label for="resp4">Deliver your rapid-fire report (Must use: <i>"When examining the funnel", "An anomaly occurs at", "To address this"</i>):</label>
+            <textarea id="resp4" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(4)">Show Sample Answer</button>
+                <div id="sample4" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>When examining the funnel</u>, initial user intent is remarkably strong, yielding a solid 70% conversion from visit to sign-up. <u>An anomaly occurs at</u> the email verification step, where retention crashes down to a dismal 20%. <u>To address this</u> friction, we ought to test social SSO logins or allow deferred verification to prevent losing 80% of our registered user base."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 5 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">5. Donut Chart: Search Market Share Breakdown</h2>
+            <span class="tag">Market Intelligence</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are presenting an executive search briefing on query entry points. Review how global user search volume is divided across hardware devices and modalities.
+        </div>
+        <div class="data-display" style="flex-direction: row; align-items: center; justify-content: space-around;">
+            <svg width="100" height="100" viewBox="0 0 42 42">
+                <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#4285F4" stroke-width="5" stroke-dasharray="70 30" stroke-dashoffset="25"></circle>
+                <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#EA4335" stroke-width="5" stroke-dasharray="20 80" stroke-dashoffset="55"></circle>
+                <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#FBBC05" stroke-width="5" stroke-dasharray="10 90" stroke-dashoffset="35"></circle>
+            </svg>
+            <div style="font-size: 13px;">
+                <div><span style="color:#4285F4;">■</span> Mobile Search: 70%</div>
+                <div><span style="color:#EA4335;">■</span> Desktop Search: 20%</div>
+                <div><span style="color:#FBBC05;">■</span> Voice / Alternative: 10%</div>
+            </div>
+        </div>
+        <div class="response-area">
+            <label for="resp5">Deliver your rapid-fire report (Must use: <i>"The share distribution reveals", "Whereas", "This highlights the need to"</i>):</label>
+            <textarea id="resp5" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(5)">Show Sample Answer</button>
+                <div id="sample5" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>The share distribution reveals</u> that mobile dominates our ecosystem, accounting for 70% of total search traffic. <u>Whereas</u> desktop accounted for a majority of queries historically, it now represents just a 20% share. <u>This highlights the need to</u> adopt a mobile-first product development strategy and optimize ad placements specifically for smaller viewports."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 6 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">6. Data Table: Latency vs. Conversion Rate by Server Region</h2>
+            <span class="tag">Infrastructure & Monetization</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are a Technical Lead on Google Play Store. Review server latency logs and customer checkout conversion across three global data center regions.
+        </div>
+        <div class="data-display">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Avg Latency (ms)</th>
+                        <th>Conversion Rate</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>us-east</td>
+                        <td>45ms</td>
+                        <td>3.4%</td>
+                        <td style="color: green;">Optimal</td>
+                    </tr>
+                    <tr>
+                        <td>eu-central</td>
+                        <td>62ms</td>
+                        <td>3.1%</td>
+                        <td style="color: green;">Optimal</td>
+                    </tr>
+                    <tr>
+                        <td>sa-east</td>
+                        <td>280ms</td>
+                        <td>0.9%</td>
+                        <td style="color: red;">Critical Latency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="response-area">
+            <label for="resp6">Deliver your rapid-fire report (Must use: <i>"Comparing the operational metrics", "Correlation indicates", "Therefore, prioritizing"</i>):</label>
+            <textarea id="resp6" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(6)">Show Sample Answer</button>
+                <div id="sample6" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Comparing the operational metrics</u> across global servers, US and EU regions demonstrate healthy performance with latencies under 65ms and healthy conversion rates above 3%. <u>Correlation indicates</u> that the extreme 280ms latency in sa-east is directly suppressing conversions down to 0.9%. <u>Therefore, prioritizing</u> edge server investments in South America will unlock suppressed revenue."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 7 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">7. Stacked Bar Chart: Ad Revenue Mix (Organic vs Paid Search)</h2>
+            <span class="tag">Monetization Strategy</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> As a Strategic Partner Manager at Google Ads, analyze this publisher's revenue composition across traffic sources to identify growth risks and opportunities.
+        </div>
+        <div class="data-display">
+            <div style="font-size: 12px; margin-bottom: 5px;">Q1 vs Q2 vs Q3 vs Q4 Split</div>
+            <div style="display: flex; height: 30px; border-radius: 4px; overflow: hidden; font-size: 11px; color: white; text-align: center; line-height: 30px;">
+                <div style="width: 60%; background-color: #4285F4;">Organic Search (60%)</div>
+                <div style="width: 25%; background-color: #34A853;">Paid Ads (25%)</div>
+                <div style="width: 15%; background-color: #FBBC05; color: black;">Direct (15%)</div>
+            </div>
+        </div>
+        <div class="response-area">
+            <label for="resp7">Deliver your rapid-fire report (Must use: <i>"Breakdown analysis shows", "On the other hand", "This underscores"</i>):</label>
+            <textarea id="resp7" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(7)">Show Sample Answer</button>
+                <div id="sample7" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Breakdown analysis shows</u> that Organic Search remains our primary acquisition channel, generating 60% of total ad revenue. <u>On the other hand</u>, Paid Ads represent a relatively low 25% share, while Direct traffic contributes 15%. <u>This underscores</u> our vulnerability to search engine algorithm updates and suggests an aggressive expansion in paid targeting is required."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 8 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">8. Heatmap Matrix: Customer Support Response Time vs Satisfaction Score (CSAT)</h2>
+            <span class="tag">Operations / CSAT</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are Head of Customer Operations for Google One subscriptions. Evaluate support response speed against CSAT trends to propose SLA improvements.
+        </div>
+        <div class="data-display">
+            <table class="data-table" style="text-align: center;">
+                <tr>
+                    <th>Response Time</th>
+                    <th>CSAT Score (1-5)</th>
+                    <th>Ticket Volume</th>
+                </tr>
+                <tr style="background-color: #d4edda;">
+                    <td>&lt; 5 mins</td>
+                    <td>4.8</td>
+                    <td>15%</td>
+                </tr>
+                <tr style="background-color: #fff3cd;">
+                    <td>5 - 60 mins</td>
+                    <td>3.9</td>
+                    <td>60%</td>
+                </tr>
+                <tr style="background-color: #f8d7da;">
+                    <td>&gt; 24 hrs</td>
+                    <td>1.8</td>
+                    <td>25%</td>
+                </tr>
+            </table>
+        </div>
+        <div class="response-area">
+            <label for="resp8">Deliver your rapid-fire report (Must use: <i>"Noticeable correlation exists between", "Conversely", "Action must be taken to"</i>):</label>
+            <textarea id="resp8" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(8)">Show Sample Answer</button>
+                <div id="sample8" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Noticeable correlation exists between</u> fast response times and high user satisfaction, evidenced by a 4.8 CSAT score for sub-5 minute resolutions. <u>Conversely</u>, tickets taking over 24 hours cause CSAT to plummet to a dangerous 1.8 across a full quarter of our volume. <u>Action must be taken to</u> automate routine tickets via AI agents to eliminate the 24-hour backlog."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 9 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">9. Cohort Analysis Table: User Retention After 30 Days</h2>
+            <span class="tag">User Retention</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are a Product Manager on Youtube Music. Compare user retention cohorts between January (old app version) and February (post-UI redesign release).
+        </div>
+        <div class="data-display">
+            <table class="data-table">
+                <tr>
+                    <th>Cohort</th>
+                    <th>Day 1</th>
+                    <th>Day 7</th>
+                    <th>Day 30</th>
+                </tr>
+                <tr>
+                    <td>Jan Cohort</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                    <td>22%</td>
+                </tr>
+                <tr>
+                    <td>Feb Cohort (App Update)</td>
+                    <td>100%</td>
+                    <td>55%</td>
+                    <td>38%</td>
+                </tr>
+            </table>
+        </div>
+        <div class="response-area">
+            <label for="resp9">Deliver your rapid-fire report (Must use: <i>"Evaluating cohort performance", "Significant improvement is seen in", "This confirms that"</i>):</label>
+            <textarea id="resp9" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(9)">Show Sample Answer</button>
+                <div id="sample9" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Evaluating cohort performance</u> year-over-month, baseline retention in January showed steep decay down to 22% by Day 30. <u>Significant improvement is seen in</u> the February cohort following the application update, with 30-day retention reaching 38%. <u>This confirms that</u> the new UX improvements successfully boosted user stickiness, justifying a full rollout to remaining segments."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 10 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">10. Scatter Plot: Ad Spend vs ROI Across Channels</h2>
+            <span class="tag">Marketing Efficiency</span>
+        </div>
+        <div class="chart-context">
+            <strong>Interviewer Scenario Context:</strong> You are advising Google's Growth Marketing Director on paid user acquisition budget allocations across two major external ad networks.
+        </div>
+        <div class="data-display">
+            <svg viewBox="0 0 400 100" style="width: 100%; height: 120px;">
+                <line x1="30" y1="10" x2="30" y2="80" stroke="#888" stroke-width="1"/>
+                <line x1="30" y1="80" x2="380" y2="80" stroke="#888" stroke-width="1"/>
+                <circle cx="350" cy="70" r="6" fill="#EA4335" />
+                <text x="310" y="65" font-size="9" fill="#333">Channel A (High Spend, Low ROI)</text>
+                <circle cx="80" cy="20" r="6" fill="#34A853" />
+                <text x="90" y="25" font-size="9" fill="#333">Channel B (Low Spend, High ROI)</text>
+            </svg>
+        </div>
+        <div class="response-area">
+            <label for="resp10">Deliver your rapid-fire report (Must use: <i>"Analyzing spend efficiency", "In contrast to", "The strategic takeaway is"</i>):</label>
+            <textarea id="resp10" placeholder="Type your response here..."></textarea>
+            <div class="action-row">
+                <button class="btn-sample" onclick="toggleSample(10)">Show Sample Answer</button>
+                <div id="sample10" class="sample-box">
+                    <strong>Sample Delivery:</strong><br>
+                    "<u>Analyzing spend efficiency</u> across marketing vectors reveals severe budget misallocation. Channel A consumes the highest budget while delivering unacceptable bottom-tier ROI. <u>In contrast to</u> Channel A, Channel B yields maximum ROI despite receiving minimal funding. <u>The strategic takeaway is</u> to immediately reallocate marketing spend from Channel A to scale Channel B."
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleSample(id) {
+        const sampleBox = document.getElementById('sample' + id);
+        const btn = event.target;
+
+        if (sampleBox.style.display === "block") {
+            sampleBox.style.display = "none";
+            btn.innerText = "Show Sample Answer";
+        } else {
+            sampleBox.style.display = "block";
+            btn.innerText = "Hide Sample Answer";
+        }
+    }
+</script>
+
+</body>
+</html>

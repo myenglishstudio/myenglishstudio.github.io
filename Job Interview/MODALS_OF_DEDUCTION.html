@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Diagnostic Practice: Modals of Deduction</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.92);
+            --accent-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --high-cert: #4ade80;
+            --low-cert: #facc15;
+            --border-color: #334155;
+            --btn-blue: #0284c7;
+            --btn-hover: #0369a1;
+            /* Pure White Box Styles */
+            --white-box-bg: #ffffff;
+            --white-box-border: #cbd5e1;
+            --white-box-text: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)),
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--accent-blue);
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .instructions {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .task-number {
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 15px;
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-100 {
+            background-color: rgba(74, 222, 128, 0.15);
+            color: var(--high-cert);
+            border: 1px solid var(--high-cert);
+        }
+
+        .badge-50 {
+            background-color: rgba(250, 204, 21, 0.15);
+            color: var(--low-cert);
+            border: 1px solid var(--low-cert);
+        }
+
+        /* White Styled Context Container */
+        .context-box {
+            background: var(--white-box-bg);
+            border: 1px solid var(--white-box-border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            color: var(--white-box-text);
+            font-size: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* White Styled Non-Modal Statement Box */
+        .non-modal-box {
+            background: var(--white-box-bg);
+            border: 1px solid var(--white-box-border);
+            border-left: 5px solid var(--accent-blue);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: var(--white-box-text);
+            font-size: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .check-btn {
+            background-color: var(--btn-blue);
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        .check-btn:hover {
+            background-color: var(--btn-hover);
+            transform: translateY(-1px);
+        }
+
+        /* White Styled Model Answer Box */
+        .answer-box {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 16px;
+            background-color: var(--white-box-bg);
+            border: 2px dashed #0284c7;
+            border-radius: 8px;
+            color: #0369a1;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Data Analysis Diagnostic Practice: Modals of Deduction</h1>
+    
+    <div class="instructions">
+        <strong>Task Instructions:</strong> Read each diagnostic context carefully. Pay attention to whether the evidence gives 
+        <span style="color: var(--high-cert); font-weight: bold;">100% Certainty</span> (Definitive proof/isolated issue) or 
+        <span style="color: var(--low-cert); font-weight: bold;">50% Certainty</span> (Unverified signal/initial hypothesis). 
+        Paraphrase the non-modal hypothesis in your head using the appropriate modal verb (<code>must</code>, <code>must have</code>, <code>could</code>, or <code>could have</code>), then click <strong>"Check Model Answer"</strong> to verify your phrasing.
+    </div>
+
+    <div id="exercise-list"></div>
+</div>
+
+<script>
+const tasks = [
+    {
+        cert: 100,
+        time: "present",
+        context: "You are investigating a sudden 15% drop in checkout conversions on an e-commerce app. After segmenting the data, you discover that Android and Web users are converting normally, but 100% of the dropped conversions come from iOS users who updated to app version 4.2 this morning.",
+        nonModal: "The checkout drop is directly tied to a bug in the new iOS v4.2 release.",
+        expected: "\"The checkout drop must stem from / must be tied to a bug in the new iOS v4.2 release.\""
+    },
+    {
+        cert: 50,
+        time: "past",
+        context: "Last week, active user engagement dropped by 8% across all platforms for two days before returning to baseline. There were no new app deployments or server outages during that window, but marketing reported that a major competitor ran a massive ad campaign on those same two days.",
+        nonModal: "It is possible that an unannounced competitor campaign triggered the temporary dip.",
+        expected: "\"An unannounced competitor campaign could have triggered the temporary dip.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "You notice that search latency on your platform increased slightly during peak hours today. Data shows that overall server health is normal, but CPU usage on the main database cluster is slightly higher than usual. You have not checked the active query logs yet.",
+        nonModal: "This latency presents a potential signal of an unoptimized database query.",
+        expected: "\"This latency could indicate / could point to an unoptimized database query.\""
+    },
+    {
+        cert: 100,
+        time: "past",
+        context: "Yesterday's ETL pipeline finished with zero reported errors, yet the executive dashboard showed a 100% loss of user event counts from 2 PM to 4 PM. Infrastructure logs show that the network logging gateway completely crashed during those exact two hours.",
+        nonModal: "The missing dashboard data was definitely caused by the logging gateway crash.",
+        expected: "\"The missing dashboard data must have been caused by the logging gateway crash.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "A SaaS company sees a subtle 3% uptick in churn among users who signed up during a holiday promotion. Customer support ticket volume hasn't increased, and onboarding metrics appear unchanged.",
+        nonModal: "The slight churn increase is possibly driven by low-intent users acquired during the promotion.",
+        expected: "\"The slight churn increase could be driven by / could stem from low-intent promo users.\""
+    },
+    {
+        cert: 100,
+        time: "present",
+        context: "An automated alert triggers because backend memory consumption on a data warehouse worker node is at 99%. A query audit log shows a single analyst running a script with an explicit, unindexed CROSS JOIN between two 50-million-row tables.",
+        nonModal: "The memory exhaustion is explicitly caused by the unoptimized CROSS JOIN query.",
+        expected: "\"The memory exhaustion must stem from / must be caused by the unoptimized CROSS JOIN query.\""
+    },
+    {
+        cert: 50,
+        time: "past",
+        context: "Three weeks ago, Day 7 retention dropped by 4%. Product analytics show that the drop began on the exact day a major UI redesign was rolled out, but user feedback surveys have not yet been analyzed.",
+        nonModal: "It is plausible that the onboarding UI redesign introduced user friction.",
+        expected: "\"The onboarding UI redesign could have introduced user friction.\""
+    },
+    {
+        cert: 100,
+        time: "past",
+        context: "A mobile banking app experienced a 40% spike in login failures last night. Security logs confirm that a third-party authentication API provider suffered a total global outage during that exact timeframe.",
+        nonModal: "The spike in login failures was undeniably triggered by the third-party API outage.",
+        expected: "\"The spike in login failures must have been triggered by the third-party API outage.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "Average order value (AOV) for an online marketplace is down 5% today. There are no site errors, and all payment systems are operational. Today happens to be a national public holiday in your largest market.",
+        nonModal: "The minor decrease in AOV is likely a reflection of holiday purchasing behavior.",
+        expected: "\"The minor decrease in AOV could reflect / could be caused by holiday purchasing behavior.\""
+    },
+    {
+        cert: 100,
+        time: "present",
+        context: "A streaming platform's daily active user (DAU) metric graph shows a sudden, unnatural 50% vertical drop starting at midnight. The code repository reveals that engineers pushed a commit at 11:59 PM changing the SQL definition of 'Active User' from page visit to video playback.",
+        nonModal: "The chart collapse is a direct result of changing the core metric definition.",
+        expected: "\"The chart collapse must stem from / must be caused by changing the core metric definition.\""
+    },
+    {
+        cert: 50,
+        time: "past",
+        context: "A ride-sharing platform saw a 12% drop in ride requests last Sunday morning in one specific city. Weather reports confirm heavy rainfall occurred during those hours, but driver availability data is still pending.",
+        nonModal: "It is possible that severe weather reduced passenger demand.",
+        expected: "\"Severe weather could have reduced passenger demand.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "User session duration on a content site has dropped by 10% following the introduction of a new recommended articles widget at the bottom of pages.",
+        nonModal: "The widget is a potential cause of feature distraction or reduced page scrolling.",
+        expected: "\"The widget could be causing feature distraction / could be reducing page scrolling.\""
+    },
+    {
+        cert: 100,
+        time: "past",
+        context: "Every single API request returning HTTP 500 errors between 8:00 AM and 8:15 AM yesterday carries a payload parameter pointing to a single database node that suffered a hardware kernel panic at 8:00 AM.",
+        nonModal: "The morning API errors were indisputably linked to the database hardware failure.",
+        expected: "\"The morning API errors must have been linked to the database hardware failure.\""
+    },
+    {
+        cert: 50,
+        time: "past",
+        context: "Email newsletter click-through rates fell by 2% last month. The marketing team changed the subject line format and sent emails two hours earlier than usual.",
+        nonModal: "The shift in send time was perhaps the cause of lower email engagement.",
+        expected: "\"The shift in send time could have caused lower email engagement.\""
+    },
+    {
+        cert: 100,
+        time: "present",
+        context: "Push notification delivery rates dropped to 0% for all Android 14 devices immediately after a deployment. A review of the release code shows the Android Push Permission payload key was accidentally omitted from the deployment package.",
+        nonModal: "The zero delivery rate is a direct consequence of the missing permission key in the release.",
+        expected: "\"The zero delivery rate must stem from / must be caused by the missing permission key.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "Organic search traffic to a blog page has steadily decayed by 1% week-over-week for the last month. No technical SEO errors are flagged in Search Console.",
+        nonModal: "The gradual decline is possibly a result of competitor content ranking higher.",
+        expected: "\"The gradual decline could be a result of competitor content ranking higher.\""
+    },
+    {
+        cert: 100,
+        time: "past",
+        context: "A telehealth portal registered zero new patient signups between 1 AM and 5 AM. Database audit logs show that the registration table schema was locked for exclusive maintenance during that exact four-hour window.",
+        nonModal: "The lack of signups was definitely caused by the database schema lock.",
+        expected: "\"The lack of signups must have been caused by the database schema lock.\""
+    },
+    {
+        cert: 50,
+        time: "present",
+        context: "Ad click conversion dropped slightly after a homepage refresh. The design team moved the primary Call to Action (CTA) button 200 pixels further down the page.",
+        nonModal: "The button placement is a potential source of visual friction for users.",
+        expected: "\"The button placement could be creating visual friction for users.\""
+    },
+    {
+        cert: 100,
+        time: "present",
+        context: "Telemetry data shows a 100% failure rate for credit card processing on a checkout page. Server logs show the payment gateway returned an 'Invalid API Key' response for every single attempted transaction.",
+        nonModal: "The transaction failures are unambiguously caused by an expired or incorrect API key.",
+        expected: "\"The transaction failures must stem from / must be caused by an incorrect API key.\""
+    },
+    {
+        cert: 50,
+        time: "past",
+        context: "A mobile game saw an unpredicted 15% spike in in-app purchases last weekend. A popular gaming influencer posted a video playing the game on Friday night, though no formal sponsorship was active.",
+        nonModal: "It is plausible that the viral influencer video drove the revenue surge.",
+        expected: "\"The viral influencer video could have driven the revenue surge.\""
+    }
+];
+
+function renderTasks() {
+    const listEl = document.getElementById("exercise-list");
+    
+    tasks.forEach((task, idx) => {
+        const badgeClass = task.cert === 100 ? "badge-100" : "badge-50";
+        const badgeText = task.cert === 100 ? "100% Sure (High Certainty)" : "50% Sure (Low/Medium Certainty)";
+        const timeFrame = task.time === "past" ? "Past Event" : "Present / Ongoing";
+        
+        const cardHtml = `
+            <div class="task-card">
+                <div class="card-header">
+                    <span class="task-number">Scenario ${idx + 1} of ${tasks.length} (${timeFrame})</span>
+                    <span class="badge ${badgeClass}">${badgeText}</span>
+                </div>
+                <div class="context-box"><strong>Context:</strong> ${task.context}</div>
+                <div class="non-modal-box"><strong>Non-Modal Statement:</strong> "${task.nonModal}"</div>
+                <button class="check-btn" onclick="toggleAnswer(${idx})">Check Model Answer</button>
+                <div class="answer-box" id="answer-${idx}">
+                    <strong>Expected Modal Paraphrase:</strong><br>${task.expected}
+                </div>
+            </div>
+        `;
+        listEl.innerHTML += cardHtml;
+    });
+}
+
+function toggleAnswer(idx) {
+    const box = document.getElementById(`answer-${idx}`);
+    if (box.style.display === "block") {
+        box.style.display = "none";
+    } else {
+        box.style.display = "block";
+    }
+}
+
+renderTasks();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Conditional Practice - Business & Data Rules</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #1e293b;
+            background-image: 
+                linear-gradient(rgba(30, 41, 59, 0.70), rgba(30, 41, 59, 0.80)),
+                url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(248, 250, 252, 0.95);
+            padding: 35px 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(6px);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            border-bottom: 2px solid #94a3b8;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #1e293b;
+            background-color: #e2e8f0;
+            padding: 10px 15px;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 6px 6px 0;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            color: #475569;
+            font-size: 0.95em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .task-section {
+            margin-bottom: 40px;
+        }
+        .sentence-item {
+            margin-bottom: 20px;
+            padding: 18px 20px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            font-size: 1.05em;
+        }
+        input[type="text"] {
+            padding: 6px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        .inline-input {
+            width: 140px;
+            margin: 0 4px;
+        }
+        .full-input {
+            width: 100%;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+        }
+        button {
+            padding: 7px 18px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            margin-left: 10px;
+        }
+        .task2-btn {
+            margin-top: 10px;
+            margin-left: 0;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            display: none;
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+        .feedback.info {
+            display: block;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+        .verb-hint {
+            font-weight: bold;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conditional Clause 1: Business & Data Rules</h1>
+    <p class="subtitle">Practice First Conditional patterns used in business rules and data analysis logic.</p>
+
+    <!-- TASK 1 -->
+    <div class="task-section">
+        <h2>Task 1: Open the Brackets</h2>
+        <p class="subtitle" style="text-align: left;">Complete the gaps by opening the brackets using the correct verb forms for the First Conditional. Click <strong>"Check"</strong> to verify.</p>
+
+        <!-- Sentence 1 -->
+        <div class="sentence-item">
+            1. If a customer <input type="text" class="inline-input" id="q1_a"> (return) a product within 30 days of purchase, the store <input type="text" class="inline-input" id="q1_b"> (issue) a full refund.
+            <button onclick="checkSentence(['q1_a', 'q1_b'], ['returns', 'will issue'], 'fb1', 'Rule: If + Present Simple (returns), Main Clause + Will + Verb (will issue).')">Check</button>
+            <div id="fb1" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 2 -->
+        <div class="sentence-item">
+            2. If a client <input type="text" class="inline-input" id="q2_a"> (make) a late payment beyond the 15-day grace period, the invoice <input type="text" class="inline-input" id="q2_b"> (incur) a 2% penalty fee.
+            <button onclick="checkSentence(['q2_a', 'q2_b'], ['makes', 'will incur'], 'fb2', 'Rule: If + Present Simple (makes), Main Clause + Will + Verb (will incur).')">Check</button>
+            <div id="fb2" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 3 -->
+        <div class="sentence-item">
+            3. If total order value <input type="text" class="inline-input" id="q3_a"> (exceed) $50, the checkout system <input type="text" class="inline-input" id="q3_b"> (apply) free standard shipping automatically.
+            <button onclick="checkSentence(['q3_a', 'q3_b'], ['exceeds', 'will apply'], 'fb3', 'Rule: If + Present Simple (exceeds), Main Clause + Will + Verb (will apply).')">Check</button>
+            <div id="fb3" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 4 -->
+        <div class="sentence-item">
+            4. If a subscriber <input type="text" class="inline-input" id="q4_a"> (cancel) their plan before the renewal date, they <input type="text" class="inline-input" id="q4_b"> (retain) access until the end of the current billing cycle.
+            <button onclick="checkSentence(['q4_a', 'q4_b'], ['cancels', 'will retain'], 'fb4', 'Rule: If + Present Simple (cancels), Main Clause + Will + Verb (will retain).')">Check</button>
+            <div id="fb4" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 5 -->
+        <div class="sentence-item">
+            5. If a user <input type="text" class="inline-input" id="q5_a"> (enter) an incorrect password five times, the platform <input type="text" class="inline-input" id="q5_b"> (lock) the account for 24 hours.
+            <button onclick="checkSentence(['q5_a', 'q5_b'], ['enters', 'will lock'], 'fb5', 'Rule: If + Present Simple (enters), Main Clause + Will + Verb (will lock).')">Check</button>
+            <div id="fb5" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 6 -->
+        <div class="sentence-item">
+            6. If a client <input type="text" class="inline-input" id="q6_a"> (fail) to sign the non-disclosure agreement (NDA), we <input type="text" class="inline-input" id="q6_b"> (not grant) them access to our internal repository.
+            <button onclick="checkSentence(['q6_a', 'q6_b'], ['fails', 'will not grant'], 'fb6', 'Rule: If + Present Simple (fails), Negative Main Clause (will not grant / won\'t grant).')">Check</button>
+            <div id="fb6" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 7 -->
+        <div class="sentence-item">
+            7. If a remote worker <input type="text" class="inline-input" id="q7_a"> (connect) to public Wi-Fi without a VPN, the security system <input type="text" class="inline-input" id="q7_b"> (flag) the session as a potential risk.
+            <button onclick="checkSentence(['q7_a', 'q7_b'], ['connects', 'will flag'], 'fb7', 'Rule: If + Present Simple (connects), Main Clause + Will + Verb (will flag).')">Check</button>
+            <div id="fb7" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 8 -->
+        <div class="sentence-item">
+            8. If an account <input type="text" class="inline-input" id="q8_a"> (remain) inactive for more than 90 days, the database administrator <input type="text" class="inline-input" id="q8_b"> (archive) the profile.
+            <button onclick="checkSentence(['q8_a', 'q8_b'], ['remains', 'will archive'], 'fb8', 'Rule: If + Present Simple (remains), Main Clause + Will + Verb (will archive).')">Check</button>
+            <div id="fb8" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 9 -->
+        <div class="sentence-item">
+            9. If you <input type="text" class="inline-input" id="q9_a"> (train) a machine learning model on garbage input data, the algorithm <input type="text" class="inline-input" id="q9_b"> (produce) inaccurate outputs (Garbage In, Garbage Out).
+            <button onclick="checkSentence(['q9_a', 'q9_b'], ['train', 'will produce'], 'fb9', 'Rule: If + Present Simple (train), Main Clause + Will + Verb (will produce).')">Check</button>
+            <div id="fb9" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 10 -->
+        <div class="sentence-item">
+            10. If a dataset <input type="text" class="inline-input" id="q10_a"> (contain) significant missing values, ignoring them <input type="text" class="inline-input" id="q10_b"> (introduce) bias into your statistical model.
+            <button onclick="checkSentence(['q10_a', 'q10_b'], ['contains', 'will introduce'], 'fb10', 'Rule: If + Present Simple (contains), Main Clause + Will + Verb (will introduce).')">Check</button>
+            <div id="fb10" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 11 -->
+        <div class="sentence-item">
+            11. If analysts <input type="text" class="inline-input" id="q11_a"> (fail) to normalize skewed features, distance-based algorithms <input type="text" class="inline-input" id="q11_b"> (overweight) the larger numeric scales.
+            <button onclick="checkSentence(['q11_a', 'q11_b'], ['fail', 'will overweight'], 'fb11', 'Rule: If + Present Simple (fail), Main Clause + Will + Verb (will overweight).')">Check</button>
+            <div id="fb11" class="feedback"></div>
+        </div>
+
+        <!-- Sentence 12 -->
+        <div class="sentence-item">
+            12. If you <input type="text" class="inline-input" id="q12_a"> (not remove) duplicate records during data prep, your final counts <input type="text" class="inline-input" id="q12_b"> (overestimate) true metric performance.
+            <button onclick="checkSentence(['q12_a', 'q12_b'], ['do not remove', 'will overestimate'], 'fb12', 'Rule: Negative Present Simple (do not remove / don\'t remove), Main Clause + Will + Verb (will overestimate).')">Check</button>
+            <div id="fb12" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task-section">
+        <h2>Task 2: Sentence Completion</h2>
+        <p class="subtitle" style="text-align: left;">Complete the sentences using logical analytical outcomes with <strong>will + verb</strong>. Click <strong>"Check"</strong> to compare your ending with the recommended analytical answer.</p>
+
+        <!-- Prompt 1 -->
+        <div class="sentence-item">
+            1. If a product's Day 1 retention drops significantly, ...
+            <input type="text" class="full-input" id="t2_1" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_1', 'long-term retention metrics will inevitably suffer.', 'fb_t2_1')">Check</button>
+            <div id="fb_t2_1" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="sentence-item">
+            2. If user engagement spikes while conversion drops, ...
+            <input type="text" class="full-input" id="t2_2" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_2', 'your product team will need to investigate potential onboarding friction.', 'fb_t2_2')">Check</button>
+            <div id="fb_t2_2" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="sentence-item">
+            3. If a company focuses solely on short-term acquisition metrics, ...
+            <input type="text" class="full-input" id="t2_3" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_3', 'long-term churn will erode the active user base.', 'fb_t2_3')">Check</button>
+            <div id="fb_t2_3" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 4 -->
+        <div class="sentence-item">
+            4. If you change the definition of a core metric (like DAU), ...
+            <input type="text" class="full-input" id="t2_4" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_4', 'historical trend charts will break without proper data reconciliation.', 'fb_t2_4')">Check</button>
+            <div id="fb_t2_4" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 5 -->
+        <div class="sentence-item">
+            5. If an unoptimised SQL query performs a cross join on large tables, ...
+            <input type="text" class="full-input" id="t2_5" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_5', 'the database server will experience severe latency.', 'fb_t2_5')">Check</button>
+            <div id="fb_t2_5" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 6 -->
+        <div class="sentence-item">
+            6. If a telemetry logging service drops network packets, ...
+            <input type="text" class="full-input" id="t2_6" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_6', 'the downstream dashboard will report incomplete event counts.', 'fb_t2_6')">Check</button>
+            <div id="fb_t2_6" class="feedback"></div>
+        </div>
+
+        <!-- Prompt 7 -->
+        <div class="sentence-item">
+            7. If an ETL pipeline fails upstream, ...
+            <input type="text" class="full-input" id="t2_7" placeholder="Type your sentence completion here...">
+            <button class="task2-btn" onclick="checkCompletion('t2_7', 'all connected executive dashboards will display stale data.', 'fb_t2_7')">Check</button>
+            <div id="fb_t2_7" class="feedback"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clean(str) {
+        return str.trim().toLowerCase().replace(/’/g, "'").replace(/\s+/g, ' ');
+    }
+
+    function checkSentence(ids, expectedAnswers, feedbackId, explanation) {
+        let isCorrect = true;
+        let feedbackEl = document.getElementById(feedbackId);
+
+        for (let i = 0; i < ids.length; i++) {
+            let userVal = clean(document.getElementById(ids[i]).value);
+            let expected = clean(expectedAnswers[i]);
+            
+            // Allow common contractions for negative answers
+            if (expected === "will not grant" && (userVal === "won't grant" || userVal === "wont grant")) {
+                userVal = "will not grant";
+            }
+            if (expected === "do not remove" && userVal === "don't remove") {
+                userVal = "do not remove";
+            }
+
+            if (userVal !== expected) {
+                isCorrect = false;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            feedbackEl.className = 'feedback correct';
+            feedbackEl.innerHTML = '<strong>Correct!</strong> Perfect First Conditional usage.';
+        } else {
+            feedbackEl.className = 'feedback incorrect';
+            feedbackEl.innerHTML = '<strong>Not quite right.</strong> Target answers: ' +
+                expectedAnswers.map(ans => '<span class="verb-hint">"' + ans + '"</span>').join(' and ') +
+                '<div style="margin-top: 4px;">💡 ' + explanation + '</div>';
+        }
+    }
+
+    function checkCompletion(inputId, recommendedEnding, feedbackId) {
+        let userVal = document.getElementById(inputId).value.trim();
+        let feedbackEl = document.getElementById(feedbackId);
+
+        if (userVal === "") {
+            feedbackEl.className = 'feedback incorrect';
+            feedbackEl.innerHTML = '<strong>Please write a completion first!</strong> Ensure you use <em>will + base verb</em>.';
+            return;
+        }
+
+        let cleanVal = clean(userVal);
+        let containsWill = cleanVal.includes("will") || cleanVal.includes("won't");
+
+        feedbackEl.className = 'feedback info';
+        let html = '<strong>Your input saved!</strong><br>';
+        
+        if (containsWill) {
+            html += '✔️ Great structure! You used a First Conditional modal (will / won\'t).<br>';
+        } else {
+            html += '⚠️ <em>Grammar Tip:</em> Remember to include <strong>will + base verb</strong> in the main clause.<br>';
+        }
+
+        html += '<strong>Accurate / Recommended Ending:</strong> <span class="verb-hint">"...' + recommendedEnding + '"</span>';
+        feedbackEl.innerHTML = html;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Conditional Practice - Business & Data Scenarios</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #1e293b;
+            background-image: 
+                linear-gradient(rgba(30, 41, 59, 0.70), rgba(30, 41, 59, 0.80)),
+                url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(248, 250, 252, 0.95);
+            padding: 35px 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(6px);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            border-bottom: 2px solid #94a3b8;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #475569;
+            font-size: 0.95em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .example-card {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid #2563eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .example-card h3 {
+            margin-top: 0;
+            color: #1e40af;
+            font-size: 1.1em;
+        }
+        .task-section {
+            margin-bottom: 40px;
+        }
+        .scenario-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .situation-title {
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+        .situation-text {
+            color: #334155;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f8fafc;
+            padding: 10px;
+            border-left: 3px solid #94a3b8;
+            border-radius: 0 4px 4px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 65px;
+            padding: 10px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: inherit;
+            font-size: 0.95em;
+            font-weight: 500;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+        }
+        button {
+            padding: 8px 20px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        .feedback {
+            margin-top: 12px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.92em;
+            display: none;
+            background-color: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+        .feedback ul {
+            margin: 6px 0 0 0;
+            padding-left: 20px;
+        }
+        .feedback li {
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+        .grammar-tip {
+            font-size: 0.88em;
+            color: #475569;
+            margin-top: 6px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Second Conditional Practice</h1>
+    <p class="subtitle">Paraphrase real workplace and data analysis scenarios using <strong>If + Past Simple, would + base verb</strong>.</p>
+
+    <!-- EXAMPLE CARD -->
+    <div class="example-card">
+        <h3>💡 Example Exercise</h3>
+        <p class="situation-title">Real Situation:</p>
+        <p class="situation-text">"Our team does not have a budget for high-end server infrastructure, so we run our data pipelines on limited local virtual machines."</p>
+        <p><strong>Possible Paraphrase (Second Conditional):</strong></p>
+        <p style="color: #1e40af; font-weight: 600;">➔ If our team <u>had</u> a budget for high-end server infrastructure, we <u>would run</u> our data pipelines on scalable cloud servers.</p>
+    </div>
+
+    <!-- EXERCISES -->
+    <div class="task-section">
+
+        <!-- 1 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 1: Siloed Communication Between Teams</div>
+            <div class="situation-text">"The marketing team doesn't share campaign schedules with the data team, so unexpected traffic spikes disrupt server allocation."</div>
+            <textarea id="input_1" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_1', 'fb_1', [
+                'If the marketing team shared campaign schedules with the data team, unexpected traffic spikes would not disrupt server allocation.',
+                'If the marketing team shared their campaign schedules with the data team, traffic spikes wouldn\'t disrupt server allocation.'
+            ])">Check Answer</button>
+            <div id="fb_1" class="feedback"></div>
+        </div>
+
+        <!-- 2 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 2: Lack of User Segmentation</div>
+            <div class="situation-text">"We send the exact same email newsletter to all users, so our click-through rate (CTR) remains low."</div>
+            <textarea id="input_2" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_2', 'fb_2', [
+                'If we segmented our user base before sending email newsletters, our click-through rate would improve significantly.',
+                'If we didn\'t send the exact same email newsletter to all users, our click-through rate wouldn\'t remain so low.',
+                'If we didn\'t send the same newsletter to everyone, our CTR would be higher.'
+            ])">Check Answer</button>
+            <div id="fb_2" class="feedback"></div>
+        </div>
+
+        <!-- 3 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 3: Incomplete Telemetry Tracking</div>
+            <div class="situation-text">"Developers forget to log event attributes on checkout buttons, so analysts can't pinpoint where users drop off in the funnel."</div>
+            <textarea id="input_3" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_3', 'fb_3', [
+                'If developers logged event attributes on checkout buttons, analysts would be able to pinpoint where users drop off in the funnel.',
+                'If developers didn\'t forget to log event attributes on checkout buttons, analysts could pinpoint where users drop off in the funnel.'
+            ])">Check Answer</button>
+            <div id="fb_3" class="feedback"></div>
+        </div>
+
+        <!-- 4 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 4: Infrequent Data Backups</div>
+            <div class="situation-text">"The IT department only backs up the database once a month, so a system crash causes major data loss."</div>
+            <textarea id="input_4" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_4', 'fb_4', [
+                'If the IT department backed up the database daily, a system crash would not cause major data loss.',
+                'If the IT department didn\'t back up the database only once a month, a system crash wouldn\'t cause so much data loss.'
+            ])">Check Answer</button>
+            <div id="fb_4" class="feedback"></div>
+        </div>
+
+        <!-- 5 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 5: Ignoring Outliers in Metrics</div>
+            <div class="situation-text">"Analysts don't filter out extreme whale purchases, so the average user spend metric gives a misleading picture of regular user behavior."</div>
+            <textarea id="input_5" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_5', 'fb_5', [
+                'If analysts filtered out extreme whale purchases, the average user spend metric would provide a clearer picture of regular user behavior.',
+                'If analysts filtered out extreme whale purchases, the average user spend metric wouldn\'t give a misleading picture.'
+            ])">Check Answer</button>
+            <div id="fb_5" class="feedback"></div>
+        </div>
+
+        <!-- 6 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 6: Manual Reporting Processes</div>
+            <div class="situation-text">"The BI analyst builds weekly reports manually in Excel, so executive dashboard updates take two full days to complete."</div>
+            <textarea id="input_6" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_6', 'fb_6', [
+                'If the BI analyst automated weekly reports using SQL or Python, executive dashboard updates would not take two full days to complete.',
+                'If the BI analyst didn\'t build weekly reports manually in Excel, executive dashboard updates wouldn\'t take so long.'
+            ])">Check Answer</button>
+            <div id="fb_6" class="feedback"></div>
+        </div>
+
+        <!-- 7 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 7: Short A/B Testing Duration</div>
+            <div class="situation-text">"Product managers end experiments after just two days, so tests fail to capture day-of-week seasonality."</div>
+            <textarea id="input_7" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_7', 'fb_7', [
+                'If product managers ran experiments for a full two weeks, tests would capture day-of-week seasonality accurately.',
+                'If product managers didn\'t end experiments after just two days, tests wouldn\'t fail to capture seasonality.'
+            ])">Check Answer</button>
+            <div id="fb_7" class="feedback"></div>
+        </div>
+
+        <!-- 8 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 8: High Data Ingestion Latency</div>
+            <div class="situation-text">"Our pipeline runs on a batch-processing model rather than real-time streaming, so fraud detection alerts trigger several hours late."</div>
+            <textarea id="input_8" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_8', 'fb_8', [
+                'If our pipeline used real-time streaming instead of batch processing, fraud detection alerts would trigger instantly.',
+                'If our pipeline didn\'t run on a batch-processing model, fraud detection alerts wouldn\'t trigger several hours late.'
+            ])">Check Answer</button>
+            <div id="fb_8" class="feedback"></div>
+        </div>
+
+        <!-- 9 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 9: Unclear Metric Definitions</div>
+            <div class="situation-text">"The product and growth teams define 'active user' differently, so their quarterly performance reports conflict with each other."</div>
+            <textarea id="input_9" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_9', 'fb_9', [
+                'If the product and growth teams used a standardized definition for \'active user\', their quarterly performance reports would align.',
+                'If the product and growth teams didn\'t define \'active user\' differently, their reports wouldn\'t conflict with each other.'
+            ])">Check Answer</button>
+            <div id="fb_9" class="feedback"></div>
+        </div>
+
+        <!-- 10 -->
+        <div class="scenario-item">
+            <div class="situation-title">Scenario 10: Poor Error Handling in ETL Pipelines</div>
+            <div class="situation-text">"The data pipeline stops completely whenever it encounters a null value, so morning dashboard updates frequently fail."</div>
+            <textarea id="input_10" placeholder="Type your Second Conditional paraphrase here..."></textarea>
+            <button onclick="checkAnswer('input_10', 'fb_10', [
+                'If the data pipeline handled null values gracefully, morning dashboard updates would not fail so frequently.',
+                'If the data pipeline didn\'t stop completely when encountering null values, morning dashboard updates wouldn\'t fail.'
+            ])">Check Answer</button>
+            <div id="fb_10" class="feedback"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function checkAnswer(inputId, feedbackId, possibleAnswers) {
+        let userInput = document.getElementById(inputId).value.trim();
+        let feedbackEl = document.getElementById(feedbackId);
+
+        if (userInput === "") {
+            feedbackEl.style.display = "block";
+            feedbackEl.style.backgroundColor = "#fee2e2";
+            feedbackEl.style.borderColor = "#fca5a5";
+            feedbackEl.style.color = "#991b1b";
+            feedbackEl.innerHTML = "<strong>Please enter a response before checking!</strong>";
+            return;
+        }
+
+        let answersListHtml = possibleAnswers.map(ans => `<li>${ans}</li>`).join("");
+
+        feedbackEl.style.display = "block";
+        feedbackEl.style.backgroundColor = "#f0fdf4";
+        feedbackEl.style.borderColor = "#86efac";
+        feedbackEl.style.color = "#166534";
+
+        feedbackEl.innerHTML = `
+            <strong>Your attempt has been saved!</strong>
+            <div class="grammar-tip">Compare your sentence against these correct target paraphrases (ensure you used <strong>Past Simple</strong> in the 'if' clause and <strong>would / couldn't</strong> in the result clause):</div>
+            <ul>${answersListHtml}</ul>
+        `;
+    }
+</script>
+
+</body>
+</html>

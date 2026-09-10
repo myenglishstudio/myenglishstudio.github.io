@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Shifts Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px 20px;
+      color: #333;
+      background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)),
+                  url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+    }
+
+    .container {
+      max-width: 1250px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    h1 {
+      color: #0f766e;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      font-size: 26px;
+    }
+
+    p.subtitle {
+      color: #475569;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    /* Options Bank Styles */
+    .word-bank-section {
+      background: #f1f5f9;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 25px;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .word-bank-title {
+      font-weight: bold;
+      color: #334155;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    /* Draggable Item */
+    .draggable {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #0f766e;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .draggable:active {
+      cursor: grabbing;
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .draggable.dragging {
+      opacity: 0.4;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 10px;
+    }
+
+    th {
+      padding: 12px;
+      text-align: left;
+      font-size: 13px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      color: #ffffff;
+    }
+
+    th.situation-header { background-color: #0f766e; width: 22%; }
+    th.formal-header { background-color: #1e3a8a; width: 26%; }
+    th.relaxed-header { background-color: #2563eb; width: 26%; }
+    th.informal-header { background-color: #16a34a; width: 26%; }
+
+    td {
+      padding: 8px;
+      vertical-align: top;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .situation-cell {
+      background-color: #14b8a6;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 12px;
+      line-height: 1.4;
+    }
+
+    .formal-cell {
+      background-color: #eef4f8;
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+      line-height: 1.4;
+      color: #1e293b;
+    }
+
+    /* Dropzones */
+    .dropzone {
+      background-color: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      min-height: 55px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .dropzone.drag-over {
+      background-color: #e0f2fe;
+      border-color: #0284c7;
+    }
+
+    /* Validation Feedback */
+    .dropzone.correct {
+      border: 2px solid #16a34a;
+      background-color: #f0fdf4;
+    }
+
+    .dropzone.incorrect {
+      border: 2px solid #dc2626;
+      background-color: #fef2f2;
+    }
+
+    /* Action Bar */
+    .action-container {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .check-btn {
+      background-color: #0f766e;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 12px 35px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .check-btn:hover {
+      background-color: #0d9488;
+      transform: translateY(-2px);
+    }
+
+    .feedback-message {
+      font-size: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Register Shifts Practice</h1>
+    <p class="subtitle">Read the pre-filled <strong>Formal</strong> column, then drag expressions from the Options Bank into the matching <strong>Relaxed</strong> and <strong>Informal</strong> slots.</p>
+
+    <!-- Sticky Options Bank -->
+    <div class="word-bank-section">
+      <div class="word-bank-title">Options Bank (Drag items from here)</div>
+      <div class="word-bank dropzone" id="wordBank"></div>
+    </div>
+
+    <!-- Worksheet Table -->
+    <table>
+      <thead>
+        <tr>
+          <th class="situation-header">Situation</th>
+          <th class="formal-header">Formal</th>
+          <th class="relaxed-header">Relaxed</th>
+          <th class="informal-header">Informal</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <div class="action-container">
+      <button class="check-btn" onclick="checkAnswers()">Check Answers</button>
+      <div id="feedback" class="feedback-message"></div>
+    </div>
+  </div>
+
+  <script>
+    const data = [
+      {
+        situation: "A friend earns one thousand euros a week.",
+        formal: "She receives one thousand euros every week in compensation for her labour.",
+        relaxed: "She gets a thousand a week.",
+        informal: "She's pulling in a grand a week."
+      },
+      {
+        situation: "You went to see a psychiatrist.",
+        formal: "I underwent a session on the couch with a psychiatrist.",
+        relaxed: "I went to see a psychiatrist.",
+        informal: "I saw a shrink."
+      },
+      {
+        situation: "A friend is acting in a silly and irritating way.",
+        formal: "Stop acting in an immature and juvenile manner.",
+        relaxed: "Stop messing around.",
+        informal: "Stop goofing around."
+      },
+      {
+        situation: "You suggest going to the cinema.",
+        formal: "Would you like to spend a pleasurable hour observing a cinematographic production?",
+        relaxed: "Would you like to go to the cinema?",
+        informal: "Fancy seeing a flick?"
+      },
+      {
+        situation: "You went to Paris for the weekend and the company paid.",
+        formal: "I didn't have to contribute in any way to the sojourn to Paris.",
+        relaxed: "The company paid for the trip to Paris.",
+        informal: "The trip to Paris was a freebie."
+      },
+      {
+        situation: "You don't understand what someone is saying.",
+        formal: "I'm sorry but I fail to grasp your meaning.",
+        relaxed: "I don't understand what you're saying.",
+        informal: "I don't get it."
+      },
+      {
+        situation: "You're upset because you have to completely redo a project that took you an entire day to finish.",
+        formal: "I've been labouring vigorously only to find that my efforts were fruitless.",
+        relaxed: "I worked all day and lost everything.",
+        informal: "I did all that work for nothing; I guess it’s back to square one."
+      },
+      {
+        situation: "You tell a friend at work to stop gossiping because you feel uncomfortable.",
+        formal: "I'd much prefer it if you'd desist from speaking so freely about our common acquaintances.",
+        relaxed: "Don’t spread rumours about other people.",
+        informal: "Don’t bad mouth people; don’t be such a gossip."
+      },
+      {
+        situation: "You have to give a presentation at work and you're really nervous about it.",
+        formal: "I'm incredibly anxious about the pending task.",
+        relaxed: "I’m really nervous about doing this presentation.",
+        informal: "I’m flipping out; I’ve got butterflies in my stomach."
+      },
+      {
+        situation: "A friend did something that made you look really stupid.",
+        formal: "They caused me to come across as a bit of an ignoramus.",
+        relaxed: "They made me look really stupid.",
+        informal: "They really stitched me up; they made me look like a right plonker."
+      },
+      {
+        situation: "A friend is talking in a noisy and continuous manner.",
+        formal: "He is conversing without respite on the topic of his recent promotion.",
+        relaxed: "He keeps going on about his promotion.",
+        informal: "He keeps rabbiting on about his promotion."
+      },
+      {
+        situation: "A friend keeps talking about the same thing. You tell him to stop.",
+        formal: "Please cease from focusing on that story.",
+        relaxed: "Stop going on about it.",
+        informal: "Give it a rest."
+      }
+    ];
+
+    const tableBody = document.getElementById('tableBody');
+    const wordBank = document.getElementById('wordBank');
+    let draggableOptions = [];
+
+    data.forEach((row) => {
+      const tr = document.createElement('tr');
+
+      // Situation
+      const tdSit = document.createElement('td');
+      tdSit.className = 'situation-cell';
+      tdSit.textContent = row.situation;
+      tr.appendChild(tdSit);
+
+      // Formal (Pre-filled text)
+      const tdFormal = document.createElement('td');
+      tdFormal.className = 'formal-cell';
+      tdFormal.textContent = row.formal;
+      tr.appendChild(tdFormal);
+
+      // Relaxed Dropzone
+      const tdRelaxed = document.createElement('td');
+      const dropRelaxed = document.createElement('div');
+      dropRelaxed.className = 'dropzone';
+      dropRelaxed.dataset.correctText = row.relaxed;
+      tdRelaxed.appendChild(dropRelaxed);
+      tr.appendChild(tdRelaxed);
+      draggableOptions.push(row.relaxed);
+
+      // Informal Dropzone
+      const tdInformal = document.createElement('td');
+      const dropInformal = document.createElement('div');
+      dropInformal.className = 'dropzone';
+      dropInformal.dataset.correctText = row.informal;
+      tdInformal.appendChild(dropInformal);
+      tr.appendChild(tdInformal);
+      draggableOptions.push(row.informal);
+
+      tableBody.appendChild(tr);
+    });
+
+    // Shuffle options for the bank
+    draggableOptions.sort(() => Math.random() - 0.5);
+
+    draggableOptions.forEach((text, id) => {
+      const item = document.createElement('div');
+      item.className = 'draggable';
+      item.draggable = true;
+      item.textContent = text;
+      item.id = 'drag-' + id;
+      wordBank.appendChild(item);
+    });
+
+    // Auto-Scroll & Drag-and-Drop Handlers
+    let isDragging = false;
+
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.classList.contains('draggable')) {
+        isDragging = true;
+        e.target.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', e.target.id);
+      }
+    });
+
+    document.addEventListener('dragend', (e) => {
+      if (e.target.classList.contains('draggable')) {
+        isDragging = false;
+        e.target.classList.remove('dragging');
+      }
+    });
+
+    // Auto-scroll window when dragging near screen edges
+    document.addEventListener('dragover', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+
+      const scrollThreshold = 100;
+      const scrollSpeed = 15;
+
+      if (e.clientY < scrollThreshold) {
+        window.scrollBy(0, -scrollSpeed);
+      } else if (window.innerHeight - e.clientY < scrollThreshold) {
+        window.scrollBy(0, scrollSpeed);
+      }
+    });
+
+    const dropzones = document.querySelectorAll('.dropzone');
+
+    dropzones.forEach(zone => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('drag-over');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('drag-over');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        const id = e.dataTransfer.getData('text/plain');
+        const draggable = document.getElementById(id);
+        if (draggable) {
+          zone.appendChild(draggable);
+          zone.classList.remove('correct', 'incorrect');
+        }
+      });
+    });
+
+    // Check Answers Logic
+    function checkAnswers() {
+      let correctCount = 0;
+      let totalCount = data.length * 2;
+
+      const tableDropzones = document.querySelectorAll('tbody .dropzone');
+
+      tableDropzones.forEach(zone => {
+        const item = zone.querySelector('.draggable');
+        if (item && item.textContent.trim() === zone.dataset.correctText.trim()) {
+          zone.classList.add('correct');
+          zone.classList.remove('incorrect');
+          correctCount++;
+        } else {
+          zone.classList.add('incorrect');
+          zone.classList.remove('correct');
+        }
+      });
+
+      const feedback = document.getElementById('feedback');
+      if (correctCount === totalCount) {
+        feedback.textContent = `🎉 Spot on! All ${totalCount} expressions are in the right fields!`;
+        feedback.style.color = '#16a34a';
+      } else {
+        feedback.textContent = `You scored ${correctCount} out of ${totalCount}. Check highlighted red slots and try again!`;
+        feedback.style.color = '#dc2626';
+      }
+    }
+  </script>
+
+</body>
+</html>

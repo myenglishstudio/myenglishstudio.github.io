@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric Diagnostic Language Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e293b;
+            color: #1e293b;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: #f8fafc;
+            padding: 35px 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #cbd5e1;
+        }
+
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            border-bottom: 2px solid #94a3b8;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #0f172a;
+            border-left: 4px solid #2563eb;
+            padding-left: 10px;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #475569;
+            font-size: 1.05em;
+            margin-bottom: 25px;
+        }
+
+        /* Task 1 Card Styles */
+        .task-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: border-color 0.2s ease;
+        }
+
+        .task-card:hover {
+            border-color: #3b82f6;
+        }
+
+        .sentence-text {
+            font-size: 1.05em;
+            line-height: 1.5;
+            color: #0f172a;
+            flex-grow: 1;
+        }
+
+        .select-box {
+            padding: 8px 12px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            color: #1e293b;
+            cursor: pointer;
+            outline: none;
+            min-width: 230px;
+        }
+
+        .select-box:focus {
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Task 2 & 3 Specific Styles */
+        .fill-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .fill-sentence {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .inline-select {
+            padding: 4px 8px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #0f172a;
+            background-color: #f8fafc;
+            margin: 0 4px;
+            cursor: pointer;
+        }
+
+        .inline-select:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .inline-input {
+            padding: 4px 8px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #0f172a;
+            background-color: #f8fafc;
+            margin: 0 2px;
+        }
+
+        .inline-input::placeholder {
+            color: #94a3b8;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        .inline-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .item-action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        button.btn-check-item {
+            padding: 6px 16px;
+            font-size: 0.9em;
+            font-weight: bold;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button.btn-check-item:hover {
+            background-color: #1d4ed8;
+        }
+
+        .item-feedback {
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .item-feedback.correct {
+            color: #166534;
+        }
+
+        .item-feedback.incorrect {
+            color: #991b1b;
+        }
+
+        /* Task 4 Drag & Drop Styles */
+        .scramble-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .drag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 16px;
+            background-color: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 8px;
+            min-height: 56px;
+            align-items: center;
+            margin-bottom: 12px;
+            margin-top: 8px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .drag-container.drag-active {
+            background-color: #e2e8f0;
+            border-color: #3b82f6;
+        }
+
+        .drag-word {
+            background-color: #ffffff;
+            color: #1e293b;
+            padding: 8px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            position: relative;
+        }
+
+        .drag-word:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .drag-word:active {
+            cursor: grabbing;
+        }
+
+        .drag-word.dragging {
+            opacity: 0.3;
+            transform: scale(0.95);
+        }
+
+        .drag-word.drop-before::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 10%;
+            bottom: 10%;
+            width: 4px;
+            background-color: #2563eb;
+            border-radius: 2px;
+            box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+        }
+
+        /* Buttons & Feedback Area */
+        .action-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button.check-btn {
+            padding: 12px 36px;
+            font-size: 1.1em;
+            font-weight: bold;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button.check-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        button.check-btn:active {
+            transform: scale(0.98);
+        }
+
+        .feedback-summary {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+
+        .feedback-summary.correct {
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .feedback-summary.incorrect {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .task-card.correct-border {
+            border-left: 6px solid #16a34a;
+            background-color: #f0fdf4;
+        }
+
+        .task-card.incorrect-border {
+            border-left: 6px solid #dc2626;
+            background-color: #fef2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Metric Diagnostic Language Practice</h1>
+
+    <!-- TASK 1 -->
+    <h2>Task 1: Stage Classification</h2>
+    <p class="subtitle">Read each phrase and select its correct functional stage in a Metric Diagnostic framework.</p>
+    <div id="task1Container"></div>
+    <div class="action-area">
+        <button class="check-btn" onclick="checkTask1()">Check Task 1 Answers</button>
+        <div id="summaryFeedback" class="feedback-summary"></div>
+    </div>
+
+    <hr style="margin-top: 50px; border: 0; border-top: 1px solid #cbd5e1;">
+
+    <!-- TASK 2 -->
+    <h2>Task 2: Choose the Correct Word</h2>
+    <p class="subtitle">Select the correct word from each dropdown pair to complete the diagnostic phrase.</p>
+    <div id="task2Container"></div>
+
+    <hr style="margin-top: 50px; border: 0; border-top: 1px solid #cbd5e1;">
+
+    <!-- TASK 3 -->
+    <h2>Task 3: Missing Words (Fill-in-the-Blanks)</h2>
+    <p class="subtitle">Fill in the missing words using the initial letter prompts inside each box, then click "Check" for feedback.</p>
+    <div id="task3Container"></div>
+
+    <hr style="margin-top: 50px; border: 0; border-top: 1px solid #cbd5e1;">
+
+    <!-- TASK 4 -->
+    <h2>Task 4: Rearrange Words to Build Sentences</h2>
+    <p class="subtitle">Drag and drop the words into the correct logical order to rebuild the original diagnostic phrases.</p>
+    <div id="task4Container"></div>
+</div>
+
+<script>
+    function cleanString(str) {
+        return str.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, ' ');
+    }
+
+    /* TASK 1 DATA */
+    const task1Questions = [
+        { text: "Next, I would slice and dice the data to see if this issue is widespread or isolated to a specific group.", correct: "segmentation" },
+        { text: "We should immediately roll back the deployment to restore baseline conversion.", correct: "action" },
+        { text: "Before investigating user behaviour, I'd first rule out logging issues.", correct: "validation" },
+        { text: "Given the timing, a third-party API outage could be causing the increased latency.", correct: "hypothesis" },
+        { text: "To understand what's driving this, I need to decompose the top-line metric into its core mathematical components.", correct: "decomposition" },
+        { text: "To verify the anomaly, I would run a quick sanity check on backend logs.", correct: "validation" },
+        { text: "I want to drill down into the OS metrics to check if iOS is behaving differently than Android or Web.", correct: "segmentation" },
+        { text: "I recommend pausing the experiment until the tracking bug is resolved.", correct: "action" },
+        { text: "Before diving into hypotheses, I want to confirm data accuracy.", correct: "validation" },
+        { text: "A bug in the latest client-side build must have caused the drop in active logins.", correct: "hypothesis" },
+        { text: "Let's break down Total Revenue into its key drivers: Active Users, Conversion Rate, and Average Order Value.", correct: "decomposition" },
+        { text: "Step one for me is always validating data integrity to avoid chasing phantom issues.", correct: "validation" },
+        { text: "To narrow down the root cause, I would segment the user base by...", correct: "segmentation" },
+        { text: "We need to figure out which variable in the equation is carrying the drop.", correct: "decomposition" },
+        { text: "It is critical to deploy a hotfix for the broken API payload.", correct: "action" },
+        { text: "Let's isolate the issue by comparing new users versus returning power users.", correct: "segmentation" },
+        { text: "To ensure data integrity, I would check for pipeline failures.", correct: "validation" },
+        { text: "The sudden drop in engagement could be linked to a recent competitor campaign.", correct: "hypothesis" },
+        { text: "Let's break this down along key dimensions like Platform, Geography, and User Cohort.", correct: "segmentation" },
+        { text: "I'd like to approach this diagnostic question by looking at...", correct: "validation" },
+        { text: "Once we've confirmed the data is accurate, I'd move on to segmenting the metric.", correct: "validation" }
+    ];
+
+    const task1Options = [
+        { label: "-- Select Stage --", value: "" },
+        { label: "Step 1: Validating Data Integrity", value: "validation" },
+        { label: "Step 2: Segmenting Data", value: "segmentation" },
+        { label: "Step 3: Decomposing Metric", value: "decomposition" },
+        { label: "Step 4: Formulating Hypotheses", value: "hypothesis" },
+        { label: "Step 5: Action and Mitigation", value: "action" }
+    ];
+
+    /* TASK 2 WORD CHOICE DATA */
+    const task2Questions = [
+        {
+            options: [
+                { id: 't2_0_0', correct: 'investigating', choices: ['investigating', 'analyzing'] },
+                { id: 't2_0_1', correct: 'rule', choices: ['rule', 'filter'] }
+            ],
+            renderText: (selects) => `Before ${selects[0]} user behaviour, I'd first ${selects[1]} out logging issues.`,
+            fullText: "Before investigating user behaviour, I'd first rule out logging issues."
+        },
+        {
+            options: [
+                { id: 't2_1_0', correct: 'diving', choices: ['diving', 'jumping'] },
+                { id: 't2_1_1', correct: 'accuracy', choices: ['accuracy', 'validity'] }
+            ],
+            renderText: (selects) => `Before ${selects[0]} into hypotheses, I want to confirm data ${selects[1]}.`,
+            fullText: "Before diving into hypotheses, I want to confirm data accuracy."
+        },
+        {
+            options: [
+                { id: 't2_2_0', correct: 'ensure', choices: ['ensure', 'defend'] }
+            ],
+            renderText: (selects) => `To ${selects[0]} data integrity, I would check for pipeline failures.`,
+            fullText: "To ensure data integrity, I would check for pipeline failures."
+        },
+        {
+            options: [
+                { id: 't2_3_0', correct: 'verify', choices: ['verify', 'test'] },
+                { id: 't2_3_1', correct: 'sanity', choices: ['sanity', 'reality'] }
+            ],
+            renderText: (selects) => `To ${selects[0]} the anomaly, I would run a quick ${selects[1]} check on backend logs.`,
+            fullText: "To verify the anomaly, I would run a quick sanity check on backend logs."
+        },
+        {
+            options: [
+                { id: 't2_4_0', correct: 'validating', choices: ['validating', 'checking'] },
+                { id: 't2_4_1', correct: 'chasing', choices: ['chasing', 'following'] }
+            ],
+            renderText: (selects) => `Step one for me is always ${selects[0]} data integrity to avoid ${selects[1]} phantom issues.`,
+            fullText: "Step one for me is always validating data integrity to avoid chasing phantom issues."
+        },
+        {
+            options: [
+                { id: 't2_5_0', correct: 'approach', choices: ['approach', 'handle'] }
+            ],
+            renderText: (selects) => `I'd like to ${selects[0]} this diagnostic question by looking at...`,
+            fullText: "I'd like to approach this diagnostic question by looking at..."
+        },
+        {
+            options: [
+                { id: 't2_6_0', correct: 'accurate', choices: ['accurate', 'correct'] },
+                { id: 't2_6_1', correct: 'move', choices: ['move', 'continue'] }
+            ],
+            renderText: (selects) => `Once we've confirmed the data is ${selects[0]}, I'd ${selects[1]} on to segmenting the metric.`,
+            fullText: "Once we've confirmed the data is accurate, I'd move on to segmenting the metric."
+        },
+        {
+            options: [
+                { id: 't2_7_0', correct: 'narrow', choices: ['narrow', 'break'] },
+                { id: 't2_7_1', correct: 'segment', choices: ['segment', 'split'] }
+            ],
+            renderText: (selects) => `To ${selects[0]} down the root cause, I would ${selects[1]} the user base by...`,
+            fullText: "To narrow down the root cause, I would segment the user base by..."
+        },
+        {
+            options: [
+                { id: 't2_8_0', correct: 'dice', choices: ['dice', 'chop'] },
+                { id: 't2_8_1', correct: 'widespread', choices: ['widespread', 'broad'] },
+                { id: 't2_8_2', correct: 'isolated', choices: ['isolated', 'limited'] }
+            ],
+            renderText: (selects) => `Next, I would slice and ${selects[0]} the data to see if this issue is ${selects[1]} or ${selects[2]} to a specific group.`,
+            fullText: "Next, I would slice and dice the data to see if this issue is widespread or isolated to a specific group."
+        },
+        {
+            options: [
+                { id: 't2_9_0', correct: 'along', choices: ['along', 'across'] },
+                { id: 't2_9_1', correct: 'dimensions', choices: ['dimensions', 'variables'] }
+            ],
+            renderText: (selects) => `Let's break this down ${selects[0]} key ${selects[1]} like Platform, Geography, and User Cohort.`,
+            fullText: "Let's break this down along key dimensions like Platform, Geography, and User Cohort."
+        },
+        {
+            options: [
+                { id: 't2_10_0', correct: 'drill', choices: ['drill', 'dig'] }
+            ],
+            renderText: (selects) => `I want to ${selects[0]} down into the OS metrics to check if iOS is behaving differently than Android or Web.`,
+            fullText: "I want to drill down into the OS metrics to check if iOS is behaving differently than Android or Web."
+        },
+        {
+            options: [
+                { id: 't2_11_0', correct: 'isolate', choices: ['isolate', 'separate'] },
+                { id: 't2_11_1', correct: 'versus', choices: ['versus', 'against'] }
+            ],
+            renderText: (selects) => `Let's ${selects[0]} the issue by comparing new users ${selects[1]} returning power users.`,
+            fullText: "Let's isolate the issue by comparing new users versus returning power users."
+        },
+        {
+            options: [
+                { id: 't2_12_0', correct: 'driving', choices: ['driving', 'causing'] },
+                { id: 't2_12_1', correct: 'decompose', choices: ['decompose', 'dissect'] },
+                { id: 't2_12_2', correct: 'metric', choices: ['metric', 'kpi'] }
+            ],
+            renderText: (selects) => `To understand what's ${selects[0]} this, I need to ${selects[1]} the top-line ${selects[2]} into its core mathematical components.`,
+            fullText: "To understand what's driving this, I need to decompose the top-line metric into its core mathematical components."
+        },
+        {
+            options: [
+                { id: 't2_13_0', correct: 'break', choices: ['break', 'split'] },
+                { id: 't2_13_1', correct: 'drivers', choices: ['drivers', 'factors'] }
+            ],
+            renderText: (selects) => `Let's ${selects[0]} down Total Revenue into its key ${selects[1]}: Active Users, Conversion Rate, and Average Order Value.`,
+            fullText: "Let's break down Total Revenue into its key drivers: Active Users, Conversion Rate, and Average Order Value."
+        },
+        {
+            options: [
+                { id: 't2_14_0', correct: 'figure', choices: ['figure', 'find'] },
+                { id: 't2_14_1', correct: 'carrying', choices: ['carrying', 'holding'] }
+            ],
+            renderText: (selects) => `We need to ${selects[0]} out which variable in the equation is ${selects[1]} the drop.`,
+            fullText: "We need to figure out which variable in the equation is carrying the drop."
+        },
+        {
+            options: [
+                { id: 't2_15_0', correct: 'timing', choices: ['timing', 'context'] },
+                { id: 't2_15_1', correct: 'outage', choices: ['outage', 'failure'] },
+                { id: 't2_15_2', correct: 'causing', choices: ['causing', 'creating'] }
+            ],
+            renderText: (selects) => `Given the ${selects[0]}, a third-party API ${selects[1]} could be ${selects[2]} the increased latency.`,
+            fullText: "Given the timing, a third-party API outage could be causing the increased latency."
+        },
+        {
+            options: [
+                { id: 't2_16_0', correct: 'caused', choices: ['caused', 'triggered'] }
+            ],
+            renderText: (selects) => `A bug in the latest client-side build must have ${selects[0]} the drop in active logins.`,
+            fullText: "A bug in the latest client-side build must have caused the drop in active logins."
+        },
+        {
+            options: [
+                { id: 't2_17_0', correct: 'drop', choices: ['drop', 'dip'] },
+                { id: 't2_17_1', correct: 'linked', choices: ['linked', 'tied'] }
+            ],
+            renderText: (selects) => `The sudden ${selects[0]} in engagement could be ${selects[1]} to a recent competitor campaign.`,
+            fullText: "The sudden drop in engagement could be linked to a recent competitor campaign."
+        },
+        {
+            options: [
+                { id: 't2_18_0', correct: 'roll', choices: ['roll', 'push'] },
+                { id: 't2_18_1', correct: 'restore', choices: ['restore', 'recover'] }
+            ],
+            renderText: (selects) => `We should immediately ${selects[0]} back the deployment to ${selects[1]} baseline conversion.`,
+            fullText: "We should immediately roll back the deployment to restore baseline conversion."
+        },
+        {
+            options: [
+                { id: 't2_19_0', correct: 'pausing', choices: ['pausing', 'breaking'] },
+                { id: 't2_19_1', correct: 'resolved', choices: ['resolved', 'decided'] }
+            ],
+            renderText: (selects) => `I recommend ${selects[0]} the experiment until the tracking bug is ${selects[1]}.`,
+            fullText: "I recommend pausing the experiment until the tracking bug is resolved."
+        },
+        {
+            options: [
+                { id: 't2_20_0', correct: 'deploy', choices: ['deploy', 'release'] }
+            ],
+            renderText: (selects) => `It is critical to ${selects[0]} a hotfix for the broken API payload.`,
+            fullText: "It is critical to deploy a hotfix for the broken API payload."
+        }
+    ];
+
+    /* TASK 3 DATA WITH PROMPT INITIALS */
+    const task3Questions = [
+        {
+            template: "Before <input class='inline-input' id='t3_0_0' placeholder='i...' style='width: 110px;'> user behaviour, I'd first <input class='inline-input' id='t3_0_1' placeholder='r...' style='width: 50px;'> out logging issues.",
+            answers: ["investigating", "rule"],
+            fullText: "Before investigating user behaviour, I'd first rule out logging issues."
+        },
+        {
+            template: "Before <input class='inline-input' id='t3_1_0' placeholder='d...' style='width: 70px;'> into hypotheses, I want to confirm data <input class='inline-input' id='t3_1_1' placeholder='a...' style='width: 80px;'>.",
+            answers: ["diving", "accuracy"],
+            fullText: "Before diving into hypotheses, I want to confirm data accuracy."
+        },
+        {
+            template: "To <input class='inline-input' id='t3_2_0' placeholder='e...' style='width: 70px;'> data integrity, I would check for pipeline failures.",
+            answers: ["ensure"],
+            fullText: "To ensure data integrity, I would check for pipeline failures."
+        },
+        {
+            template: "To <input class='inline-input' id='t3_3_0' placeholder='v...' style='width: 60px;'> the anomaly, I would run a quick <input class='inline-input' id='t3_3_1' placeholder='s...' style='width: 60px;'> check on backend logs.",
+            answers: ["verify", "sanity"],
+            fullText: "To verify the anomaly, I would run a quick sanity check on backend logs."
+        },
+        {
+            template: "Step one for me is always <input class='inline-input' id='t3_4_0' placeholder='v...' style='width: 90px;'> data integrity to avoid <input class='inline-input' id='t3_4_1' placeholder='c...' style='width: 80px;'> phantom issues.",
+            answers: ["validating", "chasing"],
+            fullText: "Step one for me is always validating data integrity to avoid chasing phantom issues."
+        },
+        {
+            template: "I'd like to <input class='inline-input' id='t3_5_0' placeholder='a...' style='width: 90px;'> this diagnostic question by looking at...",
+            answers: ["approach"],
+            fullText: "I'd like to approach this diagnostic question by looking at..."
+        },
+        {
+            template: "Once we've confirmed the data is <input class='inline-input' id='t3_6_0' placeholder='a...' style='width: 80px;'>, I'd <input class='inline-input' id='t3_6_1' placeholder='m...' style='width: 60px;'> on to segmenting the metric.",
+            answers: ["accurate", "move"],
+            fullText: "Once we've confirmed the data is accurate, I'd move on to segmenting the metric."
+        },
+        {
+            template: "To <input class='inline-input' id='t3_7_0' placeholder='n...' style='width: 70px;'> down the root cause, I would <input class='inline-input' id='t3_7_1' placeholder='s...' style='width: 80px;'> the user base by...",
+            answers: ["narrow", "segment"],
+            fullText: "To narrow down the root cause, I would segment the user base by..."
+        },
+        {
+            template: "Next, I would slice and <input class='inline-input' id='t3_8_0' placeholder='d...' style='width: 50px;'> the data to see if this issue is <input class='inline-input' id='t3_8_1' placeholder='w...' style='width: 100px;'> or <input class='inline-input' id='t3_8_2' placeholder='i...' style='width: 80px;'> to a specific group.",
+            answers: ["dice", "widespread", "isolated"],
+            fullText: "Next, I would slice and dice the data to see if this issue is widespread or isolated to a specific group."
+        },
+        {
+            template: "Let's break this down <input class='inline-input' id='t3_9_0' placeholder='a...' style='width: 60px;'> key <input class='inline-input' id='t3_9_1' placeholder='d...' style='width: 100px;'> like Platform, Geography, and User Cohort.",
+            answers: ["along", "dimensions"],
+            fullText: "Let's break this down along key dimensions like Platform, Geography, and User Cohort."
+        },
+        {
+            template: "I want to <input class='inline-input' id='t3_10_0' placeholder='d...' style='width: 50px;'> down into the OS metrics to check if iOS is behaving differently than Android or Web.",
+            answers: ["drill"],
+            fullText: "I want to drill down into the OS metrics to check if iOS is behaving differently than Android or Web."
+        },
+        {
+            template: "Let's <input class='inline-input' id='t3_11_0' placeholder='i...' style='width: 70px;'> the issue by comparing new users <input class='inline-input' id='t3_11_1' placeholder='v...' style='width: 60px;'> returning power users.",
+            answers: ["isolate", "versus"],
+            fullText: "Let's isolate the issue by comparing new users versus returning power users."
+        },
+        {
+            template: "To understand what's <input class='inline-input' id='t3_12_0' placeholder='d...' style='width: 70px;'> this, I need to <input class='inline-input' id='t3_12_1' placeholder='d...' style='width: 100px;'> the top-line <input class='inline-input' id='t3_12_2' placeholder='m...' style='width: 70px;'> into its core mathematical components.",
+            answers: ["driving", "decompose", "metric"],
+            fullText: "To understand what's driving this, I need to decompose the top-line metric into its core mathematical components."
+        },
+        {
+            template: "Let's <input class='inline-input' id='t3_13_0' placeholder='b...' style='width: 60px;'> down Total Revenue into its key <input class='inline-input' id='t3_13_1' placeholder='d...' style='width: 70px;'>: Active Users, Conversion Rate, and Average Order Value.",
+            answers: ["break", "drivers"],
+            fullText: "Let's break down Total Revenue into its key drivers: Active Users, Conversion Rate, and Average Order Value."
+        },
+        {
+            template: "We need to <input class='inline-input' id='t3_14_0' placeholder='f...' style='width: 60px;'> out which variable in the equation is <input class='inline-input' id='t3_14_1' placeholder='c...' style='width: 80px;'> the drop.",
+            answers: ["figure", "carrying"],
+            fullText: "We need to figure out which variable in the equation is carrying the drop."
+        },
+        {
+            template: "Given the <input class='inline-input' id='t3_15_0' placeholder='t...' style='width: 70px;'>, a third-party API <input class='inline-input' id='t3_15_1' placeholder='o...' style='width: 70px;'> could be <input class='inline-input' id='t3_15_2' placeholder='c...' style='width: 70px;'> the increased latency.",
+            answers: ["timing", "outage", "causing"],
+            fullText: "Given the timing, a third-party API outage could be causing the increased latency."
+        },
+        {
+            template: "A bug in the latest client-side build must have <input class='inline-input' id='t3_16_0' placeholder='c...' style='width: 70px;'> the drop in active logins.",
+            answers: ["caused"],
+            fullText: "A bug in the latest client-side build must have caused the drop in active logins."
+        },
+        {
+            template: "The sudden <input class='inline-input' id='t3_17_0' placeholder='d...' style='width: 50px;'> in engagement could be <input class='inline-input' id='t3_17_1' placeholder='l...' style='width: 60px;'> to a recent competitor campaign.",
+            answers: ["drop", "linked"],
+            fullText: "The sudden drop in engagement could be linked to a recent competitor campaign."
+        },
+        {
+            template: "We should immediately <input class='inline-input' id='t3_18_0' placeholder='r...' style='width: 50px;'> back the deployment to <input class='inline-input' id='t3_18_1' placeholder='r...' style='width: 70px;'> baseline conversion.",
+            answers: ["roll", "restore"],
+            fullText: "We should immediately roll back the deployment to restore baseline conversion."
+        },
+        {
+            template: "I recommend <input class='inline-input' id='t3_19_0' placeholder='p...' style='width: 70px;'> the experiment until the tracking bug is <input class='inline-input' id='t3_19_1' placeholder='r...' style='width: 80px;'>.",
+            answers: ["pausing", "resolved"],
+            fullText: "I recommend pausing the experiment until the tracking bug is resolved."
+        },
+        {
+            template: "It is critical to <input class='inline-input' id='t3_20_0' placeholder='d...' style='width: 70px;'> a hotfix for the broken API payload.",
+            answers: ["deploy"],
+            fullText: "It is critical to deploy a hotfix for the broken API payload."
+        }
+    ];
+
+    /* TASK 4 SENTENCE UNSCRAMBLE DATA */
+    const task4Sentences = [
+        "Before investigating user behaviour I'd first rule out logging issues",
+        "Before diving into hypotheses I want to confirm data accuracy",
+        "To ensure data integrity I would check for pipeline failures",
+        "To verify the anomaly I would run a quick sanity check on backend logs",
+        "Step one for me is always validating data integrity to avoid chasing phantom issues",
+        "Once we've confirmed the data is accurate I'd move on to segmenting the metric",
+        "To narrow down the root cause I would segment the user base",
+        "Next I would slice and dice the data to see if this issue is widespread or isolated to a specific group",
+        "Let's break this down along key dimensions like Platform Geography and User Cohort",
+        "I want to drill down into the OS metrics to check if iOS is behaving differently than Android or Web",
+        "Let's isolate the issue by comparing new users versus returning power users",
+        "To understand what's driving this I need to decompose the top-line metric into its core mathematical components",
+        "Let's break down Total Revenue into its key drivers Active Users Conversion Rate and Average Order Value",
+        "We need to figure out which variable in the equation is carrying the drop",
+        "Given the timing a third-party API outage could be causing the increased latency",
+        "A bug in the latest client-side build must have caused the drop in active logins",
+        "The sudden drop in engagement could be linked to a recent competitor campaign",
+        "We should immediately roll back the deployment to restore baseline conversion",
+        "I recommend pausing the experiment until the tracking bug is resolved",
+        "It is critical to deploy a hotfix for the broken API payload"
+    ];
+
+    /* RENDER TASK 1 */
+    function renderTask1() {
+        const container = document.getElementById('task1Container');
+        container.innerHTML = '';
+
+        task1Questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.id = `card-${index}`;
+
+            const textEl = document.createElement('div');
+            textEl.className = 'sentence-text';
+            textEl.innerHTML = `<strong>${index + 1}.</strong> "${q.text}"`;
+
+            const selectEl = document.createElement('select');
+            selectEl.className = 'select-box';
+            selectEl.id = `select-${index}`;
+
+            task1Options.forEach(opt => {
+                const optEl = document.createElement('option');
+                optEl.value = opt.value;
+                optEl.innerText = opt.label;
+                selectEl.appendChild(optEl);
+            });
+
+            card.appendChild(textEl);
+            card.appendChild(selectEl);
+            container.appendChild(card);
+        });
+    }
+
+    function checkTask1() {
+        let correctCount = 0;
+        let total = task1Questions.length;
+
+        task1Questions.forEach((q, index) => {
+            const selectEl = document.getElementById(`select-${index}`);
+            const cardEl = document.getElementById(`card-${index}`);
+            const userVal = selectEl.value;
+
+            cardEl.classList.remove('correct-border', 'incorrect-border');
+
+            if (userVal === q.correct) {
+                correctCount++;
+                cardEl.classList.add('correct-border');
+            } else {
+                cardEl.classList.add('incorrect-border');
+            }
+        });
+
+        const feedbackEl = document.getElementById('summaryFeedback');
+        feedbackEl.style.display = 'block';
+
+        if (correctCount === total) {
+            feedbackEl.className = 'feedback-summary correct';
+            feedbackEl.innerHTML = `<strong>Excellent!</strong> You correctly identified all ${total} sentences!`;
+        } else {
+            feedbackEl.className = 'feedback-summary incorrect';
+            feedbackEl.innerHTML = `You scored <strong>${correctCount} / ${total}</strong>. Review the highlighted items in red and try again.`;
+        }
+    }
+
+    /* RENDER TASK 2 WORD CHOICE */
+    function renderTask2() {
+        const container = document.getElementById('task2Container');
+        container.innerHTML = '';
+
+        task2Questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'fill-item';
+
+            const sentenceEl = document.createElement('div');
+            sentenceEl.className = 'fill-sentence';
+
+            let selectHTMLs = q.options.map(opt => {
+                let optionsShuffled = [...opt.choices].sort(() => Math.random() - 0.5);
+                let html = `<select class="inline-select" id="${opt.id}"><option value="">-- select --</option>`;
+                optionsShuffled.forEach(choice => {
+                    html += `<option value="${choice}">${choice}</option>`;
+                });
+                html += `</select>`;
+                return html;
+            });
+
+            sentenceEl.innerHTML = `<strong>${index + 1}.</strong> ${q.renderText(selectHTMLs)}`;
+
+            const actionEl = document.createElement('div');
+            actionEl.className = 'item-action';
+
+            const btn = document.createElement('button');
+            btn.className = 'btn-check-item';
+            btn.innerText = 'Check';
+            btn.onclick = () => checkTask2Item(index);
+
+            const feedbackSpan = document.createElement('span');
+            feedbackSpan.className = 'item-feedback';
+            feedbackSpan.id = `fb_t2_${index}`;
+
+            actionEl.appendChild(btn);
+            actionEl.appendChild(feedbackSpan);
+
+            card.appendChild(sentenceEl);
+            card.appendChild(actionEl);
+            container.appendChild(card);
+        });
+    }
+
+    function checkTask2Item(itemIndex) {
+        const q = task2Questions[itemIndex];
+        const feedbackEl = document.getElementById(`fb_t2_${itemIndex}`);
+        let allCorrect = true;
+
+        q.options.forEach(opt => {
+            const selectEl = document.getElementById(opt.id);
+            const userVal = selectEl.value;
+
+            if (userVal === opt.correct) {
+                selectEl.style.borderColor = '#16a34a';
+                selectEl.style.backgroundColor = '#f0fdf4';
+            } else {
+                selectEl.style.borderColor = '#dc2626';
+                selectEl.style.backgroundColor = '#fef2f2';
+                allCorrect = false;
+            }
+        });
+
+        if (allCorrect) {
+            feedbackEl.className = 'item-feedback correct';
+            feedbackEl.innerText = '✓ Correct!';
+        } else {
+            feedbackEl.className = 'item-feedback incorrect';
+            feedbackEl.innerHTML = `✗ Incorrect. Full sentence: <em>"${q.fullText}"</em>`;
+        }
+    }
+
+    /* RENDER TASK 3 FILL IN THE BLANKS */
+    function renderTask3() {
+        const container = document.getElementById('task3Container');
+        container.innerHTML = '';
+
+        task3Questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'fill-item';
+
+            const sentenceEl = document.createElement('div');
+            sentenceEl.className = 'fill-sentence';
+            sentenceEl.innerHTML = `<strong>${index + 1}.</strong> "${q.template}"`;
+
+            const actionEl = document.createElement('div');
+            actionEl.className = 'item-action';
+
+            const btn = document.createElement('button');
+            btn.className = 'btn-check-item';
+            btn.innerText = 'Check';
+            btn.onclick = () => checkTask3Item(index);
+
+            const feedbackSpan = document.createElement('span');
+            feedbackSpan.className = 'item-feedback';
+            feedbackSpan.id = `fb_t3_${index}`;
+
+            actionEl.appendChild(btn);
+            actionEl.appendChild(feedbackSpan);
+
+            card.appendChild(sentenceEl);
+            card.appendChild(actionEl);
+            container.appendChild(card);
+        });
+    }
+
+    function checkTask3Item(itemIndex) {
+        const q = task3Questions[itemIndex];
+        const feedbackEl = document.getElementById(`fb_t3_${itemIndex}`);
+        let allCorrect = true;
+
+        q.answers.forEach((ans, ansIndex) => {
+            const inputEl = document.getElementById(`t3_${itemIndex}_${ansIndex}`);
+            const userVal = inputEl.value.trim().toLowerCase();
+            const expectedVal = ans.toLowerCase();
+
+            if (userVal === expectedVal) {
+                inputEl.style.borderColor = '#16a34a';
+                inputEl.style.backgroundColor = '#f0fdf4';
+            } else {
+                inputEl.style.borderColor = '#dc2626';
+                inputEl.style.backgroundColor = '#fef2f2';
+                allCorrect = false;
+            }
+        });
+
+        if (allCorrect) {
+            feedbackEl.className = 'item-feedback correct';
+            feedbackEl.innerText = '✓ Correct!';
+        } else {
+            feedbackEl.className = 'item-feedback incorrect';
+            feedbackEl.innerHTML = `✗ Incorrect. Full sentence: <em>"${q.fullText}"</em>`;
+        }
+    }
+
+    /* RENDER TASK 4 DRAG AND DROP */
+    function renderTask4() {
+        const container = document.getElementById('task4Container');
+        container.innerHTML = '';
+
+        task4Sentences.forEach((sentence, index) => {
+            const itemEl = document.createElement('div');
+            itemEl.className = 'scramble-item';
+
+            const labelEl = document.createElement('label');
+            labelEl.innerHTML = `<strong>${index + 1}.</strong> Rearrange:`;
+            itemEl.appendChild(labelEl);
+
+            const dragContainer = document.createElement('div');
+            dragContainer.className = 'drag-container';
+            dragContainer.id = `t4_container_${index}`;
+
+            let words = sentence.split(' ');
+            let shuffledWords = [...words].sort(() => Math.random() - 0.5);
+
+            shuffledWords.forEach(word => {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'drag-word';
+                wordSpan.draggable = true;
+                wordSpan.innerText = word;
+                dragContainer.appendChild(wordSpan);
+            });
+
+            itemEl.appendChild(dragContainer);
+
+            const actionEl = document.createElement('div');
+            actionEl.className = 'item-action';
+
+            const btn = document.createElement('button');
+            btn.className = 'btn-check-item';
+            btn.innerText = 'Check';
+            btn.onclick = () => checkTask4Item(index, sentence);
+
+            const feedbackSpan = document.createElement('span');
+            feedbackSpan.className = 'item-feedback';
+            feedbackSpan.id = `fb_t4_${index}`;
+
+            actionEl.appendChild(btn);
+            actionEl.appendChild(feedbackSpan);
+            itemEl.appendChild(actionEl);
+
+            container.appendChild(itemEl);
+        });
+
+        initDragAndDrop();
+    }
+
+    function checkTask4Item(index, targetSentence) {
+        const container = document.getElementById(`t4_container_${index}`);
+        const words = container.querySelectorAll('.drag-word');
+        const constructedSentence = Array.from(words).map(w => w.innerText).join(' ');
+
+        const feedbackEl = document.getElementById(`fb_t4_${index}`);
+
+        if (cleanString(constructedSentence) === cleanString(targetSentence)) {
+            feedbackEl.className = 'item-feedback correct';
+            feedbackEl.innerText = '✓ Correct structure!';
+        } else {
+            feedbackEl.className = 'item-feedback incorrect';
+            feedbackEl.innerHTML = `✗ Incorrect. Correct order: <em>"${targetSentence}"</em>`;
+        }
+    }
+
+    /* HIGH-PRECISION DRAG AND DROP ENGINE FOR TASK 4 */
+    function initDragAndDrop() {
+        let draggedItem = null;
+
+        document.querySelectorAll('.drag-word').forEach(word => {
+            word.addEventListener('dragstart', function (e) {
+                draggedItem = this;
+                setTimeout(() => this.classList.add('dragging'), 0);
+            });
+
+            word.addEventListener('dragend', function () {
+                this.classList.remove('dragging');
+                clearDropIndicators();
+                draggedItem = null;
+            });
+        });
+
+        document.querySelectorAll('.drag-container').forEach(container => {
+            container.addEventListener('dragenter', function (e) {
+                e.preventDefault();
+                this.classList.add('drag-active');
+            });
+
+            container.addEventListener('dragleave', function (e) {
+                if (!this.contains(e.relatedTarget)) {
+                    this.classList.remove('drag-active');
+                    clearDropIndicators();
+                }
+            });
+
+            container.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                clearDropIndicators();
+
+                const afterElement = getDragAfterElement(container, e.clientX, e.clientY);
+                if (afterElement) {
+                    afterElement.classList.add('drop-before');
+                }
+            });
+
+            container.addEventListener('drop', function (e) {
+                e.preventDefault();
+                this.classList.remove('drag-active');
+                
+                const afterElement = getDragAfterElement(container, e.clientX, e.clientY);
+                if (draggedItem) {
+                    if (afterElement == null) {
+                        container.appendChild(draggedItem);
+                    } else {
+                        container.insertBefore(draggedItem, afterElement);
+                    }
+                }
+                clearDropIndicators();
+            });
+        });
+
+        function clearDropIndicators() {
+            document.querySelectorAll('.drop-before').forEach(el => el.classList.remove('drop-before'));
+        }
+
+        function getDragAfterElement(container, x, y) {
+            const draggableElements = [...container.querySelectorAll('.drag-word:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const distanceY = y - (box.top + box.height / 2);
+                const distanceX = x - (box.left + box.width / 2);
+                const isSameLine = y >= box.top && y <= box.bottom;
+
+                if (isSameLine) {
+                    if (distanceX < 0 && distanceX > closest.offset) {
+                        return { offset: distanceX, element: child };
+                    }
+                } else if (distanceY < 0 && distanceY > closest.offsetY) {
+                    return { offsetY: distanceY, offset: Number.NEGATIVE_INFINITY, element: child };
+                }
+
+                return closest;
+            }, { offset: Number.NEGATIVE_INFINITY, offsetY: Number.NEGATIVE_INFINITY }).element;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderTask1();
+        renderTask2();
+        renderTask3();
+        renderTask4();
+    });
+</script>
+
+</body>
+</html>

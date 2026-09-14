@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analytics - Modal Verbs of Deduction & Assumption</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* High-quality Data Analyst workspace background with semi-transparent overlay */
+            background: 
+                linear-gradient(rgba(248, 250, 252, 0.93), rgba(248, 250, 252, 0.93)),
+                url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: #1e293b;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px 30px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #0f172a;
+            font-size: 1.8em;
+            margin: 0 0 10px 0;
+        }
+
+        p.subtitle {
+            color: #475569;
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .task-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(4px);
+        }
+
+        h2 {
+            color: #0f172a;
+            font-size: 1.3em;
+            border-left: 4px solid #2563eb;
+            padding-left: 12px;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .task-desc {
+            color: #475569;
+            font-size: 0.95em;
+            margin-bottom: 24px;
+        }
+
+        .item-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .item-text {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .inline-input, .inline-select {
+            padding: 6px 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #0f172a;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        .inline-input:focus, .inline-select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button.btn-check {
+            padding: 6px 16px;
+            font-size: 0.88em;
+            font-weight: 700;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button.btn-check:hover {
+            background-color: #1d4ed8;
+        }
+
+        .feedback {
+            font-size: 0.92em;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .feedback.correct {
+            color: #15803d;
+        }
+
+        .feedback.incorrect {
+            color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Modal Verbs of Deduction for Business Analysts</h1>
+        <p class="subtitle">Practice expressing degree of certainty (Must = 100%, Could = 50%, Might = 30%) and temporal context (Present vs. Past).</p>
+    </div>
+
+    <!-- TASK 1 -->
+    <div class="task-section">
+        <h2>Task 1: Infinitive Form Selection (Simple vs. Perfect)</h2>
+        <p class="task-desc">Complete the assumptions by writing the correct infinitive form of the verb in parentheses (e.g., <em>be</em>, <em>be experiencing</em>, or <em>have crashed</em>).</p>
+
+        <!-- T1 Q1 -->
+        <div class="item-card">
+            <div class="item-text">
+                1. Look at the real-time metrics! Traffic dropped to zero two minutes ago. The main gateway server must <input class="inline-input" id="t1_0" placeholder="type answer..." style="width: 150px;"> <em>(crash)</em> right now.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(0, ['be crashing', 'have crashed'])">Check</button>
+                <span class="feedback" id="fb_t1_0"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q2 -->
+        <div class="item-card">
+            <div class="item-text">
+                2. Yesterday's revenue drop was sudden. The payment integration team might <input class="inline-input" id="t1_1" placeholder="type answer..." style="width: 160px;"> <em>(deploy)</em> a broken update during peak hours.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(1, ['have deployed'])">Check</button>
+                <span class="feedback" id="fb_t1_1"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q3 -->
+        <div class="item-card">
+            <div class="item-text">
+                3. The bounce rate is unusually high today. Users could <input class="inline-input" id="t1_2" placeholder="type answer..." style="width: 160px;"> <em>(find)</em> the new checkout layout confusing at the moment.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(2, ['be finding', 'find'])">Check</button>
+                <span class="feedback" id="fb_t1_2"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q4 -->
+        <div class="item-card">
+            <div class="item-text">
+                4. The server migration completed last night without errors. The database must <input class="inline-input" id="t1_3" placeholder="type answer..." style="width: 140px;"> <em>(run)</em> on the new infrastructure now.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(3, ['be running', 'be'])">Check</button>
+                <span class="feedback" id="fb_t1_3"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q5 -->
+        <div class="item-card">
+            <div class="item-text">
+                5. The competitor launched their campaign three weeks ago. That marketing decision might <input class="inline-input" id="t1_4" placeholder="type answer..." style="width: 160px;"> <em>(cause)</em> our user churn last month.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(4, ['have caused'])">Check</button>
+                <span class="feedback" id="fb_t1_4"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q6 -->
+        <div class="item-card">
+            <div class="item-text">
+                6. Why is CPU usage at 99%? A rogue background job must <input class="inline-input" id="t1_5" placeholder="type answer..." style="width: 160px;"> <em>(consume)</em> all system memory right now.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(5, ['be consuming'])">Check</button>
+                <span class="feedback" id="fb_t1_5"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q7 -->
+        <div class="item-card">
+            <div class="item-text">
+                7. Conversion rates dropped during the holiday weekend. A third-party API outage could <input class="inline-input" id="t1_6" placeholder="type answer..." style="width: 160px;"> <em>(block)</em> international payments while we were offline.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(6, ['have blocked'])">Check</button>
+                <span class="feedback" id="fb_t1_6"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q8 -->
+        <div class="item-card">
+            <div class="item-text">
+                8. The API response time is consistently under 50ms today. The engineering team must <input class="inline-input" id="t1_7" placeholder="type answer..." style="width: 160px;"> <em>(optimize)</em> the query parameters already.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(7, ['have optimized'])">Check</button>
+                <span class="feedback" id="fb_t1_7"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q9 -->
+        <div class="item-card">
+            <div class="item-text">
+                9. I see user engagement spiking right now. Our target audience might <input class="inline-input" id="t1_8" placeholder="type answer..." style="width: 160px;"> <em>(react)</em> positively to the push notification sent 5 minutes ago.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(8, ['be reacting'])">Check</button>
+                <span class="feedback" id="fb_t1_8"></span>
+            </div>
+        </div>
+
+        <!-- T1 Q10 -->
+        <div class="item-card">
+            <div class="item-text">
+                10. The system logs from Q2 are incomplete. An unannounced bug might <input class="inline-input" id="t1_9" placeholder="type answer..." style="width: 160px;"> <em>(corrupt)</em> the analytics tables last quarter.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask1Item(9, ['have corrupted'])">Check</button>
+                <span class="feedback" id="fb_t1_9"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task-section">
+        <h2>Task 2: Select the Modal Verb of Deduction</h2>
+        <p class="task-desc">Choose <strong>must</strong> (100% certainty based on facts), <strong>could</strong> (50% logical possibility), or <strong>might</strong> (30% weak possibility) based on the context clues.</p>
+
+        <!-- T2 Q1 -->
+        <div class="item-card">
+            <div class="item-text">
+                1. <em>[Context: Log files confirm 0 successful database connections.]</em><br>
+                The authentication server <select class="inline-select" id="t2_0"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be completely down; there is no other explanation.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(0, 'must', '100% certainty - direct evidence from log files.')">Check</button>
+                <span class="feedback" id="fb_t2_0"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q2 -->
+        <div class="item-card">
+            <div class="item-text">
+                2. <em>[Context: It's a plausible theory, but we only have 50/50 confidence.]</em><br>
+                The drop in engagement <select class="inline-select" id="t2_1"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be related to the regional network outage, but we need more data to confirm.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(1, 'could', '50% logical possibility - a standard baseline hypothesis.')">Check</button>
+                <span class="feedback" id="fb_t2_1"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q3 -->
+        <div class="item-card">
+            <div class="item-text">
+                3. <em>[Context: Remote possibility; low confidence scenario (30%).]</em><br>
+                A minor holiday in a small target market <select class="inline-select" id="t2_2"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> have caused this slight dip in traffic, though it's unlikely to be the primary reason.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(2, 'might', '30% weak possibility - unlikely to be the main factor.')">Check</button>
+                <span class="feedback" id="fb_t2_2"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q4 -->
+        <div class="item-card">
+            <div class="item-text">
+                4. <em>[Context: All 500 error logs point directly to the broken payment gateway release.]</em><br>
+                The engineers <select class="inline-select" id="t2_3"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> have deployed a buggy payload; the error stack proves it.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(3, 'must', '100% certainty - incontrovertible log stack proof.')">Check</button>
+                <span class="feedback" id="fb_t2_3"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q5 -->
+        <div class="item-card">
+            <div class="item-text">
+                5. <em>[Context: Moderate possibility; standard technical troubleshooting hypothesis.]</em><br>
+                The latency spike <select class="inline-select" id="t2_4"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be caused by unindexed database queries.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(4, 'could', '50% logical possibility - standard engineering hypothesis.')">Check</button>
+                <span class="feedback" id="fb_t2_4"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q6 -->
+        <div class="item-card">
+            <div class="item-text">
+                6. <em>[Context: Long-shot scenario; faint possibility.]</em><br>
+                An ad-blocker update <select class="inline-select" id="t2_5"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be interfering with tracking scripts, but we haven't seen reports of this elsewhere.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(5, 'might', '30% weak possibility - low probability assumption.')">Check</button>
+                <span class="feedback" id="fb_t2_5"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q7 -->
+        <div class="item-card">
+            <div class="item-text">
+                7. <em>[Context: Ingestion pipeline metrics show zero incoming records since 9:00 AM.]</em><br>
+                The data pipeline <select class="inline-select" id="t2_6"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> have stalled this morning; no new records are being written.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(6, 'must', '100% certainty - zero incoming records measured.')">Check</button>
+                <span class="feedback" id="fb_t2_6"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q8 -->
+        <div class="item-card">
+            <div class="item-text">
+                8. <em>[Context: Reasonable alternative explanation under review.]</em><br>
+                The conversion improvement <select class="inline-select" id="t2_7"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be a result of the simplified navigation menu.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(7, 'could', '50% logical possibility - standard product hypothesis.')">Check</button>
+                <span class="feedback" id="fb_t2_7"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q9 -->
+        <div class="item-card">
+            <div class="item-text">
+                9. <em>[Context: Remote, speculative edge case.]</em><br>
+                A minor ISP DNS glitch <select class="inline-select" id="t2_8"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> be affecting a tiny fraction of users in one city.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(8, 'might', '30% weak possibility - edge case assumption.')">Check</button>
+                <span class="feedback" id="fb_t2_8"></span>
+            </div>
+        </div>
+
+        <!-- T2 Q10 -->
+        <div class="item-card">
+            <div class="item-text">
+                10. <em>[Context: Undeniable proof—active subscriptions dropped immediately after billing change.]</em><br>
+                The price increase <select class="inline-select" id="t2_9"><option value="">-- select --</option><option value="must">must</option><option value="could">could</option><option value="might">might</option></select> have driven away budget-conscious subscribers.
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask2Item(9, 'must', '100% certainty - direct correlation and indisputable cause.')">Check</button>
+                <span class="feedback" id="fb_t2_9"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task-section">
+        <h2>Task 3: Sentence Paraphrasing</h2>
+        <p class="task-desc">Rewrite each initial sentence using an appropriate modal verb of deduction (<strong>must</strong>, <strong>could</strong>, or <strong>might</strong>) based on the context and certainty provided.</p>
+
+        <!-- T3 Q1 -->
+        <div class="item-card">
+            <div class="item-text">
+                1. <strong>Original:</strong> I am 100% sure that a logging bug caused this phantom metrics drop yesterday.<br>
+                <input class="inline-input" id="t3_0" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(0, ['a logging bug must have caused this phantom metrics drop yesterday', 'a logging bug must have caused this phantom metrics drop yesterday.'])">Check</button>
+                <span class="feedback" id="fb_t3_0"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q2 -->
+        <div class="item-card">
+            <div class="item-text">
+                2. <strong>Original:</strong> It is 50% possible that the new onboarding UI is scaring away free trial users.<br>
+                <input class="inline-input" id="t3_1" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(1, ['the new onboarding ui could be scaring away free trial users', 'the new onboarding ui could be scaring away free trial users.'])">Check</button>
+                <span class="feedback" id="fb_t3_1"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q3 -->
+        <div class="item-card">
+            <div class="item-text">
+                3. <strong>Original:</strong> There is a slight (30%) chance that a competitor campaign affected our sign-ups last week.<br>
+                <input class="inline-input" id="t3_2" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(2, ['a competitor campaign might have affected our sign-ups last week', 'a competitor campaign might have affected our sign-ups last week.'])">Check</button>
+                <span class="feedback" id="fb_t3_2"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q4 -->
+        <div class="item-card">
+            <div class="item-text">
+                4. <strong>Original:</strong> I am completely certain (100%) that engineers rolled back the deployment an hour ago.<br>
+                <input class="inline-input" id="t3_3" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(3, ['engineers must have rolled back the deployment an hour ago', 'engineers must have rolled back the deployment an hour ago.'])">Check</button>
+                <span class="feedback" id="fb_t3_3"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q5 -->
+        <div class="item-card">
+            <div class="item-text">
+                5. <strong>Original:</strong> It is possible (50%) that server latency is driving down mobile app completion rates right now.<br>
+                <input class="inline-input" id="t3_4" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(4, ['server latency could be driving down mobile app completion rates right now', 'server latency could be driving down mobile app completion rates right now.'])">Check</button>
+                <span class="feedback" id="fb_t3_4"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q6 -->
+        <div class="item-card">
+            <div class="item-text">
+                6. <strong>Original:</strong> There is a weak possibility (30%) that a broken tracking tag ruined our campaign data.<br>
+                <input class="inline-input" id="t3_5" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(5, ['a broken tracking tag might have ruined our campaign data', 'a broken tracking tag might have ruined our campaign data.'])">Check</button>
+                <span class="feedback" id="fb_t3_5"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q7 -->
+        <div class="item-card">
+            <div class="item-text">
+                7. <strong>Original:</strong> System logs prove 100% that the database ran out of memory.<br>
+                <input class="inline-input" id="t3_6" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(6, ['the database must have run out of memory', 'the database must have run out of memory.'])">Check</button>
+                <span class="feedback" id="fb_t3_6"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q8 -->
+        <div class="item-card">
+            <div class="item-text">
+                8. <strong>Original:</strong> It is logically possible (50%) that users prefer the legacy interface.<br>
+                <input class="inline-input" id="t3_7" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(7, ['users could prefer the legacy interface', 'users could prefer the legacy interface.'])">Check</button>
+                <span class="feedback" id="fb_t3_7"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q9 -->
+        <div class="item-card">
+            <div class="item-text">
+                9. <strong>Original:</strong> There is a low probability (30%) that an ISP routing failure slowed down API calls.<br>
+                <input class="inline-input" id="t3_8" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(8, ['an isp routing failure might have slowed down api calls', 'an isp routing failure might have slowed down api calls.'])">Check</button>
+                <span class="feedback" id="fb_t3_8"></span>
+            </div>
+        </div>
+
+        <!-- T3 Q10 -->
+        <div class="item-card">
+            <div class="item-text">
+                10. <strong>Original:</strong> I am 100% certain that the marketing team is running an unannounced A/B test today.<br>
+                <input class="inline-input" id="t3_9" style="width: 100%; margin-top: 8px;" placeholder="Type paraphrased sentence...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask3Item(9, ['the marketing team must be running an unannounced a/b test today', 'the marketing team must be running an unannounced a/b test today.'])">Check</button>
+                <span class="feedback" id="fb_t3_9"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task-section">
+        <h2>Task 4: Error Identification & Correction</h2>
+        <p class="task-desc">Analyze each sentence. If it contains a grammatical or semantic error with modal verbs of deduction, type the fully corrected sentence. If it is already correct, type <strong>"Correct"</strong>.</p>
+
+        <!-- T4 Q1 -->
+        <div class="item-card">
+            <div class="item-text">
+                1. <em>"The server crash yesterday must cause a drop in total active connections."</em>
+                <input class="inline-input" id="t4_0" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(0, ['the server crash yesterday must have caused a drop in total active connections', 'the server crash yesterday must have caused a drop in total active connections.'], 'Incorrect. Past deductions require modal + HAVE + past participle (must have caused).')">Check</button>
+                <span class="feedback" id="fb_t4_0"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q2 -->
+        <div class="item-card">
+            <div class="item-text">
+                2. <em>"Telemetry logs confirm 100% outage, so the database gateway could be offline."</em>
+                <input class="inline-input" id="t4_1" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(1, ['telemetry logs confirm 100% outage, so the database gateway must be offline', 'telemetry logs confirm 100% outage, so the database gateway must be offline.'], 'Incorrect. 100% certainty requires \'must\', not \'could\'.')">Check</button>
+                <span class="feedback" id="fb_t4_1"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q3 -->
+        <div class="item-card">
+            <div class="item-text">
+                3. <em>"A third-party API outage might have triggered the latency spike last night."</em>
+                <input class="inline-input" id="t4_2" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(2, ['correct'], 'Correct! Uses \'might have + past participle\' perfectly for a past assumption.')">Check</button>
+                <span class="feedback" id="fb_t4_2"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q4 -->
+        <div class="item-card">
+            <div class="item-text">
+                4. <em>"Look at the dashboard! Traffic is zero; the payment system must having issues."</em>
+                <input class="inline-input" id="t4_3" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(3, ['look at the dashboard! traffic is zero; the payment system must be having issues', 'look at the dashboard! traffic is zero; the payment system must be having issues.', 'the payment system must be having issues'], 'Incorrect. Modals require a bare infinitive (\'must be having\', not \'must having\').')">Check</button>
+                <span class="feedback" id="fb_t4_3"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q5 -->
+        <div class="item-card">
+            <div class="item-text">
+                5. <em>"Given the timing of the release, a CSS bug could be causing the UI breakdown right now."</em>
+                <input class="inline-input" id="t4_4" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(4, ['correct'], 'Correct! Uses \'could be + -ing\' correctly for present continuous probability.')">Check</button>
+                <span class="feedback" id="fb_t4_4"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q6 -->
+        <div class="item-card">
+            <div class="item-text">
+                6. <em>"The marketing campaign must to have driven the conversion spike last week."</em>
+                <input class="inline-input" id="t4_5" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(5, ['the marketing campaign must have driven the conversion spike last week', 'the marketing campaign must have driven the conversion spike last week.'], 'Incorrect. Never use \'to\' after modal auxiliary verbs (\'must have driven\').')">Check</button>
+                <span class="feedback" id="fb_t4_5"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q7 -->
+        <div class="item-card">
+            <div class="item-text">
+                7. <em>"It's a low probability, but a competitor campaign could had affected Q3 retention."</em>
+                <input class="inline-input" id="t4_6" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(6, ['it\'s a low probability, but a competitor campaign could have affected q3 retention', 'it\'s a low probability, but a competitor campaign could have affected q3 retention.', 'a competitor campaign could have affected q3 retention'], 'Incorrect. Modals are followed by bare infinitive \'have\', never past tense \'had\' (\'could have affected\').')">Check</button>
+                <span class="feedback" id="fb_t4_6"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q8 -->
+        <div class="item-card">
+            <div class="item-text">
+                8. <em>"The analytics pipeline is completely frozen; telemetry must be failing."</em>
+                <input class="inline-input" id="t4_7" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(7, ['correct'], 'Correct! \'Must be failing\' correctly expresses continuous deduction based on facts.')">Check</button>
+                <span class="feedback" id="fb_t4_7"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q9 -->
+        <div class="item-card">
+            <div class="item-text">
+                9. <em>"We are 100% sure about the root cause: an unindexed query might have crashed the database."</em>
+                <input class="inline-input" id="t4_8" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(8, ['we are 100% sure about the root cause: an unindexed query must have crashed the database', 'we are 100% sure about the root cause: an unindexed query must have crashed the database.', 'an unindexed query must have crashed the database'], 'Incorrect. 100% certainty requires \'must have\', not weak possibility \'might have\'.')">Check</button>
+                <span class="feedback" id="fb_t4_8"></span>
+            </div>
+        </div>
+
+        <!-- T4 Q10 -->
+        <div class="item-card">
+            <div class="item-text">
+                10. <em>"Engineers might be patching the backend server right now to fix the bug."</em>
+                <input class="inline-input" id="t4_9" style="width: 100%; margin-top: 8px;" placeholder="Type correction or 'Correct'...">
+            </div>
+            <div class="action-row">
+                <button class="btn-check" onclick="checkTask4Item(9, ['correct'], 'Correct! \'Might be patching\' is valid for present continuous possibility.')">Check</button>
+                <span class="feedback" id="fb_t4_9"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function cleanStr(str) {
+        return str.trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    /* TASK 1 CHECK */
+    function checkTask1Item(index, validAnswers) {
+        const input = document.getElementById(`t1_${index}`);
+        const feedback = document.getElementById(`fb_t1_${index}`);
+        const val = cleanStr(input.value);
+
+        if (validAnswers.includes(val)) {
+            feedback.className = 'feedback correct';
+            feedback.innerText = '✓ Correct!';
+            input.style.borderColor = '#16a34a';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerText = `✗ Incorrect. Expected: "${validAnswers[0]}"`;
+            input.style.borderColor = '#dc2626';
+        }
+    }
+
+    /* TASK 2 CHECK */
+    function checkTask2Item(index, expectedVal, explanation) {
+        const select = document.getElementById(`t2_${index}`);
+        const feedback = document.getElementById(`fb_t2_${index}`);
+        const val = select.value;
+
+        if (val === expectedVal) {
+            feedback.className = 'feedback correct';
+            feedback.innerText = `✓ Correct! (${explanation})`;
+            select.style.borderColor = '#16a34a';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerText = `✗ Incorrect. Correct choice: "${expectedVal}". (${explanation})`;
+            select.style.borderColor = '#dc2626';
+        }
+    }
+
+    /* TASK 3 CHECK */
+    function checkTask3Item(index, validAnswers) {
+        const input = document.getElementById(`t3_${index}`);
+        const feedback = document.getElementById(`fb_t3_${index}`);
+        const val = cleanStr(input.value);
+
+        if (validAnswers.some(ans => cleanStr(ans) === val)) {
+            feedback.className = 'feedback correct';
+            feedback.innerText = '✓ Correct paraphrase!';
+            input.style.borderColor = '#16a34a';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerText = `✗ Incorrect. Expected: "${validAnswers[0]}"`;
+            input.style.borderColor = '#dc2626';
+        }
+    }
+
+    /* TASK 4 CHECK */
+    function checkTask4Item(index, validAnswers, explanation) {
+        const input = document.getElementById(`t4_${index}`);
+        const feedback = document.getElementById(`fb_t4_${index}`);
+        const val = cleanStr(input.value);
+
+        if (validAnswers.some(ans => cleanStr(ans) === val)) {
+            feedback.className = 'feedback correct';
+            feedback.innerText = `✓ Correct! ${explanation}`;
+            input.style.borderColor = '#16a34a';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerText = `✗ ${explanation}`;
+            input.style.borderColor = '#dc2626';
+        }
+    }
+</script>
+
+</body>
+</html>

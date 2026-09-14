@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric Diagnostic RCA Scenarios</title>
+    <style>
+        :root {
+            --google-blue: #1a73e8;
+            --google-blue-hover: #1557b0;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --step-1-color: #1a73e8;
+            --step-2-color: #00838f;
+            --step-3-color: #6a1b9a;
+            --step-4-color: #e65100;
+            --step-5-color: #2e7d32;
+        }
+
+        body {
+            font-family: 'Google Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* Light corporate office background with semi-transparent overlay */
+            background: 
+                linear-gradient(rgba(248, 249, 250, 0.92), rgba(248, 249, 250, 0.92)),
+                url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: #202124;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 24px 30px;
+            border-radius: 16px;
+            border: 1px solid #dadce0;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(60,64,67,0.05);
+        }
+
+        .google-logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .g-blue { color: #4285f4; }
+        .g-red { color: #ea4335; }
+        .g-yellow { color: #fbbc05; }
+        .g-green { color: #34a853; }
+
+        h1 {
+            color: #202124;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 5px 0 10px 0;
+        }
+
+        p.subtitle {
+            color: #5f6368;
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .scenario-card {
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 35px;
+            box-shadow: 0 2px 6px rgba(60,64,67,0.08), 0 8px 16px rgba(60,64,67,0.04);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .scenario-card:hover {
+            box-shadow: 0 4px 12px rgba(60,64,67,0.12), 0 12px 24px rgba(60,64,67,0.08);
+        }
+
+        .scenario-header {
+            border-left: 5px solid var(--google-blue);
+            padding-left: 16px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-title {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #1a73e8;
+            margin: 0 0 8px 0;
+        }
+
+        .scenario-prompt {
+            font-size: 0.98em;
+            color: #3c4043;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Controls & Progress */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .step-btn {
+            background-color: var(--google-blue);
+            color: #ffffff;
+            border: none;
+            padding: 9px 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .step-btn:hover {
+            background-color: var(--google-blue-hover);
+        }
+
+        .step-btn:active {
+            transform: scale(0.98);
+        }
+
+        .step-btn:disabled {
+            background-color: #dadce0;
+            color: #80868b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-text {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #5f6368;
+        }
+
+        /* Diagnostic Step Cards */
+        .step-block {
+            background-color: #ffffff;
+            border: 1px solid #e8eaed;
+            border-left: 4px solid #bdc1c6;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            display: none;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .step-block.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-block.s1 { border-left-color: var(--step-1-color); background-color: #f8fbff; }
+        .step-block.s2 { border-left-color: var(--step-2-color); background-color: #f4fbfb; }
+        .step-block.s3 { border-left-color: var(--step-3-color); background-color: #faf5fc; }
+        .step-block.s4 { border-left-color: var(--step-4-color); background-color: #fff9f5; }
+        .step-block.s5 { border-left-color: var(--step-5-color); background-color: #f4fbf5; }
+
+        .step-title {
+            font-size: 0.82em;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .s1 .step-title { color: var(--step-1-color); }
+        .s2 .step-title { color: var(--step-2-color); }
+        .s3 .step-title { color: var(--step-3-color); }
+        .s4 .step-title { color: var(--step-4-color); }
+        .s5 .step-title { color: var(--step-5-color); }
+
+        .step-text {
+            font-size: 0.98em;
+            line-height: 1.6;
+            color: #202124;
+            margin: 0;
+        }
+
+        .keyword {
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        .modal {
+            color: #c5221f;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="google-logo-badge">
+            <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+        </div>
+        <h1>Metric Diagnostic Root Cause Analysis (RCA)</h1>
+        <p class="subtitle">Click <strong>"Advance Diagnostic Step"</strong> on any scenario to reveal the 5-step analysis sequentially.</p>
+    </div>
+
+    <!-- SCENARIO A -->
+    <div class="scenario-card" id="scenario-A">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario A: YouTube Shorts Engagement Drop</h2>
+            <p class="scenario-prompt">On Tuesday morning, automated monitoring flags a 14% drop in YouTube Shorts total daily watch time WoW, while total Daily Active Viewers (DAV) opening the Shorts tab remains flat.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-A')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-A">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">Before investigating user behaviour, I would first <span class="keyword">rule out logging issues</span> or client-side telemetry drops by running a <span class="keyword">sanity check</span> on telemetry ingestion pipelines.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">Next, I would <span class="keyword">slice and dice the data</span> along key dimensions like App Version, Mobile OS (iOS vs. Android), and Geographic Region to isolate whether the issue is widespread or localized.</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">To understand what's driving this, I need to <span class="keyword">decompose the top-line metric</span>: <em>Total Watch Time = DAV × Shorts Watched per DAV × Average Watch Duration per Short</em>. Since DAV is flat, the drop must be carried by completion rates or session depth.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">Given that traffic is stable but watch duration declined, an algorithmic feed recommendation failure <span class="modal">could be</span> serving irrelevant content, or a video player buffering bug <span class="modal">must have</span> caused early user drop-offs.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">I recommend <span class="keyword">rolling back</span> the latest recommendation model update and <span class="keyword">deploying a hotfix</span> for any media playback latency issues.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO B -->
+    <div class="scenario-card" id="scenario-B">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario B: GCP BigQuery API Request Drop</h2>
+            <p class="scenario-prompt">Daily active enterprise projects on GCP remain stable, but total API call volume to BigQuery drops by 22% over the weekend and fails to recover on Monday.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-B')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-B">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">To <span class="keyword">ensure data integrity</span>, I would first <span class="keyword">verify the anomaly</span> by auditing the API gateway reporting tables for dropped metrics or batch aggregation delays.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">I want to <span class="keyword">drill down into</span> the metrics by API Endpoint (e.g., jobs.insert vs. tabledata.list), Enterprise Tier, and Authentication Method (Service Account vs. User OAuth).</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">Let's <span class="keyword">break this down</span> into its core mathematical components: <em>Total API Calls = Active Projects × Automated Batch Jobs per Project + Manual Queries per Project</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">A breaking update in a widely used SDK client library <span class="modal">must have</span> caused automated cron jobs to fail authentication, or a third-party pipeline outage <span class="modal">could be</span> preventing scheduled ETL jobs from firing.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">We should <span class="keyword">isolate the issue</span> by notifying affected enterprise accounts and releasing a patched client library payload.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO C -->
+    <div class="scenario-card" id="scenario-C">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario C: Google Play Store Checkout Conversion Drop</h2>
+            <p class="scenario-prompt">Total app downloads on the Google Play Store increase by 8%, but the overall In-App Purchase (IAP) conversion rate across top-grossing games drops by 15% globally.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-C')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-C">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">Step one for me is always <span class="keyword">confirming data accuracy</span> by checking Google Play Billing API reporting logs to <span class="keyword">avoid chasing phantom issues</span>.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">To <span class="keyword">narrow down the root cause</span>, I would segment by Payment Method (Credit Card, PayPal, Carrier Billing), Country/Currency, and Play Store Client Version.</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">We need to <span class="keyword">decompose the top-line metric</span>: <em>IAP Conversion Rate = (Checkout Attempts / Downloads) × (Successful Payments / Checkout Attempts)</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">A third-party payment gateway integration bug <span class="modal">must have</span> led to checkout errors, or the surge in downloads <span class="modal">could be</span> driven by low-intent users from an ad campaign.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">I recommend <span class="keyword">pausing the low-converting ad campaigns</span> and <span class="keyword">deploying a hotfix</span> for the Play Billing checkout flow.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO D -->
+    <div class="scenario-card" id="scenario-D">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario D: Google Meet Quality Alerts Spike</h2>
+            <p class="scenario-prompt">Total daily meeting volume and average duration on Google Meet are completely stable, but user-submitted quality reports for packet loss and jitter surge by 35% following a weekly browser release.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-D')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-D">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">Before proceeding, I would <span class="keyword">rule out logging issues</span> by confirming that feedback submission rates weren't skewed by a UI prompt redesign.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">Next, I would <span class="keyword">slice and dice the data</span> along Browser Build Version, WebRTC Codec (VP8 vs. AV1), Network Type (Wi-Fi vs. Ethernet), and Hardware Acceleration settings.</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">Let's <span class="keyword">break down</span> the quality metric: <em>Total Reports = Total Meetings × % Sessions Experiencing Packet Loss/Jitter × User Feedback Rate</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">A WebRTC regression in the latest browser release <span class="modal">must have</span> broken hardware encoding efficiency, or a network protocol conflict <span class="modal">could be</span> throttling packet transmission.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">We should immediately <span class="keyword">roll back</span> the WebRTC media engine update to <span class="keyword">restore baseline</span> audio clarity.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO E -->
+    <div class="scenario-card" id="scenario-E">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario E: Google Workspace Adoption vs. Retention Drop</h2>
+            <p class="scenario-prompt">Monthly Active Users (MAU) for Google Workspace grow by 12% following a enterprise promotional campaign, but 30-day user retention (D30) drops by 10 percentage points compared to previous cohorts.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-E')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-E">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">I'd start by running a <span class="keyword">sanity check</span> on cohort tracking pipelines to confirm D30 metrics are fully calculated for all users in the promo window.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">I want to <span class="keyword">isolate the issue</span> by comparing User Cohorts (Promotional vs. Organic), Industry Verticals, and Organization Sizes (SMB vs. Enterprise).</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">To understand what's carrying the drop, I need to <span class="keyword">decompose D30 Retention</span> into App-level Activation: <em>Docs Active % + Sheets Active % + Drive Active %</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">The promo campaign <span class="modal">could be</span> attracting low-intent enterprise users, or an unoptimized onboarding flow <span class="modal">must have</span> failed to guide new admins to complete setup.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">I recommend redesigning the onboarding tour and triggering targeted re-engagement campaigns for inactive promo cohorts.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO F -->
+    <div class="scenario-card" id="scenario-F">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario F: Google Photos "Memories" Engagement Drop</h2>
+            <p class="scenario-prompt">Daily active users opening the Google Photos app remain flat, but weekly engagement clicks on the "Memories" carousel at the top of the feed drop by 18% week-over-week.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-F')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-F">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">First, I want to <span class="keyword">verify the anomaly</span> by auditing click-event tracking logs to <span class="keyword">rule out</span> broken UI event firing.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">Let's <span class="keyword">slice and dice the data</span> along App Layout Build, Screen Size/Resolution, Content Type (Photos vs. Videos), and User History Depth.</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">I need to <span class="keyword">decompose the top-line metric</span>: <em>Total Clicks = DAU × % Feed Impressions containing Memories × Click-Through Rate (CTR)</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">A recent UI redesign <span class="modal">must have</span> pushed the carousel below the fold on smaller screens, or a bad curation batch <span class="modal">could be</span> generating irrelevant memory topics.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">We should immediately <span class="keyword">roll back</span> UI card positioning and update the photo curation heuristic model.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO G -->
+    <div class="scenario-card" id="scenario-G">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario G: Google Ads Conversion Tracking Spike</h2>
+            <p class="scenario-prompt">Total ad clicks on Google Search commercial queries remain stable, but aggregate reported conversion value for e-commerce advertisers spikes unexpectedly by 45% in a single day.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-G')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-G">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">To <span class="keyword">ensure data integrity</span>, I would first check for duplicate event fires or conversion tag tracking errors across major e-commerce platforms.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">I would <span class="keyword">drill down into</span> Advertiser Categories, Attribution Models (First-click vs. Last-click), Currency FX conversions, and Tag Type (Google Tag vs. API).</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">Let's <span class="keyword">break down</span> the metric equation: <em>Total Conversion Value = Total Clicks × Conversion Rate × Average Order Value (AOV)</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">A currency conversion bug <span class="modal">must have</span> miscalculated foreign order values, or a tagging error <span class="modal">could be</span> firing purchase events repeatedly on page refreshes.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">I recommend <span class="keyword">deploying a hotfix</span> to deduplicate conversion payloads and re-verifying reported values before billing clients.</p>
+        </div>
+    </div>
+
+    <!-- SCENARIO H -->
+    <div class="scenario-card" id="scenario-H">
+        <div class="scenario-header">
+            <h2 class="scenario-title">Scenario H: Gmail Mobile Smart Replies Drop</h2>
+            <p class="scenario-prompt">Daily active users on the Gmail mobile app remain constant, but usage rate of AI Smart Replies (clicks on suggested response chips) drops by 25% following a dark-mode interface update.</p>
+        </div>
+
+        <div class="controls-bar">
+            <button class="step-btn" onclick="advanceStep('scenario-H')">
+                <span>Advance Diagnostic Step</span> &#10140;
+            </button>
+            <span class="progress-text" id="progress-scenario-H">Steps revealed: 0 / 5</span>
+        </div>
+
+        <div class="step-block s1" data-step="1">
+            <div class="step-title">[1. Validate Data]</div>
+            <p class="step-text">Before investigating, I'd first <span class="keyword">confirm data accuracy</span> by validating that click-tracking listeners work properly under the dark-mode theme.</p>
+        </div>
+        <div class="step-block s2" data-step="2">
+            <div class="step-title">[2. Segment Data]</div>
+            <p class="step-text">To <span class="keyword">narrow down the root cause</span>, I would segment users by Theme Mode (Dark Mode vs. Light Mode), OS Version, and Language/Locale.</p>
+        </div>
+        <div class="step-block s3" data-step="3">
+            <div class="step-title">[3. Decompose Metric]</div>
+            <p class="step-text">We need to <span class="keyword">decompose the top-line metric</span>: <em>Smart Reply Usage Rate = (Emails Received with Chips Shown / Total Emails) × CTR on Chips</em>.</p>
+        </div>
+        <div class="step-block s4" data-step="4">
+            <div class="step-title">[4. Test Hypotheses]</div>
+            <p class="step-text">Poor UI contrast in dark mode <span class="modal">must have</span> reduced chip visibility, or an latency bug in the inference engine <span class="modal">could be</span> causing chips to render after users start typing.</p>
+        </div>
+        <div class="step-block s5" data-step="5">
+            <div class="step-title">[5. Action & Mitigation]</div>
+            <p class="step-text">We should adjust the CSS contrast values for dark-mode chips and push an immediate client update.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function advanceStep(scenarioId) {
+        const card = document.getElementById(scenarioId);
+        const steps = card.querySelectorAll('.step-block');
+        const btn = card.querySelector('.step-btn');
+        const progress = card.querySelector('.progress-text');
+        
+        let revealedCount = 0;
+        
+        for (let i = 0; i < steps.length; i++) {
+            if (!steps[i].classList.contains('visible')) {
+                steps[i].classList.add('visible');
+                revealedCount = i + 1;
+                break;
+            } else {
+                revealedCount = i + 1;
+            }
+        }
+        
+        progress.innerText = `Steps revealed: ${revealedCount} / ${steps.length}`;
+        
+        if (revealedCount >= steps.length) {
+            btn.disabled = true;
+            btn.querySelector('span').innerText = 'All Steps Revealed';
+        }
+    }
+</script>
+
+</body>
+</html>

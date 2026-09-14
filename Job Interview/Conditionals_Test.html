@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditionals Practice Test (Type 1 & Type 2) - Business Analytics Edition</title>
+<style>
+    :root {
+        --google-blue: #4285F4;
+        --google-red: #EA4335;
+        --google-yellow: #FBBC04;
+        --google-green: #34A853;
+        --bg-color-fallback: #0f172a;
+        --card-bg: rgba(255, 255, 255, 0.94);
+        --text: #202124;
+        --subtext: #5F6368;
+        --border: #DADCE0;
+        --success-bg: #E6F4EA;
+        --success-border: #A8DAB5;
+        --success-text: #137333;
+        --error-bg: #FCE8E6;
+        --error-border: #F5C2C7;
+        --error-text: #C5221F;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    }
+
+    body {
+        font-family: 'Google Sans', Roboto, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        background-color: var(--bg-color-fallback);
+        background-image: 
+            linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)),
+            url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1920&q=80'),
+            url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80');
+        background-attachment: fixed;
+        background-position: center top, center center, center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: var(--text);
+        line-height: 1.6;
+        padding: 2.5rem 1rem;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        padding: 2rem;
+        background-color: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(8px);
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .logo-text {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .g-blue { color: var(--google-blue); }
+    .g-red { color: var(--google-red); }
+    .g-yellow { color: var(--google-yellow); }
+    .g-green { color: var(--google-green); }
+
+    h1 {
+        color: var(--text);
+        font-size: 1.8rem;
+        margin: 0.5rem 0;
+        font-weight: 500;
+    }
+
+    p.subtitle {
+        color: var(--subtext);
+        font-size: 1.05rem;
+        margin-top: 0;
+    }
+
+    .task-card {
+        background-color: var(--card-bg);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+    }
+
+    h2 {
+        color: var(--google-blue);
+        font-size: 1.35rem;
+        margin-top: 0;
+        border-bottom: 2px solid #F1F3F4;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+    }
+
+    .sentence {
+        margin-bottom: 1.25rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: rgba(248, 249, 250, 0.95);
+        border: 1px solid #E8EAED;
+        font-size: 1rem;
+    }
+
+    select, input[type="text"] {
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: 6px;
+        border: 1px solid #BDC1C6;
+        background-color: #fff;
+        color: var(--text);
+        outline: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    select:focus, input[type="text"]:focus {
+        border-color: var(--google-blue);
+        box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+
+    .task4-input {
+        width: 220px;
+    }
+
+    .btn-check {
+        background-color: var(--google-blue);
+        color: white;
+        border: none;
+        padding: 0.65rem 1.4rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        margin-top: 1rem;
+    }
+
+    .btn-check:hover {
+        background-color: #1a73e8;
+        box-shadow: 0 2px 4px 0 rgba(60,64,67,0.3);
+    }
+
+    .btn-check-inline {
+        background-color: var(--google-blue);
+        color: white;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        transition: background-color 0.2s;
+    }
+
+    .btn-check-inline:hover {
+        background-color: #1a73e8;
+    }
+
+    .item-feedback {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        display: none;
+    }
+
+    .item-feedback.visible {
+        display: block;
+    }
+
+    .item-feedback.correct {
+        background-color: var(--success-bg);
+        color: var(--success-text);
+        border: 1px solid var(--success-border);
+    }
+
+    .item-feedback.incorrect {
+        background-color: var(--error-bg);
+        color: var(--error-text);
+        border: 1px solid var(--error-border);
+    }
+
+    .feedback {
+        margin-top: 1.25rem;
+        padding: 1.25rem;
+        border-radius: 8px;
+        display: none;
+    }
+
+    .feedback.visible {
+        display: block;
+    }
+
+    .feedback.correct {
+        background-color: var(--success-bg);
+        border: 1px solid var(--success-border);
+        color: var(--success-text);
+    }
+
+    .feedback.incorrect {
+        background-color: var(--error-bg);
+        border: 1px solid var(--error-border);
+        color: var(--error-text);
+    }
+
+    .explanation-list {
+        margin-top: 0.75rem;
+        padding-left: 1.25rem;
+    }
+
+    .explanation-list li {
+        margin-bottom: 0.5rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <span class="logo-text"><span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span> Analytics Academy</span>
+        </div>
+        <h1>Conditionals Test: Business Analytics Domain</h1>
+        <p class="subtitle">Mixed Conditionals (Type 1 & Type 2) for Google Data & Business Analysts</p>
+    </header>
+
+    <!-- TASK 1 -->
+    <div class="task-card">
+        <h2>Task 1: Choose the correct forms of the verb</h2>
+        <p>Select the correct verb form from the dropdown to complete each business scenario.</p>
+
+        <form id="task1-form">
+            <div class="sentence">
+                1. If we 
+                <select id="t1_q1">
+                    <option value="">--select--</option>
+                    <option value="incorrect">didn't optimize</option>
+                    <option value="correct">don't optimize</option>
+                </select> 
+                our BigQuery SQL scripts today, the data pipeline execution cost will increase next month.
+            </div>
+
+            <div class="sentence">
+                2. Our Product Manager would approve the new Google Cloud feature rollout if she 
+                <select id="t1_q2">
+                    <option value="">--select--</option>
+                    <option value="correct">saw</option>
+                    <option value="incorrect">sees</option>
+                </select> 
+                statistically significant results in the A/B test.
+            </div>
+
+            <div class="sentence">
+                3. The Marketing Lead will present the Looker dashboard as soon as the data engineering team 
+                <select id="t1_q3">
+                    <option value="">--select--</option>
+                    <option value="incorrect">refreshed</option>
+                    <option value="correct">refreshes</option>
+                </select> 
+                the Q3 pipeline.
+            </div>
+
+            <div class="sentence">
+                4. What strategy would you present to leadership if our Google Search ad CTR 
+                <select id="t1_q4">
+                    <option value="">--select--</option>
+                    <option value="correct">dropped</option>
+                    <option value="incorrect">drops</option>
+                </select> 
+                by 15% overnight?
+            </div>
+
+            <div class="sentence">
+                5. The user churn rate won't spike if the engineering team 
+                <select id="t1_q5">
+                    <option value="">--select--</option>
+                    <option value="correct">resolves</option>
+                    <option value="incorrect">resolved</option>
+                </select> 
+                the Google Workspace latency issues quickly.
+            </div>
+
+            <div class="sentence">
+                6. If I 
+                <select id="t1_q6">
+                    <option value="">--select--</option>
+                    <option value="incorrect">am</option>
+                    <option value="correct">were</option>
+                </select> 
+                the Senior Analyst on this account, I wouldn't allocate the budget without further churn analysis.
+            </div>
+
+            <div class="sentence">
+                7. We 
+                <select id="t1_q7">
+                    <option value="">--select--</option>
+                    <option value="correct">will scale</option>
+                    <option value="incorrect">would scale</option>
+                </select> 
+                our Google Play ad campaign if the conversion rate improves this week.
+            </div>
+
+            <div class="sentence">
+                8. If our team had direct access to the raw user telemetry datasets, we 
+                <select id="t1_q8">
+                    <option value="">--select--</option>
+                    <option value="incorrect">will build</option>
+                    <option value="correct">would build</option>
+                </select> 
+                a predictive lifetime value model.
+            </div>
+
+            <div class="sentence">
+                9. The Director 
+                <select id="t1_q9">
+                    <option value="">--select--</option>
+                    <option value="correct">would approve</option>
+                    <option value="incorrect">will approve</option>
+                </select> 
+                the additional head count if you presented a clearer ROI forecast.
+            </div>
+
+            <div class="sentence">
+                10. You will misinterpret the quarterly revenue trends if you 
+                <select id="t1_q10">
+                    <option value="">--select--</option>
+                    <option value="correct">ignore</option>
+                    <option value="incorrect">ignored</option>
+                </select> 
+                seasonal fluctuations in Youtube ad spend.
+            </div>
+
+            <button type="button" class="btn-check" onclick="checkTask1()">Check Task 1</button>
+        </form>
+
+        <div id="feedback1" class="feedback"></div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task-card">
+        <h2>Task 2: Open the brackets</h2>
+        <p>Type the correct form of the verb in brackets into the input box based on the context (Type 1 or Type 2). Use full forms (e.g. <em>will deploy</em>, <em>would automate</em>).</p>
+
+        <form id="task2-form">
+            <div class="sentence">
+                1. If the machine learning model finishes training tonight, we <input type="text" id="t2_q1" placeholder="(deploy)"> it to production tomorrow.
+            </div>
+
+            <div class="sentence">
+                2. How <input type="text" id="t2_q2" placeholder="(you / address)"> the stakeholder concerns if the revenue project missed its target next quarter?
+            </div>
+
+            <div class="sentence">
+                3. The data governance committee will reject the proposal if we <input type="text" id="t2_q3" placeholder="(not update)"> the data privacy documentation.
+            </div>
+
+            <div class="sentence">
+                4. I <input type="text" id="t2_q4" placeholder="(automate)"> these weekly Google Sheets reports if I knew how to write Python scripts.
+            </div>
+
+            <div class="sentence">
+                5. If the VP of Operations <input type="text" id="t2_q5" placeholder="(understand)"> our infrastructure bottlenecks, he would allocate more engineering resources.
+            </div>
+
+            <div class="sentence">
+                6. You <input type="text" id="t2_q6" placeholder="(identify)"> key market trends if you run a cohort analysis on the Google Analytics data.
+            </div>
+
+            <div class="sentence">
+                7. If I <input type="text" id="t2_q7" placeholder="(be)"> in charge of product strategy, I would prioritize fixing the user onboarding funnel.
+            </div>
+
+            <div class="sentence">
+                8. We won't launch the new Pixel marketing campaign unless the Lead Analyst <input type="text" id="t2_q8" placeholder="(verify)"> the attribution metrics.
+            </div>
+
+            <div class="sentence">
+                9. If we automated our ETL data pipelines, we <input type="text" id="t2_q9" placeholder="(save)"> over 15 hours of manual work per week.
+            </div>
+
+            <div class="sentence">
+                10. Stakeholders will trust our machine learning predictions if we <input type="text" id="t2_q10" placeholder="(provide)"> clear feature importance charts.
+            </div>
+
+            <button type="button" class="btn-check" onclick="checkTask2()">Check Task 2</button>
+        </form>
+
+        <div id="feedback2" class="feedback"></div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task-card">
+        <h2>Task 3: Spot the mistakes</h2>
+        <p>Determine whether each sentence is grammatically Correct or contains a structural Mistake in conditional usage.</p>
+
+        <form id="task3-form">
+            <div class="sentence">
+                1. <em>"If I will analyze the user feedback today, I will present the insights in tomorrow's sprint meeting."</em><br>
+                <select id="t3_q1">
+                    <option value="">--select--</option>
+                    <option value="incorrect">Correct</option>
+                    <option value="correct">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                2. <em>"Our cross-functional team would ship the Google Cloud update faster if we have more DevOps engineers."</em><br>
+                <select id="t3_q2">
+                    <option value="">--select--</option>
+                    <option value="incorrect">Correct</option>
+                    <option value="correct">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                3. <em>"If you query the BigQuery database correctly, the server will return the aggregate metrics instantly."</em><br>
+                <select id="t3_q3">
+                    <option value="">--select--</option>
+                    <option value="correct">Correct</option>
+                    <option value="incorrect">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                4. <em>"The Product Lead would redesign the UI if user retention dropped significantly next month."</em><br>
+                <select id="t3_q4">
+                    <option value="">--select--</option>
+                    <option value="correct">Correct</option>
+                    <option value="incorrect">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                5. <em>"If I was the Business Lead, I will renegotiate the enterprise contract terms with the client."</em><br>
+                <select id="t3_q5">
+                    <option value="">--select--</option>
+                    <option value="incorrect">Correct</option>
+                    <option value="correct">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                6. <em>"We will scale up server capacity if Google Search traffic increases during the holiday season."</em><br>
+                <select id="t3_q6">
+                    <option value="">--select--</option>
+                    <option value="correct">Correct</option>
+                    <option value="incorrect">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                7. <em>"If our team knew how to build custom Looker visualizations, we will share the report with executive leadership."</em><br>
+                <select id="t3_q7">
+                    <option value="">--select--</option>
+                    <option value="incorrect">Correct</option>
+                    <option value="correct">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                8. <em>"What insights would you extract if leadership granted you access to the confidential search logs?"</em><br>
+                <select id="t3_q8">
+                    <option value="">--select--</option>
+                    <option value="correct">Correct</option>
+                    <option value="incorrect">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                9. <em>"If the data pipeline doesn't sync properly, the real-time revenue report would fail to render."</em><br>
+                <select id="t3_q9">
+                    <option value="">--select--</option>
+                    <option value="incorrect">Correct</option>
+                    <option value="correct">Mistake</option>
+                </select>
+            </div>
+
+            <div class="sentence">
+                10. <em>"If I were you, I would present the baseline metrics before explaining the ML algorithm."</em><br>
+                <select id="t3_q10">
+                    <option value="">--select--</option>
+                    <option value="correct">Correct</option>
+                    <option value="incorrect">Mistake</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn-check" onclick="checkTask3()">Check Task 3</button>
+        </form>
+
+        <div id="feedback3" class="feedback"></div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task-card">
+        <h2>Task 4: Business Impact Predictions (Mixed Conditionals Type 1 & Type 2)</h2>
+        <p>Fill in the missing words/phrases to complete each sentence correctly. Click <strong>Check</strong> next to each item to verify.</p>
+
+        <form id="task4-form">
+            <div class="sentence">
+                1. If a website took 10 seconds to load, most users <input type="text" id="t4_q1" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(1)">Check</button>
+                <div id="t4_fb_1" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                2. If an app crashed every time it opened, users <input type="text" id="t4_q2" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(2)">Check</button>
+                <div id="t4_fb_2" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                3. Revenue would fall to zero if the checkout page <input type="text" id="t4_q3" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(3)">Check</button>
+                <div id="t4_fb_3" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                4. If a company doubled its product price overnight, many customers <input type="text" id="t4_q4" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(4)">Check</button>
+                <div id="t4_fb_4" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                5. Customer satisfaction <input type="text" id="t4_q5" class="task4-input"> if support emails went unanswered for a week.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(5)">Check</button>
+                <div id="t4_fb_5" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                6. If the database lost all user records, the business <input type="text" id="t4_q6" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(6)">Check</button>
+                <div id="t4_fb_6" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                7. If developers pushed untested code to production, system bugs <input type="text" id="t4_q7" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(7)">Check</button>
+                <div id="t4_fb_7" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                8. Security risks would rise if employees <input type="text" id="t4_q8" class="task4-input"> their passwords publicly.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(8)">Check</button>
+                <div id="t4_fb_8" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                9. Page loading speed <input type="text" id="t4_q9" class="task4-input"> if engineers compressed large images.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(9)">Check</button>
+                <div id="t4_fb_9" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                10. If a store offered free shipping, order volume <input type="text" id="t4_q10" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(10)">Check</button>
+                <div id="t4_fb_10" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                11. If an ad campaign targeted the wrong audience, advertising costs <input type="text" id="t4_q11" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(11)">Check</button>
+                <div id="t4_fb_11" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                12. User sign-ups would grow if the registration form <input type="text" id="t4_q12" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(12)">Check</button>
+                <div id="t4_fb_12" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                13. If a product had zero online reviews, new buyers <input type="text" id="t4_q13" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(13)">Check</button>
+                <div id="t4_fb_13" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                14. If project goals changed every day, the team <input type="text" id="t4_q14" class="task4-input"> its deadlines.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(14)">Check</button>
+                <div id="t4_fb_14" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                15. Meeting length <input type="text" id="t4_q15" class="task4-input"> if everyone read the agenda beforehand.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(15)">Check</button>
+                <div id="t4_fb_15" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                16. If a company spent more money than it earned, it <input type="text" id="t4_q16" class="task4-input">.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(16)">Check</button>
+                <div id="t4_fb_16" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                17. Employee productivity <input type="text" id="t4_q17" class="task4-input"> if the office Wi-Fi failed constantly.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(17)">Check</button>
+                <div id="t4_fb_17" class="item-feedback"></div>
+            </div>
+
+            <div class="sentence">
+                18. Project costs <input type="text" id="t4_q18" class="task4-input"> if the scope of work expanded mid-project.
+                <button type="button" class="btn-check-inline" onclick="checkSingleTask4(18)">Check</button>
+                <div id="t4_fb_18" class="item-feedback"></div>
+            </div>
+
+            <button type="button" class="btn-check" onclick="checkTask4()">Check All Task 4</button>
+        </form>
+
+        <div id="feedback4" class="feedback"></div>
+    </div>
+</div>
+
+<script>
+function checkTask1() {
+    let score = 0;
+    const total = 10;
+    for (let i = 1; i <= total; i++) {
+        const val = document.getElementById(`t1_q${i}`).value;
+        if (val === "correct") score++;
+    }
+
+    const fb = document.getElementById("feedback1");
+    fb.className = "feedback visible " + (score === total ? "correct" : "incorrect");
+    
+    let html = `<strong>Score: ${score}/${total}</strong>`;
+    html += `<ul class="explanation-list">`;
+    html += `<li><strong>1. don't optimize:</strong> Type 1 real possibility (If + Present Simple, will + verb).</li>`;
+    html += `<li><strong>2. saw:</strong> Type 2 hypothetical situation (would + verb ... if + Past Simple).</li>`;
+    html += `<li><strong>3. refreshes:</strong> Type 1 real time condition (will + verb ... as soon as + Present Simple).</li>`;
+    html += `<li><strong>4. dropped:</strong> Type 2 hypothetical future scenario (What would you do ... if + Past Simple).</li>`;
+    html += `<li><strong>5. resolves:</strong> Type 1 real business condition (won't + verb ... if + Present Simple).</li>`;
+    html += `<li><strong>6. were:</strong> Type 2 advisory frame ("If I were you, I wouldn't...").</li>`;
+    html += `<li><strong>7. will scale:</strong> Type 1 real opportunity next week (will + verb ... if + Present Simple).</li>`;
+    html += `<li><strong>8. would build:</strong> Type 2 hypothetical present state (If + Past Simple [had], would + verb).</li>`;
+    html += `<li><strong>9. would approve:</strong> Type 2 hypothetical action (would + verb ... if + Past Simple [presented]).</li>`;
+    html += `<li><strong>10. ignore:</strong> Type 1 real warning (will + verb ... if + Present Simple).</li>`;
+    html += `</ul>`;
+    
+    fb.innerHTML = html;
+}
+
+function checkTask2() {
+    const answers = {
+        t2_q1: ["will deploy"],
+        t2_q2: ["would you address"],
+        t2_q3: ["don't update", "do not update"],
+        t2_q4: ["would automate"],
+        t2_q5: ["understood"],
+        t2_q6: ["will identify"],
+        t2_q7: ["were", "was"],
+        t2_q8: ["verifies"],
+        t2_q9: ["would save"],
+        t2_q10: ["provide"]
+    };
+
+    let score = 0;
+    const total = 10;
+
+    for (let i = 1; i <= total; i++) {
+        const userVal = document.getElementById(`t2_q${i}`).value.trim().toLowerCase();
+        const validAnswers = answers[`t2_q${i}`];
+        if (validAnswers && validAnswers.includes(userVal)) {
+            score++;
+        }
+    }
+
+    const fb = document.getElementById("feedback2");
+    fb.className = "feedback visible " + (score === total ? "correct" : "incorrect");
+
+    let html = `<strong>Score: ${score}/${total}</strong>`;
+    html += `<ul class="explanation-list">`;
+    html += `<li><strong>1. will deploy:</strong> Type 1 (If + Present Simple [finishes], will + verb).</li>`;
+    html += `<li><strong>2. would you address:</strong> Type 2 question format (How would + subject + verb ... if + Past Simple [missed]).</li>`;
+    html += `<li><strong>3. don't update:</strong> Type 1 negative (will + verb ... if + Present Simple negative).</li>`;
+    html += `<li><strong>4. would automate:</strong> Type 2 unreal present capability (would + verb ... if + Past Simple [knew]).</li>`;
+    html += `<li><strong>5. understood:</strong> Type 2 hypothetical situation (If + Past Simple, would + verb).</li>`;
+    html += `<li><strong>6. will identify:</strong> Type 1 real outcome (will + verb ... if + Present Simple [run]).</li>`;
+    html += `<li><strong>7. were (or was):</strong> Type 2 hypothetical identity (If + Past Simple [were], would + verb).</li>`;
+    html += `<li><strong>8. verifies:</strong> Type 1 with "unless" (= if the analyst does not verify). Requires Present Simple third-person singular.</li>`;
+    html += `<li><strong>9. would save:</strong> Type 2 hypothetical workflow (If + Past Simple [automated], would + verb).</li>`;
+    html += `<li><strong>10. provide:</strong> Type 1 real operational requirement (will + verb ... if + Present Simple).</li>`;
+    html += `</ul>`;
+
+    fb.innerHTML = html;
+}
+
+function checkTask3() {
+    let score = 0;
+    const total = 10;
+    for (let i = 1; i <= total; i++) {
+        const val = document.getElementById(`t3_q${i}`).value;
+        if (val === "correct") score++;
+    }
+
+    const fb = document.getElementById("feedback3");
+    fb.className = "feedback visible " + (score === total ? "correct" : "incorrect");
+
+    let html = `<strong>Score: ${score}/${total}</strong>`;
+    html += `<ul class="explanation-list">`;
+    html += `<li><strong>1. Mistake:</strong> Modal "will" cannot go inside the if-clause. <em>Correction: "If I analyze the user feedback..."</em></li>`;
+    html += `<li><strong>2. Mistake:</strong> Tense mismatch between main clause (would) and if-clause (has). <em>Correction: "If we HAD more DevOps engineers." (Type 2)</em></li>`;
+    html += `<li><strong>3. Correct:</strong> Standard Type 1 technical conditional (If + Present Simple, will + verb).</li>`;
+    html += `<li><strong>4. Correct:</strong> Standard Type 2 hypothetical business case (would + verb ... if + Past Simple).</li>`;
+    html += `<li><strong>5. Mistake:</strong> Mixed structure error (Type 2 if-clause mixed with Type 1 result clause). <em>Correction: "If I were the Business Lead, I WOULD renegotiate..."</em></li>`;
+    html += `<li><strong>6. Correct:</strong> Standard Type 1 forecast sentence.</li>`;
+    html += `<li><strong>7. Mistake:</strong> Past tense in if-clause requires "would" in the main clause. <em>Correction: "If our team knew..., we WOULD share..." (Type 2)</em></li>`;
+    html += `<li><strong>8. Correct:</strong> Standard Type 2 interview/hypothetical query format.</li>`;
+    html += `<li><strong>9. Mistake:</strong> Present tense in if-clause requires "will" in main clause for Type 1. <em>Correction: "If the data pipeline doesn't sync..., the report WILL fail..."</em></li>`;
+    html += `<li><strong>10. Correct:</strong> Standard Type 2 advisory pattern for business presentations.</li>`;
+    html += `</ul>`;
+
+    fb.innerHTML = html;
+}
+
+const task4Answers = {
+    1: [
+        "would leave before buying", 
+        "would leave", 
+        "would exit before buying", 
+        "would bounce before buying", 
+        "would abandon their carts"
+    ],
+    2: [
+        "would delete it immediately", 
+        "would delete it", 
+        "would uninstall it immediately", 
+        "would remove it immediately", 
+        "would abandon it immediately"
+    ],
+    3: [
+        "stopped", 
+        "stopped working", 
+        "failed", 
+        "ceased working", 
+        "broke down"
+    ],
+    4: [
+        "would switch to a competitor", 
+        "would switch competitors", 
+        "would move to a competitor", 
+        "would change to a competitor", 
+        "would turn to a competitor", 
+        "would switch"
+    ],
+    5: [
+        "would drop", 
+        "would fall", 
+        "would decrease", 
+        "would decline", 
+        "would suffer", 
+        "would plummet"
+    ],
+    6: [
+        "would face a massive crisis", 
+        "would face a crisis", 
+        "would encounter a massive crisis", 
+        "would experience a massive crisis", 
+        "would face", 
+        "would encounter"
+    ],
+    7: [
+        "would increase", 
+        "would rise", 
+        "would grow", 
+        "would multiply", 
+        "would surge", 
+        "would skyrocket"
+    ],
+    8: [
+        "shared", 
+        "disclosed", 
+        "leaked", 
+        "exposed"
+    ],
+    9: [
+        "would improve", 
+        "would increase", 
+        "would go up", 
+        "would speed up"
+    ],
+    10: [
+        "would increase", 
+        "would rise", 
+        "would grow", 
+        "would go up", 
+        "would surge"
+    ],
+    11: [
+        "would be wasted", 
+        "would be lost", 
+        "would be thrown away", 
+        "would increase pointlessly"
+    ],
+    12: [
+        "required less information", 
+        "asked for less information", 
+        "needed less information", 
+        "required less info", 
+        "required", 
+        "asked for"
+    ],
+    13: [
+        "would hesitate to trust it", 
+        "would hesitate to trust the product", 
+        "would hesitate to buy it", 
+        "would hesitate", 
+        "would delay to trust it"
+    ],
+    14: [
+        "would miss", 
+        "would fail to meet", 
+        "would blow past"
+    ],
+    15: [
+        "would decrease", 
+        "would drop", 
+        "would fall", 
+        "would decline", 
+        "would shrink"
+    ],
+    16: [
+        "would go out of business", 
+        "would fall out of business", 
+        "would end up out of business", 
+        "would go bankrupt", 
+        "would go"
+    ],
+    17: [
+        "would suffer", 
+        "would decline", 
+        "would drop", 
+        "would fall", 
+        "would decrease"
+    ],
+    18: [
+        "would go up", 
+        "would increase", 
+        "would rise", 
+        "would grow", 
+        "would surge"
+    ]
+};
+
+function checkSingleTask4(num) {
+    const userVal = document.getElementById(`t4_q${num}`).value.trim().toLowerCase().replace(/\s+/g, ' ');
+    const validAnswers = task4Answers[num];
+    const fb = document.getElementById(`t4_fb_${num}`);
+
+    if (!userVal) {
+        fb.className = "item-feedback visible incorrect";
+        fb.innerHTML = `Please enter an answer! Accepted examples: <strong>"${validAnswers.slice(0, 3).join('" / "')}"</strong>`;
+        return;
+    }
+
+    if (validAnswers.includes(userVal)) {
+        fb.className = "item-feedback visible correct";
+        fb.innerHTML = `✓ Correct! Accepted options: <strong>"${validAnswers.join('" / "')}"</strong>`;
+    } else {
+        fb.className = "item-feedback visible incorrect";
+        fb.innerHTML = `✗ Try again! Accepted options include: <strong>"${validAnswers.slice(0, 4).join('" / "')}"</strong>`;
+    }
+}
+
+function checkTask4() {
+    let score = 0;
+    const total = 18;
+
+    for (let i = 1; i <= total; i++) {
+        checkSingleTask4(i);
+        const userVal = document.getElementById(`t4_q${i}`).value.trim().toLowerCase().replace(/\s+/g, ' ');
+        if (task4Answers[i].includes(userVal)) {
+            score++;
+        }
+    }
+
+    const fb = document.getElementById("feedback4");
+    fb.className = "feedback visible " + (score === total ? "correct" : "incorrect");
+
+    let html = `<strong>Overall Score: ${score}/${total}</strong>`;
+    html += `<ul class="explanation-list">`;
+    for (let i = 1; i <= total; i++) {
+        html += `<li><strong>Sentence ${i}:</strong> ${task4Answers[i].join(" / ")}</li>`;
+    }
+    html += `</ul>`;
+
+    fb.innerHTML = html;
+}
+</script>
+
+</body>
+</html>

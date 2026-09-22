@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessons With Laughter - English Joke Tasks</title>
+<style>
+  :root {
+    --navy-primary: #1e293b;
+    --navy-header: #0f172a;
+    --navy-card: rgba(255, 255, 255, 0.90);
+    --terracotta: #c85a32;
+    --terracotta-light: #fdf2f0;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --border-color: rgba(30, 41, 59, 0.12);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Bright ambient background with subtle laughing crowd backdrop */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(135deg, rgba(241, 245, 249, 0.88) 0%, rgba(226, 232, 240, 0.82) 100%),
+      url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    z-index: -1;
+  }
+
+  header {
+    text-align: center;
+    padding: 50px 20px 30px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  header span.subtitle {
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.8rem;
+    color: var(--navy-header);
+    margin: 0 0 12px 0;
+    font-weight: 700;
+  }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 950px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+  }
+
+  .task-card {
+    background: var(--navy-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 35px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  }
+
+  .task-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+  }
+
+  .task-header h2 {
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    margin: 0 0 8px 0;
+    color: var(--navy-header);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .task-header h2 span.badge {
+    background-color: var(--navy-primary);
+    color: white;
+    font-family: sans-serif;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .task-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .word-bank {
+    background: var(--terracotta-light);
+    border: 1px dashed var(--terracotta);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .word-bank-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--terracotta);
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .word-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .word-tag {
+    background: #ffffff;
+    color: var(--terracotta);
+    border: 1px solid rgba(200, 90, 50, 0.25);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .joke-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .joke-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+  }
+
+  .joke-question {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--navy-header);
+  }
+
+  .joke-answer {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  select, input[type="text"] {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    color: var(--navy-header);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  select:focus, input[type="text"]:focus {
+    border-color: var(--terracotta);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(200, 90, 50, 0.15);
+  }
+
+  .dialogue-box {
+    background: #f8fafc;
+    border-left: 4px solid var(--terracotta);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .dialogue-line {
+    margin: 4px 0;
+  }
+
+  .speaker {
+    color: var(--terracotta);
+    font-weight: bold;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <span class="subtitle">— English For The Real World —</span>
+    <h1>Lessons With Laughter</h1>
+    <p>Practice English idioms, homophones, and unusual expressions through jokes and wordplay.</p>
+  </header>
+
+  <div class="container">
+
+    <!-- TASK 1: IDIOMS -->
+    <div class="task-card">
+      <div class="task-header">
+        <h2><span class="badge">Task 1</span> Idioms in Jokes</h2>
+        <p class="task-desc">Match each joke question with its correct punchline based on a common English idiom.</p>
+      </div>
+
+      <div class="joke-list">
+
+        <div class="joke-item">
+          <div class="joke-question">1. Why can't you play jokes on snakes?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">2. When is an actor happy to become a thief?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">A:</span> My mother made a terrible mistake today. She gave my father soapflakes instead of cornflakes for breakfast.</div>
+            <div class="dialogue-line"><span class="speaker">B:</span> Was he angry?</div>
+          </div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">4. Two flies flew onto a coffee cup and argued about who arrived first and who should get to drink the cold coffee. Which one got angry and left?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">5. Why is it impossible to play tennis quietly?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">6. How could you help a starving cannibal?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">7. When does a patient find an operation funny?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">8. Why did the tired man put his bed in the fireplace?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">9. When are mosquitoes annoying?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span>
+            <select>
+              <option value="">-- Choose Punchline --</option>
+              <option>A. When he steals the show.</option>
+              <option>B. He wanted to sleep like a log.</option>
+              <option>C. Only foaming at the mouth.</option>
+              <option>D. Give him a hand.</option>
+              <option>E. Because you can never pull their legs.</option>
+              <option>F. The one that flew off the handle.</option>
+              <option>G. When it leaves him in stitches.</option>
+              <option>H. When they get under your skin.</option>
+              <option>I. Because you can't play it without raising a racket.</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TASK 2: HOMOPHONES -->
+    <div class="task-card">
+      <div class="task-header">
+        <h2><span class="badge">Task 2</span> Homophones in Humor</h2>
+        <p class="task-desc">Complete the jokes using the correct homophone pair from the word bank.</p>
+      </div>
+
+      <div class="word-bank">
+        <div class="word-bank-title">Word Bank</div>
+        <div class="word-tags">
+          <span class="word-tag">read / red</span>
+          <span class="word-tag">bean / been</span>
+          <span class="word-tag">bare / bear</span>
+          <span class="word-tag">stories / storeys</span>
+          <span class="word-tag">bolder / boulder</span>
+          <span class="word-tag">allowed / aloud</span>
+          <span class="word-tag">rains / reins</span>
+          <span class="word-tag">pane / pain</span>
+          <span class="word-tag">week / weak</span>
+        </div>
+      </div>
+
+      <div class="joke-list">
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">Customer:</span> Waiter, what do you call this?</div>
+            <div class="dialogue-line"><span class="speaker">Waiter:</span> It's <input type="text" style="width: 100px;" placeholder="..."> soup, sir.</div>
+            <div class="dialogue-line"><span class="speaker">Customer:</span> What is it now? I don't care what it's <input type="text" style="width: 100px;" placeholder="...">!</div>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">A:</span> Have you ever hunted <input type="text" style="width: 100px;" placeholder="...">?</div>
+            <div class="dialogue-line"><span class="speaker">B:</span> No, I always hunt with my clothes on.</div>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">3. Why are black clouds like somebody riding a horse?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> Because they both hold the <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">Teacher:</span> Stop! You know the school rules - No fighting <input type="text" style="width: 100px;" placeholder="...">!</div>
+            <div class="dialogue-line"><span class="speaker">Boy:</span> But, sir, we weren't fighting <input type="text" style="width: 100px;" placeholder="...">. We were fighting quietly.</div>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">5. What is the effect of seven days dieting?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> They make one <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">A:</span> Did you hear about the novelist who lived on the ninth floor of a block of flats?</div>
+            <div class="dialogue-line"><span class="speaker">B:</span> He dropped six <input type="text" style="width: 110px;" placeholder="..."> into a wastepaper basket and lived.</div>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">7. How can I get rid of my headache?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> Hit your head against a window and the <input type="text" style="width: 120px;" placeholder="..."/> will disappear.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">Fortune Teller:</span> Would you like your palm <input type="text" style="width: 100px;" placeholder="...">, sir?</div>
+            <div class="dialogue-line"><span class="speaker">Man:</span> No thanks, I like the colour it is now.</div>
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="dialogue-box">
+            <div class="dialogue-line"><span class="speaker">A:</span> What did the small shy stone say?</div>
+            <div class="dialogue-line"><span class="speaker">B:</span> I wish I was a little <input type="text" style="width: 120px;" placeholder="..."/>.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TASK 3: UNUSUAL EXPRESSIONS -->
+    <div class="task-card">
+      <div class="task-header">
+        <h2><span class="badge">Task 3</span> Unusual Expressions</h2>
+        <p class="task-desc">Fill in the blanks with the correct word to complete these unusual word partnerships.</p>
+      </div>
+
+      <div class="word-bank">
+        <div class="word-bank-title">Word Bank</div>
+        <div class="word-tags">
+          <span class="word-tag">spectacle</span>
+          <span class="word-tag">laps</span>
+          <span class="word-tag">tear</span>
+          <span class="word-tag">knit</span>
+          <span class="word-tag">stretch</span>
+          <span class="word-tag">leads</span>
+          <span class="word-tag">pardon</span>
+          <span class="word-tag">hugs</span>
+          <span class="word-tag">stitch</span>
+        </div>
+      </div>
+
+      <div class="joke-list">
+
+        <div class="joke-item">
+          <div class="joke-question">1. What happened to the thief who stole a kilometre of elastic?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> He was put in prison for a long <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">2. When does a boat show its affection?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> When it <input type="text" style="width: 120px;" placeholder="..."/> the shore.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">3. Did you hear about the cat that came first in the milk-drinking competition?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> It won by six <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">4. What do you do if you split your sides laughing?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> Run until you get a <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">5. Did you hear about the optician who fell into his lens-grinding machine?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> He made a <input type="text" style="width: 120px;" placeholder="..."/> of himself.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">6. What does a king do after he burps?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> He issues a royal <input type="text" style="width: 120px;" placeholder="..."/>.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">7. How can broken bones be productive?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> When they begin to <input type="text" style="width: 120px;" placeholder="..."/> together.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">8. Why did the ant rush across the top of a cereal packet?</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> Because it said '<input type="text" style="width: 120px;" placeholder="..."/> along the dotted line' on the packet.
+          </div>
+        </div>
+
+        <div class="joke-item">
+          <div class="joke-question">9. Ten pedigree dogs have escaped from their kennels and the police have been unable to recapture them.</div>
+          <div class="joke-answer">
+            <span class="speaker">&gt;</span> They say they have no <input type="text" style="width: 120px;" placeholder="..."/> and are appealing to the public for help.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

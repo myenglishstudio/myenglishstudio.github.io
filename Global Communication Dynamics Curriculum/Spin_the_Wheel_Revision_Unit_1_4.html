@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scandinavian Discussion Wheel</title>
+    <style>
+        :root {
+            --bg-color: #f5f1eb;
+            --text-color: #2c302e;
+            --card-bg: #ffffff;
+            --accent-color: #8c9a86;
+            --wheel-border: #4a524d;
+            --muted-text: #6e7772;
+            /* Scandinavian Palette */
+            --c1: #d8e2dc;
+            --c2: #ffe5d9;
+            --c3: #ece4db;
+            --c4: #ffe9d6;
+            --c5: #cbd5e1;
+            --c6: #f4ece1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d6cec3 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* Tracker styling */
+        .counter-badge {
+            background: #ffffff;
+            color: var(--wheel-border);
+            padding: 10px 22px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(74, 82, 77, 0.15);
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: 80vw;
+            height: 80vw;
+            max-width: 600px;
+            max-height: 600px;
+            margin: 0 auto;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 36px solid var(--wheel-border);
+            z-index: 10;
+            filter: drop-shadow(0px 3px 2px rgba(0,0,0,0.15));
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            transition: transform 5s cubic-bezier(0.15, 0.99, 0.18, 0.99);
+        }
+
+        .spin-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 4px solid var(--wheel-border);
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .spin-btn:hover:not(:disabled) {
+            transform: translate(-50%, -50%) scale(1.05);
+            background: var(--text-color);
+            color: var(--card-bg);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Foreground Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(44, 48, 46, 0.45);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e5e5;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-badge {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted-text);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .modal-question {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            font-weight: 500;
+            margin: 0 0 30px 0;
+        }
+
+        .close-btn {
+            background: var(--wheel-border);
+            color: #ffffff;
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--text-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="counter-badge" id="counterBadge">
+        Questions Remaining: 20 / 20
+    </div>
+
+    <div class="wheel-wrapper">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="800" height="800"></canvas>
+        <button class="spin-btn" id="spinBtn">Spin</button>
+    </div>
+</div>
+
+<!-- Foreground Modal Window -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+        <div class="modal-badge" id="modalBadge">Question #1</div>
+        <div class="modal-question" id="modalQuestion">Question goes here...</div>
+        <button class="close-btn" id="closeBtn">Continue</button>
+    </div>
+</div>
+
+<script>
+    const originalQuestions = [
+        "If you are not pulling in at least a grand a week by your late twenties, you shouldn't be thinking about buying a house or starting a family.",
+        "Everyone should be required to see a shrink once a year for a mental health checkup, just like going to the dentist.",
+        "Inviting someone to see a flick at the cinema is a terrible idea for a date nowadays.",
+        "If a customer service representative makes a major mistake, flipping out on them is sometimes the only way to get actual results.",
+        "It is human nature to bad mouth people behind their backs, and anyone who claims they never do it is lying.",
+        "If someone says they 'don't get' modern art or modern music, it just means they haven't put in the effort to understand it.",
+        "If your friends stitch you up with a prank that makes you look like a right plonker in public, you should get new friends.",
+        "Social media influencers need to give it a rest—the world would be a much better place without them.",
+        "If a high school graduate starts pulling in a grand a week doing manual labor or trades, going to a university for four years is a foolish financial decision.",
+        "If a married couple hits a major crisis, it is better to divorce than to go back to square one and try to rebuild the relationship from scratch.",
+        "If you make a huge mistake in your career in your 40s and have to go back to square one, it is virtually impossible to reach the same level of success again.",
+        "If you are caught goofing around on social media during paid work hours, your employer has every right to monitor your screen and deduct that time from your paycheck.",
+        "The reason modern relationships fail so quickly is that partners spend too much time goofing around instead of having serious discussions about their future.",
+        "Parents who goof around with their kids too much lose authority—it is better to be respected and feared than to be a 'friend' to your children.",
+        "Relying on a shrink to solve your daily emotional problems makes people mentally soft compared to older generations who just pushed through hard times.",
+        "If high school students say they 'don't get' classical literature like Shakespeare, schools should stop forcing them to read it and teach modern books instead.",
+        "If you fail a business venture and end up back to square one, you shouldn't try starting another business—you should stick to a safe 9-to-5 job.",
+        "People who are prone to flipping out in traffic or public places should automatically lose their driver's license.",
+        "If you sign a contract without reading the fine print and get stitched up, you have no right to complain—you acted like a plonker and deserve the consequences.",
+        "Older generations need to give it a rest with complaining about Gen Z's work ethic—every older generation has made the exact same complaints about the young."
+    ];
+
+    let activePool = [...originalQuestions.map((q, idx) => ({ text: q, originalIndex: idx + 1 }))];
+
+    const colors = ['#d8e2dc', '#ffe5d9', '#ece4db', '#ffe9d6', '#cbd5e1', '#f4ece1'];
+    
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const spinBtn = document.getElementById('spinBtn');
+    const counterBadge = document.getElementById('counterBadge');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalQuestion = document.getElementById('modalQuestion');
+    const closeBtn = document.getElementById('closeBtn');
+
+    const radius = canvas.width / 2;
+    const center = radius;
+
+    let currentRotation = 0;
+    let isSpinning = false;
+    let selectedItem = null;
+
+    function updateCounter() {
+        counterBadge.textContent = `Questions Remaining: ${activePool.length} / ${originalQuestions.length}`;
+    }
+
+    function drawWheel() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const numSegments = activePool.length;
+
+        if (numSegments === 0) {
+            ctx.beginPath();
+            ctx.fillStyle = '#ece4db';
+            ctx.arc(center, center, radius - 10, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.fillStyle = "#4a524d";
+            ctx.font = "bold 30px -apple-system, sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("All Done!", center, center);
+            return;
+        }
+
+        const arc = 2 * Math.PI / numSegments;
+
+        for (let i = 0; i < numSegments; i++) {
+            const angle = i * arc;
+            
+            ctx.beginPath();
+            ctx.fillStyle = colors[i % colors.length];
+            ctx.moveTo(center, center);
+            ctx.arc(center, center, radius - 10, angle, angle + arc);
+            ctx.lineTo(center, center);
+            ctx.fill();
+
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.translate(center, center);
+            ctx.rotate(angle + arc / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = "#4a524d";
+            ctx.font = "bold 22px -apple-system, sans-serif";
+            ctx.fillText(`#${activePool[i].originalIndex}`, radius - 35, 8);
+            ctx.restore();
+        }
+
+        ctx.beginPath();
+        ctx.arc(center, center, radius - 10, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#4a524d';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+    }
+
+    function spin() {
+        if (isSpinning || activePool.length === 0) return;
+        isSpinning = true;
+        spinBtn.disabled = true;
+
+        const numSegments = activePool.length;
+        const selectedIndex = Math.floor(Math.random() * numSegments);
+        selectedItem = activePool[selectedIndex];
+        
+        const segmentDegree = 360 / numSegments;
+        const targetSegmentCenter = (selectedIndex * segmentDegree) + (segmentDegree / 2);
+        
+        const extraSpins = 360 * (Math.floor(Math.random() * 3) + 4);
+        const totalRotationNeeded = extraSpins + (360 - targetSegmentCenter) - 90;
+        
+        currentRotation += (totalRotationNeeded - (currentRotation % 360));
+        if (currentRotation < totalRotationNeeded) {
+            currentRotation += Math.ceil((totalRotationNeeded - currentRotation) / 360) * 360;
+        }
+
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+        setTimeout(() => {
+            modalBadge.textContent = `Question #${selectedItem.originalIndex}`;
+            modalQuestion.textContent = `"${selectedItem.text}"`;
+            modalOverlay.classList.add('active');
+
+            activePool.splice(selectedIndex, 1);
+            updateCounter();
+        }, 5000);
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        isSpinning = false;
+
+        if (activePool.length > 0) {
+            spinBtn.disabled = false;
+        } else {
+            spinBtn.disabled = true;
+            spinBtn.textContent = "End";
+        }
+
+        drawWheel();
+    }
+
+    drawWheel();
+    updateCounter();
+
+    spinBtn.addEventListener('click', spin);
+    closeBtn.addEventListener('click', closeModal);
+</script>
+
+</body>
+</html>

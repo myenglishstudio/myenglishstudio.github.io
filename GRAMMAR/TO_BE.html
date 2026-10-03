@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb 'To Be' vs 'Do / Does' Exercises</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            background-image: 
+                linear-gradient(rgba(241, 245, 249, 0.88), rgba(241, 245, 249, 0.92)),
+                url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        h2 {
+            color: #1e293b;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2563eb;
+            font-size: 1.35rem;
+        }
+        .part-instruction {
+            color: #475569;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        /* Rule Box */
+        .rule-box {
+            background-color: #f8fafc;
+            border-left: 5px solid #2563eb;
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-left-width: 5px;
+        }
+        .rule-box h3 {
+            color: #1d4ed8;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .rule-box ul {
+            margin-left: 20px;
+            color: #334155;
+        }
+        .rule-box li {
+            margin-bottom: 5px;
+        }
+
+        /* Exercise Items */
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .item {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .sentence-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        input.inline-input {
+            width: 120px;
+            text-align: center;
+        }
+        input.full-input {
+            width: 100%;
+            max-width: 520px;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
+        }
+        button.btn-check {
+            padding: 6px 16px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+        button.btn-check:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Feedback styling */
+        .feedback {
+            font-size: 0.93rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+            margin-top: 4px;
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Grammar Practice: 'To Be' vs 'Do / Does'</h1>
+
+    <!-- Rule Summary Box -->
+    <div class="rule-box">
+        <h3>📌 Grammar Rule: When to use 'To Be' vs 'Do / Does'</h3>
+        <ul>
+            <li><strong>Use 'To Be' (am / is / are)</strong> with <strong>Nouns</strong> <em>(a doctor)</em>, <strong>Adjectives</strong> <em>(happy, cold)</em>, <strong>Prepositional Phrases / Places</strong> <em>(at home, in London)</em>, and <strong>Verb-ING</strong> <em>(working, raining)</em>.</li>
+            <li><strong>Use 'Do / Does'</strong> with <strong>Base Verbs</strong> <em>(like, work, play, have, travel, live)</em> to form Present Simple questions.</li>
+        </ul>
+    </div>
+
+    <!-- TASK 1: WORKSHEET DRILLS (PARTS A TO E IN ALPHABETICAL ORDER) -->
+    <h2>Task 1: Practice with 'To Be' (Worksheet Drills)</h2>
+
+    <h3 style="color:#2563eb; margin-top:20px;">Part A: Positive 'To Be' (Am / Is / Are)</h3>
+    <p class="part-instruction">Instruction: Complete each positive sentence by inserting the correct form of 'to be' (am, is, or are).</p>
+    <div class="exercise-grid" id="task2a-container"></div>
+
+    <h3 style="color:#2563eb; margin-top:30px;">Part B: Negative 'To Be'</h3>
+    <p class="part-instruction">Instruction: Transform each sentence into a negative 'to be' statement using <em>am not / isn't / aren't</em> (or <em>is not / are not</em>).</p>
+    <div class="exercise-grid" id="task2b-container"></div>
+
+    <h3 style="color:#2563eb; margin-top:30px;">Part C: Yes/No Questions with 'To Be'</h3>
+    <p class="part-instruction">Instruction: Reorder the given words to create a correct Yes/No question starting with <em>Am / Is / Are</em>.</p>
+    <div class="exercise-grid" id="task2c-container"></div>
+
+    <h3 style="color:#2563eb; margin-top:30px;">Part D: Wh- Questions with 'To Be'</h3>
+    <p class="part-instruction">Instruction: Build Wh- questions by placing the correct form of <em>to be</em> immediately after the question word (Where, Why, Who, How, etc.).</p>
+    <div class="exercise-grid" id="task2d-container"></div>
+
+    <h3 style="color:#2563eb; margin-top:30px;">Part E: Mixed Present Simple 'To Be'</h3>
+    <p class="part-instruction">Instruction: Form complete positive statements, negative statements, or questions with 'to be' based on the prompt in brackets.</p>
+    <div class="exercise-grid" id="task2e-container"></div>
+
+    <!-- TASK 2 AT THE END -->
+    <h2 style="margin-top: 45px; border-top: 2px dashed #cbd5e1; padding-top: 25px;">Task 2: Fill in 'To Be' (Am/Is/Are) or 'Do / Does'</h2>
+    <p class="part-instruction">Instruction: Read each question carefully. Decide whether to fill in the blank with the correct form of 'to be' (Am/Is/Are) or 'do/does' based on the main word following the subject.</p>
+    <div class="exercise-grid" id="task1-container"></div>
+</div>
+
+<script>
+    // Data for Task 2 (Do/Does vs Am/Is/Are)
+    const task1Data = [
+        { q: "_____ she your friend?", a: "Is", exp: "'Friend' is a noun → Use 'To Be' (Is she...?)." },
+        { q: "_____ you like pizza?", a: "Do", exp: "'Like' is a base verb → Use 'Do' (Do you...?)." },
+        { q: "_____ it raining outside?", a: "Is", exp: "'Raining' is a Verb-ING → Use 'To Be' (Is it...?)." },
+        { q: "_____ he play football?", a: "Does", exp: "'Play' is a base verb with 'he' → Use 'Does'." },
+        { q: "_____ you happy today?", a: "Are", exp: "'Happy' is an adjective → Use 'To Be' (Are you...?)." },
+        { q: "_____ they have a dog?", a: "Do", exp: "'Have' is a base verb → Use 'Do' (Do they...?)." },
+        { q: "_____ she at home?", a: "Is", exp: "'At home' is a place/prepositional phrase → Use 'To Be'." },
+        { q: "_____ it snow in winter?", a: "Does", exp: "'Snow' is a verb → Use 'Does' for 'it'." },
+        { q: "_____ we late for the meeting?", a: "Are", exp: "'Late' is an adjective → Use 'To Be' (Are we...?)." },
+        { q: "_____ you speak English?", a: "Do", exp: "'Speak' is a base verb → Use 'Do'." },
+        { q: "_____ this your book?", a: "Is", exp: "'Your book' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you go to school every day?", a: "Do", exp: "'Go' is a base verb → Use 'Do'." },
+        { q: "_____ they your parents?", a: "Are", exp: "'Your parents' is a noun phrase → Use 'To Be'." },
+        { q: "_____ she work in an office?", a: "Does", exp: "'Work' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ he your brother?", a: "Is", exp: "'Your brother' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you like chocolate?", a: "Do", exp: "'Like' is a base verb → Use 'Do'." },
+        { q: "_____ you from Canada?", a: "Are", exp: "'From Canada' is a origin/place phrase → Use 'To Be'." },
+        { q: "_____ she eat vegetables?", a: "Does", exp: "'Eat' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ it your birthday today?", a: "Is", exp: "'Your birthday' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you read books?", a: "Do", exp: "'Read' is a base verb → Use 'Do'." },
+        { q: "_____ she at work today?", a: "Is", exp: "'At work' is a place phrase → Use 'To Be'." },
+        { q: "_____ you like going to the cinema?", a: "Do", exp: "'Like' is a base verb → Use 'Do'." },
+        { q: "_____ they your friends?", a: "Are", exp: "'Your friends' is a noun phrase → Use 'To Be'." },
+        { q: "_____ he play the guitar?", a: "Does", exp: "'Play' is a base verb with 'he' → Use 'Does'." },
+        { q: "_____ you studying English at the moment?", a: "Are", exp: "'Studying' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ you often travel by train?", a: "Do", exp: "'Travel' is a base verb → Use 'Do'." },
+        { q: "_____ it cold outside?", a: "Is", exp: "'Cold' is an adjective → Use 'To Be'." },
+        { q: "_____ you have any hobbies?", a: "Do", exp: "'Have' is a base verb → Use 'Do'." },
+        { q: "_____ we meeting at 6 o'clock?", a: "Are", exp: "'Meeting' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ she go to the gym regularly?", a: "Does", exp: "'Go' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ he your brother?", a: "Is", exp: "'Your brother' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you know how to cook?", a: "Do", exp: "'Know' is a base verb → Use 'Do'." },
+        { q: "_____ they watching TV now?", a: "Are", exp: "'Watching' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ she enjoy reading books?", a: "Does", exp: "'Enjoy' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ this your first time here?", a: "Is", exp: "'Your first time' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you work on weekends?", a: "Do", exp: "'Work' is a base verb → Use 'Do'." },
+        { q: "_____ you planning to go on vacation soon?", a: "Are", exp: "'Planning' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ he drink coffee in the morning?", a: "Does", exp: "'Drink' is a base verb with 'he' → Use 'Does'." },
+        { q: "_____ you tired after your workout?", a: "Are", exp: "'Tired' is an adjective → Use 'To Be'." },
+        { q: "_____ you like animals?", a: "Do", exp: "'Like' is a base verb → Use 'Do'." },
+        { q: "_____ it your birthday today?", a: "Is", exp: "'Your birthday' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you have any pets at home?", a: "Do", exp: "'Have' is a base verb → Use 'Do'." },
+        { q: "_____ we having lunch at the restaurant?", a: "Are", exp: "'Having' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ she live in a big city?", a: "Does", exp: "'Live' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ she your colleague?", a: "Is", exp: "'Your colleague' is a noun phrase → Use 'To Be'." },
+        { q: "_____ you play any sports?", a: "Do", exp: "'Play' is a base verb → Use 'Do'." },
+        { q: "_____ they coming to the party tonight?", a: "Are", exp: "'Coming' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ he like to read newspapers?", a: "Does", exp: "'Like' is a base verb with 'he' → Use 'Does'." },
+        { q: "_____ the weather nice today?", a: "Is", exp: "'Nice' is an adjective → Use 'To Be'." },
+        { q: "_____ you study English every day?", a: "Do", exp: "'Study' is a base verb → Use 'Do'." },
+        { q: "_____ you working on a project now?", a: "Are", exp: "'Working' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ he speak any other languages?", a: "Does", exp: "'Speak' is a base verb with 'he' → Use 'Does'." },
+        { q: "_____ this book interesting?", a: "Is", exp: "'Interesting' is an adjective → Use 'To Be'." },
+        { q: "_____ you like to go shopping?", a: "Do", exp: "'Like' is a base verb → Use 'Do'." },
+        { q: "_____ you going to the park this afternoon?", a: "Are", exp: "'Going' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ she have a car?", a: "Does", exp: "'Have' is a base verb with 'she' → Use 'Does'." },
+        { q: "_____ he busy today?", a: "Is", exp: "'Busy' is an adjective → Use 'To Be'." },
+        { q: "_____ you understand the lesson?", a: "Do", exp: "'Understand' is a base verb → Use 'Do'." },
+        { q: "_____ they waiting for the bus?", a: "Are", exp: "'Waiting' is a Verb-ING → Use 'To Be'." },
+        { q: "_____ he wear glasses?", a: "Does", exp: "'Wear' is a base verb with 'he' → Use 'Does'." }
+    ];
+
+    // Data for Task 1 Worksheets (A to E)
+    const task2A = [
+        { prefix: "She", suffix: "a teacher.", a: ["is"], exp: "Use 'is' for 'she'[cite: 4]." },
+        { prefix: "We", suffix: "hungry.", a: ["are"], exp: "Use 'are' for 'we'[cite: 4]." },
+        { prefix: "Luke", suffix: "late.", a: ["is"], exp: "Luke = he → use 'is'[cite: 4]." },
+        { prefix: "They", suffix: "Spanish.", a: ["are"], exp: "Use 'are' for 'they'[cite: 4]." },
+        { prefix: "You", suffix: "happy.", a: ["are"], exp: "Use 'are' for 'you'[cite: 4]." },
+        { prefix: "I", suffix: "thirsty.", a: ["am", "'m"], exp: "Use 'am' for 'I'[cite: 4]." },
+        { prefix: "It", suffix: "cold.", a: ["is"], exp: "Use 'is' for 'it'[cite: 4]." },
+        { prefix: "She", suffix: "German.", a: ["is"], exp: "Use 'is' for 'she'[cite: 4]." },
+        { prefix: "He", suffix: "early.", a: ["is"], exp: "Use 'is' for 'he'[cite: 4]." },
+        { prefix: "We", suffix: "tired.", a: ["are"], exp: "Use 'are' for 'we'[cite: 4]." },
+        { prefix: "You", suffix: "beautiful.", a: ["are"], exp: "Use 'are' for 'you'[cite: 4]." },
+        { prefix: "I", suffix: "hot.", a: ["am", "'m"], exp: "Use 'am' for 'I'[cite: 4]." },
+        { prefix: "I", suffix: "from London.", a: ["am", "'m"], exp: "Use 'am' for 'I'[cite: 4]." },
+        { prefix: "You", suffix: "a doctor.", a: ["are"], exp: "Use 'are' for 'you'[cite: 4]." },
+        { prefix: "Emily", suffix: "my sister.", a: ["is"], exp: "Emily = she → use 'is'[cite: 4]." },
+        { prefix: "He", suffix: "in the garden.", a: ["is"], exp: "Use 'is' for 'he'[cite: 4]." },
+        { prefix: "They", suffix: "on the bus.", a: ["are"], exp: "Use 'are' for 'they'[cite: 4]." },
+        { prefix: "We", suffix: "friends.", a: ["are"], exp: "Use 'are' for 'we'[cite: 4]." },
+        { prefix: "I", suffix: "25 years old.", a: ["am", "'m"], exp: "Use 'am' for age with 'I'[cite: 4]." },
+        { prefix: "She", suffix: "sick.", a: ["is"], exp: "Use 'is' for 'she'[cite: 4]." }
+    ];
+
+    const task2B = [
+        { prefix: "I", suffix: "cold.", a: ["am not", "'m not"], exp: "Negative for 'I' → 'am not'[cite: 5]." },
+        { prefix: "She", suffix: "French.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'she' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "You", suffix: "an accountant.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'you' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "John", suffix: "my brother.", a: ["is not", "isn't", "'s not"], exp: "John = he → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "They", suffix: "from Berlin.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'they' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "We", suffix: "late.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'we' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "It", suffix: "warm outside.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'it' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "I", suffix: "hungry.", a: ["am not", "'m not"], exp: "Negative for 'I' → 'am not'[cite: 5]." },
+        { prefix: "Ian and Jill", suffix: "on the bus.", a: ["are not", "aren't", "'re not"], exp: "Ian and Jill = they → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "She", suffix: "Spanish.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'she' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "He", suffix: "in the bathroom.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'he' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "We", suffix: "thirsty.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'we' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "It", suffix: "sunny.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'it' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "You", suffix: "a teacher.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'you' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "They", suffix: "at school.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'they' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "Lucy", suffix: "from Australia.", a: ["is not", "isn't", "'s not"], exp: "Lucy = she → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "I", suffix: "a nurse.", a: ["am not", "'m not"], exp: "Negative for 'I' → 'am not'[cite: 5]." },
+        { prefix: "He", suffix: "sleepy.", a: ["is not", "isn't", "'s not"], exp: "Negative for 'he' → 'is not' / 'isn't'[cite: 5]." },
+        { prefix: "We", suffix: "at home.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'we' → 'are not' / 'aren't'[cite: 5]." },
+        { prefix: "You", suffix: "from China.", a: ["are not", "aren't", "'re not"], exp: "Negative for 'you' → 'are not' / 'aren't'[cite: 5]." }
+    ];
+
+    const task2C = [
+        { prompt: "John / in the garden?", a: ["Is John in the garden?", "Is John in the garden"], exp: "'Is' + subject (John) + place[cite: 6]." },
+        { prompt: "They / hungry?", a: ["Are they hungry?", "Are they hungry"], exp: "'Are' + subject (they) + adjective[cite: 6]." },
+        { prompt: "We / late?", a: ["Are we late?", "Are we late"], exp: "'Are' + subject (we) + adjective[cite: 6]." },
+        { prompt: "You / tired?", a: ["Are you tired?", "Are you tired"], exp: "'Are' + subject (you) + adjective[cite: 6]." },
+        { prompt: "He / French?", a: ["Is he French?", "Is he French"], exp: "'Is' + subject (he) + nationality[cite: 6]." },
+        { prompt: "She / a teacher?", a: ["Is she a teacher?", "Is she a teacher"], exp: "'Is' + subject (she) + noun[cite: 6]." },
+        { prompt: "Harry and Lucy / from London?", a: ["Are Harry and Lucy from London?", "Are Harry and Lucy from London"], exp: "'Are' + plural subject (Harry and Lucy) + origin[cite: 6]." },
+        { prompt: "I / early?", a: ["Am I early?", "Am I early"], exp: "'Am' + subject (I) + adjective[cite: 6]." },
+        { prompt: "You / thirsty?", a: ["Are you thirsty?", "Are you thirsty"], exp: "'Are' + subject (you) + adjective[cite: 6]." },
+        { prompt: "She / on the bus?", a: ["Is she on the bus?", "Is she on the bus"], exp: "'Is' + subject (she) + location[cite: 6]." },
+        { prompt: "We / on time?", a: ["Are we on time?", "Are we on time"], exp: "'Are' + subject (we) + phrase[cite: 6]." },
+        { prompt: "Pedro / from Spain?", a: ["Is Pedro from Spain?", "Is Pedro from Spain"], exp: "'Is' + subject (Pedro) + origin[cite: 6]." },
+        { prompt: "They / in Tokyo?", a: ["Are they in Tokyo?", "Are they in Tokyo"], exp: "'Are' + subject (they) + place[cite: 6]." },
+        { prompt: "Julie / at home?", a: ["Is Julie at home?", "Is Julie at home"], exp: "'Is' + subject (Julie) + location[cite: 6]." },
+        { prompt: "The children / at school?", a: ["Are the children at school?", "Are the children at school"], exp: "'Are' + plural noun (the children) + location[cite: 6]." },
+        { prompt: "You / in a cafe?", a: ["Are you in a cafe?", "Are you in a cafe?"], exp: "'Are' + subject (you) + location[cite: 6]." },
+        { prompt: "I / right?", a: ["Am I right?", "Am I right"], exp: "'Am' + subject (I) + adjective[cite: 6]." },
+        { prompt: "We / in the right place?", a: ["Are we in the right place?", "Are we in the right place"], exp: "'Are' + subject (we) + location phrase[cite: 6]." },
+        { prompt: "She / German?", a: ["Is she German?", "Is she German"], exp: "'Is' + subject (she) + nationality[cite: 6]." },
+        { prompt: "He / a doctor?", a: ["Is he a doctor?", "Is he a doctor"], exp: "'Is' + subject (he) + noun[cite: 6]." }
+    ];
+
+    const task2D = [
+        { prompt: "Where / John?", a: ["Where is John?", "Where is John"], exp: "Question word (Where) + is + John[cite: 7]." },
+        { prompt: "Why / they / hungry?", a: ["Why are they hungry?", "Why are they hungry"], exp: "Why + are + they + hungry[cite: 7]." },
+        { prompt: "Where / we?", a: ["Where are we?", "Where are we"], exp: "Where + are + we[cite: 7]." },
+        { prompt: "Who / you?", a: ["Who are you?", "Who are you"], exp: "Who + are + you[cite: 7]." },
+        { prompt: "Why / he / late?", a: ["Why is he late?", "Why is he late"], exp: "Why + is + he + late[cite: 7]." },
+        { prompt: "What / this?", a: ["What is this?", "What's this?", "What is this"], exp: "What + is + this[cite: 7]." },
+        { prompt: "Where / Jimmy?", a: ["Where is Jimmy?", "Where's Jimmy?", "Where is Jimmy"], exp: "Where + is + Jimmy[cite: 7]." },
+        { prompt: "How old / she?", a: ["How old is she?", "How old is she"], exp: "How old + is + she[cite: 7]." },
+        { prompt: "How / you?", a: ["How are you?", "How are you"], exp: "How + are + you[cite: 7]." },
+        { prompt: "Where / the station?", a: ["Where is the station?", "Where's the station?", "Where is the station"], exp: "Where + is + the station[cite: 7]." },
+        { prompt: "What time / it now?", a: ["What time is it now?", "What time is it now"], exp: "What time + is + it now[cite: 7]." },
+        { prompt: "Where / Pedro / from?", a: ["Where is Pedro from?", "Where's Pedro from?", "Where is Pedro from"], exp: "Where + is + Pedro + from[cite: 7]." },
+        { prompt: "Why / they / in the kitchen?", a: ["Why are they in the kitchen?", "Why are they in the kitchen"], exp: "Why + are + they + in the kitchen[cite: 7]." },
+        { prompt: "How / the food?", a: ["How is the food?", "How's the food?", "How is the food"], exp: "How + is + the food[cite: 7]." },
+        { prompt: "How long / the journey?", a: ["How long is the journey?", "How long is the journey"], exp: "How long + is + the journey[cite: 7]." },
+        { prompt: "How old / you?", a: ["How old are you?", "How old are you"], exp: "How old + are + you[cite: 7]." },
+        { prompt: "Why / I / last?", a: ["Why am I last?", "Why am I last"], exp: "Why + am + I + last[cite: 7]." },
+        { prompt: "What time / the concert?", a: ["What time is the concert?", "What time is the concert"], exp: "What time + is + the concert[cite: 7]." },
+        { prompt: "Where / she?", a: ["Where is she?", "Where's she?", "Where is she"], exp: "Where + is + she[cite: 7]." },
+        { prompt: "Who / Julie / with?", a: ["Who is Julie with?", "Who's Julie with?", "Who is Julie with"], exp: "Who + is + Julie + with[cite: 7]." }
+    ];
+
+    const task2E = [
+        { prompt: "(you / be / hungry)", a: ["Are you hungry?", "Are you hungry"], exp: "Question with 'you' → Are you hungry?[cite: 8]" },
+        { prompt: "(they / not / be / at home)", a: ["They are not at home.", "They aren't at home.", "They're not at home."], exp: "Negative statement for 'they'[cite: 8]." },
+        { prompt: "(when / be / the party?)", a: ["When is the party?", "When is the party"], exp: "Wh- question with singular noun 'party'[cite: 8]." },
+        { prompt: "(Julie and Ann / be / on the bus?)", a: ["Are Julie and Ann on the bus?", "Are Julie and Ann on the bus"], exp: "Question with plural subject 'Julie and Ann'[cite: 8]." },
+        { prompt: "(she / be / kind?)", a: ["Is she kind?", "Is she kind"], exp: "Question with 'she' → Is she kind?[cite: 8]" },
+        { prompt: "(they / be / German?)", a: ["Are they German?", "Are they German"], exp: "Question with 'they' → Are they German?[cite: 8]" },
+        { prompt: "(you / be / late?)", a: ["Are you late?", "Are you late"], exp: "Question with 'you' → Are you late?[cite: 8]" },
+        { prompt: "(I / be / early?)", a: ["Am I early?", "Am I early"], exp: "Question with 'I' → Am I early?[cite: 8]" },
+        { prompt: "(you / be / from London?)", a: ["Are you from London?", "Are you from London"], exp: "Question with 'you' → Are you from London?[cite: 8]" },
+        { prompt: "(they / be / sad)", a: ["They are sad.", "They're sad."], exp: "Positive statement for 'they'[cite: 8]." },
+        { prompt: "(she / be / beautiful)", a: ["She is beautiful.", "She's beautiful."], exp: "Positive statement for 'she'[cite: 8]." },
+        { prompt: "(we / be / in love)", a: ["We are in love.", "We're in love."], exp: "Positive statement for 'we'[cite: 8]." },
+        { prompt: "(where / be / you?)", a: ["Where are you?", "Where are you"], exp: "Wh- question with 'you'[cite: 8]." },
+        { prompt: "(I / be / happy)", a: ["I am happy.", "I'm happy."], exp: "Positive statement for 'I'[cite: 8]." },
+        { prompt: "(what / be / this?)", a: ["What is this?", "What's this?", "What is this"], exp: "Wh- question with 'this'[cite: 8]." },
+        { prompt: "(I / not / be / too hot)", a: ["I am not too hot.", "I'm not too hot."], exp: "Negative statement for 'I'[cite: 8]." },
+        { prompt: "(she / not / be / called Julia)", a: ["She is not called Julia.", "She isn't called Julia.", "She's not called Julia."], exp: "Negative statement for 'she'[cite: 8]." },
+        { prompt: "(how old / be / she?)", a: ["How old is she?", "How old is she"], exp: "Wh- question for age with 'she'[cite: 8]." },
+        { prompt: "(what time / be / the train?)", a: ["What time is the train?", "What time is the train"], exp: "Wh- question for time with 'the train'[cite: 8]." },
+        { prompt: "(he / not / be / an accountant)", a: ["He is not an accountant.", "He isn't an accountant.", "He's not an accountant."], exp: "Negative statement for 'he'[cite: 8]." },
+        { prompt: "(he / be / French)", a: ["He is French.", "He's French."], exp: "Positive statement for 'he'." },
+        { prompt: "(we / not / be / cold)", a: ["We are not cold.", "We aren't cold.", "We're not cold."], exp: "Negative statement for 'we'." },
+        { prompt: "(he / be / a footballer?)", a: ["Is he a footballer?", "Is he a footballer"], exp: "Question with 'he'." },
+        { prompt: "(where / be / John?)", a: ["Where is John?", "Where's John?", "Where is John"], exp: "Wh- question with singular name 'John'." },
+        { prompt: "(we / be / German)", a: ["We are German.", "We're German."], exp: "Positive statement for 'we'." },
+        { prompt: "(he / not / be / a journalist)", a: ["He is not a journalist.", "He isn't a journalist.", "He's not a journalist."], exp: "Negative statement for 'he'." },
+        { prompt: "(we / not / be / singers)", a: ["We are not singers.", "We aren't singers.", "We're not singers."], exp: "Negative statement for 'we'." },
+        { prompt: "(you / be / a nurse?)", a: ["Are you a nurse?", "Are you a nurse"], exp: "Question with 'you'." },
+        { prompt: "(they / be / from Libya)", a: ["They are from Libya.", "They're from Libya."], exp: "Positive statement for 'they'." },
+        { prompt: "(where / be / David?)", a: ["Where is David?", "Where's David?", "Where is David"], exp: "Wh- question with 'David'." },
+        { prompt: "(how / be / your mother?)", a: ["How is your mother?", "How's your mother?", "How is your mother"], exp: "Wh- question with singular subject 'your mother'." },
+        { prompt: "(we / be / thirsty)", a: ["We are thirsty.", "We're thirsty."], exp: "Positive statement for 'we'." },
+        { prompt: "(how long / be / the film?)", a: ["How long is the film?", "How long is the film"], exp: "Wh- question with 'the film'." },
+        { prompt: "(how often / be / you in London?)", a: ["How often are you in London?", "How often are you in London"], exp: "Wh- question with 'you'." },
+        { prompt: "(he / be / handsome)", a: ["He is handsome.", "He's handsome."], exp: "Positive statement for 'he'." },
+        { prompt: "(I / not / be / English)", a: ["I am not English.", "I'm not English."], exp: "Negative statement for 'I'." },
+        { prompt: "(you / not / be / a doctor)", a: ["You are not a doctor.", "You aren't a doctor.", "You're not a doctor."], exp: "Negative statement for 'you'." },
+        { prompt: "(she / not / be / Italian)", a: ["She is not Italian.", "She isn't Italian.", "She's not Italian."], exp: "Negative statement for 'she'." },
+        { prompt: "(he / be / my brother)", a: ["He is my brother.", "He's my brother."], exp: "Positive statement for 'he'." },
+        { prompt: "(you / not / be / Egyptian)", a: ["You are not Egyptian.", "You aren't Egyptian.", "You're not Egyptian."], exp: "Negative statement for 'you'." }
+    ];
+
+    // Helper function to render inline gap items
+    function renderGapTask(containerId, items) {
+        const container = document.getElementById(containerId);
+        items.forEach((item, index) => {
+            const parts = item.q.split("_____");
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <div class="sentence-row">
+                    <span>${index + 1}. ${parts[0]}</span>
+                    <input type="text" class="inline-input" id="${containerId}_${index}">
+                    <span>${parts[1]}</span>
+                    <button class="btn-check" onclick="checkGap('${containerId}_${index}', '${item.a}', '${containerId}_fb_${index}')">Check</button>
+                </div>
+                <div id="${containerId}_fb_${index}" class="feedback"></div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Helper function to render text transformation items
+    function renderTextTask(containerId, items) {
+        const container = document.getElementById(containerId);
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            
+            let label = item.prompt ? `${index + 1}. ${item.prompt}` : `${index + 1}. ${item.prefix} _____ ${item.suffix}`;
+            let inputClass = item.prompt ? "full-input" : "inline-input";
+
+            div.innerHTML = `
+                <div class="sentence-row">
+                    <span>${label}</span>
+                </div>
+                <div class="sentence-row">
+                    <input type="text" class="${inputClass}" id="${containerId}_${index}">
+                    <button class="btn-check" onclick="checkMulti('${containerId}_${index}', ${JSON.stringify(item.a).replace(/"/g, '&quot;')}, '${containerId}_fb_${index}', '${item.exp.replace(/'/g, "\\'")}')">Check</button>
+                </div>
+                <div id="${containerId}_fb_${index}" class="feedback"></div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Validation functions
+    function normalize(str) {
+        return str.trim().toLowerCase().replace(/’/g, "'").replace(/\s+/g, ' ');
+    }
+
+    function checkGap(inputId, expected, feedbackId) {
+        const val = normalize(document.getElementById(inputId).value);
+        const fb = document.getElementById(feedbackId);
+        const target = normalize(expected);
+
+        if (val === target) {
+            fb.className = "feedback correct";
+            fb.innerHTML = `✔ <strong>Correct!</strong> (${expected})`;
+        } else {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = `✖ <strong>Incorrect.</strong> Correct answer: <strong>${expected}</strong>`;
+        }
+    }
+
+    function checkMulti(inputId, allowedArray, feedbackId, explanation) {
+        const val = normalize(document.getElementById(inputId).value);
+        const fb = document.getElementById(feedbackId);
+        const isCorrect = allowedArray.some(ans => normalize(ans) === val);
+
+        if (isCorrect) {
+            fb.className = "feedback correct";
+            fb.innerHTML = `✔ <strong>Correct!</strong> ${explanation}`;
+        } else {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = `✖ <strong>Incorrect.</strong> Expected: <strong>${allowedArray[0]}</strong><br>💡 <em>${explanation}</em>`;
+        }
+    }
+
+    // Initialize all tasks in strict alphabetical order (A -> B -> C -> D -> E) for Task 1, then Task 2 at the end
+    document.addEventListener('DOMContentLoaded', () => {
+        renderTextTask('task2a-container', task2A); // Part A
+        renderTextTask('task2b-container', task2B); // Part B
+        renderTextTask('task2c-container', task2C); // Part C
+        renderTextTask('task2d-container', task2D); // Part D
+        renderTextTask('task2e-container', task2E); // Part E
+        renderGapTask('task1-container', task1Data); // Task 2 at the end
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple Practice - Progressive Difficulty</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            background-image: 
+                linear-gradient(rgba(241, 245, 249, 0.88), rgba(241, 245, 249, 0.92)),
+                url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        h2 {
+            color: #1e293b;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2563eb;
+            font-size: 1.35rem;
+        }
+        .part-instruction {
+            color: #475569;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .item {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .prompt-row {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 1.05rem;
+        }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
+        }
+        button.btn-check {
+            padding: 8px 18px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+        button.btn-check:hover {
+            background-color: #1d4ed8;
+        }
+        .feedback {
+            font-size: 0.93rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+            margin-top: 4px;
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Present Simple Practice (Other Verbs)</h1>
+
+    <!-- TASK 1: POSITIVE STATEMENTS (SET 1) -->
+    <h2>Task 1: Positive Sentences - Set 1 (Easiest)</h2>
+    <p class="part-instruction">Instruction: Make positive present simple sentences. Remember to add <strong>-s / -es / -ies</strong> for <em>he, she, it</em>.</p>
+    <div class="exercise-grid" id="pos1-container"></div>
+
+    <!-- TASK 2: POSITIVE STATEMENTS (SET 2) -->
+    <h2 style="margin-top: 45px;">Task 2: Positive Sentences - Set 2</h2>
+    <p class="part-instruction">Instruction: Complete these positive present simple sentences.</p>
+    <div class="exercise-grid" id="pos2-container"></div>
+
+    <!-- TASK 3: NEGATIVE STATEMENTS -->
+    <h2 style="margin-top: 45px;">Task 3: Negative Sentences</h2>
+    <p class="part-instruction">Instruction: Form negative present simple sentences using <strong>don't / doesn't</strong> + base verb.</p>
+    <div class="exercise-grid" id="neg-container"></div>
+
+    <!-- TASK 4: YES / NO QUESTIONS -->
+    <h2 style="margin-top: 45px;">Task 4: Yes / No Questions</h2>
+    <p class="part-instruction">Instruction: Make present simple Yes/No questions starting with <strong>Do / Does</strong>.</p>
+    <div class="exercise-grid" id="yesno-container"></div>
+
+    <!-- TASK 5: WH- QUESTIONS -->
+    <h2 style="margin-top: 45px;">Task 5: 'Wh-' Questions</h2>
+    <p class="part-instruction">Instruction: Build present simple questions using: <strong>Question Word + do/does + subject + base verb</strong>.</p>
+    <div class="exercise-grid" id="wh-container"></div>
+
+    <!-- TASK 6: MIXED EXERCISES - SET 1 -->
+    <h2 style="margin-top: 45px;">Task 6: Mixed Exercise 1</h2>
+    <p class="part-instruction">Instruction: Make the present simple (choose positive, negative, or question).</p>
+    <div class="exercise-grid" id="mix1-container"></div>
+
+    <!-- TASK 7: MIXED EXERCISES - SET 2 -->
+    <h2 style="margin-top: 45px;">Task 7: Mixed Exercise 2</h2>
+    <p class="part-instruction">Instruction: Make the present simple (choose positive, negative, or question).</p>
+    <div class="exercise-grid" id="mix2-container"></div>
+
+    <!-- TASK 8: MIXED EXERCISES - SET 3 (MOST DIFFICULT) -->
+    <h2 style="margin-top: 45px;">Task 8: Mixed Exercise 3 (Most Challenging)</h2>
+    <p class="part-instruction">Instruction: Complete these advanced mixed present simple structures.</p>
+    <div class="exercise-grid" id="mix3-container"></div>
+</div>
+
+<script>
+    // All tasks extracted from the PDF files, ordered strictly from simplest (positive) to most complex (mixed 3)
+
+    // Positive Exercise 1 (20 items)
+    const positiveData1 = [
+        { prompt: "(he/ go to school every day)", a: ["He goes to school every day.", "He goes to school every day"], exp: "Use 'goes' for 'he'[cite: 42]." },
+        { prompt: "(I/like swimming)", a: ["I like swimming.", "I like swimming"], exp: "Use base verb 'like' for 'I'[cite: 42]." },
+        { prompt: "(you/ play badminton on Saturdays)", a: ["You play badminton on Saturdays.", "You play badminton on Saturdays"], exp: "Use base verb 'play' for 'you'[cite: 42]." },
+        { prompt: "(the class / begin at 9am)", a: ["The class begins at 9am.", "The class begins at 9am"], exp: "'The class' = it → add '-s' (begins)[cite: 42]." },
+        { prompt: "(they / sometimes go to the cinema)", a: ["They sometimes go to the cinema.", "They sometimes go to the cinema"], exp: "Use base verb 'go' for 'they'[cite: 42]." },
+        { prompt: "(she / love chocolate)", a: ["She loves chocolate.", "She loves chocolate"], exp: "Use 'loves' for 'she'[cite: 42]." },
+        { prompt: "(we/study French)", a: ["We study French.", "We study French"], exp: "Use base verb 'study' for 'we'[cite: 42]." },
+        { prompt: "(they / live in London)", a: ["They live in London.", "They live in London"], exp: "Use base verb 'live' for 'they'[cite: 42]." },
+        { prompt: "(he/work in a restaurant)", a: ["He works in a restaurant.", "He works in a restaurant"], exp: "Use 'works' for 'he'[cite: 42]." },
+        { prompt: "(Lucy/play the guitar)", a: ["Lucy plays the guitar.", "Lucy plays the guitar"], exp: "Lucy = she → add '-s' (plays)[cite: 42]." },
+        { prompt: "(we/cook every day)", a: ["We cook every day.", "We cook every day"], exp: "Use base verb 'cook' for 'we'[cite: 42]." },
+        { prompt: "(he/ clean the house at the weekends)", a: ["He cleans the house at the weekends.", "He cleans the house at the weekends"], exp: "Use 'cleans' for 'he'[cite: 42]." },
+        { prompt: "(I/like reading detective stories)", a: ["I like reading detective stories.", "I like reading detective stories"], exp: "Use base verb 'like' for 'I'[cite: 42]." },
+        { prompt: "(you/come from France)", a: ["You come from France.", "You come from France"], exp: "Use base verb 'come' for 'you'[cite: 42]." },
+        { prompt: "(John and David / often go to restaurants)", a: ["John and David often go to restaurants.", "John and David often go to restaurants"], exp: "John and David = they → use base verb 'go'[cite: 42]." },
+        { prompt: "(Susie / study English every night)", a: ["Susie studies English every night.", "Susie studies English every night"], exp: "Susie = she → change '-y' to '-ies' (studies)[cite: 42]." },
+        { prompt: "(the train/leave at 6pm)", a: ["The train leaves at 6pm.", "The train leaves at 6pm"], exp: "'The train' = it → add '-s' (leaves)[cite: 42]." },
+        { prompt: "(we / go to the park on Sundays)", a: ["We go to the park on Sundays.", "We go to the park on Sundays"], exp: "Use base verb 'go' for 'we'[cite: 42]." },
+        { prompt: "(he/likes taking photographs)", a: ["He likes taking photographs.", "He likes taking photographs"], exp: "Use 'likes' for 'he'[cite: 42]." },
+        { prompt: "(the moon/ go round the earth)", a: ["The moon goes round the earth.", "The moon goes round the earth"], exp: "'The moon' = it → add '-es' (goes)[cite: 42]." }
+    ];
+
+    // Positive Exercise 2 (20 items)
+    const positiveData2 = [
+        { prompt: "(we/often watch TV)", a: ["We often watch TV.", "We often watch TV"], exp: "Use base verb 'watch' for 'we'[cite: 36]." },
+        { prompt: "(I/hate mushrooms)", a: ["I hate mushrooms.", "I hate mushrooms"], exp: "Use base verb 'hate' for 'I'[cite: 36]." },
+        { prompt: "(she/visit her grandmother every Christmas)", a: ["She visits her grandmother every Christmas.", "She visits her grandmother every Christmas"], exp: "Use 'visits' for 'she'[cite: 36]." },
+        { prompt: "(they/ use the Internet every evening)", a: ["They use the Internet every evening.", "They use the Internet every evening"], exp: "Use base verb 'use' for 'they'[cite: 36]." },
+        { prompt: "(you/often go swimming)", a: ["You often go swimming.", "You often go swimming"], exp: "Use base verb 'go' for 'you'[cite: 36]." },
+        { prompt: "(John/hate waiting for the bus)", a: ["John hates waiting for the bus.", "John hates waiting for the bus"], exp: "John = he → add '-s' (hates)[cite: 36]." },
+        { prompt: "(Lucy and Jill / want to go out tonight)", a: ["Lucy and Jill want to go out tonight.", "Lucy and Jill want to go out tonight"], exp: "Lucy and Jill = they → use base verb 'want'[cite: 36]." },
+        { prompt: "(I/usually stay at home on Fridays)", a: ["I usually stay at home on Fridays.", "I usually stay at home on Fridays"], exp: "Use base verb 'stay' for 'I'[cite: 36]." },
+        { prompt: "(he/love driving fast cars)", a: ["He loves driving fast cars.", "He loves driving fast cars"], exp: "Use 'loves' for 'he'[cite: 36]." },
+        { prompt: "(they/ often have parties)", a: ["They often have parties.", "They often have parties"], exp: "Use base verb 'have' for 'they'[cite: 36]." },
+        { prompt: "(she/take a piano lesson every Monday)", a: ["She takes a piano lesson every Monday.", "She takes a piano lesson every Monday"], exp: "Use 'takes' for 'she'[cite: 36]." },
+        { prompt: "(we/like watching French films)", a: ["We like watching French films.", "We like watching French films"], exp: "Use base verb 'like' for 'we'[cite: 36]." },
+        { prompt: "(you/go to bed very early)", a: ["You go to bed very early.", "You go to bed very early"], exp: "Use base verb 'go' for 'you'[cite: 36]." },
+        { prompt: "(I/always eat breakfast)", a: ["I always eat breakfast.", "I always eat breakfast"], exp: "Use base verb 'eat' for 'I'[cite: 36]." },
+        { prompt: "(they/ often arrive late)", a: ["They often arrive late.", "They often arrive late"], exp: "Use base verb 'arrive' for 'they'[cite: 36]." },
+        { prompt: "(he/live in Beijing)", a: ["He lives in Beijing.", "He lives in Beijing"], exp: "Use 'lives' for 'he'[cite: 36]." },
+        { prompt: "(David/work in a school)", a: ["David works in a school.", "David works in a school"], exp: "David = he → add '-s' (works)[cite: 36]." },
+        { prompt: "(she/read a lot of novels)", a: ["She reads a lot of novels.", "She reads a lot of novels"], exp: "Use 'reads' for 'she'[cite: 36]." },
+        { prompt: "(the Queen / like her dogs)", a: ["The Queen likes her dogs.", "The Queen likes her dogs"], exp: "'The Queen' = she → add '-s' (likes)[cite: 36]." },
+        { prompt: "(I/cook almost every night)", a: ["I cook almost every night.", "I cook almost every night"], exp: "Use base verb 'cook' for 'I'[cite: 36]." }
+    ];
+
+    // Negative Exercise 2 (20 items)
+    const negativeData = [
+        { prompt: "(he/not/enjoy jazz)", a: ["He doesn't enjoy jazz.", "He does not enjoy jazz.", "He doesn't enjoy jazz", "He does not enjoy jazz"], exp: "Negative for 'he' → doesn't + base verb[cite: 39]." },
+        { prompt: "(we/not/buy many clothes)", a: ["We don't buy many clothes.", "We do not buy many clothes.", "We don't buy many clothes"], exp: "Negative for 'we' → don't + base verb[cite: 39]." },
+        { prompt: "(she/not/like studying)", a: ["She doesn't like studying.", "She does not like studying.", "She doesn't like studying"], exp: "Negative for 'she' → doesn't + base verb[cite: 39]." },
+        { prompt: "(you/not/ love me)", a: ["You don't love me.", "You do not love me.", "You don't love me"], exp: "Negative for 'you' → don't + base verb[cite: 39]." },
+        { prompt: "(they/not / work at home)", a: ["They don't work at home.", "They do not work at home.", "They don't work at home"], exp: "Negative for 'they' → don't + base verb[cite: 39]." },
+        { prompt: "(Lucy/not / have a computer)", a: ["Lucy doesn't have a computer.", "Lucy does not have a computer.", "Lucy doesn't have a computer"], exp: "Lucy = she → doesn't + base verb 'have'[cite: 39]." },
+        { prompt: "(I/not/take the bus at night)", a: ["I don't take the bus at night.", "I do not take the bus at night.", "I don't take the bus at night"], exp: "Negative for 'I' → don't + base verb[cite: 39]." },
+        { prompt: "(David/not/travel much)", a: ["David doesn't travel much.", "David does not travel much.", "David doesn't travel much"], exp: "David = he → doesn't + base verb[cite: 39]." },
+        { prompt: "(we/not/ have any children)", a: ["We don't have any children.", "We do not have any children.", "We don't have any children"], exp: "Negative for 'we' → don't + base verb[cite: 39]." },
+        { prompt: "(you/not/study Biology)", a: ["You don't study Biology.", "You do not study Biology.", "You don't study Biology"], exp: "Negative for 'you' → don't + base verb[cite: 39]." },
+        { prompt: "(Julie/not / listen to much music)", a: ["Julie doesn't listen to much music.", "Julie does not listen to much music.", "Julie doesn't listen to much music"], exp: "Julie = she → doesn't + base verb[cite: 39]." },
+        { prompt: "(they/not / live close to our house)", a: ["They don't live close to our house.", "They do not live close to our house.", "They don't live close to our house"], exp: "Negative for 'they' → don't + base verb[cite: 39]." },
+        { prompt: "(she/not/ work abroad)", a: ["She doesn't work abroad.", "She does not work abroad.", "She doesn't work abroad"], exp: "Negative for 'she' → doesn't + base verb[cite: 39]." },
+        { prompt: "(you/not/ own a bicycle)", a: ["You don't own a bicycle.", "You do not own a bicycle.", "You don't own a bicycle"], exp: "Negative for 'you' → don't + base verb[cite: 39]." },
+        { prompt: "(I/not/get up early)", a: ["I don't get up early.", "I do not get up early.", "I don't get up early"], exp: "Negative for 'I' → don't + base verb[cite: 39]." },
+        { prompt: "(they/not/ have a car)", a: ["They don't have a car.", "They do not have a car.", "They don't have a car"], exp: "Negative for 'they' → don't + base verb[cite: 39]." },
+        { prompt: "(he/not/ come home late)", a: ["He doesn't come home late.", "He does not come home late.", "He doesn't come home late"], exp: "Negative for 'he' → doesn't + base verb[cite: 39]." },
+        { prompt: "(I/not/like travelling by plane)", a: ["I don't like travelling by plane.", "I do not like travelling by plane.", "I don't like traveling by plane.", "I don't like travelling by plane"], exp: "Negative for 'I' → don't + base verb[cite: 39]." },
+        { prompt: "(you/not/ come from Africa)", a: ["You don't come from Africa.", "You do not come from Africa.", "You don't come from Africa"], exp: "Negative for 'you' → don't + base verb[cite: 39]." },
+        { prompt: "(She/not/have any brothers or sisters)", a: ["She doesn't have any brothers or sisters.", "She does not have any brothers or sisters.", "She doesn't have any brothers or sisters"], exp: "Negative for 'she' → doesn't + base verb[cite: 39]." }
+    ];
+
+    // Yes/No Questions Exercise (20 items)
+    const yesnoData = [
+        { prompt: "(you/like cake?)", a: ["Do you like cake?", "Do you like cake"], exp: "Question with 'you' → Do you like...?[cite: 30]" },
+        { prompt: "(she/live in London?)", a: ["Does she live in London?", "Does she live in London"], exp: "Question with 'she' → Does she live...?[cite: 30]" },
+        { prompt: "(they/hate studying?)", a: ["Do they hate studying?", "Do they hate studying"], exp: "Question with 'they' → Do they hate...?[cite: 30]" },
+        { prompt: "(you/drink tea every morning?)", a: ["Do you drink tea every morning?", "Do you drink tea every morning"], exp: "Question with 'you' → Do you drink...?[cite: 30]" },
+        { prompt: "(you smoke?)", a: ["Do you smoke?", "Do you smoke"], exp: "Question with 'you' → Do you smoke?[cite: 30]" },
+        { prompt: "(he/ play tennis on Saturdays?)", a: ["Does he play tennis on Saturdays?", "Does he play tennis on Saturdays"], exp: "Question with 'he' → Does he play...?[cite: 30]" },
+        { prompt: "(you/go shopping at the weekend?)", a: ["Do you go shopping at the weekend?", "Do you go shopping at the weekend"], exp: "Question with 'you' → Do you go shopping...?[cite: 30]" },
+        { prompt: "(you/drink alcohol?)", a: ["Do you drink alcohol?", "Do you drink alcohol"], exp: "Question with 'you' → Do you drink...?[cite: 30]" },
+        { prompt: "(she/work in an office?)", a: ["Does she work in an office?", "Does she work in an office"], exp: "Question with 'she' → Does she work...?[cite: 30]" },
+        { prompt: "(they/study French?)", a: ["Do they study French?", "Do they study French"], exp: "Question with 'they' → Do they study...?[cite: 30]" },
+        { prompt: "(you/meet your friends on Fridays?)", a: ["Do you meet your friends on Fridays?", "Do you meet your friends on Fridays"], exp: "Question with 'you' → Do you meet...?[cite: 30]" },
+        { prompt: "(you / read a lot?)", a: ["Do you read a lot?", "Do you read a lot"], exp: "Question with 'you' → Do you read a lot?[cite: 30]" },
+        { prompt: "(John/come from New Zealand?)", a: ["Does John come from New Zealand?", "Does John come from New Zealand"], exp: "John = he → Does John come...?[cite: 30]" },
+        { prompt: "(they/like pizza?)", a: ["Do they like pizza?", "Do they like pizza"], exp: "Question with 'they' → Do they like pizza?[cite: 30]" },
+        { prompt: "(we / arrive at 9 pm?)", a: ["Do we arrive at 9pm?", "Do we arrive at 9 pm?", "Do we arrive at 9pm"], exp: "Question with 'we' → Do we arrive...?[cite: 30]" },
+        { prompt: "(it/snow here in winter?)", a: ["Does it snow here in winter?", "Does it snow here in winter"], exp: "Question with 'it' → Does it snow...?[cite: 30]" },
+        { prompt: "(Lucy/study History?)", a: ["Does Lucy study History?", "Does Lucy study History"], exp: "Lucy = she → Does Lucy study...?[cite: 30]" },
+        { prompt: "(I/work as a teacher?)", a: ["Do I work as a teacher?", "Do I work as a teacher"], exp: "Question with 'I' → Do I work...?[cite: 30]" },
+        { prompt: "(he/eat rice often?)", a: ["Does he eat rice often?", "Does he eat rice often"], exp: "Question with 'he' → Does he eat...?[cite: 30]" },
+        { prompt: "(you/like coffee?)", a: ["Do you like coffee?", "Do you like coffee"], exp: "Question with 'you' → Do you like coffee?[cite: 30]" }
+    ];
+
+    // Wh- Questions (20 items)
+    const whData = [
+        { prompt: "(where/you/ go to school?)", a: ["Where do you go to school?", "Where do you go to school"], exp: "Where + do + you + go...[cite: 33]" },
+        { prompt: "(what/you/do?)", a: ["What do you do?", "What do you do"], exp: "What + do + you + do?[cite: 33]" },
+        { prompt: "(where/John / come from?)", a: ["Where does John come from?", "Where does John come from"], exp: "John = he → Where + does + John + come from?[cite: 33]" },
+        { prompt: "(how long/it/take from London to Paris?)", a: ["How long does it take from London to Paris?", "How long does it take from London to Paris"], exp: "How long + does + it + take...[cite: 33]" },
+        { prompt: "(how often / she / go to the cinema?)", a: ["How often does she go to the cinema?", "How often does she go to the cinema"], exp: "How often + does + she + go...[cite: 33]" },
+        { prompt: "(how many children/you/have?)", a: ["How many children do you have?", "How many children do you have"], exp: "How many children + do + you + have?[cite: 33]" },
+        { prompt: "(when/you/ get up?)", a: ["When do you get up?", "When do you get up"], exp: "When + do + you + get up?[cite: 33]" },
+        { prompt: "(how often / you / study English?)", a: ["How often do you study English?", "How often do you study English"], exp: "How often + do + you + study English?[cite: 33]" },
+        { prompt: "(what time / the film / start?)", a: ["What time does the film start?", "What time does the film start"], exp: "'The film' = it → What time + does + the film + start?[cite: 33]" },
+        { prompt: "(where / you / play tennis?)", a: ["Where do you play tennis?", "Where do you play tennis"], exp: "Where + do + you + play tennis?[cite: 33]" },
+        { prompt: "(what sports / Lucy / like?)", a: ["What sports does Lucy like?", "What sports does Lucy like"], exp: "Lucy = she → What sports + does + Lucy + like?[cite: 33]" },
+        { prompt: "(how/they / get to work?)", a: ["How do they get to work?", "How do they get to work"], exp: "How + do + they + get to work?[cite: 33]" },
+        { prompt: "(how often / I/come here?)", a: ["How often do I come here?", "How often do I come here"], exp: "How often + do + I + come here?[cite: 33]" },
+        { prompt: "(where/she/live?)", a: ["Where does she live?", "Where does she live"], exp: "Where + does + she + live?[cite: 33]" },
+        { prompt: "(why/you/ eat so much chocolate?)", a: ["Why do you eat so much chocolate?", "Why do you eat so much chocolate"], exp: "Why + do + you + eat...[cite: 33]" },
+        { prompt: "(what/ this machine / do?)", a: ["What does this machine do?", "What does this machine do"], exp: "'This machine' = it → What + does + this machine + do?[cite: 33]" },
+        { prompt: "(who/she/ meet on Saturdays?)", a: ["Who does she meet on Saturdays?", "Who does she meet on Saturdays"], exp: "Who + does + she + meet...[cite: 33]" },
+        { prompt: "(how many brothers / she / have?)", a: ["How many brothers does she have?", "How many brothers does she have"], exp: "How many brothers + does + she + have?[cite: 33]" },
+        { prompt: "(how much /this/cost?)", a: ["How much does this cost?", "How much does this cost"], exp: "How much + does + this + cost?[cite: 33]" },
+        { prompt: "(where / you / eat lunch?)", a: ["Where do you eat lunch?", "Where do you eat lunch"], exp: "Where + do + you + eat lunch?[cite: 33]" }
+    ];
+
+    // Mixed Exercise 1 (20 items)
+    const mixData1 = [
+        { prompt: "(he/drive to work every day)", a: ["He drives to work every day.", "He drives to work every day"], exp: "Positive statement with 'he' → drives[cite: 51]." },
+        { prompt: "(I/not/think you're right)", a: ["I don't think you're right.", "I do not think you're right.", "I don't think you're right"], exp: "Negative statement with 'I' → don't think[cite: 51]." },
+        { prompt: "(we/have enough time?)", a: ["Do we have enough time?", "Do we have enough time"], exp: "Yes/No question with 'we' → Do we have...?[cite: 51]" },
+        { prompt: "(I/eat cereal in the morning)", a: ["I eat cereal in the morning.", "I eat cereal in the morning"], exp: "Positive statement with 'I' → eat[cite: 51]." },
+        { prompt: "(they/write e-mails every day?)", a: ["Do they write e-mails every day?", "Do they write emails every day?", "Do they write e-mails every day"], exp: "Question with 'they' → Do they write...?[cite: 51]" },
+        { prompt: "(you/watch a lot of TV)", a: ["You watch a lot of TV.", "You watch a lot of TV"], exp: "Positive statement with 'you' → watch[cite: 51]." },
+        { prompt: "(he/not/read the newspaper)", a: ["He doesn't read the newspaper.", "He does not read the newspaper.", "He doesn't read the newspaper"], exp: "Negative statement with 'he' → doesn't read[cite: 51]." },
+        { prompt: "(she/dance often?)", a: ["Does she dance often?", "Does she dance often"], exp: "Question with 'she' → Does she dance...?[cite: 51]" },
+        { prompt: "(where/I/come on Mondays?)", a: ["Where do I come on Mondays?", "Where do I come on Mondays"], exp: "Wh- question → Where do I come...?[cite: 51]" },
+        { prompt: "(what/you/ do at the weekend?)", a: ["What do you do at the weekend?", "What do you do at the weekend"], exp: "Wh- question → What do you do...?[cite: 51]" },
+        { prompt: "(you/not/ drink much tea)", a: ["You don't drink much tea.", "You do not drink much tea.", "You don't drink much tea"], exp: "Negative statement with 'you' → don't drink[cite: 51]." },
+        { prompt: "(how/he/travel to work?)", a: ["How does he travel to work?", "How does he travel to work"], exp: "Wh- question with 'he' → How does he travel...?[cite: 51]" },
+        { prompt: "(they/not/ like vegetables)", a: ["They don't like vegetables.", "They do not like vegetables.", "They don't like vegetables"], exp: "Negative statement with 'they' → don't like[cite: 51]." },
+        { prompt: "(she/catch a cold every winter)", a: ["She catches a cold every winter.", "She catches a cold every winter"], exp: "Positive statement with 'she' → catches[cite: 51]." },
+        { prompt: "(I/go out often?)", a: ["Do I go out often?", "Do I go out often"], exp: "Question with 'I' → Do I go out...?[cite: 51]" },
+        { prompt: "(you / speak English?)", a: ["Do you speak English?", "Do you speak English"], exp: "Question with 'you' → Do you speak English?[cite: 51]" },
+        { prompt: "(we/take the bus often)", a: ["We take the bus often.", "We take the bus often"], exp: "Positive statement with 'we' → take[cite: 51]." },
+        { prompt: "(she/not/ walk to school)", a: ["She doesn't walk to school.", "She does not walk to school.", "She doesn't walk to school"], exp: "Negative statement with 'she' → doesn't walk[cite: 51]." },
+        { prompt: "(what/you/ buy in the supermarket?)", a: ["What do you buy in the supermarket?", "What do you buy in the supermarket"], exp: "Wh- question → What do you buy...?[cite: 51]" },
+        { prompt: "(how/he/carry such a heavy bag?)", a: ["How does he carry such a heavy bag?", "How does he carry such a heavy bag"], exp: "Wh- question with 'he' → How does he carry...?[cite: 51]" }
+    ];
+
+    // Mixed Exercise 2 (20 items)
+    const mixData2 = [
+        { prompt: "(they/wear suits to work?)", a: ["Do they wear suits to work?", "Do they wear suits to work"], exp: "Question with 'they' → Do they wear...?[cite: 48]" },
+        { prompt: "(he/not/say much)", a: ["He doesn't say much.", "He does not say much.", "He doesn't say much"], exp: "Negative statement with 'he' → doesn't say[cite: 48]." },
+        { prompt: "(when/she / study?)", a: ["When does she study?", "When does she study"], exp: "Wh- question with 'she' → When does she study?[cite: 48]" },
+        { prompt: "(she/know a lot about cooking)", a: ["She knows a lot about cooking.", "She knows a lot about cooking"], exp: "Positive statement with 'she' → knows[cite: 48]." },
+        { prompt: "(we/make dinner at the weekends)", a: ["We make dinner at the weekends.", "We make dinner at the weekends"], exp: "Positive statement with 'we' → make[cite: 48]." },
+        { prompt: "(I/not/leave work on time very often)", a: ["I don't leave work on time very often.", "I do not leave work on time very often.", "I don't leave work on time very often"], exp: "Negative statement with 'I' → don't leave[cite: 48]." },
+        { prompt: "(she/meet her brother every week?)", a: ["Does she meet her brother every week?", "Does she meet her brother every week"], exp: "Question with 'she' → Does she meet...?[cite: 48]" },
+        { prompt: "(they/find London's weather cold)", a: ["They find London's weather cold.", "They find London's weather cold"], exp: "Positive statement with 'they' → find[cite: 48]." },
+        { prompt: "(we/use the computer every day?)", a: ["Do we use the computer every day?", "Do we use the computer every day"], exp: "Question with 'we' → Do we use...?[cite: 48]" },
+        { prompt: "(you/not/smoke)", a: ["You don't smoke.", "You do not smoke.", "You don't smoke"], exp: "Negative statement with 'you' → don't smoke[cite: 48]." },
+        { prompt: "(why/we/ always get into trouble?)", a: ["Why do we always get into trouble?", "Why do we always get into trouble"], exp: "Wh- question → Why do we always get...?[cite: 48]" },
+        { prompt: "(what/they / usually cook?)", a: ["What do they usually cook?", "What do they usually cook"], exp: "Wh- question → What do they usually cook?[cite: 48]" },
+        { prompt: "(what/we / need?)", a: ["What do we need?", "What do we need"], exp: "Wh- question → What do we need?[cite: 48]" },
+        { prompt: "(they/not/ win at tennis)", a: ["They don't win at tennis.", "They do not win at tennis.", "They don't win at tennis"], exp: "Negative statement with 'they' → don't win[cite: 48]." },
+        { prompt: "(what/they / like to watch on TV?)", a: ["What do they like to watch on TV?", "What do they like to watch on TV"], exp: "Wh- question → What do they like...?[cite: 48]" },
+        { prompt: "(I/do my homework every night)", a: ["I do my homework every night.", "I do my homework every night"], exp: "Positive statement with 'I' → do[cite: 48]." },
+        { prompt: "(why/she/ swim every morning?)", a: ["Why does she swim every morning?", "Why does she swim every morning"], exp: "Wh- question with 'she' → Why does she swim...?[cite: 48]" },
+        { prompt: "(you / walk to the station every day)", a: ["You walk to the station every day.", "You walk to the station every day"], exp: "Positive statement with 'you' → walk[cite: 48]." },
+        { prompt: "(he/teach in a school?)", a: ["Does he teach in a school?", "Does he teach in a school"], exp: "Question with 'he' → Does he teach...?[cite: 48]" },
+        { prompt: "(he/study English at a night class)", a: ["He studies English at a night class.", "He studies English at a night class"], exp: "Positive statement with 'he' → studies[cite: 48]." }
+    ];
+
+    // Mixed Exercise 3 (20 items)
+    const mixData3 = [
+        { prompt: "(we/not/ go out much)", a: ["We don't go out much.", "We do not go out much.", "We don't go out much"], exp: "Negative statement with 'we' → don't go out[cite: 45]." },
+        { prompt: "(they/think it's a good idea)", a: ["They think it's a good idea.", "They think it's a good idea"], exp: "Positive statement with 'they' → think[cite: 45]." },
+        { prompt: "(he/know how to play the violin?)", a: ["Does he know how to play the violin?", "Does he know how to play the violin"], exp: "Question with 'he' → Does he know...?[cite: 45]" },
+        { prompt: "(why/I/have to clean up?)", a: ["Why do I have to clean up?", "Why do I have to clean up"], exp: "Wh- question with 'I' → Why do I have...?[cite: 45]" },
+        { prompt: "(she/not/ sleep late at the weekends)", a: ["She doesn't sleep late at the weekends.", "She does not sleep late at the weekends.", "She doesn't sleep late at the weekends"], exp: "Negative statement with 'she' → doesn't sleep[cite: 45]." },
+        { prompt: "(I/love studying languages?)", a: ["Do I love studying languages?", "Do I love studying languages"], exp: "Question with 'I' → Do I love...?[cite: 45]" },
+        { prompt: "(we/not/ believe the Prime Minister)", a: ["We don't believe the Prime Minister.", "We do not believe the Prime Minister.", "We don't believe the Prime Minister"], exp: "Negative statement with 'we' → don't believe[cite: 45]." },
+        { prompt: "(you/understand the question?)", a: ["Do you understand the question?", "Do you understand the question"], exp: "Question with 'you' → Do you understand...?[cite: 45]" },
+        { prompt: "(she/not/want to go to the cinema)", a: ["She doesn't want to go to the cinema.", "She does not want to go to the cinema.", "She doesn't want to go to the cinema"], exp: "Negative statement with 'she' → doesn't want[cite: 45]." },
+        { prompt: "(I/like trying new kinds of food)", a: ["I like trying new kinds of food.", "I like trying new kinds of food"], exp: "Positive statement with 'I' → like[cite: 45]." },
+        { prompt: "(David/want some coffee?)", a: ["Does David want some coffee?", "Does David want some coffee"], exp: "David = he → Does David want...?[cite: 45]" },
+        { prompt: "(what/Lucy / do at the weekends?)", a: ["What does Lucy do at the weekends?", "What does Lucy do at the weekends"], exp: "Lucy = she → What does Lucy do...?[cite: 45]" },
+        { prompt: "(they/not/ work late on Fridays)", a: ["They don't work late on Fridays.", "They do not work late on Fridays.", "They don't work late on Fridays"], exp: "Negative statement with 'they' → don't work[cite: 45]." },
+        { prompt: "(she/have three daughters)", a: ["She has three daughters.", "She has three daughters"], exp: "'she' + have → has (irregular verb)[cite: 45]." },
+        { prompt: "(you/own a car?)", a: ["Do you own a car?", "Do you own a car"], exp: "Question with 'you' → Do you own...?[cite: 45]" },
+        { prompt: "(where/Alicia / work?)", a: ["Where does Alicia work?", "Where does Alicia work"], exp: "Alicia = she → Where does Alicia work?[cite: 45]" },
+        { prompt: "(when/she / go to her Chinese class?)", a: ["When does she go to her Chinese class?", "When does she go to her Chinese class"], exp: "Wh- question with 'she' → When does she go...?[cite: 45]" },
+        { prompt: "(I/not/believe you)", a: ["I don't believe you.", "I do not believe you.", "I don't believe you"], exp: "Negative statement with 'I' → don't believe[cite: 45]." },
+        { prompt: "(she/think about her holidays often)", a: ["She thinks about her holidays often.", "She thinks about her holidays often"], exp: "Positive statement with 'she' → thinks[cite: 45]." },
+        { prompt: "(you/like going to restaurants?)", a: ["Do you like going to restaurants?", "Do you like going to restaurants"], exp: "Question with 'you' → Do you like...?[cite: 45]" }
+    ];
+
+    // Helper function to render exercises
+    function renderExerciseGroup(containerId, items) {
+        const container = document.getElementById(containerId);
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <div class="prompt-row">${index + 1}. ${item.prompt}</div>
+                <div class="input-row">
+                    <input type="text" id="${containerId}_${index}" placeholder="Type complete sentence here...">
+                    <button class="btn-check" onclick="checkAnswer('${containerId}_${index}', ${JSON.stringify(item.a).replace(/"/g, '&quot;')}, '${containerId}_fb_${index}', '${item.exp.replace(/'/g, "\\'")}')">Check</button>
+                </div>
+                <div id="${containerId}_fb_${index}" class="feedback"></div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function normalize(str) {
+        return str.trim().toLowerCase().replace(/’/g, "'").replace(/\s+/g, ' ');
+    }
+
+    function checkAnswer(inputId, allowedAnswers, feedbackId, explanation) {
+        const val = normalize(document.getElementById(inputId).value);
+        const fb = document.getElementById(feedbackId);
+
+        if (val === "") {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = "⚠️ Please write an answer before checking!";
+            return;
+        }
+
+        const isCorrect = allowedAnswers.some(ans => normalize(ans) === val);
+
+        if (isCorrect) {
+            fb.className = "feedback correct";
+            fb.innerHTML = `✔ <strong>Correct!</strong> Perfect Present Simple structure.`;
+        } else {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = `✖ <strong>Not quite.</strong> Target answer: <strong>"${allowedAnswers[0]}"</strong><br>💡 <em>${explanation}</em>`;
+        }
+    }
+
+    // Initialize all 8 sections (160 total sentences from all PDF files)
+    document.addEventListener('DOMContentLoaded', () => {
+        renderExerciseGroup('pos1-container', positiveData1);
+        renderExerciseGroup('pos2-container', positiveData2);
+        renderExerciseGroup('neg-container', negativeData);
+        renderExerciseGroup('yesno-container', yesnoData);
+        renderExerciseGroup('wh-container', whData);
+        renderExerciseGroup('mix1-container', mixData1);
+        renderExerciseGroup('mix2-container', mixData2);
+        renderExerciseGroup('mix3-container', mixData3);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Continuous Practice - Progressive Difficulty</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            background-image: 
+                linear-gradient(rgba(241, 245, 249, 0.88), rgba(241, 245, 249, 0.92)),
+                url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        h2 {
+            color: #1e293b;
+            margin-top: 35px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2563eb;
+            font-size: 1.35rem;
+        }
+        .part-instruction {
+            color: #475569;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .item {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .prompt-row {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 1.05rem;
+        }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 6px rgba(37, 99, 235, 0.25);
+        }
+        button.btn-check {
+            padding: 8px 18px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+        button.btn-check:hover {
+            background-color: #1d4ed8;
+        }
+        .feedback {
+            font-size: 0.93rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+            margin-top: 4px;
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Present Continuous Practice</h1>
+
+    <!-- TASK 1: POSITIVE & NEGATIVE (SET 1) -->
+    <h2>Task 1: Positive and Negative Forms (Set 1 - Easiest)</h2>
+    <p class="part-instruction">Instruction: Complete the present continuous sentences using positive forms or negative forms (e.g., <em>I'm working / She isn't working</em>).</p>
+    <div class="exercise-grid" id="pn1-container"></div>
+
+    <!-- TASK 2: POSITIVE & NEGATIVE (SET 2) -->
+    <h2 style="margin-top: 45px;">Task 2: Positive and Negative Forms (Set 2)</h2>
+    <p class="part-instruction">Instruction: Make the present continuous using contractions or full forms.</p>
+    <div class="exercise-grid" id="pn2-container"></div>
+
+    <!-- TASK 3: QUESTIONS (SET 1) -->
+    <h2 style="margin-top: 45px;">Task 3: Present Continuous Questions (Set 1)</h2>
+    <p class="part-instruction">Instruction: Form correct Yes/No and Wh- questions in the present continuous tense (e.g., <em>Are you eating...? / Where are you going...?</em>).</p>
+    <div class="exercise-grid" id="q1-container"></div>
+
+    <!-- TASK 4: QUESTIONS (SET 2) -->
+    <h2 style="margin-top: 45px;">Task 4: Present Continuous Questions (Set 2)</h2>
+    <p class="part-instruction">Instruction: Create Yes/No or Wh- questions from the prompts given.</p>
+    <div class="exercise-grid" id="q2-container"></div>
+
+    <!-- TASK 5: ALL FORMS (SET 1) -->
+    <h2 style="margin-top: 45px;">Task 5: Present Continuous All Forms (Exercise 1)</h2>
+    <p class="part-instruction">Instruction: Identify whether the prompt is a positive statement, negative statement, or question and form the present continuous accordingly.</p>
+    <div class="exercise-grid" id="all1-container"></div>
+
+    <!-- TASK 6: ALL FORMS (SET 2) -->
+    <h2 style="margin-top: 45px;">Task 6: Present Continuous All Forms (Exercise 2)</h2>
+    <p class="part-instruction">Instruction: Practice mixed forms (statements, negatives, and questions) with short or long forms.</p>
+    <div class="exercise-grid" id="all2-container"></div>
+
+    <!-- TASK 7: ALL FORMS (SET 3 - MOST ADVANCED) -->
+    <h2 style="margin-top: 45px;">Task 7: Present Continuous All Forms (Exercise 3 - Most Challenging)</h2>
+    <p class="part-instruction">Instruction: Complete these advanced mixed present continuous sentences.</p>
+    <div class="exercise-grid" id="all3-container"></div>
+</div>
+
+<script>
+    // All 140 sentences extracted directly from the provided Present Continuous PDF documents
+
+    // Task 1: Present Continuous Positive & Negative Form 1 (20 items)
+    const pnData1 = [
+        { prompt: "(he/walk to school now)", a: ["He's walking to school now.", "He is walking to school now."], exp: "He's / He is + walking[cite: 57]." },
+        { prompt: "(I/study at the moment)", a: ["I'm studying at the moment.", "I am studying at the moment."], exp: "I'm / I am + studying[cite: 57]." },
+        { prompt: "(I/not/sleep)", a: ["I'm not sleeping.", "I am not sleeping."], exp: "I'm not / I am not + sleeping[cite: 57]." },
+        { prompt: "(you/play badminton tonight)", a: ["You're playing badminton tonight.", "You are playing badminton tonight."], exp: "You're / You are + playing[cite: 57]." },
+        { prompt: "(we/watch TV)", a: ["We're watching TV.", "We are watching TV."], exp: "We're / We are + watching[cite: 57]." },
+        { prompt: "(she/not/work in Spain)", a: ["She isn't working in Spain.", "She's not working in Spain.", "She is not working in Spain."], exp: "She isn't / She's not + working[cite: 57]." },
+        { prompt: "(he/not/wait for the bus)", a: ["He isn't waiting for the bus.", "He's not waiting for the bus.", "He is not waiting for the bus."], exp: "He isn't / He's not + waiting[cite: 57]." },
+        { prompt: "(they/read)", a: ["They're reading.", "They are reading."], exp: "They're / They are + reading[cite: 57]." },
+        { prompt: "(we/not/go to the cinema tonight)", a: ["We aren't going to the cinema tonight.", "We're not going to the cinema tonight.", "We are not going to the cinema tonight."], exp: "We aren't / We're not + going[cite: 57]." },
+        { prompt: "(you/not/read the newspaper)", a: ["You aren't reading the newspaper.", "You're not reading the newspaper.", "You are not reading the newspaper."], exp: "You aren't / You're not + reading[cite: 57]." },
+        { prompt: "(she/eat chocolate)", a: ["She's eating chocolate.", "She is eating chocolate."], exp: "She's / She is + eating[cite: 57]." },
+        { prompt: "(I/not/live in Paris)", a: ["I'm not living in Paris.", "I am not living in Paris."], exp: "I'm not / I am not + living[cite: 57]." },
+        { prompt: "(we/study French)", a: ["We're studying French.", "We are studying French."], exp: "We're / We are + studying[cite: 57]." },
+        { prompt: "(they/not/leave now)", a: ["They aren't leaving now.", "They're not leaving now.", "They are not leaving now."], exp: "They aren't / They're not + leaving[cite: 57]." },
+        { prompt: "(they/live in London)", a: ["They're living in London.", "They are living in London."], exp: "They're / They are + living[cite: 57]." },
+        { prompt: "(he/work in a restaurant now)", a: ["He's working in a restaurant now.", "He is working in a restaurant now."], exp: "He's / He is + working[cite: 57]." },
+        { prompt: "(I/not/meet my father at four)", a: ["I'm not meeting my father at four.", "I am not meeting my father at four."], exp: "I'm not / I am not + meeting[cite: 57]." },
+        { prompt: "(she/not/drink tea now)", a: ["She isn't drinking tea now.", "She's not drinking tea now.", "She is not drinking tea now."], exp: "She isn't / She's not + drinking[cite: 57]." },
+        { prompt: "(she/play the guitar)", a: ["She's playing the guitar.", "She is playing the guitar."], exp: "She's / She is + playing[cite: 57]." },
+        { prompt: "(we/cook)", a: ["We're cooking.", "We are cooking."], exp: "We're / We are + cooking[cite: 57]." }
+    ];
+
+    // Task 2: Present Continuous Positive & Negative Form 2 (20 items)
+    const pnData2 = [
+        { prompt: "(they/not/visit their parents)", a: ["They're not visiting their parents.", "They aren't visiting their parents.", "They are not visiting their parents."], exp: "They're not / They aren't + visiting[cite: 60]." },
+        { prompt: "(he/meet his friend tonight)", a: ["He's meeting his friend tonight.", "He is meeting his friend tonight."], exp: "He's / He is + meeting[cite: 60]." },
+        { prompt: "(he/not/walk to school now)", a: ["He isn't walking to school now.", "He's not walking to school now.", "He is not walking to school now."], exp: "He isn't / He's not + walking[cite: 60]." },
+        { prompt: "(we/not/watch TV at the moment)", a: ["We aren't watching TV at the moment.", "We're not watching TV at the moment.", "We are not watching TV at the moment."], exp: "We aren't / We're not + watching[cite: 60]." },
+        { prompt: "(you/not/read a book)", a: ["You aren't reading a book.", "You're not reading a book.", "You are not reading a book."], exp: "You aren't / You're not + reading[cite: 60]." },
+        { prompt: "(I/visit Linda tonight)", a: ["I'm visiting Linda tonight.", "I am visiting Linda tonight."], exp: "I'm / I am + visiting[cite: 60]." },
+        { prompt: "(she/not/eat dinner now)", a: ["She isn't eating dinner now.", "She's not eating dinner now.", "She is not eating dinner now."], exp: "She isn't / She's not + eating[cite: 60]." },
+        { prompt: "(Lucy/not/work in a bookshop this summer)", a: ["Lucy isn't working in a bookshop this summer.", "Lucy is not working in a bookshop this summer."], exp: "Lucy isn't / is not + working[cite: 60]." },
+        { prompt: "(they/watch a film)", a: ["They're watching a film.", "They are watching a film."], exp: "They're / They are + watching[cite: 60]." },
+        { prompt: "(we/buy a new car)", a: ["We're buying a new car.", "We are buying a new car."], exp: "We're / We are + buying[cite: 60]." },
+        { prompt: "(David/have a party tomorrow)", a: ["David's having a party tomorrow.", "David is having a party tomorrow."], exp: "David's / David is + having[cite: 60]." },
+        { prompt: "(I/get a bike)", a: ["I'm getting a bike.", "I am getting a bike."], exp: "I'm / I am + getting (double 't')[cite: 60]." },
+        { prompt: "(you/take a long time)", a: ["You're taking a long time.", "You are taking a long time."], exp: "You're / You are + taking[cite: 60]." },
+        { prompt: "(I/not/come until later)", a: ["I'm not coming until later.", "I am not coming until later."], exp: "I'm not / I am not + coming[cite: 60]." },
+        { prompt: "(Jill and Susan/walk)", a: ["Jill and Susan are walking."], exp: "Jill and Susan = they → are walking[cite: 60]." },
+        { prompt: "(we/not/listen to the radio)", a: ["We aren't listening to the radio.", "We're not listening to the radio.", "We are not listening to the radio."], exp: "We aren't / We're not + listening[cite: 60]." },
+        { prompt: "(they/not/speak to each other)", a: ["They aren't speaking to each other.", "They're not speaking to each other.", "They are not speaking to each other."], exp: "They aren't / They're not + speaking[cite: 60]." },
+        { prompt: "(he/take a shower)", a: ["He's taking a shower.", "He is taking a shower."], exp: "He's / He is + taking[cite: 60]." },
+        { prompt: "(you/get fat)", a: ["You're getting fat.", "You are getting fat."], exp: "You're / You are + getting (double 't')[cite: 60]." },
+        { prompt: "(I/not/use the computer)", a: ["I'm not using the computer.", "I am not using the computer."], exp: "I'm not / I am not + using[cite: 60]." }
+    ];
+
+    // Task 3: Present Continuous Questions 1 (20 items)
+    const qData1 = [
+        { prompt: "(you/eat/cake?)", a: ["Are you eating cake?", "Are you eating cake"], exp: "Are + you + eating cake?[cite: 72]" },
+        { prompt: "(what time/you/go to the cinema?)", a: ["What time are you going to the cinema?", "What time are you going to the cinema"], exp: "What time + are + you + going...?[cite: 72]" },
+        { prompt: "(why/you/study?)", a: ["Why are you studying?", "Why are you studying"], exp: "Why + are + you + studying?[cite: 72]" },
+        { prompt: "(when/you/leave?)", a: ["When are you leaving?", "When are you leaving"], exp: "When + are + you + leaving?[cite: 72]" },
+        { prompt: "(you/smoke?)", a: ["Are you smoking?", "Are you smoking"], exp: "Are + you + smoking?[cite: 72]" },
+        { prompt: "(he/play/tennis later?)", a: ["Is he playing tennis later?", "Is he playing tennis later"], exp: "Is + he + playing...?[cite: 72]" },
+        { prompt: "(you/go/shopping at the weekend?)", a: ["Are you going shopping at the weekend?", "Are you going shopping at the weekend"], exp: "Are + you + going shopping...?[cite: 72]" },
+        { prompt: "(you/drink/wine)", a: ["Are you drinking wine?", "Are you drinking wine"], exp: "Are + you + drinking wine?[cite: 72]" },
+        { prompt: "(what/you/drink now?)", a: ["What are you drinking now?", "What are you drinking now"], exp: "What + are + you + drinking...?[cite: 72]" },
+        { prompt: "(what/you/think?)", a: ["What are you thinking?", "What are you thinking"], exp: "What + are + you + thinking?[cite: 72]" },
+        { prompt: "(she/work/in an office at the moment?)", a: ["Is she working in an office at the moment?", "Is she working in an office at the moment"], exp: "Is + she + working...?[cite: 72]" },
+        { prompt: "(they/study/Portuguese?)", a: ["Are they studying Portuguese?", "Are they studying Portuguese"], exp: "Are + they + studying...?[cite: 72]" },
+        { prompt: "(what time/she/come?)", a: ["What time is she coming?", "What time is she coming"], exp: "What time + is + she + coming?[cite: 72]" },
+        { prompt: "(where/you/play tennis tonight?)", a: ["Where are you playing tennis tonight?", "Where are you playing tennis tonight"], exp: "Where + are + you + playing...?[cite: 72]" },
+        { prompt: "(you/meet/your friends on Friday?)", a: ["Are you meeting your friends on Friday?", "Are you meeting your friends on Friday"], exp: "Are + you + meeting...?[cite: 72]" },
+        { prompt: "(you/read/now?)", a: ["Are you reading now?", "Are you reading now"], exp: "Are + you + reading now?[cite: 72]" },
+        { prompt: "(where/you/go now?)", a: ["Where are you going now?", "Where are you going now"], exp: "Where + are + you + going now?[cite: 72]" },
+        { prompt: "(what/you/do?)", a: ["What are you doing?", "What are you doing"], exp: "What + are + you + doing?[cite: 72]" },
+        { prompt: "(she/live/in London?)", a: ["Is she living in London?", "Is she living in London"], exp: "Is + she + living in London?[cite: 72]" },
+        { prompt: "(they/study now?)", a: ["Are they studying now?", "Are they studying now"], exp: "Are + they + studying now?[cite: 72]" }
+    ];
+
+    // Task 4: Present Continuous Questions 2 (20 items)
+    const qData2 = [
+        { prompt: "(how long/you/stay in Paris?)", a: ["How long are you staying in Paris?", "How long are you staying in Paris"], exp: "How long + are + you + staying...?[cite: 54]" },
+        { prompt: "(you/drink/tea?)", a: ["Are you drinking tea?", "Are you drinking tea"], exp: "Are + you + drinking tea?[cite: 54]" },
+        { prompt: "(where/you/stay?)", a: ["Where are you staying?", "Where are you staying"], exp: "Where + are + you + staying?[cite: 54]" },
+        { prompt: "(why/you/watch TV now?)", a: ["Why are you watching TV now?", "Why are you watching TV now"], exp: "Why + are + you + watching...?[cite: 54]" },
+        { prompt: "(she/work in a bar?)", a: ["Is she working in a bar?", "Is she working in a bar"], exp: "Is + she + working in a bar?[cite: 54]" },
+        { prompt: "(what/he/do?)", a: ["What is he doing?", "What is he doing"], exp: "What + is + he + doing?[cite: 54]" },
+        { prompt: "(why/she/call her friend now?)", a: ["Why is she calling her friend now?", "Why is she calling her friend now"], exp: "Why + is + she + calling...?[cite: 54]" },
+        { prompt: "(I/lose weight?)", a: ["Am I losing weight?", "Am I losing weight"], exp: "Am + I + losing weight?[cite: 54]" },
+        { prompt: "(we/work tomorrow?)", a: ["Are we working tomorrow?", "Are we working tomorrow"], exp: "Are + we + working tomorrow?[cite: 54]" },
+        { prompt: "(when/you/arrive?)", a: ["When are you arriving?", "When are you arriving"], exp: "When + are + you + arriving?[cite: 54]" },
+        { prompt: "(he/take dance classes?)", a: ["Is he taking dance classes?", "Is he taking dance classes"], exp: "Is + he + taking...?[cite: 54]" },
+        { prompt: "(she/stay in a hotel?)", a: ["Is she staying in a hotel?", "Is she staying in a hotel"], exp: "Is + she + staying...?[cite: 54]" },
+        { prompt: "(how much/he/eat?)", a: ["How much is he eating?", "How much is he eating"], exp: "How much + is + he + eating?[cite: 54]" },
+        { prompt: "(how long/you/stay in China?)", a: ["How long are you staying in China?", "How long are you staying in China"], exp: "How long + are + you + staying...?[cite: 54]" },
+        { prompt: "(she/study in the library now?)", a: ["Is she studying in the library now?", "Is she studying in the library now"], exp: "Is + she + studying...?[cite: 54]" },
+        { prompt: "(you/come?)", a: ["Are you coming?", "Are you coming"], exp: "Are + you + coming?[cite: 54]" },
+        { prompt: "(they/rent a car?)", a: ["Are they renting a car?", "Are they renting a car"], exp: "Are + they + renting a car?[cite: 54]" },
+        { prompt: "(when/they/have a barbeque?)", a: ["When are they having a barbeque?", "When are they having a barbecue?", "When are they having a barbeque"], exp: "When + are + they + having...?[cite: 54]" },
+        { prompt: "(what/Julie/do tonight?)", a: ["What is Julie doing tonight?", "What is Julie doing tonight"], exp: "What + is + Julie + doing...?[cite: 54]" },
+        { prompt: "(you/feel sleepy?)", a: ["Are you feeling sleepy?", "Are you feeling sleepy"], exp: "Are + you + feeling sleepy?[cite: 54]" }
+    ];
+
+    // Task 5: Present Continuous All Forms Exercise 1 (20 items)
+    const allData1 = [
+        { prompt: "(she/go home now)", a: ["She's going home now.", "She is going home now."], exp: "Positive statement → She's / She is going home now.[cite: 69]" },
+        { prompt: "(I/read a great book)", a: ["I'm reading a great book.", "I am reading a great book."], exp: "Positive statement → I'm / I am reading...[cite: 69]" },
+        { prompt: "(she/not/wash her hair)", a: ["She isn't washing her hair.", "She's not washing her hair.", "She is not washing her hair."], exp: "Negative statement → She isn't / She's not washing...[cite: 69]" },
+        { prompt: "(the cat/chase mice?)", a: ["Is the cat chasing mice?", "Is the cat chasing mice"], exp: "Question → Is the cat chasing mice?[cite: 69]" },
+        { prompt: "(she/cry?)", a: ["Is she crying?", "Is she crying"], exp: "Question → Is she crying?[cite: 69]" },
+        { prompt: "(he/not/study Latin)", a: ["He isn't studying Latin.", "He's not studying Latin.", "He is not studying Latin."], exp: "Negative statement → He isn't / He's not studying...[cite: 69]" },
+        { prompt: "(we/drive to London?)", a: ["Are we driving to London?", "Are we driving to London"], exp: "Question → Are we driving to London?[cite: 69]" },
+        { prompt: "(they/watch TV?)", a: ["Are they watching TV?", "Are they watching TV"], exp: "Question → Are they watching TV?[cite: 69]" },
+        { prompt: "(where/she/go now?)", a: ["Where is she going now?", "Where is she going now"], exp: "Wh- Question → Where is she going now?[cite: 69]" },
+        { prompt: "(I/not/leave now)", a: ["I'm not leaving now.", "I am not leaving now."], exp: "Negative statement → I'm not / I am not leaving now.[cite: 69]" },
+        { prompt: "(you/not/run)", a: ["You aren't running.", "You're not running.", "You are not running."], exp: "Negative statement → You aren't / You're not running.[cite: 69]" },
+        { prompt: "(why/he/leave?)", a: ["Why is he leaving?", "Why is he leaving"], exp: "Wh- Question → Why is he leaving?[cite: 69]" },
+        { prompt: "(how/I/travel?)", a: ["How am I travelling?", "How am I traveling?", "How am I travelling"], exp: "Wh- Question → How am I travelling?[cite: 69]" },
+        { prompt: "(it/not/rain)", a: ["It isn't raining.", "It's not raining.", "It is not raining."], exp: "Negative statement → It isn't / It's not raining.[cite: 69]" },
+        { prompt: "(when/we/arrive?)", a: ["When are we arriving?", "When are we arriving"], exp: "Wh- Question → When are we arriving?[cite: 69]" },
+        { prompt: "(where/they/stay?)", a: ["Where are they staying?", "Where are they staying"], exp: "Wh- Question → Where are they staying?[cite: 69]" },
+        { prompt: "(it/rain)", a: ["It's raining.", "It is raining."], exp: "Positive statement → It's / It is raining.[cite: 69]" },
+        { prompt: "(she/come at six)", a: ["She's coming at six.", "She is coming at six."], exp: "Positive statement → She's / She is coming at six.[cite: 69]" },
+        { prompt: "(he/watch a film at the moment)", a: ["He's watching a film at the moment.", "He is watching a film at the moment."], exp: "Positive statement → He's / He is watching...[cite: 69]" },
+        { prompt: "(we/not/sleep)", a: ["We aren't sleeping.", "We're not sleeping.", "We are not sleeping."], exp: "Negative statement → We aren't / We're not sleeping.[cite: 69]" }
+    ];
+
+    // Task 6: Present Continuous All Forms Exercise 2 (20 items)
+    const allData2 = [
+        { prompt: "(we/go to the cinema later)", a: ["We're going to the cinema later.", "We are going to the cinema later."], exp: "Positive statement → We're / We are going...[cite: 66]" },
+        { prompt: "(they/work now)", a: ["They're working now.", "They are working now."], exp: "Positive statement → They're / They are working now.[cite: 66]" },
+        { prompt: "(you/not/walk)", a: ["You aren't walking.", "You're not walking.", "You are not walking."], exp: "Negative statement → You aren't / You're not walking.[cite: 66]" },
+        { prompt: "(they/learn new things?)", a: ["Are they learning new things?", "Are they learning new things"], exp: "Question → Are they learning new things?[cite: 66]" },
+        { prompt: "(when/he/start work?)", a: ["When is he starting work?", "When is he starting work"], exp: "Wh- Question → When is he starting work?[cite: 66]" },
+        { prompt: "(why/I/stay at home?)", a: ["Why am I staying at home?", "Why am I staying at home"], exp: "Wh- Question → Why am I staying at home?[cite: 66]" },
+        { prompt: "(it/get dark?)", a: ["Is it getting dark?", "Is it getting dark"], exp: "Question → Is it getting dark?[cite: 66]" },
+        { prompt: "(we/not/win)", a: ["We aren't winning.", "We're not winning.", "We are not winning."], exp: "Negative statement → We aren't / We're not winning.[cite: 66]" },
+        { prompt: "(they/not/bring a cake)", a: ["They aren't bringing a cake.", "They're not bringing a cake.", "They are not bringing a cake."], exp: "Negative statement → They aren't bringing...[cite: 66]" },
+        { prompt: "(the dog/not/play with a ball)", a: ["The dog isn't playing with a ball.", "The dog is not playing with a ball."], exp: "Negative statement → The dog isn't playing...[cite: 66]" },
+        { prompt: "(why/it/rain now?)", a: ["Why is it raining now?", "Why is it raining now"], exp: "Wh- Question → Why is it raining now?[cite: 66]" },
+        { prompt: "(how/she/travel?)", a: ["How is she coming?", "How is she traveling?", "How is she travelling?", "How is she travelling"], exp: "Wh- Question → How is she coming / travelling?[cite: 66]" },
+        { prompt: "(where/you/work?)", a: ["Where are you working?", "Where are you working"], exp: "Wh- Question → Where are you working?[cite: 66]" },
+        { prompt: "(what/we/watch?)", a: ["What are we watching?", "What are we watching"], exp: "Wh- Question → What are we watching?[cite: 66]" },
+        { prompt: "(you/meet your friend at four)", a: ["You're meeting your friend at four.", "You are meeting your friend at four."], exp: "Positive statement → You're / You are meeting...[cite: 66]" },
+        { prompt: "(I/take too much cake?)", a: ["Am I taking too much cake?", "Am I taking too much cake"], exp: "Question → Am I taking too much cake?[cite: 66]" },
+        { prompt: "(you/think?)", a: ["Are you thinking?", "Are you thinking"], exp: "Question → Are you thinking?[cite: 66]" },
+        { prompt: "(we/study this evening)", a: ["We're studying this evening.", "We are studying this evening.", "We're studying this evening"], exp: "Positive statement → We're / We are studying...[cite: 66]" },
+        { prompt: "(Lucy and Steve/play the piano)", a: ["Lucy and Steve are playing the piano."], exp: "Positive statement → Lucy and Steve are playing...[cite: 66]" },
+        { prompt: "(Sarah/not/tell a story)", a: ["Sarah isn't telling a story.", "Sarah is not telling a story."], exp: "Negative statement → Sarah isn't telling...[cite: 66]" }
+    ];
+
+    // Task 7: Present Continuous All Forms Exercise 3 (20 items)
+    const allData3 = [
+        { prompt: "(I/be silly?)", a: ["Am I being silly?", "Am I being silly"], exp: "Question → Am I being silly?[cite: 75]" },
+        { prompt: "(they/not/read)", a: ["They aren't reading.", "They're not reading.", "They are not reading."], exp: "Negative statement → They aren't / They're not reading.[cite: 75]" },
+        { prompt: "(I/cook tonight)", a: ["I'm cooking tonight.", "I am cooking tonight."], exp: "Positive statement → I'm / I am cooking tonight.[cite: 75]" },
+        { prompt: "(he/see the doctor tomorrow?)", a: ["Is he seeing the doctor tomorrow?", "Is he seeing the doctor tomorrow"], exp: "Question → Is he seeing the doctor tomorrow?[cite: 75]" },
+        { prompt: "(you/eat chocolate?)", a: ["Are you eating chocolate?", "Are you eating chocolate"], exp: "Question → Are you eating chocolate?[cite: 75]" },
+        { prompt: "(what/you/do?)", a: ["What are you doing?", "What are you doing"], exp: "Wh- Question → What are you doing?[cite: 75]" },
+        { prompt: "(we/make a mistake?)", a: ["Are we making a mistake?", "Are we making a mistake"], exp: "Question → Are we making a mistake?[cite: 75]" },
+        { prompt: "(you/come tomorrow)", a: ["You're coming tomorrow.", "You are coming tomorrow."], exp: "Positive statement → You're / You are coming tomorrow.[cite: 75]" },
+        { prompt: "(it/snow)", a: ["It's snowing.", "It is snowing."], exp: "Positive statement → It's / It is snowing.[cite: 75]" },
+        { prompt: "(John/sleep at the moment)", a: ["John's sleeping at the moment.", "John is sleeping at the moment."], exp: "Positive statement → John's / John is sleeping...[cite: 75]" },
+        { prompt: "(he/not/dance)", a: ["He isn't dancing.", "He's not dancing.", "He is not dancing.", "He isn't dancing"], exp: "Negative statement → He isn't / He's not dancing.[cite: 75]" },
+        { prompt: "(how/they/get here?)", a: ["How are they getting here?", "How are they getting here"], exp: "Wh- Question → How are they getting here?[cite: 75]" },
+        { prompt: "(when/it/start?)", a: ["When is it starting?", "When is it starting"], exp: "Wh- Question → When is it starting?[cite: 75]" },
+        { prompt: "(I/not/speak Chinese at the moment)", a: ["I'm not speaking Chinese at the moment.", "I am not speaking Chinese at the moment."], exp: "Negative statement → I'm not speaking...[cite: 75]" },
+        { prompt: "(Jill/drink tea now?)", a: ["Is Jill drinking tea now?", "Is Jill drinking tea now"], exp: "Question → Is Jill drinking tea now?[cite: 75]" },
+        { prompt: "(he/pay the bill at the moment?)", a: ["Is he paying the bill at the moment?", "Is he paying the bill at the moment"], exp: "Question → Is he paying the bill...?[cite: 75]" },
+        { prompt: "(I/stay with a friend for the weekend)", a: ["I'm staying with a friend for the weekend.", "I am staying with a friend for the weekend."], exp: "Positive statement → I'm staying with...[cite: 75]" },
+        { prompt: "(when/John/arrive?)", a: ["When is John arriving?", "When is John arriving"], exp: "Wh- Question → When is John arriving?[cite: 75]" },
+        { prompt: "(they/come to the party?)", a: ["Are they coming to the party?", "Are they coming to the party"], exp: "Question → Are they coming to the party?[cite: 75]" },
+        { prompt: "(we/not/study)", a: ["We aren't studying.", "We're not studying.", "We are not studying."], exp: "Negative statement → We aren't / We're not studying.[cite: 75]" }
+    ];
+
+    // Helper function to render exercises
+    function renderExerciseGroup(containerId, items) {
+        const container = document.getElementById(containerId);
+        items.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <div class="prompt-row">${index + 1}. ${item.prompt}</div>
+                <div class="input-row">
+                    <input type="text" id="${containerId}_${index}" placeholder="Type complete sentence here...">
+                    <button class="btn-check" onclick="checkAnswer('${containerId}_${index}', ${JSON.stringify(item.a).replace(/"/g, '&quot;')}, '${containerId}_fb_${index}', '${item.exp.replace(/'/g, "\\'")}')">Check</button>
+                </div>
+                <div id="${containerId}_fb_${index}" class="feedback"></div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function normalize(str) {
+        return str.trim().toLowerCase().replace(/’/g, "'").replace(/\s+/g, ' ');
+    }
+
+    function checkAnswer(inputId, allowedAnswers, feedbackId, explanation) {
+        const val = normalize(document.getElementById(inputId).value);
+        const fb = document.getElementById(feedbackId);
+
+        if (val === "") {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = "⚠️ Please write an answer before checking!";
+            return;
+        }
+
+        const isCorrect = allowedAnswers.some(ans => normalize(ans) === val);
+
+        if (isCorrect) {
+            fb.className = "feedback correct";
+            fb.innerHTML = `✔ <strong>Correct!</strong> Perfect Present Continuous structure.`;
+        } else {
+            fb.className = "feedback incorrect";
+            fb.innerHTML = `✖ <strong>Not quite.</strong> Target answer: <strong>"${allowedAnswers[0]}"</strong><br>💡 <em>${explanation}</em>`;
+        }
+    }
+
+    // Initialize all 7 progressive sections (140 total sentences from all Present Continuous PDF files)
+    document.addEventListener('DOMContentLoaded', () => {
+        renderExerciseGroup('pn1-container', pnData1);
+        renderExerciseGroup('pn2-container', pnData2);
+        renderExerciseGroup('q1-container', qData1);
+        renderExerciseGroup('q2-container', qData2);
+        renderExerciseGroup('all1-container', allData1);
+        renderExerciseGroup('all2-container', allData2);
+        renderExerciseGroup('all3-container', allData3);
+    });
+</script>
+
+</body>
+</html>

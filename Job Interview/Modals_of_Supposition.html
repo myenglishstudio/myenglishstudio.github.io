@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Supposition & Infinitive Aspects Exercise (Active & Passive)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p.subtitle {
+            font-size: 1.05rem;
+            color: #94a3b8;
+        }
+
+        .score-board {
+            position: sticky;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #0f172a;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            margin-bottom: 30px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .sentence-flow {
+            font-size: 1.1rem;
+            line-height: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            padding: 6px 14px;
+            font-size: 0.95rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            width: 230px;
+            outline: none;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        button.check-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+        }
+
+        button.check-btn:active {
+            transform: translateY(0);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback.incorrect {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .explanation {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .sentence-flow {
+                line-height: 2.8rem;
+            }
+            input[type="text"] {
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Modal Verbs & Infinitive Aspects</h1>
+            <p class="subtitle">Data Analyst & BI Settings Practice (Active & Passive)</p>
+        </header>
+
+        <div class="score-board">
+            Score: <span id="score">0</span> / 60
+        </div>
+
+        <div id="quiz-container"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                before: "Look at the server metrics right now! The CPU usage is at 100%, so the cron job <strong>must</strong>",
+                after: "<em>(execute)</em> the heavy weekly data aggregation at this very moment.",
+                answers: ["be executing"],
+                explanation: "<strong>Active Continuous Infinitive (be executing):</strong> Active voice; action happening right now."
+            },
+            {
+                id: 2,
+                before: "Look at the green checkmarks in the system log! The database tables <strong>must</strong>",
+                after: "<em>(back up)</em> successfully by the automated script.",
+                answers: ["have been backed up"],
+                explanation: "<strong>Passive Perfect Infinitive (have been backed up):</strong> Refers to a completed past action done to the tables."
+            },
+            {
+                id: 3,
+                before: "The sales report matched the audited financial ledger down to the cent yesterday. The analyst <strong>must</strong>",
+                after: "<em>(reconcile)</em> the figures before sending the file.",
+                answers: ["have reconciled"],
+                explanation: "<strong>Active Perfect Infinitive (have reconciled):</strong> Completed action in the past."
+            },
+            {
+                id: 4,
+                before: "Don't run your heavy SQL queries right now; the database administrator <strong>may</strong>",
+                after: "<em>(perform)</em> index maintenance on the live cluster.",
+                answers: ["be performing"],
+                explanation: "<strong>Active Continuous Infinitive (be performing):</strong> Ongoing action at present."
+            },
+            {
+                id: 5,
+                before: "The staging server latency improved significantly; index maintenance <strong>may</strong>",
+                after: "<em>(perform)</em> on it by the sysadmin earlier today.",
+                answers: ["have been performed"],
+                explanation: "<strong>Passive Perfect Infinitive (have been performed):</strong> Refers to a completed past action done to the server."
+            },
+            {
+                id: 6,
+                before: "There are duplicate primary keys in today's staging table; the ingestion script <strong>must</strong>",
+                after: "<em>(run)</em> twice overnight without truncating the destination first.",
+                answers: ["have run", "have been run"],
+                explanation: "<strong>Active/Passive Perfect Infinitive (have run / have been run):</strong> Refers to a past action causing a present outcome."
+            },
+            {
+                id: 7,
+                before: "If the user ID column contains null values, it <strong>could</strong>",
+                after: "<em>(indicate)</em> an upstream ETL pipeline failure during the migration.",
+                answers: ["indicate"],
+                explanation: "<strong>Active Simple Infinitive (indicate):</strong> General present logical possibility."
+            },
+            {
+                id: 8,
+                before: "The anomalies in the churn chart <strong>could</strong>",
+                after: "<em>(cause)</em> by a tracking pixel bug in the recent update.",
+                answers: ["be caused"],
+                explanation: "<strong>Passive Simple Infinitive (be caused):</strong> General present passive relationship ('anomalies are caused by...')."
+            },
+            {
+                id: 9,
+                before: "The data team looked completely exhausted during this morning's standup; they <strong>must</strong>",
+                after: "<em>(debug)</em> the production pipeline failure all night.",
+                answers: ["have been debugging"],
+                explanation: "<strong>Active Perfect Continuous Infinitive (have been debugging):</strong> Ongoing past action leading up to a present result."
+            },
+            {
+                id: 10,
+                before: "Look at the security alert logs from last night! The server <strong>must</strong>",
+                after: "<em>(attack)</em> by a botnet prior to the system crash.",
+                answers: ["have been attacked"],
+                explanation: "<strong>Passive Perfect Infinitive (have been attacked):</strong> Completed past action done to the server."
+            },
+            {
+                id: 11,
+                before: "The dashboard visuals aren't rendering, but the API endpoint returns a 200 OK; the issue <strong>might</strong>",
+                after: "<em>(lie)</em> in the frontend JavaScript code.",
+                answers: ["lie"],
+                explanation: "<strong>Active Simple Infinitive (lie):</strong> Present state."
+            },
+            {
+                id: 12,
+                before: "The conversion rate dropped to zero at midnight; the web development team <strong>might</strong>",
+                after: "<em>(break)</em> the event listener in the latest code deployment.",
+                answers: ["have broken"],
+                explanation: "<strong>Active Perfect Infinitive (have broken):</strong> Completed past event."
+            },
+            {
+                id: 13,
+                before: "The event listener script <strong>might</strong>",
+                after: "<em>(break)</em> by the web dev team during last night's deployment.",
+                answers: ["have been broken"],
+                explanation: "<strong>Passive Perfect Infinitive (have been broken):</strong> Completed past action done *to* the script."
+            },
+            {
+                id: 14,
+                before: "Why is the memory consumption rising constantly right now? A background thread <strong>could</strong>",
+                after: "<em>(leak)</em> resources while parsing the JSON payloads.",
+                answers: ["be leaking"],
+                explanation: "<strong>Active Continuous Infinitive (be leaking):</strong> Present ongoing process."
+            },
+            {
+                id: 15,
+                before: "The invalid fields in the output <strong>could</strong>",
+                after: "<em>(parse)</em> incorrectly by the background thread during the last batch run.",
+                answers: ["have been parsed"],
+                explanation: "<strong>Passive Perfect Infinitive (have been parsed):</strong> Completed past action on the fields."
+            },
+            {
+                id: 16,
+                before: "With a 99.8% model accuracy on the training set but only 52% on the test data, the model <strong>must</strong>",
+                after: "<em>(suffer)</em> from severe overfitting.",
+                answers: ["suffer"],
+                explanation: "<strong>Active Simple Infinitive (suffer):</strong> Present state."
+            },
+            {
+                id: 17,
+                before: "The network logs from 3 AM show that the connection dropped repeatedly before the crash; the pipeline <strong>could</strong>",
+                after: "<em>(drop)</em> packets intermittently for hours before it finally failed.",
+                answers: ["have been dropping"],
+                explanation: "<strong>Active Perfect Continuous Infinitive (have been dropping):</strong> Repeated/continuous past action."
+            },
+            {
+                id: 18,
+                before: "The network diagnostic logs show that millions of packets <strong>could</strong>",
+                after: "<em>(drop)</em> by the router prior to the system failure.",
+                answers: ["have been dropped"],
+                explanation: "<strong>Passive Perfect Infinitive (have been dropped):</strong> Completed past passive action."
+            },
+            {
+                id: 19,
+                before: "We can't find the raw customer logs from 2022 anywhere; someone <strong>could</strong>",
+                after: "<em>(archive)</em> them to cold S3 storage without updating the metadata catalog.",
+                answers: ["have archived"],
+                explanation: "<strong>Active Perfect Infinitive (have archived):</strong> Completed past action."
+            },
+            {
+                id: 20,
+                before: "The raw customer logs from 2022 <strong>could</strong>",
+                after: "<em>(archive)</em> to cold S3 storage without updating the metadata catalog.",
+                answers: ["have been archived"],
+                explanation: "<strong>Passive Perfect Infinitive (have been archived):</strong> Completed past action done to the logs."
+            },
+            {
+                id: 21,
+                before: "The data stream is stuttering; the ingestion service <strong>might</strong>",
+                after: "<em>(struggle)</em> with the sudden volume spike right now.",
+                answers: ["be struggling"],
+                explanation: "<strong>Active Continuous Infinitive (be struggling):</strong> Action in progress."
+            },
+            {
+                id: 22,
+                before: "The user engagement metrics looked abnormally high last month; the marketing department <strong>may</strong>",
+                after: "<em>(run)</em> an unannounced retargeting campaign during that period.",
+                answers: ["have been running", "have run"],
+                explanation: "<strong>Active Perfect Continuous/Perfect Infinitive:</strong> Past action over a duration."
+            },
+            {
+                id: 23,
+                before: "An unannounced retargeting campaign <strong>may</strong>",
+                after: "<em>(run)</em> by the marketing team throughout last month.",
+                answers: ["have been run"],
+                explanation: "<strong>Passive Perfect Infinitive (have been run):</strong> Completed past passive action across a timeframe."
+            },
+            {
+                id: 24,
+                before: "Don't drop those database columns yet; several legacy reporting scripts <strong>could</strong>",
+                after: "<em>(depend)</em> on those exact names.",
+                answers: ["depend", "still depend"],
+                explanation: "<strong>Active Simple Infinitive (depend):</strong> Present state."
+            },
+            {
+                id: 25,
+                before: "The real-time dashboard refreshes every second; the event queue <strong>must</strong>",
+                after: "<em>(process)</em> thousands of records per minute right now.",
+                answers: ["be processing"],
+                explanation: "<strong>Active Continuous Infinitive (be processing):</strong> Active present process."
+            },
+            {
+                id: 26,
+                before: "Look at the batch processing summary! Thousands of queue events <strong>must</strong>",
+                after: "<em>(process)</em> by the backend workers while we were offline.",
+                answers: ["have been processed"],
+                explanation: "<strong>Passive Perfect Infinitive (have been processed):</strong> Completed past passive action."
+            },
+            {
+                id: 27,
+                before: "The predictive model performed very poorly on last week's holiday data; the team <strong>might not</strong>",
+                after: "<em>(include)</em> seasonal features during training.",
+                answers: ["have included"],
+                explanation: "<strong>Active Perfect Infinitive (have included):</strong> Past omission."
+            },
+            {
+                id: 28,
+                before: "Seasonal features <strong>might not</strong>",
+                after: "<em>(include)</em> in the model training set prior to last week's release.",
+                answers: ["have been included"],
+                explanation: "<strong>Passive Perfect Infinitive (have been included):</strong> Past passive omission."
+            },
+            {
+                id: 29,
+                before: "The server crashed this morning due to memory exhaustion; the script <strong>must</strong>",
+                after: "<em>(accumulate)</em> data in RAM without clearing the cache during each iteration.",
+                answers: ["have been accumulating"],
+                explanation: "<strong>Active Perfect Continuous Infinitive:</strong> Continuous past process."
+            },
+            {
+                id: 30,
+                before: "The senior analyst isn't responding on Slack; she <strong>might</strong>",
+                after: "<em>(double-check)</em> the quarterly projections on her second screen right now.",
+                answers: ["be double-checking", "be double checking"],
+                explanation: "<strong>Active Continuous Infinitive:</strong> Present action."
+            },
+            {
+                id: 31,
+                before: "The draft was already submitted; the quarterly projections <strong>might</strong>",
+                after: "<em>(double-check)</em> by the lead analyst before the presentation.",
+                answers: ["have been double-checked", "have been double checked"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Completed past passive action."
+            },
+            {
+                id: 32,
+                before: "Every time we trigger this batch process, the system hangs; the python script <strong>must</strong>",
+                after: "<em>(contain)</em> an inefficient nested loop.",
+                answers: ["contain"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present fact."
+            },
+            {
+                id: 33,
+                before: "Based on the error logs from the midnight job, this legacy table <strong>must</strong>",
+                after: "<em>(lock)</em> by an uncommitted transaction.",
+                answers: ["have been locked", "be locked"],
+                explanation: "<strong>Passive Perfect / Simple Infinitive:</strong> Passive state resulting from a past lock."
+            },
+            {
+                id: 34,
+                before: "The SQL query has been running for 45 minutes; there <strong>must</strong>",
+                after: "<em>(be)</em> an unindexed Cartesian join causing a deadlock.",
+                answers: ["be"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present logical fact."
+            },
+            {
+                id: 35,
+                before: "Don't overwrite that production table; those legacy reporting scripts <strong>could still</strong>",
+                after: "<em>(rely)</em> on those exact column names.",
+                answers: ["rely"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present state."
+            },
+            {
+                id: 36,
+                before: "The sudden drop in web sessions <strong>might</strong>",
+                after: "<em>(stem)</em> from an untracked tracking pixel update pushed yesterday.",
+                answers: ["stem"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present general deduction."
+            },
+            {
+                id: 37,
+                before: "That critical bug in the reporting module <strong>must</strong>",
+                after: "<em>(overlook)</em> by the QA team during yesterday's testing sprint.",
+                answers: ["have been overlooked"],
+                explanation: "<strong>Passive Perfect Infinitive (have been overlooked):</strong> Completed past passive event."
+            },
+            {
+                id: 38,
+                before: "Every time we trigger the batch process, CPU spikes to 100%; the script <strong>must</strong>",
+                after: "<em>(write)</em> in an inefficient manner.",
+                answers: ["be written"],
+                explanation: "<strong>Passive Simple Infinitive (be written):</strong> General present passive state."
+            },
+            {
+                id: 39,
+                before: "The client’s database schema uses surrogate keys everywhere, so this key <strong>could</strong>",
+                after: "<em>(point)</em> to a dimension table we haven't mapped yet.",
+                answers: ["point"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present logical possibility."
+            },
+            {
+                id: 40,
+                before: "The server load dropped significantly after midnight; the weekly aggregation <strong>must</strong>",
+                after: "<em>(execute)</em> successfully by the automated scheduler.",
+                answers: ["have been executed"],
+                explanation: "<strong>Passive Perfect Infinitive (have been executed):</strong> Completed past passive event."
+            },
+            {
+                id: 41,
+                before: "The data engineering team isn't answering Slack; they <strong>could</strong>",
+                after: "<em>(patch)</em> the critical pipeline outage in real time.",
+                answers: ["be patching"],
+                explanation: "<strong>Active Continuous Infinitive:</strong> Ongoing present action."
+            },
+            {
+                id: 42,
+                before: "The reporting outage resolved quickly; the broken pipeline <strong>could</strong>",
+                after: "<em>(patch)</em> by the on-call engineer earlier today.",
+                answers: ["have been patched"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Completed past passive action."
+            },
+            {
+                id: 43,
+                before: "The latency numbers are higher than usual; the load balancer <strong>could</strong>",
+                after: "<em>(route)</em> all analytics traffic through a single node right now.",
+                answers: ["be routing"],
+                explanation: "<strong>Active Continuous Infinitive:</strong> Ongoing process."
+            },
+            {
+                id: 44,
+                before: "All analytics traffic <strong>could</strong>",
+                after: "<em>(route)</em> through a single server node due to yesterday's config change.",
+                answers: ["have been routed", "be routed"],
+                explanation: "<strong>Passive Perfect / Simple Infinitive:</strong> Passive routing action."
+            },
+            {
+                id: 45,
+                before: "I didn't receive the automated alert email; the summary report <strong>could</strong>",
+                after: "<em>(flag)</em> as spam by the mail server yesterday.",
+                answers: ["have been flagged"],
+                explanation: "<strong>Passive Perfect Infinitive (have been flagged):</strong> Completed past passive event."
+            },
+            {
+                id: 46,
+                before: "The data warehouse disk space reached 99% last night; a massive temp table <strong>must</strong>",
+                after: "<em>(generate)</em> by a rogue query.",
+                answers: ["have been generated"],
+                explanation: "<strong>Passive Perfect Infinitive (have been generated):</strong> Completed past action done to the table."
+            },
+            {
+                id: 47,
+                before: "The BI tool looks completely different today; a major UI update <strong>may</strong>",
+                after: "<em>(push)</em> overnight by the software vendor.",
+                answers: ["have been pushed"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Past completed action on the UI update."
+            },
+            {
+                id: 48,
+                before: "Millions of malformed records were recorded; our registration form <strong>must</strong>",
+                after: "<em>(spam)</em> by a scraping bot all night.",
+                answers: ["have been spammed"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Completed past action received by the form."
+            },
+            {
+                id: 49,
+                before: "The user engagement numbers looked inflated last week; an unannounced ad campaign <strong>may</strong>",
+                after: "<em>(run)</em> by marketing at that time.",
+                answers: ["have been run"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Past action done to the campaign."
+            },
+            {
+                id: 50,
+                before: "The pipeline failed at 6 AM; corrupted data packets <strong>could</strong>",
+                after: "<em>(drop)</em> by the network switch prior to the crash.",
+                answers: ["have been dropped"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Past passive action."
+            },
+            {
+                id: 51,
+                before: "A buggy ETL job <strong>must</strong>",
+                after: "<em>(overwrite)</em> valid warehouse records every night for weeks before anyone noticed.",
+                answers: ["have been overwriting"],
+                explanation: "<strong>Active Perfect Continuous Infinitive:</strong> Continuous past active error."
+            },
+            {
+                id: 52,
+                before: "Valid warehouse records <strong>must</strong>",
+                after: "<em>(overwrite)</em> by a buggy ETL script every night for weeks before the fix.",
+                answers: ["have been overwritten"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Past passive action."
+            },
+            {
+                id: 53,
+                before: "Check the git commit history; secret API keys <strong>might</strong>",
+                after: "<em>(push)</em> directly to the public repository by a junior developer.",
+                answers: ["have been pushed"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Past completed action done to the keys."
+            },
+            {
+                id: 54,
+                before: "The real-time stream is dropping packets; the buffer size <strong>could</strong>",
+                after: "<em>(be)</em> improperly configured.",
+                answers: ["be"],
+                explanation: "<strong>Active Simple Infinitive:</strong> Present state."
+            },
+            {
+                id: 55,
+                before: "Why is the GPU temperature so high right now? The deep learning model <strong>must</strong>",
+                after: "<em>(train)</em> on the uncompressed image dataset at the moment.",
+                answers: ["be training"],
+                explanation: "<strong>Active Continuous Infinitive:</strong> Action happening right now."
+            },
+            {
+                id: 56,
+                before: "The anomaly detection model triggered an alarm at 3 AM; stolen credit cards <strong>may</strong>",
+                after: "<em>(test)</em> in rapid succession by a fraud ring.",
+                answers: ["have been tested"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Completed past passive action."
+            },
+            {
+                id: 57,
+                before: "The data governance auditor looks satisfied; our data lineage <strong>must</strong>",
+                after: "<em>(approve)</em> by the compliance committee.",
+                answers: ["have been approved", "be approved"],
+                explanation: "<strong>Passive Perfect / Simple Infinitive:</strong> Deduction about compliance approval."
+            },
+            {
+                id: 58,
+                before: "The query execution plan looks suboptimal; a full table scan <strong>could</strong>",
+                after: "<em>(choose)</em> by the optimizer instead of an index scan.",
+                answers: ["have been chosen", "be chosen"],
+                explanation: "<strong>Passive Perfect / Simple Infinitive:</strong> Choice made by the optimizer."
+            },
+            {
+                id: 59,
+                before: "We found an unencrypted CSV containing PII in the public bucket; the file <strong>must</strong>",
+                after: "<em>(export)</em> manually during last week's emergency audit.",
+                answers: ["have been exported"],
+                explanation: "<strong>Passive Perfect Infinitive:</strong> Completed past passive action."
+            },
+            {
+                id: 60,
+                before: "The data stream has no latency; all incoming Kafka messages <strong>must</strong>",
+                after: "<em>(process)</em> efficiently by the broker.",
+                answers: ["be processed", "have been processed"],
+                explanation: "<strong>Passive Simple / Perfect Infinitive:</strong> Passive state/completion by the broker."
+            }
+        ];
+
+        let score = 0;
+        let checkedQuestions = new Set();
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            questions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="sentence-flow">
+                        ${q.id}. ${q.before} 
+                        <input type="text" id="input-${q.id}" placeholder="infinitive..." autocomplete="off">
+                        ${q.after}
+                    </div>
+                    <div class="card-footer">
+                        <button class="check-btn" onclick="checkAnswer(${q.id})">Check</button>
+                    </div>
+                    <div class="feedback" id="feedback-${q.id}"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(id) {
+            const q = questions.find(item => item.id === id);
+            const input = document.getElementById(`input-${id}`);
+            const feedback = document.getElementById(`feedback-${id}`);
+            const userVal = input.value.trim().toLowerCase();
+
+            if (userVal === "") {
+                feedback.className = "feedback incorrect";
+                feedback.style.display = "block";
+                feedback.innerHTML = `<strong>Please enter an answer first!</strong>`;
+                return;
+            }
+
+            const isCorrect = q.answers.includes(userVal);
+
+            feedback.style.display = "block";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = `<strong>Correct! 🎉</strong><div class="explanation">${q.explanation}</div>`;
+                
+                if (!checkedQuestions.has(id)) {
+                    score++;
+                    checkedQuestions.add(id);
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = `
+                    <strong>Not quite!</strong> Accepted answer(s): <u>${q.answers.join(" / ")}</u>
+                    <div class="explanation">${q.explanation}</div>
+                `;
+                
+                if (checkedQuestions.has(id)) {
+                    score--;
+                    checkedQuestions.delete(id);
+                    document.getElementById('score').innerText = score;
+                }
+            }
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

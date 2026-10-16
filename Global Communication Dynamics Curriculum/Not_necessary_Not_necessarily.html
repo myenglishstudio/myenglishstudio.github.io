@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grammar Practice: "It's not necessary" vs. "It's not necessarily"</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-overlay: rgba(239, 246, 255, 0.88);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --primary-blue: #1e40af;
+      --medium-blue: #2563eb;
+      --light-blue: #3b82f6;
+      --soft-blue-bg: #eff6ff;
+      --badge-blue: #dbeafe;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-blue: #bfdbfe;
+      --correct: #059669;
+      --correct-bg: #ecfdf5;
+      --incorrect: #dc2626;
+      --incorrect-bg: #fef2f2;
+      --radius: 14px;
+      --shadow: 0 10px 25px -5px rgba(30, 64, 175, 0.1), 0 8px 10px -6px rgba(30, 64, 175, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Background picture of people traveling with soft blue overlay */
+      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                  url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2.5rem 1rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-blue);
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--badge-blue);
+      color: var(--primary-blue);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .guide-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-blue);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-item {
+      background: var(--soft-blue-bg);
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--medium-blue);
+    }
+
+    .guide-item strong {
+      display: block;
+      color: var(--primary-blue);
+      margin-bottom: 0.2rem;
+    }
+
+    .guide-item span {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .quiz-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-blue);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .question-card {
+      background: #ffffff;
+      border: 1px solid var(--border-blue);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .question-card:hover {
+      border-color: var(--light-blue);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .question-text {
+      font-weight: 500;
+      font-size: 1.02rem;
+      color: var(--text-main);
+      flex-grow: 1;
+    }
+
+    .q-num {
+      color: var(--medium-blue);
+      font-weight: 700;
+      margin-right: 0.3rem;
+    }
+
+    .select-wrapper {
+      display: inline-block;
+      margin: 0 0.25rem;
+    }
+
+    select {
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-blue);
+      background-color: var(--soft-blue-bg);
+      color: var(--primary-blue);
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    select:focus {
+      border-color: var(--medium-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    .btn-check-single {
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      border: none;
+      background-color: var(--medium-blue);
+      color: #ffffff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-check-single:hover {
+      background-color: var(--primary-blue);
+    }
+
+    .explanation {
+      display: none;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    .explanation.correct {
+      display: block;
+      background-color: var(--correct-bg);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .explanation.incorrect {
+      display: block;
+      background-color: var(--incorrect-bg);
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border-blue);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #1e3a8a;
+    }
+
+    .btn-secondary {
+      background-color: var(--badge-blue);
+      color: var(--primary-blue);
+    }
+
+    .btn-secondary:hover {
+      background-color: #bfdbfe;
+    }
+
+    .score-board {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary-blue);
+      background: var(--soft-blue-bg);
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-blue);
+    }
+
+    select.correct-input {
+      border-color: var(--correct);
+      background-color: var(--correct-bg);
+      color: var(--correct);
+    }
+
+    select.incorrect-input {
+      border-color: var(--incorrect);
+      background-color: var(--incorrect-bg);
+      color: var(--incorrect);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <span class="badge">Grammar & Vocabulary Practice</span>
+      <h1>"Not Necessary" vs. "Not Necessarily"</h1>
+      <p class="subtitle">Complete all 20 sentences below. Click <strong>Check</strong> next to any sentence for immediate feedback and explanations.</p>
+    </header>
+
+    <section class="guide-card">
+      <div class="guide-grid">
+        <div class="guide-item">
+          <strong>It's not necessary...</strong>
+          <span>Refers to something <b>not required / optional</b> (no obligation).</span>
+        </div>
+        <div class="guide-item">
+          <strong>It's not necessarily...</strong>
+          <span>Refers to something <b>not always true / not automatically guaranteed</b>.</span>
+        </div>
+      </div>
+    </section>
+
+    <main class="quiz-container">
+      <div id="questions-list"></div>
+
+      <div class="controls">
+        <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Reset All</button>
+        <div class="score-board" id="score-display">Score: - / 20</div>
+        <button type="button" class="btn btn-primary" onclick="checkAllAnswers()">Check All Answers</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        prefix: "",
+        suffix: " to print out your boarding pass; you can show the barcode on your smartphone.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Printing is optional / not required because a digital version is accepted."
+      },
+      {
+        prefix: "Booking a 5-star resort ",
+        suffix: " mean you will have a better vacation experience than staying at a boutique hotel.",
+        answer: "does not necessarily",
+        options: ["is not necessary", "does not necessarily"],
+        explanation: "<b>Does not necessarily</b> = A higher star rating does not automatically guarantee a better experience."
+      },
+      {
+        prefix: "If you have already paid online, ",
+        suffix: " to stand in line at the ticket window.",
+        answer: "it's not necessary",
+        options: ["it's not necessary", "it's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Waiting in line is not required since payment is complete."
+      },
+      {
+        prefix: "Just because a travel destination is expensive, it ",
+        suffix: " the best choice for your trip.",
+        answer: "is not necessarily",
+        options: ["is not necessary", "is not necessarily"],
+        explanation: "<b>Is not necessarily</b> = High cost does not automatically make a destination superior."
+      },
+      {
+        prefix: "",
+        suffix: " to bring heavy winter clothes if you are going on a coolcation in May.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Heavy winter clothing is not required for mild coolcation weather."
+      },
+      {
+        prefix: "Going on a staycation ",
+        suffix: " boring; you can discover amazing local places in your own city.",
+        answer: "is not necessarily",
+        options: ["is not necessary", "is not necessarily"],
+        explanation: "<b>Is not necessarily</b> = A staycation isn't automatically or universally boring."
+      },
+      {
+        prefix: "",
+        suffix: " to reconfirm your flight booking, but it is good practice.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        hint: "It's optional/not mandatory.",
+        explanation: "<b>It's not necessary</b> = Reconfirmation is optional and not mandatory."
+      },
+      {
+        prefix: "An expensive set-jetting tour ",
+        suffix: " worth the money if you haven't seen the show.",
+        answer: "is not necessarily",
+        options: ["is not necessary", "is not necessarily"],
+        explanation: "<b>Is not necessarily</b> = Value isn't guaranteed if you lack interest in the film/show."
+      },
+      {
+        prefix: "",
+        suffix: " to pack a professional suit for a casual workation by the beach.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        explanation: "<b>It's not necessary</b> = A formal suit is not required for a casual work environment."
+      },
+      {
+        prefix: "Choosing a quiet hotel ",
+        suffix: " mean you won't have fun during your trip.",
+        answer: "does not necessarily",
+        options: ["is not necessary", "does not necessarily"],
+        explanation: "<b>Does not necessarily</b> = A quiet hotel doesn't automatically imply a dull trip."
+      },
+      {
+        prefix: "You can tip the tour guide, but ",
+        suffix: " as service charges are included.",
+        answer: "it's not necessary",
+        options: ["it's not necessary", "it's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Tipping is optional and not compulsory."
+      },
+      {
+        prefix: "Travelers who choose gig-tripping ",
+        suffix: " spend more money than traditional tourists.",
+        answer: "do not necessarily",
+        options: ["are not necessary", "do not necessarily"],
+        explanation: "<b>Do not necessarily</b> = Attending a concert abroad isn't always more expensive."
+      },
+      {
+        prefix: "",
+        suffix: " to hire a private tour guide to explore this national park safely.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        explanation: "<b>It's not necessary</b> = A guide is not required because trails are well-marked."
+      },
+      {
+        prefix: "A long flight ",
+        suffix: " result in severe jet lag if you stay well-hydrated.",
+        answer: "does not necessarily",
+        options: ["is not necessary", "does not necessarily"],
+        explanation: "<b>Does not necessarily</b> = Jet lag is not an inevitable outcome of long flights."
+      },
+      {
+        prefix: "Since breakfast is included at the hotel, ",
+        suffix: " to buy food outside.",
+        answer: "it's not necessary",
+        options: ["it's not necessary", "it's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Buying food elsewhere is not required."
+      },
+      {
+        prefix: "Popular tourist attractions ",
+        suffix: " provide an authentic cultural experience.",
+        answer: "do not necessarily",
+        options: ["are not necessary", "do not necessarily"],
+        explanation: "<b>Do not necessarily</b> = Tourist spots don't automatically guarantee cultural authenticity."
+      },
+      {
+        prefix: "",
+        suffix: " to check in at the counter if you have no luggage to drop off.",
+        answer: "It's not necessary",
+        options: ["It's not necessary", "It's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Visiting the desk is optional when traveling carry-on only."
+      },
+      {
+        prefix: "Taking a short microcation ",
+        suffix: " feel rushed if you plan your time efficiently.",
+        answer: "does not necessarily",
+        options: ["is not necessary", "does not necessarily"],
+        explanation: "<b>Does not necessarily</b> = Short trips are not automatically stressful or rushed."
+      },
+      {
+        prefix: "When participating in hushpitality retreats, ",
+        suffix: " to surrender your phone, but it is encouraged.",
+        answer: "it's not necessary",
+        options: ["it's not necessary", "it's not necessarily"],
+        explanation: "<b>It's not necessary</b> = Surrendering phones is voluntary/optional."
+      },
+      {
+        prefix: "Older travelers ",
+        suffix: " prefer slow travel; many enjoy high-adrenaline adventures.",
+        answer: "do not necessarily",
+        options: ["are not necessary", "do not necessarily"],
+        explanation: "<b>Do not necessarily</b> = It is not true that all older travelers prefer slow-paced trips."
+      }
+    ];
+
+    function renderQuestions() {
+      const listContainer = document.getElementById('questions-list');
+      listContainer.innerHTML = '';
+
+      questions.forEach((q, index) => {
+        const item = document.createElement('div');
+        item.className = 'question-card';
+
+        const optHtml = q.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+
+        item.innerHTML = `
+          <div class="question-header">
+            <div class="question-text">
+              <span class="q-num">${index + 1}.</span>
+              ${q.prefix}
+              <div class="select-wrapper">
+                <select id="q-${index}">
+                  <option value="">-- select --</option>
+                  ${optHtml}
+                </select>
+              </div>
+              ${q.suffix}
+            </div>
+            <button class="btn-check-single" onclick="checkSingle(${index})">Check</button>
+          </div>
+          <div class="explanation" id="exp-${index}"></div>
+        `;
+        listContainer.appendChild(item);
+      });
+    }
+
+    function checkSingle(index) {
+      const q = questions[index];
+      const select = document.getElementById(`q-${index}`);
+      const exp = document.getElementById(`exp-${index}`);
+      const val = select.value;
+
+      select.classList.remove('correct-input', 'incorrect-input');
+
+      if (val === q.answer) {
+        select.classList.add('correct-input');
+        exp.className = 'explanation correct';
+        exp.innerHTML = `✓ <b>Correct!</b> ${q.explanation}`;
+      } else if (val === '') {
+        select.classList.add('incorrect-input');
+        exp.className = 'explanation incorrect';
+        exp.innerHTML = `⚠ Please select an option first.`;
+      } else {
+        select.classList.add('incorrect-input');
+        exp.className = 'explanation incorrect';
+        exp.innerHTML = `✗ <b>Incorrect.</b> Correct answer: <b>${q.answer}</b>.<br>${q.explanation}`;
+      }
+    }
+
+    function checkAllAnswers() {
+      let score = 0;
+
+      questions.forEach((_, index) => {
+        checkSingle(index);
+        const select = document.getElementById(`q-${index}`);
+        if (select.value === questions[index].answer) {
+          score++;
+        }
+      });
+
+      document.getElementById('score-display').innerText = `Score: ${score} / ${questions.length}`;
+    }
+
+    function resetQuiz() {
+      questions.forEach((_, index) => {
+        const select = document.getElementById(`q-${index}`);
+        const exp = document.getElementById(`exp-${index}`);
+        select.value = '';
+        select.classList.remove('correct-input', 'incorrect-input');
+        exp.className = 'explanation';
+        exp.style.display = 'none';
+      });
+      document.getElementById('score-display').innerText = `Score: - / ${questions.length}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', renderQuestions);
+  </script>
+</body>
+</html>

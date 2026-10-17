@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Either, Neither & Both - Practice Exercise</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p.subtitle {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        /* Grammar Chart Container */
+        .rule-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .rule-card h2 {
+            font-size: 1.3rem;
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        .rule-illustration {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .score-board {
+            position: sticky;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #0f172a;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            margin-bottom: 30px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .sentence-flow {
+            font-size: 1.1rem;
+            line-height: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .option-label {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 18px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .option-label:hover {
+            border-color: #2563eb;
+            background-color: #f8fafc;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #2563eb;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        button.check-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback.incorrect {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .explanation {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .options-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .option-label {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Either, Neither & Both</h1>
+            <p class="subtitle">Grammar Practice Exercise (40 Sentences)</p>
+        </header>
+
+        <!-- Rule Graphic -->
+        <div class="rule-card">
+            <h2>Grammar Quick Reference</h2>
+            <div class="rule-illustration">
+                <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; font-family: sans-serif;">
+                    <rect width="800" height="280" fill="#f8fafc" rx="12"/>
+                    
+                    <!-- BOTH -->
+                    <g transform="translate(25, 30)">
+                        <rect width="230" height="220" fill="#dcfce7" rx="10" stroke="#bbf7d0" stroke-width="2"/>
+                        <text x="20" y="35" font-size="20" font-weight="bold" fill="#166534">BOTH</text>
+                        <text x="20" y="65" font-size="14" font-weight="bold" fill="#14532d">• Two together (100%)</text>
+                        <text x="20" y="90" font-size="13" fill="#14532d">• Plural verb</text>
+                        <text x="20" y="115" font-size="13" fill="#14532d">• Pairs with: AND</text>
+                        <rect x="15" y="135" width="200" height="65" fill="#ffffff" rx="6"/>
+                        <text x="25" y="158" font-size="12" font-style="italic" fill="#0f172a">"<tspan font-weight="bold" fill="#16a34a">Both</tspan> Tom and</text>
+                        <text x="25" y="180" font-size="12" font-style="italic" fill="#0f172a">Mary pass exams."</text>
+                    </g>
+
+                    <!-- EITHER -->
+                    <g transform="translate(285, 30)">
+                        <rect width="230" height="220" fill="#fef3c7" rx="10" stroke="#fde68a" stroke-width="2"/>
+                        <text x="20" y="35" font-size="20" font-weight="bold" fill="#92400e">EITHER</text>
+                        <text x="20" y="65" font-size="14" font-weight="bold" fill="#78350f">• One or the other (50%)</text>
+                        <text x="20" y="90" font-size="13" fill="#78350f">• Singular verb</text>
+                        <text x="20" y="115" font-size="13" fill="#78350f">• Pairs with: OR</text>
+                        <rect x="15" y="135" width="200" height="65" fill="#ffffff" rx="6"/>
+                        <text x="25" y="158" font-size="12" font-style="italic" fill="#0f172a">"You can take <tspan font-weight="bold" fill="#d97706">either</tspan></text>
+                        <text x="25" y="180" font-size="12" font-style="italic" fill="#0f172a">tea or coffee."</text>
+                    </g>
+
+                    <!-- NEITHER -->
+                    <g transform="translate(545, 30)">
+                        <rect width="230" height="220" fill="#fee2e2" rx="10" stroke="#fecaca" stroke-width="2"/>
+                        <text x="20" y="35" font-size="20" font-weight="bold" fill="#991b1b">NEITHER</text>
+                        <text x="20" y="65" font-size="14" font-weight="bold" fill="#7f1d1d">• Not one nor other (0%)</text>
+                        <text x="20" y="90" font-size="13" fill="#7f1d1d">• Singular verb</text>
+                        <text x="20" y="115" font-size="13" fill="#7f1d1d">• Pairs with: NOR</text>
+                        <rect x="15" y="135" width="200" height="65" fill="#ffffff" rx="6"/>
+                        <text x="25" y="158" font-size="12" font-style="italic" fill="#0f172a">"<tspan font-weight="bold" fill="#dc2626">Neither</tspan> Bob nor</text>
+                        <text x="25" y="180" font-size="12" font-style="italic" fill="#0f172a">Sue came."</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="score-board">
+            Score: <span id="score">0</span> / 40
+        </div>
+
+        <div id="quiz-container"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, text: "________ Bob nor his sister is going to the conference.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither' pairs with 'nor' ('Neither... nor...')." },
+            { id: 2, text: "Pass me ________ one of those pens.", options: ["either", "neither", "both"], correct: "either", exp: "'Either' means 'one or the other' out of two choices." },
+            { id: 3, text: "________ Sarah and David love playing tennis on weekends.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both' pairs with 'and' ('Both... and...')." },
+            { id: 4, text: "You can choose ________ the red shirt or the blue one.", options: ["either", "neither", "both"], correct: "either", exp: "'Either' pairs with 'or' ('either... or...')." },
+            { id: 5, text: "________ of my parents are teachers.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both of' refers to two people together taking a plural verb." },
+            { id: 6, text: "________ of the two answers is correct; they are both wrong.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither' means 'not one and not the other' (0 out of 2)." },
+            { id: 7, text: "We can ________ stay home or go to the cinema.", options: ["either", "neither", "both"], correct: "either", exp: "'Either... or...' presents two possibilities." },
+            { id: 8, text: "________ John nor Peter knew the answer to the question.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither' correlates with 'nor'." },
+            { id: 9, text: "________ of my brothers live in London; they share an apartment.", options: ["Both", "Neither", "Either"], correct: "Both", exp: "'Both of' refers to two people doing the same thing." },
+            { id: 10, text: "________ my mom and my dad supported my decision.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both... and...' links two subjects." },
+            { id: 11, text: "The restaurant was ________ expensive and noisy.", options: ["both", "either", "neither"], correct: "both", exp: "'Both... and...' connects two adjectives." },
+            { id: 12, text: "________ rest candidate was suitable for the job position.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither candidate' means 'not option A and not option B'." },
+            { id: 13, text: "Is your friend Japanese or Korean? — ________. She is Chinese.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither' negates both options." },
+            { id: 14, text: "You can have ________ tea or coffee with your breakfast.", options: ["either", "neither", "both"], correct: "either", exp: "'Either... or...' presents two choices." },
+            { id: 15, text: "________ of the restaurants was open, so we had to go home hungry.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither of...' means none of the two options." },
+            { id: 16, text: "I have two dogs, and ________ of them love running in the park.", options: ["both", "either", "neither"], correct: "both", exp: "'Both of them' refers to 2 out of 2." },
+            { id: 17, text: "________ Mark nor his parents were at home when I called.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "Correlative conjunction 'Neither... nor'." },
+            { id: 18, text: "Which hotel do you prefer? — ________ is fine; they look equally nice.", options: ["Either", "Neither", "Both"], correct: "Either", exp: "'Either is fine' means 'any one of the two is acceptable'." },
+            { id: 19, text: "________ my sister and I are studying medicine at university.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both... and...' structure." },
+            { id: 20, text: "The hotel was ________ clean and comfortable.", options: ["both", "either", "neither"], correct: "both", exp: "'Both' connects two positive qualities." },
+            { id: 21, text: "________ side of the street had beautiful green trees.", options: ["Either", "Neither", "Both"], correct: "Either", exp: "'Either side' means each/any side with a singular noun." },
+            { id: 22, text: "________ of those key cards opens the main gate.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither of those key cards' = zero out of two." },
+            { id: 23, text: "I want to visit ________ Rome and Florence this summer.", options: ["both", "either", "neither"], correct: "both", exp: "'Both A and B' indicates visiting two places." },
+            { id: 24, text: "________ options seem reasonable, but I prefer the second one.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both options' takes a plural noun." },
+            { id: 25, text: "There were two road signs, but I didn't see ________ of them.", options: ["either", "neither", "both"], correct: "either", exp: "Use 'either' after a negative verb ('didn't see')." },
+            { id: 26, text: "________ James nor Lucy could solve the puzzle.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither' pairs with 'nor'." },
+            { id: 27, text: "________ shirt fits me well; they are both too small.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither shirt fits' = none of the two shirts fits." },
+            { id: 28, text: "Do you want cake or ice cream? — ________! I love desserts.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both!' means wanting both items together." },
+            { id: 29, text: "You can park on ________ side of the driveway.", options: ["either", "neither", "both"], correct: "either", exp: "'Either side' means one side or the other." },
+            { id: 30, text: "________ of the dresses suits her style.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither of' followed by singular verb 'suits'." },
+            { id: 31, text: "________ driving or taking the train will get you there on time.", options: ["Either", "Neither", "Both"], correct: "Either", exp: "'Either... or...' choice between two actions." },
+            { id: 32, text: "________ teams played exceptionally well in the final match.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both teams' takes a plural noun." },
+            { id: 33, text: "I tried two pairs of shoes, but ________ fitted comfortably.", options: ["neither", "either", "both"], correct: "neither", exp: "'Neither' means 0 out of 2 fitted." },
+            { id: 34, text: "We can print ________ on single-sided or double-sided paper.", options: ["either", "neither", "both"], correct: "either", exp: "'Either... or...' alternatives." },
+            { id: 35, text: "________ laptop is working, so I have to buy a new one.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither laptop' = none of the two." },
+            { id: 36, text: "________ of us knew how to fix the broken printer.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither of us' = 0 out of 2 people." },
+            { id: 37, text: "She can play ________ the piano and the violin fluently.", options: ["both", "either", "neither"], correct: "both", exp: "'Both... and...' structure." },
+            { id: 38, text: "Call ________ Monday or Tuesday to confirm your appointment.", options: ["either", "neither", "both"], correct: "either", exp: "'Either... or...' choice." },
+            { id: 39, text: "________ my brother nor my sister likes cold weather.", options: ["Neither", "Either", "Both"], correct: "Neither", exp: "'Neither... nor...' structure." },
+            { id: 40, text: "________ of the cars were damaged in the minor accident.", options: ["Both", "Either", "Neither"], correct: "Both", exp: "'Both of the cars' takes a plural verb 'were'." }
+        ];
+
+        let score = 0;
+        let checkedQuestions = new Set();
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            questions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const optionsHtml = q.options.map(opt => `
+                    <label class="option-label">
+                        <input type="radio" name="q-${q.id}" value="${opt}">
+                        ${opt}
+                    </label>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="sentence-flow">
+                        ${q.id}. ${q.text.replace('________', `<span id="gap-${q.id}" style="text-decoration: underline; font-weight: bold; color: #2563eb;">_______</span>`)}
+                    </div>
+                    <div class="options-group">
+                        ${optionsHtml}
+                    </div>
+                    <div class="card-footer">
+                        <button class="check-btn" onclick="checkAnswer(${q.id})">Check</button>
+                    </div>
+                    <div class="feedback" id="feedback-${q.id}"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(id) {
+            const q = questions.find(item => item.id === id);
+            const selectedRadio = document.querySelector(`input[name="q-${id}"]:checked`);
+            const feedback = document.getElementById(`feedback-${id}`);
+            const gap = document.getElementById(`gap-${id}`);
+
+            if (!selectedRadio) {
+                feedback.className = "feedback incorrect";
+                feedback.style.display = "block";
+                feedback.innerHTML = `<strong>Please select an option first!</strong>`;
+                return;
+            }
+
+            const userVal = selectedRadio.value;
+            const isCorrect = (userVal.toLowerCase() === q.correct.toLowerCase());
+
+            feedback.style.display = "block";
+            gap.innerText = userVal;
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = `<strong>Correct! 🎉</strong><div class="explanation">${q.exp}</div>`;
+                gap.style.color = "#059669";
+                
+                if (!checkedQuestions.has(id)) {
+                    score++;
+                    checkedQuestions.add(id);
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = `
+                    <strong>Not quite!</strong> Correct answer: <u>${q.correct}</u>
+                    <div class="explanation">${q.exp}</div>
+                `;
+                gap.style.color = "#dc2626";
+                
+                if (checkedQuestions.has(id)) {
+                    score--;
+                    checkedQuestions.delete(id);
+                    document.getElementById('score').innerText = score;
+                }
+            }
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

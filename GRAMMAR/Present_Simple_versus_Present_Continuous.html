@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple or Present Continuous - 60 Sentence Practice</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p.subtitle {
+            font-size: 1.05rem;
+            color: #94a3b8;
+        }
+
+        .score-board {
+            position: sticky;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #0f172a;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            margin-bottom: 30px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .section-title {
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .sentence-flow {
+            font-size: 1.1rem;
+            line-height: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            padding: 6px 14px;
+            font-size: 0.95rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            width: 220px;
+            outline: none;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        button.check-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+        }
+
+        button.check-btn:active {
+            transform: translateY(0);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback.incorrect {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .explanation {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .sentence-flow {
+                line-height: 2.8rem;
+            }
+            input[type="text"] {
+                width: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Present Simple or Present Continuous?</h1>
+            <p class="subtitle">Complete Practice Exercises (60 Sentences)</p>
+        </header>
+
+        <div class="score-board">
+            Score: <span id="score">0</span> / 60
+        </div>
+
+        <div id="quiz-container"></div>
+    </div>
+
+    <script>
+        const questions = [
+            // --- EXERCISE 1 ---
+            {
+                section: "Part 1: Exercise 1",
+                id: 1,
+                before: "",
+                after: "<em>(You / come)</em> tonight?",
+                answers: ["are you coming"],
+                explanation: "<strong>Present Continuous:</strong> Future arrangement ('tonight')."
+            },
+            {
+                id: 2,
+                before: "",
+                after: "<em>(He / eat)</em> rice every day?",
+                answers: ["does he eat"],
+                explanation: "<strong>Present Simple:</strong> Habitual action indicated by 'every day'."
+            },
+            {
+                id: 3,
+                before: "I",
+                after: "<em>(work)</em> at the moment.",
+                answers: ["am working", "'m working"],
+                explanation: "<strong>Present Continuous:</strong> Action in progress 'at the moment'."
+            },
+            {
+                id: 4,
+                before: "",
+                after: "<em>(He / come)</em> to London often?",
+                answers: ["does he come"],
+                explanation: "<strong>Present Simple:</strong> Habit or frequency indicated by 'often'."
+            },
+            {
+                id: 5,
+                before: "He",
+                after: "<em>(play)</em> tennis now.",
+                answers: ["is playing", "'s playing"],
+                explanation: "<strong>Present Continuous:</strong> Action taking place 'now'."
+            },
+            {
+                id: 6,
+                before: "",
+                after: "<em>(You / come)</em> to the cinema later?",
+                answers: ["are you coming"],
+                explanation: "<strong>Present Continuous:</strong> Near-future arrangement/plan ('later')."
+            },
+            {
+                id: 7,
+                before: "They",
+                after: "<em>(not / come)</em> to the party tomorrow.",
+                answers: ["aren't coming", "are not coming"],
+                explanation: "<strong>Present Continuous:</strong> Planned future negative event ('tomorrow')."
+            },
+            {
+                id: 8,
+                before: "He",
+                after: "<em>(not / play)</em> golf now.",
+                answers: ["isn't playing", "is not playing"],
+                explanation: "<strong>Present Continuous:</strong> Action not happening right 'now'."
+            },
+            {
+                id: 9,
+                before: "",
+                after: "<em>(You / play)</em> tennis this Sunday?",
+                answers: ["are you playing"],
+                explanation: "<strong>Present Continuous:</strong> Arranged activity for 'this Sunday'."
+            },
+            {
+                id: 10,
+                before: "They",
+                after: "<em>(go)</em> to a restaurant every Saturday.",
+                answers: ["go"],
+                explanation: "<strong>Present Simple:</strong> Recurring habit on 'every Saturday'."
+            },
+            {
+                id: 11,
+                before: "She",
+                after: "<em>(not / go)</em> to the cinema very often.",
+                answers: ["doesn't go", "does not go"],
+                explanation: "<strong>Present Simple:</strong> General habit/frequency ('very often')."
+            },
+            {
+                id: 12,
+                before: "You usually",
+                after: "<em>(arrive)</em> late.",
+                answers: ["arrive"],
+                explanation: "<strong>Present Simple:</strong> General habit signaled by 'usually'."
+            },
+            {
+                id: 13,
+                before: "He normally",
+                after: "<em>(eat)</em> dinner at home.",
+                answers: ["eats"],
+                explanation: "<strong>Present Simple:</strong> Habitual truth signaled by 'normally'."
+            },
+            {
+                id: 14,
+                before: "",
+                after: "<em>(You / study)</em> every night?",
+                answers: ["do you study"],
+                explanation: "<strong>Present Simple:</strong> Regular routine inquiry ('every night')."
+            },
+            {
+                id: 15,
+                before: "",
+                after: "<em>(They / work)</em> late usually?",
+                answers: ["do they work"],
+                explanation: "<strong>Present Simple:</strong> Routine habit inquiry ('usually')."
+            },
+            {
+                id: 16,
+                before: "You",
+                after: "<em>(not / go)</em> out later.",
+                answers: ["aren't going", "are not going"],
+                explanation: "<strong>Present Continuous:</strong> Fixed future intention ('later')."
+            },
+            {
+                id: 17,
+                before: "I",
+                after: "<em>(not / work)</em> tonight.",
+                answers: ["am not working", "'m not working"],
+                explanation: "<strong>Present Continuous:</strong> Planned situation for 'tonight'."
+            },
+            {
+                id: 18,
+                before: "",
+                after: "<em>(She / work)</em> at the moment?",
+                answers: ["is she working"],
+                explanation: "<strong>Present Continuous:</strong> Inquiry about action taking place 'at the moment'."
+            },
+            {
+                id: 19,
+                before: "I",
+                after: "<em>(not / drink)</em> coffee very often.",
+                answers: ["don't drink", "do not drink"],
+                explanation: "<strong>Present Simple:</strong> Permanent habit/preference ('very often')."
+            },
+            {
+                id: 20,
+                before: "Julie",
+                after: "<em>(sleep)</em> now.",
+                answers: ["is sleeping", "'s sleeping"],
+                explanation: "<strong>Present Continuous:</strong> Action in progress right 'now'."
+            },
+
+            // --- EXERCISE 2 ---
+            {
+                section: "Part 2: Exercise 2",
+                id: 21,
+                before: "You",
+                after: "<em>(not / like)</em> chocolate.",
+                answers: ["don't like", "do not like"],
+                explanation: "<strong>Present Simple:</strong> 'Like' is a stative verb expressing feelings."
+            },
+            {
+                id: 22,
+                before: "She",
+                after: "<em>(not / study)</em> at the moment.",
+                answers: ["isn't studying", "is not studying"],
+                explanation: "<strong>Present Continuous:</strong> Action not happening 'at the moment'."
+            },
+            {
+                id: 23,
+                before: "We often",
+                after: "<em>(go)</em> to the cinema.",
+                answers: ["go"],
+                explanation: "<strong>Present Simple:</strong> Regular habit indicated by 'often'."
+            },
+            {
+                id: 24,
+                before: "He usually",
+                after: "<em>(not / do)</em> his homework. [e.g. doesn't do]",
+                answers: ["doesn't do", "does not do"],
+                explanation: "<strong>Present Simple:</strong> General habit signaled by 'usually'."
+            },
+            {
+                id: 25,
+                before: "They",
+                after: "<em>(not / eat)</em> rice every day.",
+                answers: ["don't eat", "do not eat"],
+                explanation: "<strong>Present Simple:</strong> Negative daily habit ('every day')."
+            },
+            {
+                id: 26,
+                before: "We",
+                after: "<em>(not / study)</em> every night.",
+                answers: ["don't study", "do not study"],
+                explanation: "<strong>Present Simple:</strong> Routine/schedule statement ('every night')."
+            },
+            {
+                id: 27,
+                before: "",
+                after: "<em>(You / like)</em> spicy food?",
+                answers: ["do you like"],
+                explanation: "<strong>Present Simple:</strong> Stative verb 'like' for personal preferences."
+            },
+            {
+                id: 28,
+                before: "",
+                after: "<em>(She / go)</em> to Scotland often?",
+                answers: ["does she go"],
+                explanation: "<strong>Present Simple:</strong> Inquiry about routine travel ('often')."
+            },
+            {
+                id: 29,
+                before: "",
+                after: "<em>(He / eat)</em> now?",
+                answers: ["is he eating"],
+                explanation: "<strong>Present Continuous:</strong> Question about an action happening 'now'."
+            },
+            {
+                id: 30,
+                before: "We",
+                after: "<em>(go)</em> to the cinema this weekend.",
+                answers: ["are going"],
+                explanation: "<strong>Present Continuous:</strong> Planned future arrangement ('this weekend')."
+            },
+            {
+                id: 31,
+                before: "They",
+                after: "<em>(study)</em> now.",
+                answers: ["are studying", "'re studying"],
+                explanation: "<strong>Present Continuous:</strong> Ongoing activity 'now'."
+            },
+            {
+                id: 32,
+                before: "I",
+                after: "<em>(clean)</em> the kitchen every day.",
+                answers: ["clean"],
+                explanation: "<strong>Present Simple:</strong> Regular routine ('every day')."
+            },
+            {
+                id: 33,
+                before: "She",
+                after: "<em>(work)</em> every Sunday.",
+                answers: ["works"],
+                explanation: "<strong>Present Simple:</strong> Recurring habit on 'every Sunday'."
+            },
+            {
+                id: 34,
+                before: "We",
+                after: "<em>(not / sleep)</em> now.",
+                answers: ["aren't sleeping", "are not sleeping"],
+                explanation: "<strong>Present Continuous:</strong> Action not happening right 'now'."
+            },
+            {
+                id: 35,
+                before: "He",
+                after: "<em>(not / go)</em> to the park very often.",
+                answers: ["doesn't go", "does not go"],
+                explanation: "<strong>Present Simple:</strong> Routine/habit statement ('very often')."
+            },
+            {
+                id: 36,
+                before: "It",
+                after: "<em>(rain)</em> a lot here.",
+                answers: ["rains"],
+                explanation: "<strong>Present Simple:</strong> General climate fact."
+            },
+            {
+                id: 37,
+                before: "I",
+                after: "<em>(go)</em> on holiday tomorrow.",
+                answers: ["am going", "'m going"],
+                explanation: "<strong>Present Continuous:</strong> Fixed arrangement for 'tomorrow'."
+            },
+            {
+                id: 38,
+                before: "How long",
+                after: "<em>(she / stay)</em> in London?",
+                answers: ["is she staying"],
+                explanation: "<strong>Present Continuous:</strong> Temporary period/duration of stay."
+            },
+            {
+                id: 39,
+                before: "I often",
+                after: "<em>(read)</em> at night.",
+                answers: ["read"],
+                explanation: "<strong>Present Simple:</strong> Regular habit ('often')."
+            },
+            {
+                id: 40,
+                before: "We",
+                after: "<em>(not / drink)</em> much wine.",
+                answers: ["don't drink", "do not drink"],
+                explanation: "<strong>Present Simple:</strong> General fact/habit."
+            },
+
+            // --- EXERCISE 3 ---
+            {
+                section: "Part 3: Exercise 3",
+                id: 41,
+                before: "Julie",
+                after: "<em>(read)</em> in the garden.",
+                answers: ["is reading", "'s reading"],
+                explanation: "<strong>Present Continuous:</strong> Action happening right now."
+            },
+            {
+                id: 42,
+                before: "What",
+                after: "<em>(we / have)</em> for dinner tonight?",
+                answers: ["are we having"],
+                explanation: "<strong>Present Continuous:</strong> Future arrangement ('tonight')."
+            },
+            {
+                id: 43,
+                before: "She",
+                after: "<em>(have)</em> two daughters.",
+                answers: ["has"],
+                explanation: "<strong>Present Simple:</strong> 'Have' is a stative verb indicating family relation/possession."
+            },
+            {
+                id: 44,
+                before: "I",
+                after: "<em>(stay)</em> in Spain for two weeks this summer.",
+                answers: ["am staying", "'m staying"],
+                explanation: "<strong>Present Continuous:</strong> Temporary stay / planned future arrangement."
+            },
+            {
+                id: 45,
+                before: "He often",
+                after: "<em>(come)</em> over for dinner.",
+                answers: ["comes"],
+                explanation: "<strong>Present Simple:</strong> Habitual event signaled by 'often'."
+            },
+            {
+                id: 46,
+                before: "The class",
+                after: "<em>(begin)</em> at nine every day.",
+                answers: ["begins"],
+                explanation: "<strong>Present Simple:</strong> Timetable schedule ('every day')."
+            },
+            {
+                id: 47,
+                before: "What",
+                after: "<em>(you / eat)</em> at the moment?",
+                answers: ["are you eating"],
+                explanation: "<strong>Present Continuous:</strong> Action happening 'at the moment'."
+            },
+            {
+                id: 48,
+                before: "What",
+                after: "<em>(Susie / do)</em> tomorrow?",
+                answers: ["is Susie doing", "is susie doing"],
+                explanation: "<strong>Present Continuous:</strong> Future arrangement ('tomorrow')."
+            },
+            {
+                id: 49,
+                before: "I",
+                after: "<em>(not / work)</em> on Sundays.",
+                answers: ["don't work", "do not work"],
+                explanation: "<strong>Present Simple:</strong> General habit/schedule ('on Sundays')."
+            },
+            {
+                id: 50,
+                before: "She",
+                after: "<em>(not / study)</em> now, she <em>(watch)</em> TV. [Type answer as: isn't studying, is watching]",
+                answers: [
+                    "isn't studying, is watching", 
+                    "is not studying, is watching",
+                    "isn't studying, 's watching",
+                    "is not studying, 's watching"
+                ],
+                explanation: "<strong>Present Continuous:</strong> Actions happening right 'now'."
+            },
+            {
+                id: 51,
+                before: "How often",
+                after: "<em>(you / go)</em> to restaurants?",
+                answers: ["do you go"],
+                explanation: "<strong>Present Simple:</strong> Asking about frequency of habits."
+            },
+            {
+                id: 52,
+                before: "I",
+                after: "<em>(not / go)</em> on holiday this summer.",
+                answers: ["am not going", "'m not going"],
+                explanation: "<strong>Present Continuous:</strong> Future arrangements for 'this summer'."
+            },
+            {
+                id: 53,
+                before: "I'm sorry, I",
+                after: "<em>(not / understand)</em>.",
+                answers: ["don't understand", "do not understand"],
+                explanation: "<strong>Present Simple:</strong> 'Understand' is a stative mental verb."
+            },
+            {
+                id: 54,
+                before: "She",
+                after: "<em>(work)</em> as a waitress for a month.",
+                answers: ["is working", "'s working"],
+                explanation: "<strong>Present Continuous:</strong> Temporary situation ('for a month')."
+            },
+            {
+                id: 55,
+                before: "She",
+                after: "<em>(take)</em> a salsa dancing class every Tuesday.",
+                answers: ["takes"],
+                explanation: "<strong>Present Simple:</strong> Scheduled habit ('every Tuesday')."
+            },
+            {
+                id: 56,
+                before: "It",
+                after: "<em>(be)</em> cold here in winter.",
+                answers: ["is", "'s"],
+                explanation: "<strong>Present Simple:</strong> General fact about the climate."
+            },
+            {
+                id: 57,
+                before: "Take your umbrella, it",
+                after: "<em>(rain)</em>.",
+                answers: ["is raining", "'s raining"],
+                explanation: "<strong>Present Continuous:</strong> Action taking place at the moment of speaking."
+            },
+            {
+                id: 58,
+                before: "This cake",
+                after: "<em>(taste)</em> delicious.",
+                answers: ["tastes"],
+                explanation: "<strong>Present Simple:</strong> Stative sense verb 'taste'."
+            },
+            {
+                id: 59,
+                before: "The bag",
+                after: "<em>(belong)</em> to Jack.",
+                answers: ["belongs"],
+                explanation: "<strong>Present Simple:</strong> Stative verb indicating ownership."
+            },
+            {
+                id: 60,
+                before: "When",
+                after: "<em>(you / arrive)</em> tonight?",
+                answers: ["are you arriving"],
+                explanation: "<strong>Present Continuous:</strong> Future planned arrival ('tonight')."
+            }
+        ];
+
+        let score = 0;
+        let checkedQuestions = new Set();
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            let currentSection = "";
+
+            questions.forEach(q => {
+                if (q.section && q.section !== currentSection) {
+                    currentSection = q.section;
+                    const secHeader = document.createElement('h2');
+                    secHeader.className = 'section-title';
+                    secHeader.innerText = currentSection;
+                    container.appendChild(secHeader);
+                }
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="sentence-flow">
+                        ${q.id}. ${q.before} 
+                        <input type="text" id="input-${q.id}" placeholder="type verb..." autocomplete="off">
+                        ${q.after}
+                    </div>
+                    <div class="card-footer">
+                        <button class="check-btn" onclick="checkAnswer(${q.id})">Check</button>
+                    </div>
+                    <div class="feedback" id="feedback-${q.id}"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(id) {
+            const q = questions.find(item => item.id === id);
+            const input = document.getElementById(`input-${id}`);
+            const feedback = document.getElementById(`feedback-${id}`);
+            const userVal = input.value.trim().toLowerCase();
+
+            if (userVal === "") {
+                feedback.className = "feedback incorrect";
+                feedback.style.display = "block";
+                feedback.innerHTML = `<strong>Please enter an answer first!</strong>`;
+                return;
+            }
+
+            const isCorrect = q.answers.map(a => a.toLowerCase()).includes(userVal);
+
+            feedback.style.display = "block";
+            
+            if (isCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = `<strong>Correct! 🎉</strong><div class="explanation">${q.explanation}</div>`;
+                
+                if (!checkedQuestions.has(id)) {
+                    score++;
+                    checkedQuestions.add(id);
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = `
+                    <strong>Not quite!</strong> Correct answer: <u>${q.answers[0]}</u>
+                    <div class="explanation">${q.explanation}</div>
+                `;
+                
+                if (checkedQuestions.has(id)) {
+                    score--;
+                    checkedQuestions.delete(id);
+                    document.getElementById('score').innerText = score;
+                }
+            }
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

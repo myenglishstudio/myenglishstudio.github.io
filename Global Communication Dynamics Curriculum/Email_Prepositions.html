@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Expressions & Prepositions Practice</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p.subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        /* Word Bank Box */
+        .bank-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .bank-card h2 {
+            font-size: 1.15rem;
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .bank-section {
+            margin-bottom: 12px;
+        }
+
+        .bank-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .bank-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .tag-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            color: #334155;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-family: monospace;
+            border: 1px solid #cbd5e1;
+        }
+
+        .score-board {
+            position: sticky;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #0f172a;
+            padding: 10px 22px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            margin-bottom: 25px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .letter-tag {
+            display: inline-block;
+            font-weight: 700;
+            color: #2563eb;
+            margin-right: 6px;
+            font-size: 1.15rem;
+        }
+
+        .sentence-flow {
+            font-size: 1.05rem;
+            line-height: 2.3rem;
+            margin-bottom: 12px;
+        }
+
+        input[type="text"] {
+            padding: 4px 10px;
+            font-size: 0.95rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            margin: 0 3px;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 7px 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+            white-space: nowrap;
+        }
+
+        button.check-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.92rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback.incorrect {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .explanation {
+            margin-top: 6px;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Useful Expressions in E-mails</h1>
+            <p class="subtitle">Complete the email sentences using prepositions from the box</p>
+        </header>
+
+        <!-- Preposition Pool -->
+        <div class="bank-card">
+            <h2>Word Bank (Prepositions)</h2>
+            <div class="bank-section">
+                <div class="bank-label">Single Prepositions:</div>
+                <div class="tag-wrap">
+                    <span class="tag">at</span>
+                    <span class="tag">against</span>
+                    <span class="tag">out</span>
+                    <span class="tag">of</span>
+                    <span class="tag">to</span>
+                    <span class="tag">down</span>
+                    <span class="tag">through</span>
+                    <span class="tag">in</span>
+                    <span class="tag">back</span>
+                    <span class="tag">off</span>
+                    <span class="tag">up</span>
+                    <span class="tag">on</span>
+                    <span class="tag">with</span>
+                </div>
+            </div>
+            <div class="bank-section" style="margin-top: 12px;">
+                <div class="bank-label">Compound / Paired Prepositions:</div>
+                <div class="tag-wrap">
+                    <span class="tag">back + to</span>
+                    <span class="tag">through + to</span>
+                    <span class="tag">up + on</span>
+                    <span class="tag">in + on</span>
+                    <span class="tag">up + to</span>
+                    <span class="tag">out + with</span>
+                    <span class="tag">on + to</span>
+                    <span class="tag">out + on</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="score-board">
+            Score: <span id="score">0</span> / 9
+        </div>
+
+        <div id="quiz-container"></div>
+    </div>
+
+    <script>
+        const exercises = [
+            {
+                letter: "a",
+                template: "Have a quick look <input type='text' style='width:65px;' data-ans='at'> these figures and get <input type='text' style='width:75px;' data-ans='back'> <input type='text' style='width:65px;' data-ans='to'> me asap.",
+                exp: "<strong>look at</strong> (examine) / <strong>get back to someone</strong> (reply/respond to someone)."
+            },
+            {
+                letter: "b",
+                template: "Let me know if you need any help <input type='text' style='width:75px;' data-ans='with'> the Koreans. And copy me <input type='text' style='width:65px;' data-ans='in'> <input type='text' style='width:65px;' data-ans='on'> any correspondence <input type='text' style='width:75px;' data-ans='with'> them.",
+                exp: "<strong>help with</strong> something / <strong>copy someone in on</strong> an email (cc someone) / <strong>correspondence with</strong> someone."
+            },
+            {
+                letter: "c",
+                template: "Could you get <input type='text' style='width:85px;' data-ans='on'> <input type='text' style='width:65px;' data-ans='to'> our suppliers and sort something <input type='text' style='width:65px;' data-ans='out'> <input type='text' style='width:75px;' data-ans='with'> them? I'll leave the details <input type='text' style='width:65px;' data-ans='to'> you, but keep me <input type='text' style='width:65px;' data-ans='in'> the loop.",
+                exp: "<strong>get on to</strong> someone (contact/chase someone) / <strong>sort something out with</strong> someone / <strong>leave something to</strong> someone / <strong>keep someone in the loop</strong> (keep informed)."
+            },
+            {
+                letter: "d",
+                template: "BTW, you did a great job <input type='text' style='width:65px;' data-ans='on'> the presentation. It went <input type='text' style='width:70px;' data-ans='down'> really well <input type='text' style='width:75px;' data-ans='with'> the Belgians. We'll just have to wait and see what they come <input type='text' style='width:65px;' data-ans='back'> to us <input type='text' style='width:75px;' data-ans='with'>.",
+                exp: "<strong>job on</strong> something / <strong>go down well with</strong> (be well-received by) / <strong>come back to someone with</strong> (return with an answer/proposal)."
+            },
+            {
+                letter: "e",
+                template: "Can you update me <input type='text' style='width:65px;' data-ans='on'> where we are <input type='text' style='width:75px;' data-ans='with'> the Expo arrangements? I'm a bit <input type='text' style='width:65px;' data-ans='out'> of touch. Can I leave it <input type='text' style='width:65px;' data-ans='up'> <input type='text' style='width:65px;' data-ans='to'> you to contact the speakers?",
+                exp: "<strong>update someone on</strong> something / where we are <strong>with</strong> / <strong>out of touch</strong> (not up-to-date) / <strong>leave it up to you</strong> (entrust to you)."
+            },
+            {
+                letter: "f",
+                template: "I'd like to sound you <input type='text' style='width:65px;' data-ans='out'> <input type='text' style='width:65px;' data-ans='on'> this new packaging idea. Let's meet <input type='text' style='width:65px;' data-ans='up'> to discuss it sometime next week. BTW, I still can't seem to get <input type='text' style='width:85px;' data-ans='through'> <input type='text' style='width:65px;' data-ans='to'> Monica.",
+                exp: "<strong>sound someone out on</strong> (ask someone's preliminary opinion) / <strong>meet up</strong> / <strong>get through to</strong> (make phone or communication contact)."
+            },
+            {
+                letter: "g",
+                template: "I know you're <input type='text' style='width:65px;' data-ans='up'> to your neck in work at the moment and probably don't want to take <input type='text' style='width:65px;' data-ans='on'> any more, but could you take this Milan thing <input type='text' style='width:65px;' data-ans='off'> my hands? THNX",
+                exp: "<strong>up to your neck in</strong> (overwhelmed with) / <strong>take on</strong> (accept responsibility) / <strong>take something off someone's hands</strong> (relieve someone of a burden)."
+            },
+            {
+                letter: "h",
+                template: "I haven't had time to read <input type='text' style='width:85px;' data-ans='through'> the whole report and I'll probably need to check some of these figures <input type='text' style='width:85px;' data-ans='against'> the computer, but leave it <input type='text' style='width:75px;' data-ans='with'> me.",
+                exp: "<strong>read through</strong> (read from start to finish) / <strong>check against</strong> (verify by comparing) / <strong>leave it with me</strong> (I will handle it)."
+            },
+            {
+                letter: "i",
+                template: "Thanks for your offer <input type='text' style='width:65px;' data-ans='of'> a beer. If I can finish this report <input type='text' style='width:65px;' data-ans='off'> by 7, I may just take you <input type='text' style='width:65px;' data-ans='up'> <input type='text' style='width:65px;' data-ans='on'> it! I could certainly do <input type='text' style='width:75px;' data-ans='with'> one!",
+                exp: "<strong>offer of</strong> something / <strong>finish off</strong> (complete) / <strong>take someone up on</strong> an offer / <strong>do with</strong> (benefit from / need)."
+            }
+        ];
+
+        let score = 0;
+        const checkedSet = new Set();
+
+        function renderCards() {
+            const container = document.getElementById('quiz-container');
+            exercises.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.id = `card-${index}`;
+                card.innerHTML = `
+                    <div class="sentence-flow">
+                        <span class="letter-tag">${item.letter}</span> ${item.template}
+                    </div>
+                    <div class="card-footer">
+                        <button class="check-btn" onclick="checkItem(${index})">Check</button>
+                    </div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkItem(idx) {
+            const card = document.getElementById(`card-${idx}`);
+            const inputs = Array.from(card.querySelectorAll('input[type="text"]'));
+            const feedback = document.getElementById(`feedback-${idx}`);
+
+            let allFilled = true;
+            let allCorrect = true;
+            const correctAnswers = [];
+
+            inputs.forEach(input => {
+                const userVal = input.value.trim().toLowerCase();
+                const expected = input.getAttribute('data-ans').toLowerCase();
+                correctAnswers.push(input.getAttribute('data-ans'));
+
+                if (!userVal) {
+                    allFilled = false;
+                }
+                if (userVal !== expected) {
+                    allCorrect = false;
+                }
+            });
+
+            feedback.style.display = "block";
+
+            if (!allFilled) {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = `<strong>Please fill in all blanks before checking!</strong>`;
+                return;
+            }
+
+            if (allCorrect) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = `
+                    <strong>Correct! 🎉</strong>
+                    <div class="explanation">${exercises[idx].exp}</div>
+                `;
+                if (!checkedSet.has(idx)) {
+                    score++;
+                    checkedSet.add(idx);
+                    document.getElementById('score').innerText = score;
+                }
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = `
+                    <strong>Not quite!</strong> Correct preposition(s): <u>${correctAnswers.join(' — ')}</u>
+                    <div class="explanation">${exercises[idx].exp}</div>
+                `;
+                if (checkedSet.has(idx)) {
+                    score--;
+                    checkedSet.delete(idx);
+                    document.getElementById('score').innerText = score;
+                }
+            }
+        }
+
+        window.onload = renderCards;
+    </script>
+</body>
+</html>

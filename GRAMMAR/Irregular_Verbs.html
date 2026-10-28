@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Irregular Verbs Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-blue: #1e62d0;
+      --primary-hover: #164ea8;
+      --card-bg: #ffffff;
+      --card-radius: 20px;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --success-text: #047857;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --error-text: #b91c1c;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+      background-color: #0b1325;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(11, 19, 37, 0.95) 100%),
+        url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      padding: 48px 16px 80px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Top Titles */
+    .header-title-box {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 800px;
+    }
+
+    .header-title-box h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .header-title-box p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    /* Score Badge */
+    .score-badge-container {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .score-badge {
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 10px 32px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sentences / Verbs Section Cards */
+    .cards-container {
+      width: 100%;
+      max-width: 1040px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .verb-card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 22px 28px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .verb-card:hover {
+      box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+
+    .verb-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .verb-num {
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 0.8rem;
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .verb-inputs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-field:focus {
+      background: #ffffff;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(30, 98, 208, 0.15);
+    }
+
+    .input-field.correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+    }
+
+    .input-field.incorrect {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+    }
+
+    .error-hint {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--error-text);
+      display: none;
+      margin-top: 2px;
+    }
+
+    .error-hint.visible {
+      display: block;
+    }
+
+    /* Section Check Card */
+    .section-break-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px dashed #93c5fd;
+      border-radius: 16px;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .section-break-info {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .btn-section-check {
+      background: var(--primary-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 8px 24px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(30, 98, 208, 0.25);
+    }
+
+    .btn-section-check:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Bottom Global Controls */
+    .global-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 36px;
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .btn-global {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-global-primary {
+      background: var(--primary-blue);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(30, 98, 208, 0.35);
+    }
+
+    .btn-global-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-global-secondary {
+      background: #ffffff;
+      color: #334155;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-global-secondary:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .verb-inputs-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-title-box h1 {
+        font-size: 1.8rem;
+      }
+      .verb-card {
+        padding: 16px;
+      }
+      .section-break-card {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Title & Subtitle -->
+  <div class="header-title-box">
+    <h1>Irregular Verbs Master Quiz</h1>
+    <p>Fill in the Base form (Infinitive), Past Simple, and Past Participle for each Polish translation.</p>
+  </div>
+
+  <!-- Score Pill -->
+  <div class="score-badge-container">
+    <div class="score-badge" id="scorePill">Score: 0 / 231</div>
+  </div>
+
+  <!-- Main Verbs List -->
+  <div class="cards-container" id="cardsContainer">
+    <!-- Populated dynamically with cards -->
+  </div>
+
+  <!-- Bottom Global Actions -->
+  <div class="global-controls">
+    <button class="btn-global btn-global-primary" onclick="checkAllAnswers()">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+      Check All
+    </button>
+    <button class="btn-global btn-global-secondary" onclick="renderQuiz()">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+      Reshuffle &amp; Clear
+    </button>
+  </div>
+
+  <script>
+    const verbsData = [
+      { pl: "kosztować", v1: ["cost"], v2: ["cost"], v3: ["cost"] },
+      { pl: "ciąć / kroić", v1: ["cut"], v2: ["cut"], v3: ["cut"] },
+      { pl: "uderzyć", v1: ["hit"], v2: ["hit"], v3: ["hit"] },
+      { pl: "ranić / boleć", v1: ["hurt"], v2: ["hurt"], v3: ["hurt"] },
+      { pl: "pozwalać", v1: ["let"], v2: ["let"], v3: ["let"] },
+      { pl: "kłaść / położyć", v1: ["put"], v2: ["put"], v3: ["put"] },
+      { pl: "zamykać", v1: ["shut"], v2: ["shut"], v3: ["shut"] },
+      { pl: "pożyczać (komuś)", v1: ["lend"], v2: ["lent"], v3: ["lent"] },
+      { pl: "wysyłać", v1: ["send"], v2: ["sent"], v3: ["sent"] },
+      { pl: "spędzać / wydawać", v1: ["spend"], v2: ["spent"], v3: ["spent"] },
+      { pl: "budować", v1: ["build"], v2: ["built"], v3: ["built"] },
+      { pl: "palić się / parzyć", v1: ["burn"], v2: ["burnt", "burned"], v3: ["burnt", "burned"] },
+      { pl: "uczyć się", v1: ["learn"], v2: ["learnt", "learned"], v3: ["learnt", "learned"] },
+      { pl: "pachnieć / wąchać", v1: ["smell"], v2: ["smelt", "smelled"], v3: ["smelt", "smelled"] },
+      { pl: "czuć", v1: ["feel"], v2: ["felt"], v3: ["felt"] },
+      { pl: "zostawiać / opuszczać", v1: ["leave"], v2: ["left"], v3: ["left"] },
+      { pl: "spotykać", v1: ["meet"], v2: ["met"], v3: ["met"] },
+      { pl: "śnić / marzyć", v1: ["dream"], v2: ["dreamt", "dreamed"], v3: ["dreamt", "dreamed"] },
+      { pl: "znaczyć / mieć na myśli", v1: ["mean"], v2: ["meant"], v3: ["meant"] },
+      { pl: "zgubić / tracić", v1: ["lose"], v2: ["lost"], v3: ["lost"] },
+      { pl: "strzelać", v1: ["shoot"], v2: ["shot"], v3: ["shot"] },
+      { pl: "dostawać", v1: ["get"], v2: ["got"], v3: ["got", "gotten"] },
+      { pl: "zapalać / oświetlać", v1: ["light"], v2: ["lit"], v3: ["lit"] },
+      { pl: "siedzieć", v1: ["sit"], v2: ["sat"], v3: ["sat"] },
+      { pl: "trzymać / zachować", v1: ["keep"], v2: ["kept"], v3: ["kept"] },
+      { pl: "spać", v1: ["sleep"], v2: ["slept"], v3: ["slept"] },
+      { pl: "przynosić", v1: ["bring"], v2: ["brought"], v3: ["brought"] },
+      { pl: "kupować", v1: ["buy"], v2: ["bought"], v3: ["bought"] },
+      { pl: "walczyć", v1: ["fight"], v2: ["fought"], v3: ["fought"] },
+      { pl: "myśleć", v1: ["think"], v2: ["thought"], v3: ["thought"] },
+      { pl: "łapać", v1: ["catch"], v2: ["caught"], v3: ["caught"] },
+      { pl: "nauczać / uczyć kogoś", v1: ["teach"], v2: ["taught"], v3: ["taught"] },
+      { pl: "sprzedawać", v1: ["sell"], v2: ["sold"], v3: ["sold"] },
+      { pl: "powiedzieć / opowiadać", v1: ["tell"], v2: ["told"], v3: ["told"] },
+      { pl: "znaleźć", v1: ["find"], v2: ["found"], v3: ["found"] },
+      { pl: "mieć", v1: ["have"], v2: ["had"], v3: ["had"] },
+      { pl: "słyszeć", v1: ["hear"], v2: ["heard"], v3: ["heard"] },
+      { pl: "trzymać (np. w ręku)", v1: ["hold"], v2: ["held"], v3: ["held"] },
+      { pl: "czytać", v1: ["read"], v2: ["read"], v3: ["read"] },
+      { pl: "mówić / powiedzieć", v1: ["say"], v2: ["said"], v3: ["said"] },
+      { pl: "płacić", v1: ["pay"], v2: ["paid"], v3: ["paid"] },
+      { pl: "robić / tworzyć", v1: ["make"], v2: ["made"], v3: ["made"] },
+      { pl: "stać", v1: ["stand"], v2: ["stood"], v3: ["stood"] },
+      { pl: "rozumieć", v1: ["understand"], v2: ["understood"], v3: ["understood"] },
+      { pl: "łamać / psuć", v1: ["break"], v2: ["broke"], v3: ["broken"] },
+      { pl: "wybierać", v1: ["choose"], v2: ["chose"], v3: ["chosen"] },
+      { pl: "rozmawiać / mówić", v1: ["speak"], v2: ["spoke"], v3: ["spoken"] },
+      { pl: "kraść", v1: ["steal"], v2: ["stole"], v3: ["stolen"] },
+      { pl: "budzić (się)", v1: ["wake"], v2: ["woke"], v3: ["woken"] },
+      { pl: "prowadzić auto", v1: ["drive"], v2: ["drove"], v3: ["driven"] },
+      { pl: "jeździć (na rowerze/koniu)", v1: ["ride"], v2: ["rode"], v3: ["ridden"] },
+      { pl: "wznosić się / wstawać", v1: ["rise"], v2: ["rose"], v3: ["risen"] },
+      { pl: "pisać", v1: ["write"], v2: ["wrote"], v3: ["written"] },
+      { pl: "bić / pokonać", v1: ["beat"], v2: ["beat"], v3: ["beaten"] },
+      { pl: "gryźć", v1: ["bite"], v2: ["bit"], v3: ["bitten"] },
+      { pl: "chować (się)", v1: ["hide"], v2: ["hid"], v3: ["hidden"] },
+      { pl: "jeść", v1: ["eat"], v2: ["ate"], v3: ["eaten"] },
+      { pl: "upadać", v1: ["fall"], v2: ["fell"], v3: ["fallen"] },
+      { pl: "zapominać", v1: ["forget"], v2: ["forgot"], v3: ["forgotten"] },
+      { pl: "dawać", v1: ["give"], v2: ["gave"], v3: ["given"] },
+      { pl: "widzieć", v1: ["see"], v2: ["saw"], v3: ["seen"] },
+      { pl: "brać", v1: ["take"], v2: ["took"], v3: ["taken"] },
+      { pl: "wiać / dąć", v1: ["blow"], v2: ["blew"], v3: ["blown"] },
+      { pl: "rosnąć", v1: ["grow"], v2: ["grew"], v3: ["grown"] },
+      { pl: "wiedzieć / znać", v1: ["know"], v2: ["knew"], v3: ["known"] },
+      { pl: "rzucać", v1: ["throw"], v2: ["threw"], v3: ["thrown"] },
+      { pl: "latać", v1: ["fly"], v2: ["flew"], v3: ["flown"] },
+      { pl: "rysować", v1: ["draw"], v2: ["drew"], v3: ["drawn"] },
+      { pl: "pokazywać", v1: ["show"], v2: ["showed"], v3: ["shown", "showed"] },
+      { pl: "zaczynać", v1: ["begin"], v2: ["began"], v3: ["begun"] },
+      { pl: "pić", v1: ["drink"], v2: ["drank"], v3: ["drunk"] },
+      { pl: "pływać", v1: ["swim"], v2: ["swam"], v3: ["swum"] },
+      { pl: "dzwonić", v1: ["ring"], v2: ["rang"], v3: ["rung"] },
+      { pl: "śpiewać", v1: ["sing"], v2: ["sang"], v3: ["sung"] },
+      { pl: "biegać", v1: ["run"], v2: ["ran"], v3: ["run"] },
+      { pl: "przychodzić", v1: ["come"], v2: ["came"], v3: ["come"] },
+      { pl: "stawać się", v1: ["become"], v2: ["became"], v3: ["become"] }
+    ];
+
+    let currentList = [];
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById("cardsContainer");
+      container.innerHTML = "";
+      currentList = shuffle(verbsData);
+
+      currentList.forEach((item, index) => {
+        // Individual Verb Card
+        const card = document.createElement("div");
+        card.className = "verb-card";
+        card.innerHTML = `
+          <div class="card-header-bar">
+            <div class="verb-title">
+              <span class="verb-num">#${index + 1}</span>
+              <span>${item.pl}</span>
+            </div>
+          </div>
+          <div class="verb-inputs-grid">
+            <div class="input-group">
+              <label class="input-label">1. Base Form (Infinitive)</label>
+              <input type="text" class="input-field" autocomplete="off" spellcheck="false" placeholder="Infinitive" data-type="v1" data-index="${index}">
+              <div class="error-hint" id="hint-v1-${index}"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">2. Past Simple</label>
+              <input type="text" class="input-field" autocomplete="off" spellcheck="false" placeholder="Past Simple" data-type="v2" data-index="${index}">
+              <div class="error-hint" id="hint-v2-${index}"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">3. Past Participle</label>
+              <input type="text" class="input-field" autocomplete="off" spellcheck="false" placeholder="Past Participle" data-type="v3" data-index="${index}">
+              <div class="error-hint" id="hint-v3-${index}"></div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+
+        // Section Check card after every 5 verbs or at the very end
+        const isEveryFifth = (index + 1) % 5 === 0;
+        const isLast = (index + 1) === currentList.length;
+
+        if (isEveryFifth || isLast) {
+          const startIdx = Math.floor(index / 5) * 5;
+          const endIdx = index;
+          const breakCard = document.createElement("div");
+          breakCard.className = "section-break-card";
+          breakCard.innerHTML = `
+            <div class="section-break-info" id="sec-label-${startIdx}">Section ${startIdx + 1}–${endIdx + 1}</div>
+            <button type="button" class="btn-section-check" onclick="checkSection(${startIdx}, ${endIdx})">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Check Section
+            </button>
+          `;
+          container.appendChild(breakCard);
+        }
+      });
+
+      updateScoreBadge();
+    }
+
+    function normalize(text) {
+      return text.trim().toLowerCase();
+    }
+
+    window.checkSection = function(startIndex, endIndex) {
+      let correctInSec = 0;
+      const totalInSec = (endIndex - startIndex + 1) * 3;
+
+      for (let i = startIndex; i <= endIndex; i++) {
+        const item = currentList[i];
+        ['v1', 'v2', 'v3'].forEach(type => {
+          const input = document.querySelector(`input[data-type="${type}"][data-index="${i}"]`);
+          const hint = document.getElementById(`hint-${type}-${i}`);
+          const val = normalize(input.value);
+
+          if (item[type].some(ans => normalize(ans) === val)) {
+            input.className = "input-field correct";
+            hint.classList.remove("visible");
+            correctInSec++;
+          } else {
+            input.className = "input-field incorrect";
+            hint.textContent = item[type].join(" / ");
+            hint.classList.add("visible");
+          }
+        });
+      }
+
+      const label = document.getElementById(`sec-label-${startIndex}`);
+      if (label) {
+        label.textContent = `Section ${startIndex + 1}–${endIndex + 1}: ${correctInSec}/${totalInSec} correct`;
+        label.style.color = correctInSec === totalInSec ? "#059669" : "#1e62d0";
+      }
+
+      updateScoreBadge();
+    };
+
+    function checkAllAnswers() {
+      let correctCount = 0;
+      const totalInputs = currentList.length * 3;
+
+      currentList.forEach((item, index) => {
+        ['v1', 'v2', 'v3'].forEach(type => {
+          const input = document.querySelector(`input[data-type="${type}"][data-index="${index}"]`);
+          const hint = document.getElementById(`hint-${type}-${index}`);
+          const val = normalize(input.value);
+
+          if (item[type].some(ans => normalize(ans) === val)) {
+            input.className = "input-field correct";
+            hint.classList.remove("visible");
+            correctCount++;
+          } else {
+            input.className = "input-field incorrect";
+            hint.textContent = item[type].join(" / ");
+            hint.classList.add("visible");
+          }
+        });
+      });
+
+      // Update all section badges
+      for (let s = 0; s < currentList.length; s += 5) {
+        const e = Math.min(s + 4, currentList.length - 1);
+        let secCorrect = 0;
+        const secTotal = (e - s + 1) * 3;
+        for (let i = s; i <= e; i++) {
+          ['v1', 'v2', 'v3'].forEach(t => {
+            const input = document.querySelector(`input[data-type="${t}"][data-index="${i}"]`);
+            if (input && input.classList.contains("correct")) secCorrect++;
+          });
+        }
+        const lbl = document.getElementById(`sec-label-${s}`);
+        if (lbl) {
+          lbl.textContent = `Section ${s + 1}–${e + 1}: ${secCorrect}/${secTotal} correct`;
+          lbl.style.color = secCorrect === secTotal ? "#059669" : "#1e62d0";
+        }
+      }
+
+      updateScoreBadge();
+    }
+
+    function updateScoreBadge() {
+      const total = currentList.length * 3;
+      const correct = document.querySelectorAll(".input-field.correct").length;
+      document.getElementById("scorePill").textContent = `Score: ${correct} / ${total}`;
+    }
+
+    // Initialize
+    renderQuiz();
+  </script>
+</body>
+</html>

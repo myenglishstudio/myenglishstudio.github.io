@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Simple Grammar Practice Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-blue: #1e62d0;
+      --primary-hover: #164ea8;
+      --card-bg: #ffffff;
+      --card-radius: 20px;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --success-text: #047857;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --error-text: #b91c1c;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+      background-color: #0b1325;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(11, 19, 37, 0.95) 100%),
+        url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=2000&q=80");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      padding: 48px 16px 80px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-title-box {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 840px;
+    }
+
+    .header-title-box h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .header-title-box p {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .exercise-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 1040px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      color: #e2e8f0;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.active {
+      background: #ffffff;
+      color: var(--primary-blue);
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .nav-btn.completed::after {
+      content: "✓";
+      color: #10b981;
+      font-weight: 900;
+    }
+
+    .score-badge-container {
+      margin-bottom: 24px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .score-badge {
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 10px 26px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-badge.overall {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .level-intro-card {
+      width: 100%;
+      max-width: 1040px;
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 20px;
+    }
+
+    .level-intro-card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .level-intro-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .cards-container {
+      width: 100%;
+      max-width: 1040px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .q-card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 20px 26px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .q-num {
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .q-status {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .q-sentence {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .q-input {
+      flex: 1;
+      min-width: 260px;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .q-input:focus {
+      background: #ffffff;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(30, 98, 208, 0.15);
+    }
+
+    .q-input.correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+    }
+
+    .q-input.incorrect {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+    }
+
+    .btn-check-one {
+      background: var(--primary-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 10px 24px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(30, 98, 208, 0.25);
+    }
+
+    .btn-check-one:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .explanation-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .explanation-box.correct {
+      display: block;
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      color: #065f46;
+    }
+
+    .explanation-box.incorrect {
+      display: block;
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+      color: #991b1b;
+    }
+
+    /* Modal dialog for task completion & final report */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 19, 37, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 32px 36px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      transform: scale(0.95);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+
+    .modal-card h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .modal-score-ring {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin: 16px 0 8px 0;
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .btn-modal {
+      background: var(--primary-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 12px 36px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(30, 98, 208, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-modal:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Final Comprehensive Report View */
+    .report-container {
+      width: 100%;
+      max-width: 1040px;
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .report-container.active {
+      display: flex;
+    }
+
+    .report-header-card {
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .report-header-card h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .report-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .report-stat-box {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .report-stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+    }
+
+    .report-stat-num.mistakes {
+      color: #ef4444;
+    }
+
+    .report-stat-num.accuracy {
+      color: #10b981;
+    }
+
+    .report-stat-lbl {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .task-report-card {
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .task-report-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+    }
+
+    .task-score-pill {
+      font-size: 0.9rem;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-weight: 800;
+    }
+
+    .task-score-pill.good { background: #dcfce7; color: #15803d; }
+    .task-score-pill.warn { background: #fef3c7; color: #b45309; }
+    .task-score-pill.bad { background: #fee2e2; color: #b91c1c; }
+
+    .mistake-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mistake-item {
+      background: #fef2f2;
+      border-left: 4px solid #ef4444;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mistake-prompt {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.98rem;
+    }
+
+    .mistake-answers-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .user-ans-tag {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .correct-ans-tag {
+      color: #047857;
+      font-weight: 800;
+    }
+
+    .mistake-exp {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .no-mistakes-box {
+      background: #f0fdf4;
+      border: 1.5px dashed #86efac;
+      color: #166534;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 18px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .global-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 36px;
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .btn-global {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-global-primary {
+      background: var(--primary-blue);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(30, 98, 208, 0.35);
+    }
+
+    .btn-global-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-global-secondary {
+      background: #ffffff;
+      color: #334155;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-global-secondary:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .header-title-box h1 { font-size: 1.8rem; }
+      .q-card { padding: 16px; }
+      .input-row { flex-direction: column; align-items: stretch; }
+      .btn-check-one { justify-content: center; }
+      .report-stats-grid { grid-template-columns: 1fr; }
+      .modal-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-title-box">
+    <h1>Past Simple Practice Suite</h1>
+    <p>Complete each task sequentially. Upon completing all 20 sentences in a task, you will automatically transition to the next!</p>
+  </div>
+
+  <div class="exercise-nav" id="exerciseNav"></div>
+
+  <div class="score-badge-container">
+    <div class="score-badge" id="taskScorePill">Task Score: 0 / 20</div>
+    <div class="score-badge overall" id="overallScorePill">Total Completed: 0 / 120</div>
+  </div>
+
+  <!-- Standard Task View -->
+  <div id="exerciseView">
+    <div class="level-intro-card" id="levelIntroCard"></div>
+    <div class="cards-container" id="cardsContainer"></div>
+    <div class="global-controls">
+      <button class="btn-global btn-global-primary" onclick="checkAllCurrent()">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        Check All Unanswered
+      </button>
+      <button class="btn-global btn-global-secondary" onclick="resetCurrentTask()">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Reset Current Task
+      </button>
+    </div>
+  </div>
+
+  <!-- Comprehensive Final Report View -->
+  <div class="report-container" id="reportView">
+    <div class="report-header-card">
+      <span class="modal-badge">Comprehensive Activity Summary</span>
+      <h2>Final Activity Report</h2>
+      <p style="color: var(--text-muted);">Detailed diagnostic breakdown of all completed tasks, mistakes, and correct answers.</p>
+
+      <div class="report-stats-grid">
+        <div class="report-stat-box">
+          <div class="report-stat-num" id="repTotalCorrect">0</div>
+          <div class="report-stat-lbl">Correct Items</div>
+        </div>
+        <div class="report-stat-box">
+          <div class="report-stat-num mistakes" id="repTotalMistakes">0</div>
+          <div class="report-stat-lbl">Mistakes / Incomplete</div>
+        </div>
+        <div class="report-stat-box">
+          <div class="report-stat-num accuracy" id="repAccuracy">0%</div>
+          <div class="report-stat-lbl">Overall Accuracy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container for each task's mistake log -->
+    <div id="reportTasksContainer" style="display: flex; flex-direction: column; gap: 20px;"></div>
+
+    <div class="global-controls">
+      <button class="btn-global btn-global-primary" onclick="restartEntireActivity()">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Restart Entire Activity
+      </button>
+    </div>
+  </div>
+
+  <!-- Transition / Completion Modal Dialog -->
+  <div class="modal-overlay" id="taskModal">
+    <div class="modal-card">
+      <span class="modal-badge" id="modalBadge">Task Complete</span>
+      <h3 id="modalTitle">Awesome Job!</h3>
+      <div class="modal-score-ring" id="modalScoreText">18 / 20</div>
+      <p class="modal-desc" id="modalDesc">You have completed all 20 sentences in this task. Ready to move on?</p>
+      <button class="btn-modal" id="modalActionBtn">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    const exercises = [
+      {
+        id: "ex1",
+        title: "Task 1: Past Simple with 'Be' (Positive & Negative)",
+        description: "Choose between <strong>was / were</strong> for positive sentences, and <strong>wasn't / weren't</strong> (or was not / were not) for negatives. Rule: I/he/she/it &rarr; was/wasn't; you/we/they &rarr; were/weren't.",
+        items: [
+          { prompt: "It ________ (be) cold yesterday.", answers: ["was"], fullAnswers: ["It was cold yesterday."], explanation: "With 3rd person singular subject 'It', the past simple of 'be' is was." },
+          { prompt: "She ________ (be) hungry.", answers: ["was"], fullAnswers: ["She was hungry."], explanation: "With singular pronoun 'She', use was." },
+          { prompt: "We ________ (be) late for the meeting.", answers: ["were"], fullAnswers: ["We were late for the meeting."], explanation: "With plural pronoun 'We', the past simple form of 'be' is were." },
+          { prompt: "I ________ (be) tired last night.", answers: ["was"], fullAnswers: ["I was tired last night."], explanation: "With 1st person singular 'I', use was." },
+          { prompt: "The exam ________ (be) difficult.", answers: ["was"], fullAnswers: ["The exam was difficult."], explanation: "'The exam' is singular (it), so use was." },
+          { prompt: "They ________ (be) in Berlin.", answers: ["were"], fullAnswers: ["They were in Berlin."], explanation: "With 3rd person plural 'They', use were." },
+          { prompt: "You ________ (be) in the library when I called you.", answers: ["were"], fullAnswers: ["You were in the library when I called you."], explanation: "'You' always takes were in the past simple." },
+          { prompt: "The holiday ________ (be) fun.", answers: ["was"], fullAnswers: ["The holiday was fun."], explanation: "'The holiday' is a singular noun (it), requiring was." },
+          { prompt: "He ________ (be) early for the interview.", answers: ["was"], fullAnswers: ["He was early for the interview."], explanation: "With 3rd person singular 'He', use was." },
+          { prompt: "The people we met last night ________ (be) French.", answers: ["were"], fullAnswers: ["The people we met last night were French."], explanation: "The subject 'The people' is plural, requiring were." },
+          { prompt: "That woman ________ (not/be) Spanish.", answers: ["wasn't", "was not"], fullAnswers: ["That woman wasn't Spanish.", "That woman was not Spanish."], explanation: "'That woman' is singular (she). Negative past simple = wasn't (was not)." },
+          { prompt: "Julie ________ (not/be) late for the class.", answers: ["wasn't", "was not"], fullAnswers: ["Julie wasn't late for the class.", "Julie was not late for the class."], explanation: "'Julie' is singular (she). Negative form = wasn't (was not)." },
+          { prompt: "The food ________ (not/be) very good.", answers: ["wasn't", "was not"], fullAnswers: ["The food wasn't very good.", "The food was not very good."], explanation: "'The food' is an uncountable singular noun (it). Use wasn't." },
+          { prompt: "They ________ (not/be) my uncle and aunt.", answers: ["weren't", "were not"], fullAnswers: ["They weren't my uncle and aunt.", "They were not my uncle and aunt."], explanation: "With plural subject 'They', negative past simple is weren't (were not)." },
+          { prompt: "I ________ (not/be) rude to the waitress.", answers: ["wasn't", "was not"], fullAnswers: ["I wasn't rude to the waitress.", "I was not rude to the waitress."], explanation: "With subject 'I', the negative past is wasn't (was not)." },
+          { prompt: "The test ________ (not/be) easy.", answers: ["wasn't", "was not"], fullAnswers: ["The test wasn't easy.", "The test was not easy."], explanation: "'The test' is singular (it). Use wasn't." },
+          { prompt: "We ________ (not/be) tired when we arrived.", answers: ["weren't", "were not"], fullAnswers: ["We weren't tired when we arrived.", "We were not tired when we arrived."], explanation: "With subject 'We', negative past simple is weren't (were not)." },
+          { prompt: "They ________ (not/be) on the bus when I called.", answers: ["weren't", "were not"], fullAnswers: ["They weren't on the bus when I called.", "They were not on the bus when I called."], explanation: "With subject 'They', use weren't (were not)." },
+          { prompt: "You ________ (not/be) here when she came.", answers: ["weren't", "were not"], fullAnswers: ["You weren't here when she came.", "You were not here when she came."], explanation: "With subject 'You', use weren't (were not)." },
+          { prompt: "He ________ (not/be) my boyfriend.", answers: ["wasn't", "was not"], fullAnswers: ["He wasn't my boyfriend.", "He was not my boyfriend."], explanation: "With 3rd person singular 'He', use wasn't (was not)." }
+        ]
+      },
+      {
+        id: "ex2",
+        title: "Task 2: Past Simple with 'Be' (Questions)",
+        description: "Form Yes/No questions (<strong>Was / Were + subject ...?</strong>) or Wh- questions (<strong>Wh-word + was / were + subject ...?</strong>). Remember: never use 'did' with the verb 'be'!",
+        items: [
+          { prompt: "Make a question: (John/be/ at the party?)", answers: ["Was John at the party?", "Was John at the party"], explanation: "Invert was + John &rarr; Was John at the party?" },
+          { prompt: "Make a question: (you/be/tired yesterday?)", answers: ["Were you tired yesterday?", "Were you tired yesterday"], explanation: "Invert were + you &rarr; Were you tired yesterday?" },
+          { prompt: "Make a question: (the weather/ be / good?)", answers: ["Was the weather good?", "Was the weather good"], explanation: "'The weather' is singular &rarr; Was the weather good?" },
+          { prompt: "Make a question: (we/be/ too noisy?)", answers: ["Were we too noisy?", "Were we too noisy"], explanation: "Plural subject 'we' &rarr; Were we too noisy?" },
+          { prompt: "Make a question: (he/be/a doctor when he was young?)", answers: ["Was he a doctor when he was young?", "Was he a doctor when he was young"], explanation: "Subject 'he' &rarr; Was he a doctor when he was young?" },
+          { prompt: "Make a question: (they/be / in the class last week?)", answers: ["Were they in the class last week?", "Were they in the class last week"], explanation: "Subject 'they' &rarr; Were they in the class last week?" },
+          { prompt: "Make a question: (she/be/a good student?)", answers: ["Was she a good student?", "Was she a good student"], explanation: "Subject 'she' &rarr; Was she a good student?" },
+          { prompt: "Make a question: (I/be/on time?)", answers: ["Was I on time?", "Was I on time"], explanation: "Subject 'I' &rarr; Was I on time?" },
+          { prompt: "Make a question: (Julie and Lucy / be / at the meeting?)", answers: ["Were Julie and Lucy at the meeting?", "Were Julie and Lucy at the meeting"], explanation: "Two people (plural) &rarr; Were Julie and Lucy at the meeting?" },
+          { prompt: "Make a question: (we/be/in Paris?)", answers: ["Were we in Paris?", "Were we in Paris"], explanation: "Subject 'we' &rarr; Were we in Paris?" },
+          { prompt: "Make a question: (where / you / be?)", answers: ["Where were you?", "Where were you"], explanation: "Wh-word + were + you &rarr; Where were you?" },
+          { prompt: "Make a question: (what/that noise / be?)", answers: ["What was that noise?", "What was that noise"], explanation: "'that noise' is singular &rarr; What was that noise?" },
+          { prompt: "Make a question: (who/that man / be?)", answers: ["Who was that man?", "Who was that man"], explanation: "'that man' is singular &rarr; Who was that man?" },
+          { prompt: "Make a question: (how/ the weekend / be?)", answers: ["How was the weekend?", "How was the weekend"], explanation: "'the weekend' is singular &rarr; How was the weekend?" },
+          { prompt: "Make a question: (where/ the money / be?)", answers: ["Where was the money?", "Where was the money"], explanation: "'money' is singular uncountable &rarr; Where was the money?" },
+          { prompt: "Make a question: (why / the door open / be?)", answers: ["Why was the door open?", "Why was the door open"], explanation: "Why + was + the door + open?" },
+          { prompt: "Make a question: (who/ the teacher / be?)", answers: ["Who was the teacher?", "Who was the teacher"], explanation: "Who + was + the teacher?" },
+          { prompt: "Make a question: (how/ your holiday / be?)", answers: ["How was your holiday?", "How was your holiday"], explanation: "'your holiday' is singular &rarr; How was your holiday?" },
+          { prompt: "Make a question: (what/the weather like / be?)", answers: ["What was the weather like?", "What was the weather like"], explanation: "What + was + the weather like?" },
+          { prompt: "Make a question: (why/the children awake / be?)", answers: ["Why were the children awake?", "Why were the children awake"], explanation: "'children' is plural &rarr; Why were the children awake?" }
+        ]
+      },
+      {
+        id: "ex3",
+        title: "Task 3: Past Simple with 'Be' (Mixed Forms)",
+        description: "Translate brackets into complete statements, negatives, or questions using 'be'. Write the full sentence with correct punctuation.",
+        items: [
+          { prompt: "(I/be/at the cinema last night.)", answers: ["I was at the cinema last night.", "I was at the cinema last night"], explanation: "Affirmative statement with 'I' &rarr; I was at the cinema last night." },
+          { prompt: "(the children/be/naughty?)", answers: ["Were the children naughty?", "Were the children naughty"], explanation: "Plural question: 'children' takes were &rarr; Were the children naughty?" },
+          { prompt: "(we/be/in a cafe when you called.)", answers: ["We were in a cafe when you called.", "We were in a cafe when you called", "We were in a café when you called."], explanation: "Plural affirmative statement with 'we' &rarr; We were in a cafe when you called." },
+          { prompt: "(I/be/late?)", answers: ["Was I late?", "Was I late"], explanation: "Yes/No question: was + I &rarr; Was I late?" },
+          { prompt: "(she/be/a teacher when she was young.)", answers: ["She was a teacher when she was young.", "She was a teacher when she was young"], explanation: "Singular statement with 'she' &rarr; She was a teacher when she was young." },
+          { prompt: "(where/we / be?)", answers: ["Where were we?", "Where were we"], explanation: "Wh- question with 'we' &rarr; Where were we?" },
+          { prompt: "(you/be/okay?)", answers: ["Were you okay?", "Were you okay", "Were you ok?", "Were you OK?"], explanation: "Question with 'you': Were you okay?" },
+          { prompt: "(we/be/too tired?)", answers: ["Were we too tired?", "Were we too tired"], explanation: "Question with 'we': Were we too tired?" },
+          { prompt: "(how/ the party / be?)", answers: ["How was the party?", "How was the party"], explanation: "Question about singular 'the party': How was the party?" },
+          { prompt: "(they/be/late for the interview.)", answers: ["They were late for the interview.", "They were late for the interview"], explanation: "Affirmative statement: They were late for the interview." },
+          { prompt: "(you/be/in the garden.)", answers: ["You were in the garden.", "You were in the garden"], explanation: "Affirmative with 'you': You were in the garden." },
+          { prompt: "(what/his name / be?)", answers: ["What was his name?", "What was his name"], explanation: "'his name' is singular &rarr; What was his name?" },
+          { prompt: "(it/not/be/cold.)", answers: ["It wasn't cold.", "It wasn't cold", "It was not cold."], explanation: "Singular negative: It wasn't cold." },
+          { prompt: "(she/be/beautiful?)", answers: ["Was she beautiful?", "Was she beautiful"], explanation: "Singular question: Was she beautiful?" },
+          { prompt: "(she/not/ be my wife at the time.)", answers: ["She wasn't my wife at the time.", "She was not my wife at the time."], explanation: "Singular negative: She wasn't my wife at the time." },
+          { prompt: "(he/be/hungry.)", answers: ["He was hungry.", "He was hungry"], explanation: "Affirmative: He was hungry." },
+          { prompt: "(why/you/ be / late?)", answers: ["Why were you late?", "Why were you late"], explanation: "Wh- question: Why were you late?" },
+          { prompt: "(you/not/be/early.)", answers: ["You weren't early.", "You were not early."], explanation: "Negative with 'you': You weren't early." },
+          { prompt: "(they not/be/in love.)", answers: ["They weren't in love.", "They were not in love."], explanation: "Plural negative: They weren't in love." },
+          { prompt: "(we/not/be / in China.)", answers: ["We weren't in China.", "We were not in China."], explanation: "Plural negative: We weren't in China." }
+        ]
+      },
+      {
+        id: "ex4",
+        title: "Task 4: Past Simple with Other Verbs - Exercise 1",
+        description: "Form past simple with other regular and irregular verbs. Rules: Affirmative = V2 (worked, bought). Negative = <strong>didn't + infinitive</strong>. Question = <strong>(Wh-) + did + subject + infinitive?</strong>",
+        items: [
+          { prompt: "I ________ (work) in a bank for ten years.", answers: ["worked"], fullAnswers: ["I worked in a bank for ten years."], explanation: "Regular verb 'work' adds -ed &rarr; worked." },
+          { prompt: "Where ________ (you/live) when you were young?", answers: ["did you live"], fullAnswers: ["Where did you live when you were young?"], explanation: "Wh- question: did + subject + base form &rarr; did you live." },
+          { prompt: "She ________ (not/study) French at university.", answers: ["didn't study", "did not study"], fullAnswers: ["She didn't study French at university."], explanation: "Negative rule: didn't + base verb &rarr; didn't study." },
+          { prompt: "He ________ (travel) through the Middle East last year.", answers: ["travelled", "traveled"], fullAnswers: ["He travelled through the Middle East last year."], explanation: "Past of 'travel' &rarr; travelled (UK) or traveled (US)." },
+          { prompt: "________ (they/visit) the Louvre in Paris?", answers: ["Did they visit"], fullAnswers: ["Did they visit the Louvre in Paris?"], explanation: "Yes/No question: Did + subject + base form &rarr; Did they visit." },
+          { prompt: "She ________ (not/watch) TV yesterday.", answers: ["didn't watch", "did not watch"], fullAnswers: ["She didn't watch TV yesterday."], explanation: "Negative: didn't watch." },
+          { prompt: "We ________ (buy) a new car last weekend.", answers: ["bought"], fullAnswers: ["We bought a new car last weekend."], explanation: "Irregular past of 'buy' is bought." },
+          { prompt: "Where ________ (you/teach) before you came here?", answers: ["did you teach"], fullAnswers: ["Where did you teach before you came here?"], explanation: "Question: did you teach." },
+          { prompt: "He ________ (not/think) that he was right.", answers: ["didn't think", "did not think"], fullAnswers: ["He didn't think that he was right."], explanation: "Negative: didn't think." },
+          { prompt: "I ________ (cook) steak last night.", answers: ["cooked"], fullAnswers: ["I cooked steak last night."], explanation: "Regular verb: cooked." },
+          { prompt: "________ (Lucy/read) War and Peace at school?", answers: ["Did Lucy read"], fullAnswers: ["Did Lucy read War and Peace at school?"], explanation: "Question: Did Lucy read." },
+          { prompt: "She ________ (not/write) to her grandmother.", answers: ["didn't write", "did not write"], fullAnswers: ["She didn't write to her grandmother."], explanation: "Negative: didn't write." },
+          { prompt: "We ________ (have) a computer when I was a child.", answers: ["had"], fullAnswers: ["We had a computer when I was a child."], explanation: "Irregular past of 'have' is had." },
+          { prompt: "Where ________ (you/go) on holiday?", answers: ["did you go"], fullAnswers: ["Where did you go on holiday?"], explanation: "Question: did you go." },
+          { prompt: "I ________ (love) ice cream when I was a child.", answers: ["loved"], fullAnswers: ["I loved ice cream when I was a child."], explanation: "Ends in -e, add -d &rarr; loved." },
+          { prompt: "They ________ (not/meet) yesterday.", answers: ["didn't meet", "did not meet"], fullAnswers: ["They didn't meet yesterday."], explanation: "Negative: didn't meet." },
+          { prompt: "________ (she/swim) in the sea in Greece?", answers: ["Did she swim"], fullAnswers: ["Did she swim in the sea in Greece?"], explanation: "Question: Did she swim." },
+          { prompt: "We ________ (not/play) tennis yesterday because it was raining.", answers: ["didn't play", "did not play"], fullAnswers: ["We didn't play tennis yesterday because it was raining."], explanation: "Negative: didn't play." },
+          { prompt: "He ________ (try) to lift the box but he couldn't.", answers: ["tried"], fullAnswers: ["He tried to lift the box but he couldn't."], explanation: "Consonant + y changes to -ied &rarr; tried." },
+          { prompt: "What ________ (you/eat) for lunch?", answers: ["did you eat"], fullAnswers: ["What did you eat for lunch?"], explanation: "Question: did you eat." }
+        ]
+      },
+      {
+        id: "ex5",
+        title: "Task 5: Past Simple with Other Verbs - Exercise 2",
+        description: "Practice phrasal verbs (get on, wake up, get off), two-clause narratives, and mixed question words (What time, Why, Where).",
+        items: [
+          { prompt: "I ________ (not/drink) any beer last night.", answers: ["didn't drink", "did not drink"], fullAnswers: ["I didn't drink any beer last night."], explanation: "Negative: didn't drink." },
+          { prompt: "She ________ (get on) the bus in the centre of the city.", answers: ["got on"], fullAnswers: ["She got on the bus in the centre of the city."], explanation: "Past of phrasal verb 'get on' is got on." },
+          { prompt: "What time ________ (he/get up) yesterday?", answers: ["did he get up"], fullAnswers: ["What time did he get up yesterday?"], explanation: "Question: did he get up." },
+          { prompt: "Where ________ (you/ get off) the train?", answers: ["did you get off"], fullAnswers: ["Where did you get off the train?"], explanation: "Question: did you get off." },
+          { prompt: "I ________ (not/change) trains at Victoria.", answers: ["didn't change", "did not change"], fullAnswers: ["I didn't change trains at Victoria."], explanation: "Negative: didn't change." },
+          { prompt: "We ________ (wake up) very late.", answers: ["woke up"], fullAnswers: ["We woke up very late."], explanation: "Irregular past of 'wake up' is woke up." },
+          { prompt: "What ________ (he/give) his mother for Christmas?", answers: ["did he give"], fullAnswers: ["What did he give his mother for Christmas?"], explanation: "Question: did he give." },
+          { prompt: "I received £300 when my uncle ________ (die).", answers: ["died"], fullAnswers: ["I received £300 when my uncle died."], explanation: "Regular verb: died." },
+          { prompt: "We ________ (not/ use) the computer last night.", answers: ["didn't use", "did not use"], fullAnswers: ["We didn't use the computer last night."], explanation: "Negative: didn't use." },
+          { prompt: "________ (she/make) good coffee?", answers: ["Did she make"], fullAnswers: ["Did she make good coffee?"], explanation: "Question: Did she make." },
+          { prompt: "They ________ (live) in Paris.", answers: ["lived"], fullAnswers: ["They lived in Paris."], explanation: "Regular verb: lived." },
+          { prompt: "She ________ (read) the newspaper yesterday.", answers: ["read"], fullAnswers: ["She read the newspaper yesterday."], explanation: "Past of 'read' is spelled 'read' (pronounced /red/)." },
+          { prompt: "I ________ (not/watch) TV.", answers: ["didn't watch", "did not watch"], fullAnswers: ["I didn't watch TV."], explanation: "Negative: didn't watch." },
+          { prompt: "He ________ (not/study) for the exam.", answers: ["didn't study", "did not study"], fullAnswers: ["He didn't study for the exam."], explanation: "Negative: didn't study." },
+          { prompt: "________ (he/call) you?", answers: ["Did he call"], fullAnswers: ["Did he call you?"], explanation: "Question: Did he call." },
+          { prompt: "________ (I/forget) something?", answers: ["Did I forget"], fullAnswers: ["Did I forget something?"], explanation: "Question: Did I forget." },
+          { prompt: "What time ________ (the film/start)?", answers: ["did the film start"], fullAnswers: ["What time did the film start?"], explanation: "Question: did the film start." },
+          { prompt: "He ________ (have) a shower.", answers: ["had"], fullAnswers: ["He had a shower."], explanation: "Irregular past: had." },
+          { prompt: "Why ________ (you/come)?", answers: ["did you come"], fullAnswers: ["Why did you come?"], explanation: "Question: did you come." },
+          { prompt: "________ (he/go) to the party?", answers: ["Did he go"], fullAnswers: ["Did he go to the party?"], explanation: "Question: Did he go." }
+        ]
+      },
+      {
+        id: "ex6",
+        title: "Task 6: Past Simple with Other Verbs - Exercise 4",
+        description: "Master tricky questions like 'Which did you like?', pronoun objects ('Who did you meet?'), and rapid shifts between positive, negative, and interrogative sentences.",
+        items: [
+          { prompt: "Where ________ (she/go)?", answers: ["did she go"], fullAnswers: ["Where did she go?"], explanation: "Question: did she go." },
+          { prompt: "What ________ (you/do)?", answers: ["did you do"], fullAnswers: ["What did you do?"], explanation: "Auxiliary 'did' + subject 'you' + main verb 'do' &rarr; did you do." },
+          { prompt: "He ________ (work) in a bank.", answers: ["worked"], fullAnswers: ["He worked in a bank."], explanation: "Regular verb: worked." },
+          { prompt: "You ________ (not/call) me.", answers: ["didn't call", "did not call"], fullAnswers: ["You didn't call me."], explanation: "Negative: didn't call." },
+          { prompt: "________ (you/wear) your red dress?", answers: ["Did you wear"], fullAnswers: ["Did you wear your red dress?"], explanation: "Question: Did you wear." },
+          { prompt: "He ________ (not/read) that book.", answers: ["didn't read", "did not read"], fullAnswers: ["He didn't read that book."], explanation: "Negative: didn't read." },
+          { prompt: "________ (you/go)?", answers: ["Did you go"], fullAnswers: ["Did you go?"], explanation: "Question: Did you go." },
+          { prompt: "________ (she/study) last night?", answers: ["Did she study"], fullAnswers: ["Did she study last night?"], explanation: "Question: Did she study." },
+          { prompt: "________ (we/arrive) last?", answers: ["Did we arrive"], fullAnswers: ["Did we arrive last?"], explanation: "Question: Did we arrive." },
+          { prompt: "Who ________ (you/meet)?", answers: ["did you meet"], fullAnswers: ["Who did you meet?"], explanation: "Object question: did you meet." },
+          { prompt: "________ (they/ come) to the party?", answers: ["Did they come"], fullAnswers: ["Did they come to the party?"], explanation: "Question: Did they come." },
+          { prompt: "She ________ (not/meet) him.", answers: ["didn't meet", "did not meet"], fullAnswers: ["She didn't meet him."], explanation: "Negative: didn't meet." },
+          { prompt: "________ (she/go)?", answers: ["Did she go"], fullAnswers: ["Did she go?"], explanation: "Question: Did she go." },
+          { prompt: "You ________ (meet) a friend.", answers: ["met"], fullAnswers: ["You met a friend."], explanation: "Irregular past of 'meet' is met." },
+          { prompt: "Which ________ (you/ like)?", answers: ["did you like"], fullAnswers: ["Which did you like?"], explanation: "Question with Which: did you like." },
+          { prompt: "I ________ (not/forget) your book.", answers: ["didn't forget", "did not forget"], fullAnswers: ["I didn't forget your book."], explanation: "Negative: didn't forget." },
+          { prompt: "What ________ (he/do) at the weekend?", answers: ["did he do"], fullAnswers: ["What did he do at the weekend?"], explanation: "Question: did he do." },
+          { prompt: "She ________ (not/like) chocolate.", answers: ["didn't like", "did not like"], fullAnswers: ["She didn't like chocolate."], explanation: "Negative: didn't like." },
+          { prompt: "What ________ (you/buy) yesterday?", answers: ["did you buy"], fullAnswers: ["What did you buy yesterday?"], explanation: "Question: did you buy." },
+          { prompt: "________ (you/have) a good holiday?", answers: ["Did you have"], fullAnswers: ["Did you have a good holiday?"], explanation: "Question: Did you have." }
+        ]
+      }
+    ];
+
+    // User State Storage across all 6 tasks
+    // userRecords[taskIdx][qIdx] = { userRaw: "", isCorrect: false, checked: false }
+    let userRecords = exercises.map(ex => 
+      ex.items.map(() => ({ userRaw: "", isCorrect: false, checked: false }))
+    );
+
+    let currentExIndex = 0;
+
+    function renderNav() {
+      const nav = document.getElementById("exerciseNav");
+      nav.innerHTML = "";
+      exercises.forEach((ex, idx) => {
+        const btn = document.createElement("button");
+        const isTaskDone = userRecords[idx].every(r => r.checked);
+        btn.className = `nav-btn ${idx === currentExIndex ? 'active' : ''} ${isTaskDone ? 'completed' : ''}`;
+        btn.textContent = `Task ${idx + 1}`;
+        btn.onclick = () => switchExercise(idx);
+        nav.appendChild(btn);
+      });
+
+      // Also add Final Report button to nav if all tasks completed or anytime
+      const repBtn = document.createElement("button");
+      repBtn.className = "nav-btn";
+      repBtn.style.borderColor = "#60a5fa";
+      repBtn.textContent = "📊 View Report";
+      repBtn.onclick = () => showFinalReport();
+      nav.appendChild(repBtn);
+    }
+
+    function switchExercise(index) {
+      currentExIndex = index;
+      document.getElementById("exerciseView").style.display = "block";
+      document.getElementById("reportView").classList.remove("active");
+      renderNav();
+      renderExercise();
+    }
+
+    function renderExercise() {
+      const ex = exercises[currentExIndex];
+      
+      const intro = document.getElementById("levelIntroCard");
+      intro.innerHTML = `
+        <h2>${ex.title}</h2>
+        <p>${ex.description}</p>
+      `;
+
+      const container = document.getElementById("cardsContainer");
+      container.innerHTML = "";
+
+      ex.items.forEach((item, qIdx) => {
+        const state = userRecords[currentExIndex][qIdx];
+        const card = document.createElement("div");
+        card.className = "q-card";
+
+        let inputClass = "q-input";
+        let expClass = "explanation-box";
+        let expContent = "";
+        let statusBadge = "Unanswered";
+
+        if (state.checked) {
+          if (state.isCorrect) {
+            inputClass += " correct";
+            expClass += " correct";
+            expContent = `<strong>Correct!</strong> ${item.explanation}`;
+            statusBadge = "<span style='color: #10b981; font-weight:800;'>✓ Correct</span>";
+          } else {
+            inputClass += " incorrect";
+            expClass += " incorrect";
+            expContent = `<strong>Incorrect.</strong> Correct answer: <strong>${item.answers[0]}</strong>.<br>${item.explanation}`;
+            statusBadge = "<span style='color: #ef4444; font-weight:800;'>✗ Incorrect</span>";
+          }
+        }
+
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-num">Sentence ${qIdx + 1} of ${ex.items.length}</span>
+            <span class="q-status" id="status-${currentExIndex}-${qIdx}">${statusBadge}</span>
+          </div>
+          <div class="q-sentence">${item.prompt}</div>
+          <div class="input-row">
+            <input type="text" class="${inputClass}" id="input-${currentExIndex}-${qIdx}" 
+                   placeholder="Type your answer here..." autocomplete="off" spellcheck="false"
+                   value="${escapeHtml(state.userRaw)}"
+                   onkeydown="if(event.key==='Enter') checkSingle(${qIdx})">
+            <button class="btn-check-one" onclick="checkSingle(${qIdx})">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Check
+            </button>
+          </div>
+          <div class="${expClass}" id="exp-${currentExIndex}-${qIdx}">${expContent}</div>
+        `;
+        container.appendChild(card);
+      });
+
+      updateScoreBadges();
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function cleanString(str) {
+      return str.trim()
+                .toLowerCase()
+                .replace(/[.,?!]/g, '')
+                .replace(/\s+/g, ' ');
+    }
+
+    window.checkSingle = function(qIdx, suppressTransitionCheck = false) {
+      const ex = exercises[currentExIndex];
+      const item = ex.items[qIdx];
+      const input = document.getElementById(`input-${currentExIndex}-${qIdx}`);
+      const expBox = document.getElementById(`exp-${currentExIndex}-${qIdx}`);
+      const statusSpan = document.getElementById(`status-${currentExIndex}-${qIdx}`);
+      
+      const userRaw = input.value.trim();
+      const userClean = cleanString(userRaw);
+
+      if (!userRaw) {
+        input.className = "q-input incorrect";
+        expBox.className = "explanation-box incorrect";
+        expBox.innerHTML = `<strong>Please enter an answer!</strong> Expected: <em>${item.answers[0]}</em>. ${item.explanation}`;
+        userRecords[currentExIndex][qIdx] = { userRaw: "", isCorrect: false, checked: true };
+        statusSpan.innerHTML = "<span style='color: #ef4444; font-weight:800;'>✗ Missed</span>";
+        updateScoreBadges();
+        if (!suppressTransitionCheck) verifyTaskCompletion();
+        return;
+      }
+
+      const isShortMatch = item.answers.some(ans => cleanString(ans) === userClean);
+      const isFullMatch = item.fullAnswers && item.fullAnswers.some(ans => cleanString(ans) === userClean);
+      const isCorrect = isShortMatch || isFullMatch;
+
+      userRecords[currentExIndex][qIdx] = {
+        userRaw: userRaw,
+        isCorrect: isCorrect,
+        checked: true
+      };
+
+      if (isCorrect) {
+        input.className = "q-input correct";
+        expBox.className = "explanation-box correct";
+        expBox.innerHTML = `<strong>Correct!</strong> ${item.explanation}`;
+        statusSpan.innerHTML = "<span style='color: #10b981; font-weight:800;'>✓ Correct</span>";
+      } else {
+        input.className = "q-input incorrect";
+        expBox.className = "explanation-box incorrect";
+        expBox.innerHTML = `<strong>Incorrect.</strong> Correct answer: <strong>${item.answers[0]}</strong>.<br>${item.explanation}`;
+        statusSpan.innerHTML = "<span style='color: #ef4444; font-weight:800;'>✗ Incorrect</span>";
+      }
+
+      updateScoreBadges();
+      renderNav();
+
+      if (!suppressTransitionCheck) {
+        verifyTaskCompletion();
+      }
+    };
+
+    window.checkAllCurrent = function() {
+      const ex = exercises[currentExIndex];
+      ex.items.forEach((_, qIdx) => {
+        checkSingle(qIdx, true);
+      });
+      verifyTaskCompletion();
+    };
+
+    function verifyTaskCompletion() {
+      const currentTaskRecords = userRecords[currentExIndex];
+      const allChecked = currentTaskRecords.every(r => r.checked);
+
+      if (allChecked) {
+        const correctCount = currentTaskRecords.filter(r => r.isCorrect).length;
+        const total = currentTaskRecords.length;
+        const isLastTask = currentExIndex === exercises.length - 1;
+
+        const modal = document.getElementById("taskModal");
+        const modalBadge = document.getElementById("modalBadge");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalScoreText = document.getElementById("modalScoreText");
+        const modalDesc = document.getElementById("modalDesc");
+        const modalBtn = document.getElementById("modalActionBtn");
+
+        modalScoreText.textContent = `${correctCount} / ${total}`;
+
+        if (!isLastTask) {
+          modalBadge.textContent = `Task ${currentExIndex + 1} Finished`;
+          modalTitle.textContent = correctCount === total ? "Flawless Performance!" : "Task Completed!";
+          modalDesc.textContent = `You've completed all sentences in Task ${currentExIndex + 1}. Advancing automatically to Task ${currentExIndex + 2}!`;
+          modalBtn.textContent = `Start Task ${currentExIndex + 2} →`;
+          modalBtn.onclick = () => {
+            modal.classList.remove("active");
+            switchExercise(currentExIndex + 1);
+          };
+        } else {
+          modalBadge.textContent = "All Tasks Finished!";
+          modalTitle.textContent = "Activity Complete!";
+          modalDesc.textContent = "You have finished every single task in the workbook! Let's examine your full diagnostics and mistakes report.";
+          modalBtn.textContent = "View Complete Report 📊";
+          modalBtn.onclick = () => {
+            modal.classList.remove("active");
+            showFinalReport();
+          };
+        }
+
+        modal.classList.add("active");
+      }
+    }
+
+    function showFinalReport() {
+      document.getElementById("exerciseView").style.display = "none";
+      const reportView = document.getElementById("reportView");
+      reportView.classList.add("active");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      let grandTotal = 0;
+      let grandCorrect = 0;
+
+      const reportContainer = document.getElementById("reportTasksContainer");
+      reportContainer.innerHTML = "";
+
+      exercises.forEach((ex, exIdx) => {
+        const records = userRecords[exIdx];
+        const taskTotal = records.length;
+        const taskCorrect = records.filter(r => r.isCorrect).length;
+        const taskMistakes = records.filter(r => !r.isCorrect);
+
+        grandTotal += taskTotal;
+        grandCorrect += taskCorrect;
+
+        const card = document.createElement("div");
+        card.className = "task-report-card";
+
+        let pillClass = "good";
+        if (taskCorrect < taskTotal * 0.7) pillClass = "warn";
+        if (taskCorrect < taskTotal * 0.5) pillClass = "bad";
+
+        let mistakesHtml = "";
+        if (taskMistakes.length === 0) {
+          mistakesHtml = `<div class="no-mistakes-box">🌟 Perfect 100%! No mistakes made in this task.</div>`;
+        } else {
+          mistakesHtml = `<div class="mistake-list">`;
+          ex.items.forEach((item, qIdx) => {
+            const rec = records[qIdx];
+            if (!rec.isCorrect) {
+              mistakesHtml += `
+                <div class="mistake-item">
+                  <div class="mistake-prompt">#${qIdx + 1}: ${item.prompt}</div>
+                  <div class="mistake-answers-row">
+                    <span class="user-ans-tag">Your Answer: "${rec.userRaw || 'No answer'}"</span>
+                    <span class="correct-ans-tag">Correct: ${item.answers[0]}</span>
+                  </div>
+                  <div class="mistake-exp"><strong>Rule:</strong> ${item.explanation}</div>
+                </div>
+              `;
+            }
+          });
+          mistakesHtml += `</div>`;
+        }
+
+        card.innerHTML = `
+          <div class="task-report-title">
+            <span>Task ${exIdx + 1}: ${ex.title.replace(/^Task \d+:\s*/, '')}</span>
+            <span class="task-score-pill ${pillClass}">${taskCorrect} / ${taskTotal} Correct</span>
+          </div>
+          ${mistakesHtml}
+        `;
+        reportContainer.appendChild(card);
+      });
+
+      const grandMistakes = grandTotal - grandCorrect;
+      const acc = Math.round((grandCorrect / grandTotal) * 100);
+
+      document.getElementById("repTotalCorrect").textContent = grandCorrect;
+      document.getElementById("repTotalMistakes").textContent = grandMistakes;
+      document.getElementById("repAccuracy").textContent = `${acc}%`;
+    }
+
+    window.resetCurrentTask = function() {
+      userRecords[currentExIndex] = exercises[currentExIndex].items.map(() => ({
+        userRaw: "",
+        isCorrect: false,
+        checked: false
+      }));
+      renderNav();
+      renderExercise();
+    };
+
+    window.restartEntireActivity = function() {
+      userRecords = exercises.map(ex => 
+        ex.items.map(() => ({ userRaw: "", isCorrect: false, checked: false }))
+      );
+      switchExercise(0);
+    };
+
+    function updateScoreBadges() {
+      const records = userRecords[currentExIndex];
+      const correctInTask = records.filter(r => r.isCorrect).length;
+      document.getElementById("taskScorePill").textContent = `Task Score: ${correctInTask} / ${records.length}`;
+
+      let totalCheckedAll = 0;
+      let totalCorrectAll = 0;
+      let totalItems = 0;
+      userRecords.forEach(task => {
+        task.forEach(q => {
+          totalItems++;
+          if (q.checked) totalCheckedAll++;
+          if (q.isCorrect) totalCorrectAll++;
+        });
+      });
+      document.getElementById("overallScorePill").textContent = `Total Score: ${totalCorrectAll} / ${totalItems}`;
+    }
+
+    renderNav();
+    renderExercise();
+  </script>
+</body>
+</html>

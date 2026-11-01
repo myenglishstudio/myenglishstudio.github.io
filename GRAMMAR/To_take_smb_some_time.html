@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice: 'It takes / It took' Paraphrasing</title>
+    <style>
+        :root {
+            --navy-deep: #0b192c;
+            --navy-dark: #1e3e62;
+            --navy-accent: #002244;
+            --btn-blue: #1d4ed8;
+            --btn-blue-hover: #1e40af;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(11, 25, 44, 0.88);
+            --border-ui: #cbd5e1;
+            --text-dark: #0b192c;
+            --text-muted: #334155;
+            --success-bg: #ecfdf5;
+            --success-border: #6ee7b7;
+            --success-text: #065f46;
+            --error-bg: #fef2f2;
+            --error-border: #fca5a5;
+            --error-text: #991b1b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2.5rem 1rem;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(rgba(11, 25, 44, 0.8), rgba(11, 25, 44, 0.9)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--header-bg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .instructions {
+            color: #e2e8f0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 720px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .instructions strong {
+            color: #93c5fd;
+        }
+
+        .example-box {
+            background-color: #ffffff;
+            border-left: 5px solid var(--navy-dark);
+            padding: 1.1rem 1.4rem;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-ui);
+            border-radius: 10px;
+            padding: 1.35rem 1.6rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(6px);
+        }
+
+        .context-sentence {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--navy-deep);
+            margin-bottom: 0.85rem;
+            line-height: 1.45;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 320px;
+            padding: 0.7rem 0.9rem;
+            font-size: 1rem;
+            background-color: #ffffff;
+            border: 2px solid var(--border-ui);
+            border-radius: 6px;
+            color: var(--navy-deep);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--btn-blue);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+        }
+
+        button.btn-check {
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.72rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button.btn-check:hover {
+            background-color: var(--navy-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 0.85rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            color: var(--error-text);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Duration Structure Practice</h1>
+        <p class="instructions">Rewrite each sentence using <strong>It takes (someone) [time] to do smth</strong> (general/routine facts) or <strong>It took (someone) [time] to do smth</strong> (completed past events).</p>
+        <div class="example-box">
+            <strong>Example 1:</strong> <em>"I spent forty-five minutes preparing the quarterly slides yesterday."</em><br>
+            ➔ <strong>It took me forty-five minutes to prepare the quarterly slides yesterday.</strong><br><br>
+            <strong>Example 2:</strong> <em>"A passenger normally spends twenty minutes getting through security."</em><br>
+            ➔ <strong>It takes twenty minutes to get through security.</strong> (or: <em>It takes a passenger twenty minutes...</em>)
+        </div>
+    </header>
+
+    <div id="exercise-list"></div>
+</div>
+
+<script>
+const exercises = [
+    {
+        id: 1,
+        context: "1. I spent two hours assembling the Swedish flat-pack wardrobe last night.",
+        tense: "took",
+        acceptedCore: ["it took me two hours to assemble the swedish flat-pack wardrobe", "it took me two hours to assemble the wardrobe", "it took me 2 hours to assemble the wardrobe"],
+        model: "It took me two hours to assemble the Swedish flat-pack wardrobe.",
+        explanation: "Completed past action with 'I' ➔ 'It took me two hours to assemble...'."
+    },
+    {
+        id: 2,
+        context: "2. The morning commuter usually spends thirty-five minutes driving to the downtown office.",
+        tense: "takes",
+        acceptedCore: ["it takes thirty-five minutes to drive to the downtown office", "it takes 35 minutes to drive to the downtown office", "it takes thirty five minutes to drive to the downtown office", "it takes the morning commuter thirty-five minutes to drive to the downtown office"],
+        model: "It takes thirty-five minutes to drive to the downtown office.",
+        explanation: "Habitual present action ➔ 'It takes thirty-five minutes to drive...'."
+    },
+    {
+        id: 3,
+        context: "3. Elena spent three weeks drafting the financial forecast for the board meeting.",
+        tense: "took",
+        acceptedCore: ["it took elena three weeks to draft the financial forecast", "it took her three weeks to draft the financial forecast", "it took elena 3 weeks to draft the financial forecast"],
+        model: "It took Elena three weeks to draft the financial forecast.",
+        explanation: "Past event referring to Elena ➔ 'It took Elena (her) three weeks to draft...'."
+    },
+    {
+        id: 4,
+        context: "4. A regular user usually needs only five seconds to reset a lost account password.",
+        tense: "takes",
+        acceptedCore: ["it takes five seconds to reset a lost account password", "it takes only five seconds to reset a lost account password", "it takes 5 seconds to reset a lost account password", "it takes a regular user five seconds to reset a lost account password"],
+        model: "It takes only five seconds to reset a lost account password.",
+        explanation: "General rule/present fact ➔ 'It takes (only) five seconds to reset...'."
+    },
+    {
+        id: 5,
+        context: "5. We spent forty minutes looking for an empty parking spot in the shopping mall.",
+        tense: "took",
+        acceptedCore: ["it took us forty minutes to find a parking spot", "it took us forty minutes to look for an empty parking spot", "it took us 40 minutes to find a parking spot", "it took us forty minutes to find an empty parking spot"],
+        model: "It took us forty minutes to find an empty parking spot.",
+        explanation: "Past action with 'we' ➔ 'It took us forty minutes to find/look for...'."
+    },
+    {
+        id: 6,
+        context: "6. An experienced chef usually needs fifteen minutes to prepare this seafood risotto.",
+        tense: "takes",
+        acceptedCore: ["it takes fifteen minutes to prepare this seafood risotto", "it takes 15 minutes to prepare this seafood risotto", "it takes an experienced chef fifteen minutes to prepare this seafood risotto"],
+        model: "It takes fifteen minutes to prepare this seafood risotto.",
+        explanation: "Routine duration ➔ 'It takes fifteen minutes to prepare...'."
+    },
+    {
+        id: 7,
+        context: "7. Mark spent six months recovering from his severe knee ligament surgery.",
+        tense: "took",
+        acceptedCore: ["it took mark six months to recover from his surgery", "it took him six months to recover from his severe knee ligament surgery", "it took him six months to recover from his surgery", "it took mark 6 months to recover from his severe knee ligament surgery"],
+        model: "It took Mark six months to recover from his severe knee ligament surgery.",
+        explanation: "Completed past period for Mark ➔ 'It took Mark (him) six months to recover...'."
+    },
+    {
+        id: 8,
+        context: "8. A customer typically spends ten minutes waiting in line at that popular bakery.",
+        tense: "takes",
+        acceptedCore: ["it takes ten minutes to wait in line at that popular bakery", "it takes 10 minutes to wait in line", "it takes ten minutes to buy bread at that popular bakery", "it takes a customer ten minutes to wait in line"],
+        model: "It takes ten minutes to wait in line at that popular bakery.",
+        explanation: "Typical/regular scenario ➔ 'It takes ten minutes to wait...'."
+    },
+    {
+        id: 9,
+        context: "9. The developers spent four days resolving the major security loophole in the software.",
+        tense: "took",
+        acceptedCore: ["it took the developers four days to resolve the security loophole", "it took them four days to resolve the major security loophole", "it took them 4 days to resolve the major security loophole in the software"],
+        model: "It took them four days to resolve the major security loophole in the software.",
+        explanation: "Past event for the team ➔ 'It took them (the developers) four days to resolve...'."
+    },
+    {
+        id: 10,
+        context: "10. You need about two hours to fly directly from London to Berlin.",
+        tense: "takes",
+        acceptedCore: ["it takes about two hours to fly from london to berlin", "it takes two hours to fly from london to berlin", "it takes about 2 hours to fly directly from london to berlin"],
+        model: "It takes about two hours to fly directly from London to Berlin.",
+        explanation: "General travel statement ➔ 'It takes about two hours to fly...'."
+    },
+    {
+        id: 11,
+        context: "11. The firefighters spent three hours putting out the warehouse blaze.",
+        tense: "took",
+        acceptedCore: ["it took the firefighters three hours to put out the warehouse blaze", "it took them three hours to put out the fire", "it took them 3 hours to put out the warehouse blaze"],
+        model: "It took the firefighters three hours to put out the warehouse blaze.",
+        explanation: "Past action with plural subject ➔ 'It took them (the firefighters) three hours to put out...'."
+    },
+    {
+        id: 12,
+        context: "12. I usually spend twenty minutes walking my dog every evening.",
+        tense: "takes",
+        acceptedCore: ["it takes me twenty minutes to walk my dog every evening", "it takes me 20 minutes to walk my dog every evening", "it takes me twenty minutes to walk my dog"],
+        model: "It takes me twenty minutes to walk my dog every evening.",
+        explanation: "Personal recurring habit ➔ 'It takes me twenty minutes to walk...'."
+    },
+    {
+        id: 13,
+        context: "13. David spent an entire year saving enough money for his round-the-world trip.",
+        tense: "took",
+        acceptedCore: ["it took david an entire year to save enough money", "it took him a year to save enough money", "it took david a year to save enough money for his trip", "it took him an entire year to save enough money"],
+        model: "It took David an entire year to save enough money for his trip.",
+        explanation: "Past duration for David ➔ 'It took him (David) an entire year to save...'."
+    },
+    {
+        id: 14,
+        context: "14. A student normally spends four years completing this bachelor degree program.",
+        tense: "takes",
+        acceptedCore: ["it takes four years to complete this bachelor degree program", "it takes 4 years to complete this bachelor degree program", "it takes a student four years to complete this degree"],
+        model: "It takes four years to complete this bachelor degree program.",
+        explanation: "Standard institutional timeframe ➔ 'It takes four years to complete...'."
+    },
+    {
+        id: 15,
+        context: "15. She spent fifty minutes explaining the new marketing guidelines to the interns.",
+        tense: "took",
+        acceptedCore: ["it took her fifty minutes to explain the new marketing guidelines", "it took her 50 minutes to explain the new marketing guidelines", "it took her fifty minutes to explain the guidelines to the interns"],
+        model: "It took her fifty minutes to explain the new marketing guidelines to the interns.",
+        explanation: "Past event for 'she' ➔ 'It took her fifty minutes to explain...'."
+    },
+    {
+        id: 16,
+        context: "16. One needs only forty seconds to boil a cup of water in this high-tech kettle.",
+        tense: "takes",
+        acceptedCore: ["it takes only forty seconds to boil a cup of water", "it takes 40 seconds to boil a cup of water", "it takes forty seconds to boil a cup of water in this high-tech kettle"],
+        model: "It takes only forty seconds to boil a cup of water in this high-tech kettle.",
+        explanation: "Fact/specification ➔ 'It takes only forty seconds to boil...'."
+    },
+    {
+        id: 17,
+        context: "17. The jury spent three full days deliberating the verdict in the trial.",
+        tense: "took",
+        acceptedCore: ["it took the jury three full days to deliberate the verdict", "it took them three days to deliberate the verdict", "it took them 3 full days to reach a verdict"],
+        model: "It took the jury three full days to deliberate the verdict.",
+        explanation: "Past deliberation ➔ 'It took the jury three full days to deliberate...'."
+    },
+    {
+        id: 18,
+        context: "18. How much time do you usually spend cleaning the flat on Saturdays?",
+        tense: "takes",
+        acceptedCore: ["how long does it take you to clean the flat on saturdays", "how long does it take to clean the flat on saturdays", "how much time does it take you to clean the flat"],
+        model: "How long does it take you to clean the flat on Saturdays?",
+        explanation: "Question about routine duration ➔ 'How long does it take you to clean...?'."
+    },
+    {
+        id: 19,
+        context: "19. The mechanics spent an hour and a half replacing the broken brake pads on my sedan.",
+        tense: "took",
+        acceptedCore: ["it took the mechanics an hour and a half to replace the broken brake pads", "it took them an hour and a half to replace the brake pads", "it took them 90 minutes to replace the broken brake pads"],
+        model: "It took the mechanics an hour and a half to replace the broken brake pads.",
+        explanation: "Past repair task ➔ 'It took them (the mechanics) an hour and a half to replace...'."
+    },
+    {
+        id: 20,
+        context: "20. A traveler usually spends ten working days receiving an official visa stamp.",
+        tense: "takes",
+        acceptedCore: ["it takes ten working days to receive an official visa stamp", "it takes 10 working days to get an official visa stamp", "it takes ten working days to get a visa"],
+        model: "It takes ten working days to receive an official visa stamp.",
+        explanation: "General administrative turnaround ➔ 'It takes ten working days to receive...'."
+    },
+    {
+        id: 21,
+        context: "21. Tom spent twenty-five minutes fixing the leaky faucet under the kitchen sink.",
+        tense: "took",
+        acceptedCore: ["it took tom twenty-five minutes to fix the leaky faucet", "it took him twenty-five minutes to fix the leaky faucet", "it took tom 25 minutes to fix the faucet"],
+        model: "It took Tom twenty-five minutes to fix the leaky faucet under the kitchen sink.",
+        explanation: "Past finished chore ➔ 'It took Tom (him) twenty-five minutes to fix...'."
+    },
+    {
+        id: 22,
+        context: "22. The express high-speed train needs ninety minutes to connect the two capital cities.",
+        tense: "takes",
+        acceptedCore: ["it takes ninety minutes to connect the two capital cities", "it takes 90 minutes to travel between the two capital cities", "it takes an hour and a half to connect the two capital cities"],
+        model: "It takes ninety minutes to connect the two capital cities by express train.",
+        explanation: "Schedule/factual travel time ➔ 'It takes ninety minutes to connect/travel...'."
+    },
+    {
+        id: 23,
+        context: "23. They spent nearly two years negotiating the terms of the merger.",
+        tense: "took",
+        acceptedCore: ["it took them nearly two years to negotiate the terms of the merger", "it took nearly two years to negotiate the merger", "it took them 2 years to negotiate the terms of the merger"],
+        model: "It took them nearly two years to negotiate the terms of the merger.",
+        explanation: "Past corporate process ➔ 'It took them nearly two years to negotiate...'."
+    },
+    {
+        id: 24,
+        context: "24. A beginner usually spends six months mastering basic conversational Spanish.",
+        tense: "takes",
+        acceptedCore: ["it takes six months to master basic conversational spanish", "it takes 6 months to master basic conversational spanish", "it takes a beginner six months to master basic conversational spanish"],
+        model: "It takes six months to master basic conversational Spanish.",
+        explanation: "Learning progression fact ➔ 'It takes six months to master...'."
+    },
+    {
+        id: 25,
+        context: "25. The paramedic spent only twelve seconds resuscitating the unconscious swimmer.",
+        tense: "took",
+        acceptedCore: ["it took the paramedic only twelve seconds to resuscitate the unconscious swimmer", "it took him only twelve seconds to resuscitate the swimmer", "it took 12 seconds to resuscitate the swimmer"],
+        model: "It took the paramedic only twelve seconds to resuscitate the unconscious swimmer.",
+        explanation: "Specific past emergency ➔ 'It took the paramedic only twelve seconds to resuscitate...'."
+    },
+    {
+        id: 26,
+        context: "26. Most people spend twenty minutes falling asleep after turning off the bedside lamp.",
+        tense: "takes",
+        acceptedCore: ["it takes twenty minutes to fall asleep", "it takes most people twenty minutes to fall asleep", "it takes 20 minutes to fall asleep after turning off the bedside lamp"],
+        model: "It takes most people twenty minutes to fall asleep after turning off the bedside lamp.",
+        explanation: "Scientific/biological average ➔ 'It takes (most people) twenty minutes to fall asleep...'."
+    },
+    {
+        id: 27,
+        context: "27. Alice spent four hours untangling the vintage jewelry necklaces.",
+        tense: "took",
+        acceptedCore: ["it took alice four hours to untangle the vintage jewelry necklaces", "it took her four hours to untangle the necklaces", "it took alice 4 hours to untangle the jewelry"],
+        model: "It took Alice four hours to untangle the vintage jewelry necklaces.",
+        explanation: "Past activity for Alice ➔ 'It took Alice (her) four hours to untangle...'."
+    },
+    {
+        id: 28,
+        context: "28. How many hours did you spend studying for the international certification exam?",
+        tense: "took",
+        acceptedCore: ["how long did it take you to study for the international certification exam", "how many hours did it take you to study for the exam", "how long did it take you to prepare for the certification exam"],
+        model: "How long did it take you to study for the international certification exam?",
+        explanation: "Past inquiry about duration ➔ 'How long did it take you to study for...?'."
+    },
+    {
+        id: 29,
+        context: "29. The algorithm usually spends two hundred milliseconds processing the database query.",
+        tense: "takes",
+        acceptedCore: ["it takes two hundred milliseconds to process the database query", "it takes 200 milliseconds to process the database query", "it takes the algorithm two hundred milliseconds to process the query"],
+        model: "It takes two hundred milliseconds to process the database query.",
+        explanation: "Technical measurement ➔ 'It takes two hundred milliseconds to process...'."
+    },
+    {
+        id: 30,
+        context: "30. The surgeon spent seven grueling hours completing the delicate heart transplant.",
+        tense: "took",
+        acceptedCore: ["it took the surgeon seven grueling hours to complete the delicate heart transplant", "it took seven hours to complete the heart transplant", "it took him seven grueling hours to complete the delicate heart transplant"],
+        model: "It took the surgeon seven grueling hours to complete the delicate heart transplant.",
+        explanation: "Past medical procedure ➔ 'It took the surgeon seven grueling hours to complete...'."
+    }
+];
+
+function renderExercises() {
+    const listContainer = document.getElementById("exercise-list");
+    listContainer.innerHTML = exercises.map(ex => `
+        <div class="exercise-item" id="item-${ex.id}">
+            <div class="context-sentence">${ex.context}</div>
+            <div class="input-row">
+                <input type="text" id="input-${ex.id}" placeholder="Type your 'It takes/took...' sentence here..." onkeydown="if(event.key==='Enter') checkSentence(${ex.id})">
+                <button class="btn-check" onclick="checkSentence(${ex.id})">Check</button>
+            </div>
+            <div class="feedback" id="feedback-${ex.id}"></div>
+        </div>
+    `).join("");
+}
+
+function checkSentence(id) {
+    const ex = exercises.find(item => item.id === id);
+    const inputEl = document.getElementById(`input-${id}`);
+    const feedbackEl = document.getElementById(`feedback-${id}`);
+    
+    const cleanUser = inputEl.value.trim().toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .replace(/\s+/g, " ");
+
+    if (!cleanUser) {
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = "<strong>Please type an answer before checking.</strong>";
+        return;
+    }
+
+    const hasTakes = cleanUser.startsWith("it takes") || cleanUser.includes("does it take") || cleanUser.includes("it take");
+    const hasTook = cleanUser.startsWith("it took") || cleanUser.includes("did it take");
+
+    const isMatched = ex.acceptedCore.some(core => {
+        const cleanCore = core.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+        return cleanUser.includes(cleanCore);
+    });
+
+    if (isMatched) {
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerHTML = `<strong>Spot on! 🎉</strong><br>${ex.explanation}`;
+    } else {
+        let tenseHint = "";
+        if (ex.tense === "took" && !hasTook) {
+            tenseHint = "<br><em>Hint: This is a completed past event. Start with <strong>It took (someone) [time] to...</strong> (or 'How long did it take...?').</em>";
+        } else if (ex.tense === "takes" && !hasTakes) {
+            tenseHint = "<br><em>Hint: This is a regular, habitual, or general fact. Use <strong>It takes [time] to...</strong> (or 'How long does it take...?').</em>";
+        }
+
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = `<strong>Not quite.</strong>${tenseHint}<br><strong>Model solution:</strong> "${ex.model}"<br><em>${ex.explanation}</em>`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderExercises);
+</script>
+
+</body>
+</html>

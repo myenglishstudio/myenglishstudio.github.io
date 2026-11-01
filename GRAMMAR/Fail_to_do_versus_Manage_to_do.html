@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice: 'Manage to' vs. 'Fail to'</title>
+    <style>
+        :root {
+            --navy-deep: #0b192c;
+            --navy-dark: #1e3e62;
+            --navy-accent: #002244;
+            --btn-blue: #1d4ed8;
+            --btn-blue-hover: #1e40af;
+            --card-bg: rgba(255, 255, 255, 0.94);
+            --header-bg: rgba(11, 25, 44, 0.88);
+            --border-ui: #cbd5e1;
+            --text-dark: #0b192c;
+            --text-muted: #334155;
+            --success-bg: #ecfdf5;
+            --success-border: #6ee7b7;
+            --success-text: #065f46;
+            --error-bg: #fef2f2;
+            --error-border: #fca5a5;
+            --error-text: #991b1b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2.5rem 1rem;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(rgba(11, 25, 44, 0.78), rgba(11, 25, 44, 0.88)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--header-bg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .instructions {
+            color: #e2e8f0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 720px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .instructions strong {
+            color: #93c5fd;
+        }
+
+        .example-box {
+            background-color: #ffffff;
+            border-left: 5px solid var(--navy-dark);
+            padding: 1.1rem 1.4rem;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-ui);
+            border-radius: 10px;
+            padding: 1.35rem 1.6rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(6px);
+        }
+
+        .context-sentence {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--navy-deep);
+            margin-bottom: 0.85rem;
+            line-height: 1.45;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 320px;
+            padding: 0.7rem 0.9rem;
+            font-size: 1rem;
+            background-color: #ffffff;
+            border: 2px solid var(--border-ui);
+            border-radius: 6px;
+            color: var(--navy-deep);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--btn-blue);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+        }
+
+        button.btn-check {
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.72rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button.btn-check:hover {
+            background-color: var(--navy-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 0.85rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            color: var(--error-text);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Sentence Transformation Practice</h1>
+        <p class="instructions">Rewrite the outcome in each sentence using <strong>managed to + bare infinitive</strong> (for successful actions achieved despite difficulty) or <strong>failed to + bare infinitive</strong> (when someone did not succeed in doing something).</p>
+        <div class="example-box">
+            <strong>Example 1:</strong> <em>"After waiting in a queue for 3 hours, I bought tickets to the football match."</em><br>
+            ➔ <strong>I managed to buy tickets to the football match.</strong><br><br>
+            <strong>Example 2:</strong> <em>"Despite trying all afternoon, he couldn't reach customer service on the phone."</em><br>
+            ➔ <strong>He failed to reach customer service on the phone.</strong>
+        </div>
+    </header>
+
+    <div id="exercise-list"></div>
+</div>
+
+<script>
+const exercises = [
+    {
+        id: 1,
+        context: "1. Even though there was heavy morning traffic, Sarah arrived at the interview on time.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to arrive at the interview on time", "managed to get to the interview on time", "managed to arrive on time"],
+        explanation: "She succeeded despite the traffic obstacle ➔ Use 'managed to arrive'."
+    },
+    {
+        id: 2,
+        context: "2. The detective inspected the crime scene for hours, but he didn't discover any clear fingerprints.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to discover any clear fingerprints", "failed to find any clear fingerprints", "failed to find any fingerprints", "failed to discover any fingerprints"],
+        explanation: "He was unsuccessful in finding them ➔ Use 'failed to discover/find'."
+    },
+    {
+        id: 3,
+        context: "3. Despite spending weeks studying for the driver's license exam, Mark did not pass the test.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to pass the test", "failed to pass the exam", "failed to pass his driving test"],
+        explanation: "He was unsuccessful despite trying ➔ Use 'failed to pass'."
+    },
+    {
+        id: 4,
+        context: "4. The weather was terribly stormy, but the pilot landed the plane safely on the runway.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to land the plane safely", "managed to land the aircraft safely", "managed to land safely"],
+        explanation: "The pilot overcame severe conditions ➔ Use 'managed to land'."
+    },
+    {
+        id: 5,
+        context: "5. The IT engineer tried restarting the network server twice, but she couldn't fix the connection error.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to fix the connection error", "failed to fix the error", "failed to resolve the error", "failed to fix the connection"],
+        explanation: "She could not solve the problem ➔ Use 'failed to fix'."
+    },
+    {
+        id: 6,
+        context: "6. Although the marathon course was uphill in extreme heat, David crossed the finish line.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to cross the finish line", "managed to finish the marathon", "managed to complete the race"],
+        explanation: "He overcame the heat and incline ➔ Use 'managed to cross/finish'."
+    },
+    {
+        id: 7,
+        context: "7. The company negotiated with the supplier for three days, but they didn't reach an agreement.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to reach an agreement", "failed to come to an agreement", "failed to reach a deal"],
+        explanation: "No agreement was reached ➔ Use 'failed to reach an agreement'."
+    },
+    {
+        id: 8,
+        context: "8. With only five minutes before the deadline, Emma submitted her academic paper.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to submit her academic paper", "managed to submit the paper", "managed to submit her paper on time"],
+        explanation: "She beat the tight clock ➔ Use 'managed to submit'."
+    },
+    {
+        id: 9,
+        context: "9. The speaker was speaking so quietly that the listeners in the back could not hear her words.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to hear her words", "failed to hear what she said", "failed to hear her"],
+        explanation: "They were unable to hear ➔ Use 'failed to hear'."
+    },
+    {
+        id: 10,
+        context: "10. Although the apartment was very expensive, the couple persuaded the landlord to lower the rent.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to persuade the landlord to lower the rent", "managed to convince the landlord to lower the rent", "managed to lower the rent"],
+        explanation: "They achieved their goal through persuasion ➔ Use 'managed to persuade'."
+    },
+    {
+        id: 11,
+        context: "11. The rescue workers climbed through dense rubble and brought the trapped puppy out alive.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to bring the trapped puppy out alive", "managed to rescue the trapped puppy", "managed to save the puppy", "managed to bring the puppy out alive"],
+        explanation: "They pulled off a difficult rescue ➔ Use 'managed to bring out/rescue'."
+    },
+    {
+        id: 12,
+        context: "12. Despite numerous official reminders, the tenant did not pay the monthly rent on time.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to pay the monthly rent on time", "failed to pay the rent on time", "failed to pay the rent"],
+        explanation: "The obligation was missed ➔ Use 'failed to pay'."
+    },
+    {
+        id: 13,
+        context: "13. The user forgot his password and didn't provide the right recovery answers, so he could not log in.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to log in", "failed to log into his account", "failed to access his account"],
+        explanation: "He could not gain access ➔ Use 'failed to log in'."
+    },
+    {
+        id: 14,
+        context: "14. Even though all local hotels were fully booked, we found a cozy guest room in the village center.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to find a cozy guest room", "managed to find a room", "managed to book a room"],
+        explanation: "Succeeded in scarce conditions ➔ Use 'managed to find'."
+    },
+    {
+        id: 15,
+        context: "15. The goalkeeper dove across the net at the last split-second and stopped the ball from entering.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to stop the ball", "managed to save the ball", "managed to stop the ball from entering"],
+        explanation: "A difficult save completed ➔ Use 'managed to stop/save'."
+    },
+    {
+        id: 16,
+        context: "16. After walking through the complicated subway corridors, they didn't catch their scheduled train.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to catch their scheduled train", "failed to catch the train", "failed to catch their train"],
+        explanation: "They missed it ➔ Use 'failed to catch'."
+    },
+    {
+        id: 17,
+        context: "17. The instructions were written so confusingly that none of the students understood the assignment.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to understand the assignment", "failed to comprehend the assignment", "failed to understand it"],
+        explanation: "They could not grasp the task ➔ Use 'failed to understand'."
+    },
+    {
+        id: 18,
+        context: "18. Although the job interview was conducted entirely in German, Lucas answered all questions fluently.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to answer all questions fluently", "managed to answer the questions", "managed to answer all the questions fluently"],
+        explanation: "He overcame the language hurdle ➔ Use 'managed to answer'."
+    },
+    {
+        id: 19,
+        context: "19. The doctor rushed into surgery immediately, but she was unable to save the patient's arm.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to save the patient's arm", "failed to save his arm", "failed to save her arm"],
+        explanation: "The attempt was unsuccessful ➔ Use 'failed to save'."
+    },
+    {
+        id: 20,
+        context: "20. Despite strict city noise regulations, the organizers secured a permit for the outdoor concert.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to secure a permit for the outdoor concert", "managed to get a permit", "managed to secure a permit"],
+        explanation: "They succeeded in obtaining approval ➔ Use 'managed to secure/get'."
+    },
+    {
+        id: 21,
+        context: "21. Despite hours of debate in parliament, the opposing parties did not pass the healthcare bill.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to pass the healthcare bill", "failed to pass the bill"],
+        explanation: "The bill was not passed ➔ Use 'failed to pass'."
+    },
+    {
+        id: 22,
+        context: "22. The mountain climbers battled fierce blizzards for twelve hours and finally reached the summit.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to reach the summit", "managed to reach the top", "managed to reach the peak"],
+        explanation: "They reached the top despite severe weather ➔ Use 'managed to reach'."
+    },
+    {
+        id: 23,
+        context: "23. The young witness became overwhelmed with nervousness and could not recall what the suspect looked like.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to recall what the suspect looked like", "failed to remember what the suspect looked like", "failed to identify the suspect"],
+        explanation: "She was unable to recall the face ➔ Use 'failed to recall/remember'."
+    },
+    {
+        id: 24,
+        context: "24. Despite losing power in one engine over the ocean, the flight crew kept the aircraft airborne.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to keep the aircraft airborne", "managed to keep the plane airborne", "managed to fly safely"],
+        explanation: "They maintained control in an emergency ➔ Use 'managed to keep'."
+    },
+    {
+        id: 25,
+        context: "25. The car broke down in the middle of a deserted highway, but Tom got the engine running again.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to get the engine running again", "managed to get the car running again", "managed to fix the engine"],
+        explanation: "He succeeded in fixing it ➔ Use 'managed to get/fix'."
+    },
+    {
+        id: 26,
+        context: "26. Although the sales team launched an aggressive discount campaign, they did not meet their quarterly targets.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to meet their quarterly targets", "failed to meet the targets", "failed to reach their quarterly targets"],
+        explanation: "The target was not hit ➔ Use 'failed to meet/reach'."
+    },
+    {
+        id: 27,
+        context: "27. Even though she broke her wrist earlier in the year, Clara won the regional tennis championship.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to win the regional tennis championship", "managed to win the championship", "managed to win the tournament"],
+        explanation: "She triumphed over her injury ➔ Use 'managed to win'."
+    },
+    {
+        id: 28,
+        context: "28. The board of directors reviewed the startup proposal, but the founders could not convince them to invest.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to convince them to invest", "failed to persuade them to invest", "failed to convince the board"],
+        explanation: "They did not succeed in convincing the board ➔ Use 'failed to convince'."
+    },
+    {
+        id: 29,
+        context: "29. Although the instructions were missing several pages, my grandfather assembled the entire wardrobe.",
+        targetVerb: "managed",
+        acceptedCore: ["managed to assemble the entire wardrobe", "managed to assemble the wardrobe", "managed to build the wardrobe"],
+        explanation: "He built it despite missing directions ➔ Use 'managed to assemble'."
+    },
+    {
+        id: 30,
+        context: "30. The cyber security team was notified immediately, but they were unable to prevent the data leak.",
+        targetVerb: "failed",
+        acceptedCore: ["failed to prevent the data leak", "failed to stop the data leak", "failed to prevent the leak"],
+        explanation: "They were unable to stop it ➔ Use 'failed to prevent/stop'."
+    }
+];
+
+function renderExercises() {
+    const listContainer = document.getElementById("exercise-list");
+    listContainer.innerHTML = exercises.map(ex => `
+        <div class="exercise-item" id="item-${ex.id}">
+            <div class="context-sentence">${ex.context}</div>
+            <div class="input-row">
+                <input type="text" id="input-${ex.id}" placeholder="Type your sentence here..." onkeydown="if(event.key==='Enter') checkSentence(${ex.id})">
+                <button class="btn-check" onclick="checkSentence(${ex.id})">Check</button>
+            </div>
+            <div class="feedback" id="feedback-${ex.id}"></div>
+        </div>
+    `).join("");
+}
+
+function checkSentence(id) {
+    const ex = exercises.find(item => item.id === id);
+    const inputEl = document.getElementById(`input-${id}`);
+    const feedbackEl = document.getElementById(`feedback-${id}`);
+    
+    const cleanUser = inputEl.value.trim().toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .replace(/\s+/g, " ");
+
+    if (!cleanUser) {
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = "<strong>Please type an answer before checking.</strong>";
+        return;
+    }
+
+    const hasManage = cleanUser.includes("managed to") || cleanUser.includes("manages to") || cleanUser.includes("manage to");
+    const hasFail = cleanUser.includes("failed to") || cleanUser.includes("fails to") || cleanUser.includes("fail to");
+
+    const isMatched = ex.acceptedCore.some(core => {
+        const cleanCore = core.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+        return cleanUser.includes(cleanCore);
+    });
+
+    if (isMatched) {
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerHTML = `<strong>Spot on! 🎉</strong><br>${ex.explanation}`;
+    } else {
+        feedbackEl.className = "feedback incorrect";
+        const primaryModel = ex.acceptedCore[0];
+        
+        let verbHint = "";
+        if (ex.targetVerb === "managed" && !hasManage) {
+            verbHint = "<br><em>Hint: The person succeeded despite a challenge, so use <strong>managed to + verb</strong>.</em>";
+        } else if (ex.targetVerb === "failed" && !hasFail) {
+            verbHint = "<br><em>Hint: The attempt was unsuccessful, so use <strong>failed to + verb</strong>.</em>";
+        }
+
+        feedbackEl.innerHTML = `<strong>Not quite.</strong>${verbHint}<br><strong>Model solution:</strong> "...${primaryModel}."<br><em>${ex.explanation}</em>`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderExercises);
+</script>
+
+</body>
+</html>

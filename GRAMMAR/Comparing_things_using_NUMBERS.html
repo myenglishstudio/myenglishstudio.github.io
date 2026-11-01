@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparative Transformation Mastery</title>
+  <style>
+    /* --- KHAKI & WARM EARTH SCANDINAVIAN PALETTE --- */
+    :root {
+      --bg-khaki-bone: #F7F6EE;
+      --card-bg: #FFFFFF;
+      --slate-dark: #2C3531;
+      --slate-muted: #5C6B66;
+      
+      --khaki-dark: #585131;
+      --khaki-sage: #80774D;
+      --khaki-light: #ECE8D9;
+      --khaki-border: #D8D2BC;
+
+      --flash-green-bg: #22C55E;
+      --flash-green-glow: rgba(34, 197, 94, 0.4);
+      --flash-red-bg: #EF4444;
+      --flash-red-glow: rgba(239, 68, 68, 0.4);
+
+      --terracotta: #D96B52;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+      --shadow-md: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-khaki-bone);
+      color: var(--slate-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: inset 0 0 0 0 transparent;
+    }
+
+    body.flash-green { 
+      background-color: #DCFCE7 !important;
+      box-shadow: inset 0 0 120px var(--flash-green-bg) !important;
+    }
+    
+    body.flash-red { 
+      background-color: #FEE2E2 !important;
+      box-shadow: inset 0 0 120px var(--flash-red-bg) !important;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 960px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--khaki-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .app-container.card-pulse-green {
+      border-color: var(--flash-green-bg) !important;
+      box-shadow: 0 0 35px var(--flash-green-glow) !important;
+      transform: scale(1.005);
+    }
+
+    .app-container.card-pulse-red {
+      border-color: var(--flash-red-bg) !important;
+      box-shadow: 0 0 35px var(--flash-red-glow) !important;
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* TOP HEADER & STATS */
+    .app-header {
+      padding: 20px 32px;
+      background: var(--khaki-light);
+      border-bottom: 1px solid var(--khaki-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--khaki-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-badges {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .stat-badge {
+      background: white;
+      border: 1px solid var(--khaki-border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-dark);
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: #E5E0CE;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--khaki-dark);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* MAIN VIEWPORT */
+    .content-viewport {
+      padding: 40px 48px;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* INSTRUCTIONS / WELCOME SCREEN */
+    .welcome-card {
+      max-width: 820px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .welcome-badge {
+      display: inline-block;
+      background-color: var(--khaki-light);
+      color: var(--khaki-dark);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .welcome-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--slate-dark);
+      margin-bottom: 14px;
+    }
+
+    .rules-list {
+      background: var(--bg-khaki-bone);
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 22px 28px;
+      margin-bottom: 26px;
+    }
+
+    .rules-list h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--khaki-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .rules-list ul {
+      padding-left: 20px;
+      color: var(--slate-dark);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .example-box {
+      background: white;
+      border: 2px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .example-tag {
+      position: absolute;
+      top: -10px;
+      right: 16px;
+      background: var(--khaki-sage);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .example-line {
+      font-size: 14px;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .example-line strong {
+      color: var(--khaki-dark);
+    }
+
+    .example-result {
+      background: var(--khaki-light);
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-dark);
+      border-left: 4px solid var(--khaki-dark);
+    }
+
+    .category-pill {
+      display: inline-block;
+      background-color: var(--khaki-light);
+      color: var(--khaki-dark);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      border: 1px solid var(--khaki-border);
+    }
+
+    .context-box {
+      background: var(--bg-khaki-bone);
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 28px 32px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .context-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--slate-muted);
+      margin-bottom: 8px;
+    }
+
+    .context-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--slate-dark);
+      line-height: 1.4;
+    }
+
+    /* KEYWORD SECTION */
+    .keyword-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .keyword-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--slate-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .keyword-pill {
+      background: var(--khaki-dark);
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      padding: 6px 20px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(88, 81, 49, 0.2);
+    }
+
+    /* INPUT ROW */
+    .input-wrapper {
+      width: 100%;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 18px 24px;
+      border: 2px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      font-size: 17px;
+      color: var(--slate-dark);
+      outline: none;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    .text-input:focus {
+      border-color: var(--khaki-sage);
+      box-shadow: 0 0 0 4px rgba(128, 119, 77, 0.15);
+    }
+
+    /* FEEDBACK & SAMPLE ANSWERS */
+    .feedback-card {
+      width: 100%;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      font-size: 15px;
+      margin-bottom: 22px;
+      display: none;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .feedback-card.correct {
+      background-color: #F0FDF4;
+      border: 1px solid #86EFAC;
+      color: #166534;
+    }
+
+    .feedback-card.incorrect {
+      background-color: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: #991B1B;
+    }
+
+    .sample-answers-list {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .sample-answers-list li {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    /* ACTION BUTTONS */
+    .action-row {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 16px 24px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--khaki-dark);
+      color: white;
+      box-shadow: 0 4px 15px rgba(88, 81, 49, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: #433D24;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--khaki-light);
+      color: var(--khaki-dark);
+      border: 1px solid var(--khaki-border);
+    }
+
+    .btn-secondary:hover {
+      background: #E0DAC7;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--khaki-border);
+      color: var(--slate-muted);
+      flex: 0 0 auto;
+      padding: 14px 20px;
+    }
+
+    .btn-outline:hover {
+      background: var(--khaki-light);
+      color: var(--khaki-dark);
+    }
+
+    /* COMPLETE FINALE SCREEN */
+    .finale-box {
+      text-align: center;
+      max-width: 680px;
+      padding: 20px;
+    }
+
+    .finale-trophy {
+      font-size: 72px;
+      margin-bottom: 16px;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .finale-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--slate-dark);
+      margin-bottom: 12px;
+    }
+
+    .finale-desc {
+      font-size: 16px;
+      color: var(--slate-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .score-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .score-box {
+      background: var(--bg-khaki-bone);
+      border: 1px solid var(--khaki-border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .score-box .num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--khaki-dark);
+    }
+
+    .score-box .label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--slate-muted);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container" id="app-card">
+  <!-- TOP BRAND & SCORE HEADER -->
+  <div class="app-header">
+    <div class="brand-title">
+      <span>📐</span> Comparative Paraphrase Mastery
+    </div>
+    <div class="stats-badges">
+      <div class="stat-badge" id="counter-badge">Instructions</div>
+      <div class="stat-badge" id="score-badge">Score: 0</div>
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar"></div>
+  </div>
+
+  <!-- MAIN INTERACTIVE VIEWPORT -->
+  <div class="content-viewport" id="viewport">
+    <!-- Rendered Dynamically -->
+  </div>
+</div>
+
+<script>
+  // --- 45 COMPARATIVE CONTEXTS ACROSS MULTIPLE DOMAINS ---
+  const dataset = [
+    // --- AGE ---
+    {
+      category: "Age",
+      context: "I am 10 years old. My brother is 15 years old.",
+      keyword: "OLDER",
+      answers: [
+        "My brother is 5 years older than me.",
+        "My brother is five years older than me.",
+        "My brother is 5 years older than I am.",
+        "My brother is five years older than I am."
+      ]
+    },
+    {
+      category: "Age",
+      context: "Anna was born in 2000. David was born in 2005.",
+      keyword: "YOUNGER",
+      answers: [
+        "David is 5 years younger than Anna.",
+        "David is five years younger than Anna."
+      ]
+    },
+    {
+      category: "Age",
+      context: "Grandpa is 80 years old. My father is 50 years old.",
+      keyword: "SENIOR",
+      answers: [
+        "Grandpa is 30 years senior to my father.",
+        "Grandpa is thirty years senior to my father."
+      ]
+    },
+    {
+      category: "Age",
+      context: "Emily is 24 years old. Her cousin Liam is also 24 years old.",
+      keyword: "OLD",
+      answers: [
+        "Liam is as old as Emily.",
+        "Emily is as old as Liam.",
+        "Liam is the same age as Emily."
+      ]
+    },
+
+    // --- HEIGHT ---
+    {
+      category: "Height",
+      context: "Marcus is 190 cm tall. His teammate Leo is 175 cm tall.",
+      keyword: "TALLER",
+      answers: [
+        "Marcus is 15 cm taller than Leo.",
+        "Marcus is 15 centimeters taller than Leo.",
+        "Marcus is 15cm taller than Leo."
+      ]
+    },
+    {
+      category: "Height",
+      context: "The old oak tree is 12 meters high. The pine tree is 20 meters high.",
+      keyword: "SHORTER",
+      answers: [
+        "The oak tree is 8 meters shorter than the pine tree.",
+        "The oak is 8 meters shorter than the pine tree.",
+        "The old oak tree is 8 meters shorter than the pine tree."
+      ]
+    },
+    {
+      category: "Height",
+      context: "Tower A stands at 300 meters. Tower B stands at 150 meters.",
+      keyword: "TALLER",
+      answers: [
+        "Tower A is 150 meters taller than Tower B.",
+        "Tower A is 150m taller than Tower B.",
+        "Tower A is 150 meters taller than Tower B stands."
+      ]
+    },
+    {
+      category: "Height",
+      context: "Sophia is 165 cm. Her sister Clara is 168 cm.",
+      keyword: "SLIGHTLY",
+      answers: [
+        "Clara is slightly taller than Sophia.",
+        "Sophia is slightly shorter than Clara."
+      ]
+    },
+
+    // --- WEIGHT / MASS ---
+    {
+      category: "Weight",
+      context: "The blue suitcase weighs 25 kg. The black suitcase weighs 18 kg.",
+      keyword: "HEAVIER",
+      answers: [
+        "The blue suitcase is 7 kg heavier than the black one.",
+        "The blue suitcase is 7 kg heavier than the black suitcase.",
+        "The blue suitcase is 7kg heavier than the black suitcase."
+      ]
+    },
+    {
+      category: "Weight",
+      context: "The laptop weighs 1.2 kg. The desktop tower weighs 12 kg.",
+      keyword: "LIGHTER",
+      answers: [
+        "The laptop is much lighter than the desktop tower.",
+        "The laptop is ten times lighter than the desktop tower.",
+        "The laptop is far lighter than the desktop tower."
+      ]
+    },
+    {
+      category: "Weight",
+      context: "Box X weighs 40 kg. Box Y weighs 80 kg.",
+      keyword: "HEAVIER",
+      answers: [
+        "Box Y is 40 kg heavier than Box X.",
+        "Box Y is 40kg heavier than Box X."
+      ]
+    },
+
+    // --- DISTANCE / LENGTH ---
+    {
+      category: "Distance",
+      context: "The bakery is 200 meters from my flat. The supermarket is 800 meters away.",
+      keyword: "FARTHER",
+      answers: [
+        "The supermarket is 600 meters farther than the bakery.",
+        "The supermarket is 600 meters further than the bakery.",
+        "The supermarket is 600m farther than the bakery."
+      ]
+    },
+    {
+      category: "Distance",
+      context: "London to Paris is 340 km. London to Edinburgh is 530 km.",
+      keyword: "CLOSER",
+      answers: [
+        "Paris is closer to London than Edinburgh is.",
+        "Paris is closer to London than Edinburgh.",
+        "London to Paris is closer than London to Edinburgh."
+      ]
+    },
+    {
+      category: "Distance",
+      context: "Route 1 is 10 miles long. Route 2 is 30 miles long.",
+      keyword: "LONGER",
+      answers: [
+        "Route 2 is 20 miles longer than Route 1.",
+        "Route 2 is twenty miles longer than Route 1."
+      ]
+    },
+    {
+      category: "Distance",
+      context: "My office is 2 km from here. The gym is also 2 km from here.",
+      keyword: "FAR",
+      answers: [
+        "The gym is as far as the office.",
+        "The office is as far as the gym.",
+        "The gym is just as far as the office."
+      ]
+    },
+
+    // --- TIME & DURATION ---
+    {
+      category: "Time & Duration",
+      context: "The train journey takes 45 minutes. The bus ride takes 90 minutes.",
+      keyword: "LONGER",
+      answers: [
+        "The bus ride takes 45 minutes longer than the train.",
+        "The bus ride takes 45 minutes longer than the train journey.",
+        "The bus is 45 minutes longer than the train."
+      ]
+    },
+    {
+      category: "Time & Duration",
+      context: "Flight A arrived at 2:00 PM. Flight B arrived at 2:40 PM.",
+      keyword: "EARLIER",
+      answers: [
+        "Flight A arrived 40 minutes earlier than Flight B.",
+        "Flight A arrived 40 mins earlier than Flight B."
+      ]
+    },
+    {
+      category: "Time & Duration",
+      context: "The morning movie lasted 2 hours. The evening movie lasted 3 hours.",
+      keyword: "SHORTER",
+      answers: [
+        "The morning movie was an hour shorter than the evening movie.",
+        "The morning movie was 1 hour shorter than the evening movie.",
+        "The morning movie was one hour shorter than the evening movie."
+      ]
+    },
+    {
+      category: "Time & Duration",
+      context: "Sarah finished the test in 30 minutes. Mark finished in 15 minutes.",
+      keyword: "FASTER",
+      answers: [
+        "Mark finished 15 minutes faster than Sarah.",
+        "Mark was 15 minutes faster than Sarah.",
+        "Mark finished 15 mins faster than Sarah."
+      ]
+    },
+
+    // --- SPEED ---
+    {
+      category: "Speed",
+      context: "Car A is traveling at 120 km/h. Car B is traveling at 80 km/h.",
+      keyword: "FASTER",
+      answers: [
+        "Car A is traveling 40 km/h faster than Car B.",
+        "Car A is 40 km/h faster than Car B.",
+        "Car A is moving 40 km/h faster than Car B."
+      ]
+    },
+    {
+      category: "Speed",
+      context: "The cyclist moves at 20 km/h. The pedestrian walks at 5 km/h.",
+      keyword: "SLOWER",
+      answers: [
+        "The pedestrian is 15 km/h slower than the cyclist.",
+        "The pedestrian moves 15 km/h slower than the cyclist."
+      ]
+    },
+    {
+      category: "Speed",
+      context: "Fiber internet downloads at 500 Mbps. DSL downloads at 50 Mbps.",
+      keyword: "FASTER",
+      answers: [
+        "Fiber internet is 450 Mbps faster than DSL.",
+        "Fiber internet is 450Mbps faster than DSL."
+      ]
+    },
+
+    // --- PRICE & COST ---
+    {
+      category: "Cost & Price",
+      context: "The leather jacket costs $200. The denim jacket costs $120.",
+      keyword: "EXPENSIVE",
+      answers: [
+        "The leather jacket is $80 more expensive than the denim jacket.",
+        "The leather jacket is 80 dollars more expensive than the denim jacket."
+      ]
+    },
+    {
+      category: "Cost & Price",
+      context: "A cup of coffee costs $4. A cup of tea costs $2.",
+      keyword: "CHEAPER",
+      answers: [
+        "The tea is $2 cheaper than the coffee.",
+        "Tea is $2 cheaper than coffee.",
+        "A cup of tea is $2 cheaper than a cup of coffee."
+      ]
+    },
+    {
+      category: "Cost & Price",
+      context: "Ticket A is $50. Ticket B is $100.",
+      keyword: "CHEAPER",
+      answers: [
+        "Ticket A is $50 cheaper than Ticket B.",
+        "Ticket A is 50 dollars cheaper than Ticket B."
+      ]
+    },
+    {
+      category: "Cost & Price",
+      context: "Brand X sneakers cost $90. Brand Y sneakers cost $90 as well.",
+      keyword: "MUCH",
+      answers: [
+        "Brand X costs as much as Brand Y.",
+        "Brand X sneakers cost as much as Brand Y sneakers."
+      ]
+    },
+
+    // --- TEMPERATURE & WEATHER ---
+    {
+      category: "Temperature",
+      context: "Madrid is 35°C today. London is 20°C today.",
+      keyword: "WARMER",
+      answers: [
+        "Madrid is 15 degrees warmer than London today.",
+        "Madrid is 15°C warmer than London today.",
+        "Madrid is 15 degrees hotter than London today."
+      ]
+    },
+    {
+      category: "Temperature",
+      context: "The freezer is -18°C. The refrigerator is 4°C.",
+      keyword: "COLDER",
+      answers: [
+        "The freezer is 22 degrees colder than the refrigerator.",
+        "The freezer is 22°C colder than the refrigerator."
+      ]
+    },
+
+    // --- QUANTITY / CAPACITY / VOLUME ---
+    {
+      category: "Quantity & Volume",
+      context: "Water bottle A holds 1.5 liters. Bottle B holds 0.5 liters.",
+      keyword: "MORE",
+      answers: [
+        "Bottle A holds 1 liter more water than Bottle B.",
+        "Bottle A holds 1 liter more than Bottle B.",
+        "Bottle A holds one liter more than Bottle B."
+      ]
+    },
+    {
+      category: "Quantity & Volume",
+      context: "Auditorium 1 seats 500 people. Auditorium 2 seats 200 people.",
+      keyword: "FEWER",
+      answers: [
+        "Auditorium 2 seats 300 fewer people than Auditorium 1.",
+        "Auditorium 2 has 300 fewer seats than Auditorium 1."
+      ]
+    },
+    {
+      category: "Quantity & Volume",
+      context: "Class A has 30 students. Class B has 15 students.",
+      keyword: "LARGER",
+      answers: [
+        "Class A is 15 students larger than Class B.",
+        "Class A has 15 more students than Class B."
+      ]
+    },
+    {
+      category: "Quantity & Volume",
+      context: "Tank 1 has 100 liters. Tank 2 has 20 liters.",
+      keyword: "LESS",
+      answers: [
+        "Tank 2 has 80 liters less fuel than Tank 1.",
+        "Tank 2 contains 80 liters less than Tank 1.",
+        "Tank 2 has 80 liters less than Tank 1."
+      ]
+    },
+
+    // --- WORK & EXPERIENCE ---
+    {
+      category: "Experience",
+      context: "Tom has worked in coding for 8 years. Jake has coded for 3 years.",
+      keyword: "EXPERIENCED",
+      answers: [
+        "Tom is 5 years more experienced than Jake.",
+        "Tom is far more experienced than Jake.",
+        "Tom is much more experienced than Jake."
+      ]
+    },
+    {
+      category: "Experience",
+      context: "The senior engineer solved 12 tickets today. The intern solved 4 tickets.",
+      keyword: "THREE",
+      answers: [
+        "The senior engineer solved three times as many tickets as the intern.",
+        "The senior engineer solved 3 times more tickets than the intern."
+      ]
+    },
+
+    // --- BATTERY & TECH SPECS ---
+    {
+      category: "Technology",
+      context: "Phone A's battery lasts 24 hours. Phone B's battery lasts 12 hours.",
+      keyword: "LONGER",
+      answers: [
+        "Phone A lasts 12 hours longer than Phone B.",
+        "Phone A's battery lasts 12 hours longer than Phone B's."
+      ]
+    },
+    {
+      category: "Technology",
+      context: "Monitor 1 has a 27-inch screen. Monitor 2 has a 24-inch screen.",
+      keyword: "LARGER",
+      answers: [
+        "Monitor 1 is 3 inches larger than Monitor 2.",
+        "Monitor 1 is 3 inches bigger than Monitor 2."
+      ]
+    },
+    {
+      category: "Technology",
+      context: "Drive A has 512 GB of storage. Drive B has 256 GB.",
+      keyword: "LARGER",
+      answers: [
+        "Drive A is 256 GB larger than Drive B.",
+        "Drive A is 256GB larger than Drive B."
+      ]
+    },
+
+    // --- DEPTH & AREA ---
+    {
+      category: "Depth & Area",
+      context: "The swimming pool is 3 meters deep. The diving pool is 6 meters deep.",
+      keyword: "DEEPER",
+      answers: [
+        "The diving pool is 3 meters deeper than the swimming pool.",
+        "The diving pool is twice as deep as the swimming pool."
+      ]
+    },
+    {
+      category: "Depth & Area",
+      context: "Apartment 1 is 80 square meters. Apartment 2 is 120 square meters.",
+      keyword: "SPACIOUS",
+      answers: [
+        "Apartment 2 is more spacious than Apartment 1.",
+        "Apartment 2 is 40 square meters more spacious than Apartment 1."
+      ]
+    },
+
+    // --- FREQUENCY & ATTENDANCE ---
+    {
+      category: "Frequency",
+      context: "Lisa visits the gym 4 times a week. Karen visits the gym 2 times a week.",
+      keyword: "OFTEN",
+      answers: [
+        "Lisa goes to the gym twice as often as Karen.",
+        "Lisa visits the gym twice as often as Karen."
+      ]
+    },
+    {
+      category: "Frequency",
+      context: "The express bus arrives every 10 minutes. The regular bus arrives every 30 minutes.",
+      keyword: "FREQUENT",
+      answers: [
+        "The express bus is three times more frequent than the regular bus.",
+        "The express bus is much more frequent than the regular bus."
+      ]
+    },
+
+    // --- ENERGY & POWER ---
+    {
+      category: "Energy",
+      context: "Bulb A uses 10 Watts. Bulb B uses 60 Watts.",
+      keyword: "EFFICIENT",
+      answers: [
+        "Bulb A is much more energy efficient than Bulb B.",
+        "Bulb A is six times more efficient than Bulb B.",
+        "Bulb A is far more efficient than Bulb B."
+      ]
+    },
+    {
+      category: "Sound & Noise",
+      context: "The whisper measured 30 decibels. The shouting measured 80 decibels.",
+      keyword: "LOUDER",
+      answers: [
+        "The shouting was 50 decibels louder than the whisper.",
+        "The shouting was 50 dB louder than the whisper."
+      ]
+    },
+    {
+      category: "Weight / Cargo",
+      context: "Truck A carries 5 tons of cargo. Truck B carries 2 tons of cargo.",
+      keyword: "MORE",
+      answers: [
+        "Truck A carries 3 tons more cargo than Truck B.",
+        "Truck A carries 3 more tons than Truck B."
+      ]
+    },
+    {
+      category: "Reading & Pages",
+      context: "Book 1 has 400 pages. Book 2 has 200 pages.",
+      keyword: "LONGER",
+      answers: [
+        "Book 1 is 200 pages longer than Book 2.",
+        "Book 1 has 200 pages more than Book 2."
+      ]
+    }
+  ];
+
+  // --- STATE VARIABLES ---
+  let isWelcome = true;
+  let currentIndex = 0;
+  let score = 0;
+  let hasSubmitted = false;
+
+  function normalizeText(str) {
+    return str
+      .toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function updateHeader() {
+    if (isWelcome) {
+      document.getElementById("counter-badge").innerText = "Instructions & Examples";
+      document.getElementById("score-badge").innerText = "Score: 0";
+      document.getElementById("progress-bar").style.width = "0%";
+    } else {
+      document.getElementById("counter-badge").innerText = `Question ${currentIndex + 1} / ${dataset.length}`;
+      document.getElementById("score-badge").innerText = `Score: ${score}`;
+      const pct = (currentIndex / dataset.length) * 100;
+      document.getElementById("progress-bar").style.width = `${pct}%`;
+    }
+  }
+
+  function renderWelcome() {
+    isWelcome = true;
+    updateHeader();
+
+    const container = document.getElementById("viewport");
+    container.innerHTML = `
+      <div class="welcome-card">
+        <span class="welcome-badge">Task Guide & Walkthrough</span>
+        <h1 class="welcome-title">How to Complete This Task</h1>
+
+        <div class="rules-list">
+          <h3>📌 Instructions</h3>
+          <ul>
+            <li><strong>Analyze the Facts:</strong> Read the two sentences comparing age, height, distance, price, speed, weight, etc.</li>
+            <li><strong>Stick to the Formula:</strong> Your answer MUST follow the structure:<br>
+                <div style="margin: 8px 0; padding: 8px 12px; background: white; border-left: 4px solid var(--khaki-dark); font-weight: 700; color: var(--khaki-dark); border-radius: 4px;">
+                  [Number / Difference with Unit] + [Comparative Adjective] + than + [Noun / Pronoun]
+                </div>
+            </li>
+            <li><strong>Calculate the Exact Difference:</strong> Subtract to find the exact difference (e.g., <em>5 years</em>, <em>15 cm</em>, <em>$80</em>, <em>40 km/h</em>, <em>45 minutes</em>).</li>
+            <li><strong>Keep the Keyword:</strong> Always include the exact comparative keyword provided.</li>
+          </ul>
+        </div>
+
+        <div class="examples-grid">
+          <div class="example-box">
+            <span class="example-tag">Example 1 (Difference)</span>
+            <div class="example-line"><strong>Context:</strong> "I am 10 years old. My brother is 15 years old."</div>
+            <div class="example-line"><strong>Keyword:</strong> <span style="background: var(--khaki-dark); color: white; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 12px;">OLDER</span></div>
+            <div class="example-result">➔ "My brother is 5 years older than me."</div>
+          </div>
+
+          <div class="example-box">
+            <span class="example-tag">Example 2 (Measurement Difference)</span>
+            <div class="example-line"><strong>Context:</strong> "Tower A is 300 meters high. Tower B is 150 meters high."</div>
+            <div class="example-line"><strong>Keyword:</strong> <span style="background: var(--khaki-dark); color: white; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 12px;">TALLER</span></div>
+            <div class="example-result">➔ "Tower A is 150 meters taller than Tower B."</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;" onclick="startExercise()">
+          I Understand — Start Quiz (45 Questions) ➔
+        </button>
+      </div>
+    `;
+  }
+
+  function startExercise() {
+    isWelcome = false;
+    currentIndex = 0;
+    score = 0;
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    if (currentIndex >= dataset.length) {
+      renderFinale();
+      return;
+    }
+
+    hasSubmitted = false;
+    updateHeader();
+
+    const item = dataset[currentIndex];
+    const container = document.getElementById("viewport");
+
+    container.innerHTML = `
+      <span class="category-pill">${item.category}</span>
+      
+      <div class="context-box">
+        <div class="context-label">Original Context</div>
+        <div class="context-text">"${item.context}"</div>
+      </div>
+
+      <div class="keyword-container">
+        <span class="keyword-label">Required Key Word:</span>
+        <span class="keyword-pill">${item.keyword}</span>
+      </div>
+
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          id="user-input" 
+          class="text-input" 
+          placeholder="Type your comparative paraphrase here..." 
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div id="feedback-box" class="feedback-card"></div>
+
+      <div class="action-row">
+        <button class="btn btn-outline" onclick="revealModelAnswer()">💡 Show Answer</button>
+        <button class="btn btn-primary" id="submit-btn" onclick="checkAnswer()">Submit Paraphrase ➔</button>
+      </div>
+    `;
+
+    const inputEl = document.getElementById("user-input");
+    inputEl.focus();
+    inputEl.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (!hasSubmitted) {
+          checkAnswer();
+        } else {
+          nextQuestion();
+        }
+      }
+    });
+  }
+
+  function checkAnswer() {
+    const inputEl = document.getElementById("user-input");
+    const userVal = inputEl.value.trim();
+    if (!userVal) {
+      inputEl.focus();
+      return;
+    }
+
+    const item = dataset[currentIndex];
+    const normalizedUser = normalizeText(userVal);
+    const requiredWord = item.keyword.toLowerCase();
+
+    const includesKeyword = normalizedUser.split(" ").some(word => word.startsWith(requiredWord));
+    let isMatched = item.answers.some(ans => normalizeText(ans) === normalizedUser);
+
+    const feedbackBox = document.getElementById("feedback-box");
+    const submitBtn = document.getElementById("submit-btn");
+    const appCard = document.getElementById("app-card");
+
+    if (isMatched && includesKeyword) {
+      score++;
+      document.body.classList.add("flash-green");
+      appCard.classList.add("card-pulse-green");
+
+      feedbackBox.className = "feedback-card correct";
+      feedbackBox.innerHTML = `
+        <strong>✨ Spot on! Excellent comparative paraphrase.</strong>
+        <div style="margin-top: 6px;">Your sentence: <em>"${userVal}"</em></div>
+      `;
+      feedbackBox.style.display = "block";
+
+      setTimeout(() => {
+        document.body.classList.remove("flash-green");
+        appCard.classList.remove("card-pulse-green");
+      }, 450);
+
+    } else {
+      document.body.classList.add("flash-red");
+      appCard.classList.add("card-pulse-red");
+
+      let extraTip = "";
+      if (!includesKeyword) {
+        extraTip = `<p style="margin-top: 4px; color: var(--terracotta);"><strong>Reminder:</strong> Make sure you include the required keyword: <strong>${item.keyword}</strong>.</p>`;
+      }
+
+      feedbackBox.className = "feedback-card incorrect";
+      feedbackBox.innerHTML = `
+        <strong>Not quite exact!</strong> ${extraTip}
+        <div style="margin-top: 6px;">Accepted model ways to express this:</div>
+        <ul class="sample-answers-list">
+          ${item.answers.map(a => `<li>${a}</li>`).join("")}
+        </ul>
+      `;
+      feedbackBox.style.display = "block";
+
+      setTimeout(() => {
+        document.body.classList.remove("flash-red");
+        appCard.classList.remove("card-pulse-red");
+      }, 450);
+    }
+
+    hasSubmitted = true;
+    inputEl.disabled = true;
+    submitBtn.innerText = "Next Question ➔";
+    submitBtn.className = "btn btn-primary";
+    submitBtn.onclick = nextQuestion;
+    submitBtn.focus();
+  }
+
+  function revealModelAnswer() {
+    const item = dataset[currentIndex];
+    const feedbackBox = document.getElementById("feedback-box");
+    feedbackBox.className = "feedback-card correct";
+    feedbackBox.innerHTML = `
+      <strong>💡 Model Paraphrases:</strong>
+      <ul class="sample-answers-list">
+        ${item.answers.map(a => `<li>${a}</li>`).join("")}
+      </ul>
+    `;
+    feedbackBox.style.display = "block";
+    hasSubmitted = true;
+    const submitBtn = document.getElementById("submit-btn");
+    submitBtn.innerText = "Next Question ➔";
+    submitBtn.onclick = nextQuestion;
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    renderQuestion();
+  }
+
+  function renderFinale() {
+    document.getElementById("progress-bar").style.width = "100%";
+    const container = document.getElementById("viewport");
+    const accuracy = Math.round((score / dataset.length) * 100);
+
+    container.innerHTML = `
+      <div class="finale-box">
+        <div class="finale-trophy">🏆</div>
+        <h2 class="finale-title">Paraphrase Mastery Completed!</h2>
+        <p class="finale-desc">You have successfully transformed and compared 45 complex quantitative contexts across age, distance, weight, height, speed, cost, and time!</p>
+
+        <div class="score-summary-grid">
+          <div class="score-box">
+            <div class="num">${score}</div>
+            <div class="label">Correct</div>
+          </div>
+          <div class="score-box">
+            <div class="num">${dataset.length - score}</div>
+            <div class="label">Missed</div>
+          </div>
+          <div class="score-box">
+            <div class="num">${accuracy}%</div>
+            <div class="label">Accuracy</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin: 0 auto; max-width: 260px;" onclick="renderWelcome()">Review Instructions & Restart 🔄</button>
+      </div>
+    `;
+  }
+
+  // Initial Boot
+  renderWelcome();
+</script>
+
+</body>
+</html>

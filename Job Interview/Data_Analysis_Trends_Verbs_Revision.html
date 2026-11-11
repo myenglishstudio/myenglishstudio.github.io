@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Verbs: Trend Identification</title>
+    <style>
+        :root {
+            --navy-deep: #0b192c;
+            --navy-dark: #1e3e62;
+            --btn-blue: #1d4ed8;
+            --btn-blue-hover: #1e40af;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(11, 25, 44, 0.9);
+            --border-ui: #cbd5e1;
+            --text-dark: #0b192c;
+            --text-muted: #475569;
+            --upward-color: #15803d;
+            --downward-color: #b91c1c;
+            --nonlinear-color: #b45309;
+            --success-bg: #ecfdf5;
+            --success-border: #6ee7b7;
+            --success-text: #065f46;
+            --error-bg: #fef2f2;
+            --error-border: #fca5a5;
+            --error-text: #991b1b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2.5rem 1rem;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(rgba(11, 25, 44, 0.82), rgba(11, 25, 44, 0.92)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 860px;
+        }
+
+        header {
+            background: var(--header-bg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.75rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #93c5fd;
+            font-size: 1rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 1.25rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #38bdf8;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-ui);
+            border-radius: 12px;
+            padding: 2.25rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
+
+        .counter-badge {
+            display: inline-block;
+            background-color: #e2e8f0;
+            color: var(--navy-dark);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sentence-box {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: var(--navy-deep);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            min-height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+
+        .highlight-verb {
+            color: var(--btn-blue);
+            background-color: #eff6ff;
+            border: 1.5px dashed var(--btn-blue);
+            border-radius: 6px;
+            padding: 0.2rem 1.4rem;
+            margin: 0 1.2rem;
+            display: inline-block;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            background-color: #ffffff;
+            border: 2px solid var(--border-ui);
+            border-radius: 8px;
+            padding: 1rem 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .option-btn .icon {
+            font-size: 1.25rem;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--btn-blue);
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.85;
+        }
+
+        .option-btn.btn-upward { border-top: 4px solid var(--upward-color); }
+        .option-btn.btn-downward { border-top: 4px solid var(--downward-color); }
+        .option-btn.btn-nonlinear { border-top: 4px solid var(--nonlinear-color); }
+
+        .option-btn.correct-choice {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success-border) !important;
+            color: var(--success-text) !important;
+        }
+
+        .option-btn.wrong-choice {
+            background-color: var(--error-bg) !important;
+            border-color: var(--error-border) !important;
+            color: var(--error-text) !important;
+        }
+
+        .feedback-box {
+            display: none;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+        }
+
+        .feedback-box.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            color: var(--error-text);
+        }
+
+        .btn-next {
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 2.2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: none;
+            margin: 0 auto;
+        }
+
+        .btn-next:hover {
+            background-color: var(--navy-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .summary-card {
+            display: none;
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            border: 1px solid var(--border-ui);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem auto;
+            border: 4px solid #38bdf8;
+        }
+
+        @media (max-width: 650px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .sentence-box {
+                font-size: 1.15rem;
+            }
+            .highlight-verb {
+                margin: 0 0.6rem;
+                padding: 0.15rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Data Analysis Trends</h1>
+        <p class="subtitle">Identify the direction of movement expressed by the highlighted verb</p>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <div class="quiz-card" id="quizCard">
+        <div class="counter-badge" id="counterBadge">Sentence 1 of 30</div>
+        <div class="sentence-box" id="sentenceBox">Loading sentence...</div>
+
+        <div class="options-grid">
+            <button class="option-btn btn-upward" onclick="handleAnswer('Upward Movement')">
+                <span class="icon">📈</span>
+                <span>Upward Movement</span>
+            </button>
+            <button class="option-btn btn-downward" onclick="handleAnswer('Downward Movement')">
+                <span class="icon">📉</span>
+                <span>Downward Movement</span>
+            </button>
+            <button class="option-btn btn-nonlinear" onclick="handleAnswer('Non-Linear Movement')">
+                <span class="icon">📊</span>
+                <span>Non-Linear Movement</span>
+            </button>
+        </div>
+
+        <div class="feedback-box" id="feedbackBox"></div>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next Sentence →</button>
+    </div>
+
+    <div class="summary-card" id="summaryCard">
+        <div class="score-circle" id="finalScore">0/30</div>
+        <h2 style="font-size: 1.8rem; color: var(--navy-deep); margin-bottom: 0.5rem;">Practice Completed!</h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem;">You've classified all 30 trend and data movement sentences.</p>
+        <button class="btn-next" style="display: inline-block;" onclick="restartQuiz()">Restart Practice</button>
+    </div>
+</div>
+
+<script>
+const baseDataset = [
+    {
+        sentence: "Sales <span class='highlight-verb'>surged</span> by 25% following the campaign.",
+        verb: "surged",
+        category: "Upward Movement",
+        explanation: "'Surge' means to increase suddenly and sharply."
+    },
+    {
+        sentence: "Prices <span class='highlight-verb'>climbed</span> to $100 last week.",
+        verb: "climbed",
+        category: "Upward Movement",
+        explanation: "'Climb' refers to a sustained upward movement or steady rise."
+    },
+    {
+        sentence: "Tech stock values <span class='highlight-verb'>jumped</span> from $50 to $80.",
+        verb: "jumped",
+        category: "Upward Movement",
+        explanation: "'Jump' signifies a quick, prominent increase."
+    },
+    {
+        sentence: "Profits <span class='highlight-verb'>jumped</span> from $50 to $80.",
+        verb: "jumped",
+        category: "Upward Movement",
+        explanation: "'Jump' signifies a rapid rise from one level to another."
+    },
+    {
+        sentence: "Demand <span class='highlight-verb'>shot up</span> to unprecedented levels.",
+        verb: "shot up",
+        category: "Upward Movement",
+        explanation: "'Shoot up' means to rise extraordinarily fast."
+    },
+    {
+        sentence: "The currency <span class='highlight-verb'>gained</span> 2% in value.",
+        verb: "gained",
+        category: "Upward Movement",
+        explanation: "'Gain' means to appreciate or increase in value."
+    },
+    {
+        sentence: "The stock market <span class='highlight-verb'>bounced back</span> after a tough month.",
+        verb: "bounced back",
+        category: "Upward Movement",
+        explanation: "'Bounce back' highlights an upward recovery following a decline."
+    },
+    {
+        sentence: "Inflation <span class='highlight-verb'>rose</span> from 2% to 4%.",
+        verb: "rose",
+        category: "Upward Movement",
+        explanation: "'Rose' (rise) indicates an upward trajectory over time."
+    },
+    {
+        sentence: "Costs <span class='highlight-verb'>skyrocketed</span> to an all-time high.",
+        verb: "skyrocketed",
+        category: "Upward Movement",
+        explanation: "'Skyrocket' indicates dramatic, nearly vertical upward growth."
+    },
+    {
+        sentence: "Revenue <span class='highlight-verb'>outpaced</span> market expectations by 5%.",
+        verb: "outpaced",
+        category: "Upward Movement",
+        explanation: "'Outpace' denotes growing or moving faster than an index or competitor."
+    },
+    {
+        sentence: "Oil prices <span class='highlight-verb'>plummeted</span> by 30% overnight.",
+        verb: "plummeted",
+        category: "Downward Movement",
+        explanation: "'Plummet' means to drop steeply and rapidly."
+    },
+    {
+        sentence: "Temperatures <span class='highlight-verb'>fell</span> from 20C to 10C.",
+        verb: "fell",
+        category: "Downward Movement",
+        explanation: "'Fell' (fall) is a straightforward term for downward movement."
+    },
+    {
+        sentence: "Production <span class='highlight-verb'>dipped</span> in May.",
+        verb: "dipped",
+        category: "Downward Movement",
+        explanation: "'Dip' means to experience a slight or temporary drop."
+    },
+    {
+        sentence: "Production <span class='highlight-verb'>slumped</span> to its lowest point.",
+        verb: "slumped",
+        category: "Downward Movement",
+        explanation: "'Slump' means to fall heavily or experience a major downturn."
+    },
+    {
+        sentence: "The economy <span class='highlight-verb'>shrank</span> by 2% during the crisis.",
+        verb: "shrank",
+        category: "Downward Movement",
+        explanation: "'Shrank' (shrink) means to contract or decrease in volume/size."
+    },
+    {
+        sentence: "Sales <span class='highlight-verb'>dropped</span> from 1000 to 800 units.",
+        verb: "dropped",
+        category: "Downward Movement",
+        explanation: "'Drop' indicates a general decrease or movement downward."
+    },
+    {
+        sentence: "Prices <span class='highlight-verb'>plunged</span> by 15% in one hour.",
+        verb: "plunged",
+        category: "Downward Movement",
+        explanation: "'Plunge' describes a steep, forceful downward crash."
+    },
+    {
+        sentence: "Property values <span class='highlight-verb'>tumbled</span> by 10%.",
+        verb: "tumbled",
+        category: "Downward Movement",
+        explanation: "'Tumble' means to fall abruptly and significantly."
+    },
+    {
+        sentence: "Growth <span class='highlight-verb'>lagged behind</span> by 3%.",
+        verb: "lagged behind",
+        category: "Downward Movement",
+        explanation: "'Lag behind' describes failing to keep pace or moving slower than benchmarks."
+    },
+    {
+        sentence: "Inflation <span class='highlight-verb'>hovered</span> around 3% all year.",
+        verb: "hovered",
+        category: "Non-Linear Movement",
+        explanation: "'Hover' means to remain near a specific figure with minor, non-directional fluctuations."
+    },
+    {
+        sentence: "Unemployment currently <span class='highlight-verb'>stands</span> at 5%.",
+        verb: "stands",
+        category: "Non-Linear Movement",
+        explanation: "'Stand at' denotes remaining static at a defined numerical figure."
+    },
+    {
+        sentence: "Sales <span class='highlight-verb'>peaked</span> at $10M in December.",
+        verb: "peaked",
+        category: "Non-Linear Movement",
+        explanation: "'Peak' means to reach the absolute highest level before stabilizing or falling."
+    },
+    {
+        sentence: "The market <span class='highlight-verb'>bottomed out</span> at $100.",
+        verb: "bottomed out",
+        category: "Non-Linear Movement",
+        explanation: "'Bottom out' means to reach the lowest possible point before leveling or recovering."
+    },
+    {
+        sentence: "Growth <span class='highlight-verb'>leveled off</span> at 5%.",
+        verb: "leveled off",
+        category: "Non-Linear Movement",
+        explanation: "'Level off' indicates that movement has flattened out, maintaining a plateau."
+    },
+    {
+        sentence: "Rates <span class='highlight-verb'>fluctuated</span> between 1.10 and 1.25.",
+        verb: "fluctuated",
+        category: "Non-Linear Movement",
+        explanation: "'Fluctuate' indicates shifting back and forth within a range."
+    },
+    {
+        sentence: "Numbers <span class='highlight-verb'>fluctuated</span> around the average.",
+        verb: "fluctuated",
+        category: "Non-Linear Movement",
+        explanation: "'Fluctuate' describes irregular movement above and below a reference line."
+    },
+    {
+        sentence: "The economy <span class='highlight-verb'>rallied</span> in the fourth quarter.",
+        verb: "rallied",
+        category: "Upward Movement",
+        explanation: "'Rally' refers to a sharp upward rebound following previous pressure."
+    },
+    {
+        sentence: "Revenue <span class='highlight-verb'>dipped</span> by 2% before recovering.",
+        verb: "dipped",
+        category: "Downward Movement",
+        explanation: "'Dip' signifies a temporary or small decrease."
+    },
+    {
+        sentence: "Profits <span class='highlight-verb'>plunged</span> to $1M last quarter.",
+        verb: "plunged",
+        category: "Downward Movement",
+        explanation: "'Plunge' describes a steep, sudden drop."
+    },
+    {
+        sentence: "Prices <span class='highlight-verb'>plateaued</span> at $50 per barrel.",
+        verb: "plateaued",
+        category: "Non-Linear Movement",
+        explanation: "'Plateau' means to stabilize and flatten out after an active period."
+    }
+];
+
+// Fisher-Yates shuffle algorithm to ensure true randomness on each load/restart
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+let dataset = shuffleArray(baseDataset);
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+function loadQuestion() {
+    answered = false;
+    const item = dataset[currentIndex];
+    
+    document.getElementById("counterBadge").textContent = `Sentence ${currentIndex + 1} of ${dataset.length}`;
+    document.getElementById("sentenceBox").innerHTML = item.sentence;
+    
+    const feedbackBox = document.getElementById("feedbackBox");
+    feedbackBox.className = "feedback-box";
+    feedbackBox.style.display = "none";
+    feedbackBox.innerHTML = "";
+
+    document.getElementById("nextBtn").style.display = "none";
+
+    const buttons = document.querySelectorAll(".option-btn");
+    buttons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove("correct-choice", "wrong-choice");
+    });
+
+    const progressPct = ((currentIndex) / dataset.length) * 100;
+    document.getElementById("progressBar").style.width = progressPct + "%";
+}
+
+function handleAnswer(selectedCategory) {
+    if (answered) return;
+    answered = true;
+
+    const item = dataset[currentIndex];
+    const isCorrect = selectedCategory === item.category;
+    const feedbackBox = document.getElementById("feedbackBox");
+    const buttons = document.querySelectorAll(".option-btn");
+
+    buttons.forEach(btn => {
+        btn.disabled = true;
+        const btnText = btn.querySelector("span:last-child").textContent.trim();
+        if (btnText === item.category) {
+            btn.classList.add("correct-choice");
+        } else if (btnText === selectedCategory && !isCorrect) {
+            btn.classList.add("wrong-choice");
+        }
+    });
+
+    if (isCorrect) {
+        score++;
+        feedbackBox.className = "feedback-box correct";
+        feedbackBox.innerHTML = `<strong>Correct! 🎉</strong><br>${item.explanation}`;
+    } else {
+        feedbackBox.className = "feedback-box incorrect";
+        feedbackBox.innerHTML = `<strong>Not quite.</strong> This expresses <strong>${item.category}</strong>.<br>${item.explanation}`;
+    }
+    feedbackBox.style.display = "block";
+
+    const nextBtn = document.getElementById("nextBtn");
+    if (currentIndex === dataset.length - 1) {
+        nextBtn.textContent = "Finish & See Score →";
+    } else {
+        nextBtn.textContent = "Next Sentence →";
+    }
+    nextBtn.style.display = "inline-block";
+}
+
+function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < dataset.length) {
+        loadQuestion();
+    } else {
+        showSummary();
+    }
+}
+
+function showSummary() {
+    document.getElementById("progressBar").style.width = "100%";
+    document.getElementById("quizCard").style.display = "none";
+    const summaryCard = document.getElementById("summaryCard");
+    summaryCard.style.display = "block";
+    document.getElementById("finalScore").textContent = `${score}/${dataset.length}`;
+}
+
+function restartQuiz() {
+    dataset = shuffleArray(baseDataset);
+    currentIndex = 0;
+    score = 0;
+    document.getElementById("quizCard").style.display = "block";
+    document.getElementById("summaryCard").style.display = "none";
+    loadQuestion();
+}
+
+document.addEventListener("DOMContentLoaded", loadQuestion);
+</script>
+
+</body>
+</html>

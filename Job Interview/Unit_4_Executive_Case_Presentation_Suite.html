@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Presentation & Case Study Masterclass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-dark: #0b1325;
+      --navy-card: #13223f;
+      --navy-primary: #1e3a8a;
+      --navy-light: #2563eb;
+      --snow-blue: #e0f2fe;
+      --snow-light: #f8fafc;
+      --snow-border: #cbd5e1;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success-green: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --error-red: #dc2626;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+      background-color: var(--navy-dark);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.45) 0%, rgba(15, 23, 42, 0.85) 60%, rgba(11, 19, 37, 0.98) 100%),
+        url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      padding: 48px 16px 80px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-box {
+      text-align: center;
+      margin-bottom: 32px;
+      max-width: 900px;
+    }
+
+    .header-box h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      text-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    }
+
+    .header-box p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Tab switcher */
+    .tab-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--navy-primary);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Main Card Container */
+    .exercise-container {
+      width: 100%;
+      max-width: 1080px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .intro-banner {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px 30px;
+      box-shadow: var(--shadow-soft);
+      border-left: 6px solid var(--navy-light);
+    }
+
+    .intro-banner h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy-primary);
+      margin-bottom: 6px;
+    }
+
+    .intro-banner p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+
+    /* Question cards */
+    .q-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 22px 28px;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .q-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .q-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #e0f2fe;
+      color: #0369a1;
+      margin-bottom: 12px;
+    }
+
+    .context-box {
+      background: #f8fafc;
+      border-left: 3px solid #38bdf8;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-style: italic;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+
+    .quote-statement {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .situation-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+
+    /* Task 1 Controls */
+    .task1-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cat-select {
+      flex: 1;
+      min-width: 260px;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1.5px solid var(--snow-border);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cat-select:focus {
+      border-color: var(--navy-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Task 2 Options */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      border: 1.5px solid var(--snow-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option-item:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .option-item input[type="radio"] {
+      margin-top: 4px;
+      accent-color: var(--navy-primary);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .option-item label {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .btn-check {
+      background: var(--navy-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 10px 24px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 8px rgba(30, 58, 138, 0.25);
+    }
+
+    .btn-check:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
+    }
+
+    /* Feedback & Explanation Box */
+    .feedback-box {
+      margin-top: 14px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--success-bg);
+      border-left: 4px solid var(--success-border);
+      color: #065f46;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: var(--error-bg);
+      border-left: 4px solid var(--error-border);
+      color: #991b1b;
+    }
+
+    .feedback-box strong {
+      font-weight: 800;
+    }
+
+    .feedback-box .why-wrong {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(220, 38, 38, 0.25);
+      color: #7f1d1d;
+    }
+
+    /* Score Floating Pill */
+    .scoreboard-pill {
+      background: #ffffff;
+      color: var(--navy-primary);
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .global-btn-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .btn-action-global {
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1.5px solid var(--snow-border);
+    }
+    .btn-reset:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+
+    /* Task 3 input styles */
+    .task3-input-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .t3-input {
+      flex: 1;
+      min-width: 240px;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 2px solid var(--snow-border);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .t3-input:focus {
+      border-color: var(--navy-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .t3-input.correct-field {
+      border-color: var(--success-green);
+      background: var(--success-bg);
+      color: var(--success-green);
+    }
+
+    .t3-input.incorrect-field {
+      border-color: var(--error-red);
+      background: var(--error-bg);
+      color: var(--error-red);
+    }
+
+    .hint-chip {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .header-box h1 { font-size: 1.85rem; }
+      .q-card { padding: 18px 16px; }
+      .task1-controls { flex-direction: column; align-items: stretch; }
+      .tab-nav { width: 100%; justify-content: center; }
+      .tab-btn { padding: 10px 18px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Title -->
+  <div class="header-box">
+    <h1>Executive Case Presentation Suite</h1>
+    <p>Master high-stakes presentation signposting, data caveat framing, hedged pushback defense, and graceful recovery phrases.</p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="tab-nav">
+    <button class="tab-btn active" id="btnTab1" onclick="switchTab(1)">Task 1: Categorize Phrases</button>
+    <button class="tab-btn" id="btnTab2" onclick="switchTab(2)">Task 2: Situational Decisions</button>
+    <button class="tab-btn" id="btnTab3" onclick="switchTab(3)">Task 3: Fill in Missing Key Words</button>
+    <button class="tab-btn" id="btnTab4" onclick="switchTab(4)">Task 4: Correct the Mistake</button>
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard-pill" id="scorePill">Score: 0 / 104</div>
+
+  <!-- TASK 1 VIEW -->
+  <div class="exercise-container" id="task1View">
+    <div class="intro-banner">
+      <h2>Task 1: Categorize Mixed Presentation Phrases</h2>
+      <p>Analyze each phrase within its executive business context and assign it to its exact professional category. Click <strong>"Check"</strong> to verify your categorization and view an instant analytical explanation.</p>
+    </div>
+    <div id="task1Cards" style="display: flex; flex-direction: column; gap: 18px;"></div>
+    <div class="global-btn-bar">
+      <button class="btn-action-global btn-reset" onclick="resetTask1()">Reset Task 1</button>
+    </div>
+  </div>
+
+  <!-- TASK 2 VIEW -->
+  <div class="exercise-container" id="task2View" style="display: none;">
+    <div class="intro-banner">
+      <h2>Task 2: Situational Response Choice</h2>
+      <p>Read the brief scenario from an executive case study presentation and select the best phrase between the two options. Click <strong>"Check"</strong> after each question to see why the correct answer fits and why the distractor doesn't.</p>
+    </div>
+    <div id="task2Cards" style="display: flex; flex-direction: column; gap: 18px;"></div>
+    <div class="global-btn-bar">
+      <button class="btn-action-global btn-reset" onclick="resetTask2()">Reset Task 2</button>
+    </div>
+  </div>
+
+  <!-- TASK 3 VIEW -->
+  <div class="exercise-container" id="task3View" style="display: none;">
+    <div class="intro-banner">
+      <h2>Task 3: Fill in the Missing Executive Key Word</h2>
+      <p>Type in the single most logical, high-impact key word missing from each sentence. Click <strong>"Check"</strong> (or press Enter) to verify your answer and view the executive communication breakdown.</p>
+    </div>
+    <div id="task3Cards" style="display: flex; flex-direction: column; gap: 18px;"></div>
+    <div class="global-btn-bar">
+      <button class="btn-action-global btn-reset" onclick="resetTask3()">Reset Task 3</button>
+    </div>
+  </div>
+
+  <!-- TASK 4 VIEW -->
+  <div class="exercise-container" id="task4View" style="display: none;">
+    <div class="intro-banner">
+      <h2>Task 4: Spot & Correct the Wrong Word</h2>
+      <p>Each sentence below contains exactly <strong>one incorrect word</strong> (underlined). Identify the error and type the correct professional replacement word. Click <strong>"Check"</strong> (or press Enter) to verify your correction and read the executive explanation.</p>
+    </div>
+    <div id="task4Cards" style="display: flex; flex-direction: column; gap: 18px;"></div>
+    <div class="global-btn-bar">
+      <button class="btn-action-global btn-reset" onclick="resetTask4()">Reset Task 4</button>
+    </div>
+  </div>
+
+  <script>
+    // Categories matching prompt
+    const categories = [
+      "1. Slide Signposting & Navigation",
+      "2. Trend Analysis (Spikes, Dips & Anomalies)",
+      "3. Acknowledging Dataset Caveats & Sample Bias",
+      "4. Transitioning to Actionable Recommendations",
+      "5. Defending Under Pushback (Hedged Confidence)",
+      "6. Graceful Recovery (When You Missed Something)"
+    ];
+
+    // Task 1 Items: Sentences mixed up with context
+    const task1Items = [
+      {
+        id: 1,
+        sentence: "The objective here is to evaluate whether expanding to Tier-2 cities generates profitable unit economics.",
+        context: "The speaker is opening the business presentation deck and introducing the core investigative inquiry to interviewers.",
+        correctCat: "1. Slide Signposting & Navigation",
+        explanation: "This phrase establishes the overarching goal and scope at the start of a slide or presentation, which is the foundational purpose of slide signposting."
+      },
+      {
+        id: 2,
+        sentence: "We see a pronounced surge in user acquisition starting mid-Q2.",
+        context: "The candidate walks the interview panel through a hockey-stick line graph of monthly sign-ups.",
+        correctCat: "2. Trend Analysis (Spikes, Dips & Anomalies)",
+        explanation: "This phrase describes significant directional velocity and growth acceleration across a data timeline (a sharp spike/surge)."
+      },
+      {
+        id: 3,
+        sentence: "A critical caveat here: the sample leans heavily toward enterprise accounts.",
+        context: "Before the interviewer can accuse the dataset of being skewed, the candidate explicitly addresses the composition of respondents.",
+        correctCat: "3. Acknowledging Dataset Caveats & Sample Bias",
+        explanation: "This statement highlights a demographic imbalance and methodological limitation in the dataset, which preempts criticism about sample bias."
+      },
+      {
+        id: 4,
+        sentence: "Translating these data points into business priorities, I recommend rolling out self-serve onboarding.",
+        context: "The diagnostic slides are complete; the presenter is now turning data insights into strategic operational proposals.",
+        correctCat: "4. Transitioning to Actionable Recommendations",
+        explanation: "This statement explicitly pivots the narrative from backward-looking retrospective analysis to forward-looking strategic action."
+      },
+      {
+        id: 5,
+        sentence: "I appreciate that pushback — my rationale for holding this position is that CAC remains sustainable under high churn.",
+        context: "An interviewer aggressively argues that pricing is too low; the presenter stands firm without getting defensive.",
+        correctCat: "5. Defending Under Pushback (Hedged Confidence)",
+        explanation: "This demonstrates hedged confidence: validating the interviewer's challenge ('I appreciate that pushback') while standing firmly behind the thesis."
+      },
+      {
+        id: 6,
+        sentence: "That wasn’t on my radar in this iteration — thinking about it now, it would likely damp the upside.",
+        context: "An interviewer points out an obscure regulatory change in the EU that the candidate did not include in the financial model.",
+        correctCat: "6. Graceful Recovery (When You Missed Something)",
+        explanation: "This is a graceful recovery: cleanly owning an overlooked variable without making up false data, while synthesizing its likely commercial impact on the fly."
+      },
+      {
+        id: 7,
+        sentence: "Directing your focus to the top-right quadrant, you’ll notice the concentration of high-LTV customers.",
+        context: "Guiding the room's gaze toward a specific visual section on a 2x2 matrix slide.",
+        correctCat: "1. Slide Signposting & Navigation",
+        explanation: "This directs the audience's visual attention directly to an area on the slide layout to streamline comprehension."
+      },
+      {
+        id: 8,
+        sentence: "Conversion experienced a steep drop-off immediately following the mandatory 2FA update.",
+        context: "Reviewing a funnel step drop during product checkout following an engineering release.",
+        correctCat: "2. Trend Analysis (Spikes, Dips & Anomalies)",
+        explanation: "This analyzes a dramatic plunge/dip in metric performance linked directly to an event."
+      },
+      {
+        id: 9,
+        sentence: "This analysis skews toward high-frequency users and may underrepresent casual buyers.",
+        context: "Explaining why retention figures might appear artificially inflated compared to the total population.",
+        correctCat: "3. Acknowledging Dataset Caveats & Sample Bias",
+        explanation: "This directly discloses unrepresentative sampling and self-selection bias within user data."
+      },
+      {
+        id: 10,
+        sentence: "The data points to three high-impact leverage areas: first, shortening trial duration; second...",
+        context: "Wrapping up the diagnostic section and presenting prioritized commercial decisions.",
+        correctCat: "4. Transitioning to Actionable Recommendations",
+        explanation: "This frames data findings as concrete operational leverage points and prioritized strategic steps."
+      },
+      {
+        id: 11,
+        sentence: "Good catch — that wasn't isolated in this pass because the primary constraint was compute runtime.",
+        context: "An interviewer asks why the candidate didn't segment users by secondary device type.",
+        correctCat: "5. Defending Under Pushback (Hedged Confidence)",
+        explanation: "This acknowledges an omitted variable politely ('Good catch') while providing a logical engineering/commercial trade-off reason for excluding it."
+      },
+      {
+        id: 12,
+        sentence: "Fair point. Factoring that in would tighten the margin of error considerably.",
+        context: "A panelist notes that the inflation assumption used was 1.5% lower than current central bank guidance.",
+        correctCat: "6. Graceful Recovery (When You Missed Something)",
+        explanation: "This professionally accepts a valid critique without defensiveness and demonstrates intellectual maturity."
+      },
+      {
+        id: 13,
+        sentence: "Now that we’ve established the baseline, let’s pivot to the root causes.",
+        context: "Transitioning between slide 4 (historical baseline) and slide 5 (churn drivers).",
+        correctCat: "1. Slide Signposting & Navigation",
+        explanation: "This bridges two distinct sections of a presentation deck, guiding listeners smoothly across slides."
+      },
+      {
+        id: 14,
+        sentence: "Engagement has largely plateaued, suggesting market saturation across existing ad channels.",
+        context: "Interpreting weekly active users (WAU) remaining flat over three consecutive quarters.",
+        correctCat: "2. Trend Analysis (Spikes, Dips & Anomalies)",
+        explanation: "This characterizes a horizontal plateau anomaly and links it to a business hypothesis (saturation)."
+      },
+      {
+        id: 15,
+        sentence: "The telemetry on this cohort is relatively sparse, so treat this metric as directional.",
+        context: "Presenting metrics from a pilot beta test with only 45 participating enterprise users.",
+        correctCat: "3. Acknowledging Dataset Caveats & Sample Bias",
+        explanation: "This caveats data reliability and warns against over-interpreting low-volume signals."
+      },
+      {
+        id: 16,
+        sentence: "To de-risk this initiative, I propose phasing the rollout into two milestones.",
+        context: "Answering what executive leadership should actually execute over the next 6 months.",
+        correctCat: "4. Transitioning to Actionable Recommendations",
+        explanation: "This proposes tactical, actionable execution steps designed to mitigate operational risk."
+      },
+      {
+        id: 17,
+        sentence: "That's a valid angle; however, the order of magnitude here suggests the primary driver is pricing, not UX.",
+        context: "A product designer on the interview panel insists that button color drove the conversion drop.",
+        correctCat: "5. Defending Under Pushback (Hedged Confidence)",
+        explanation: "This validates the panelist's viewpoint while countering with mathematical scale and statistical weight."
+      },
+      {
+        id: 18,
+        sentence: "I haven’t modeled that specific scenario, but my initial hypothesis is that it would shift our timeline by about two weeks.",
+        context: "The interviewer asks about an edge-case supply chain disruption that was not in the prompt.",
+        correctCat: "6. Graceful Recovery (When You Missed Something)",
+        explanation: "This admits lack of pre-computed modeling while delivering a clear, logical on-the-spot estimate."
+      },
+      {
+        id: 19,
+        sentence: "Notice the sharp divergence between top-of-funnel traffic and activated accounts.",
+        context: "Showing marketing impressions skyrocketing while product activations remain completely flat.",
+        correctCat: "2. Trend Analysis (Spikes, Dips & Anomalies)",
+        explanation: "This flags a divergence anomaly between two metrics that should normally move together."
+      },
+      {
+        id: 20,
+        sentence: "Because early adopters dominate this sample, the findings carry an inherent survivorship bias.",
+        context: "Explaining why Net Promoter Scores in month 1 are unrealistically high.",
+        correctCat: "3. Acknowledging Dataset Caveats & Sample Bias",
+        explanation: "This pinpoints survivorship bias within early customer research cohorts."
+      },
+      {
+        id: 21,
+        sentence: "I deliberately left out metric X to prioritize the signal-to-noise ratio in this executive view.",
+        context: "An interviewer asks why weekly pageview counts were omitted from the high-level dashboard.",
+        correctCat: "5. Defending Under Pushback (Hedged Confidence)",
+        explanation: "This defends a presentation design choice by articulating executive signal clarity over data dumping."
+      },
+      {
+        id: 22,
+        sentence: "The key takeaway from this visual sits right along the inflection point here.",
+        context: "Pointing a laser pointer directly at the Q3 curve bend on the slide.",
+        correctCat: "1. Slide Signposting & Navigation",
+        explanation: "This directs the listener's focus to the primary insight embedded within a visual chart."
+      },
+      {
+        id: 23,
+        sentence: "The quickest win with the lowest engineering lift sits in automating transactional email alerts.",
+        context: "Providing concrete implementation priority based on the effort-vs-impact matrix.",
+        correctCat: "4. Transitioning to Actionable Recommendations",
+        explanation: "This identifies a prioritized, high-leverage business recommendation with clear ROI."
+      },
+      {
+        id: 24,
+        sentence: "It’s plausible, but the secondary metrics don’t quite corroborate that explanation.",
+        context: "An interviewer proposes that a holiday weekend caused a drop in software subscription renewals.",
+        correctCat: "5. Defending Under Pushback (Hedged Confidence)",
+        explanation: "This politely challenges an alternative interviewer hypothesis using secondary empirical data."
+      }
+    ];
+
+    // Task 2 Items: Situational multiple choice with 2 options
+    const task2Items = [
+      {
+        id: 1,
+        situation: "You just finished presenting the data diagnostics and root causes of customer churn. You now need to transition into your proposed business solutions.",
+        optA: "Now that we’ve established the baseline, let’s pivot to the root causes.",
+        optB: "Translating these data points into business priorities, I recommend...",
+        correct: "B",
+        whyCorrect: "Option B directly transitions the narrative from diagnostic data analysis into actionable strategic recommendations.",
+        whyIncorrect: "Option A is backward-looking signposting: it transitions into root causes, which you have ALREADY finished presenting. It does not introduce business recommendations."
+      },
+      {
+        id: 2,
+        situation: "An interviewer aggressively challenges your recommendation, claiming that your competitor pricing assumption is completely wrong. You want to defend your stance firmly without sounding combative.",
+        optA: "I appreciate that pushback — my rationale for holding this position is...",
+        optB: "Fair point. Factoring that in would tighten the margin of error considerably.",
+        correct: "A",
+        whyCorrect: "Option A exemplifies 'hedged confidence': it validates the challenge professionally while firmly retaining your strategic thesis.",
+        whyIncorrect: "Option B is a recovery concession phrase: choosing it immediately concedes error and surrenders your position instead of defending it."
+      },
+      {
+        id: 3,
+        situation: "You are presenting a retention chart where customer retention is 65%, but you know the survey only reached customers who have stayed active for at least 6 months.",
+        optA: "Because early adopters dominate this sample, the findings carry an inherent survivorship bias.",
+        optB: "This cohort represents an isolated outlier rather than a systemic trend.",
+        correct: "A",
+        whyCorrect: "Option A proactively identifies survivorship bias in the sample dataset, demonstrating analytical rigor and transparency.",
+        whyIncorrect: "Option B is a trend analysis phrase explaining an anomaly on a chart; it does not disclose or caveat the underlying demographic sampling flaw."
+      },
+      {
+        id: 4,
+        situation: "The interviewer catches you completely off guard by asking whether you considered currency exchange fluctuations in your overseas sales calculations—something you completely forgot to include.",
+        optA: "That wasn’t on my radar in this iteration — thinking about it now, it would likely damp the upside.",
+        optB: "I deliberately left out metric X to prioritize the signal-to-noise ratio in...",
+        correct: "A",
+        whyCorrect: "Option A represents an honest, polished recovery: owning the blind spot cleanly while instantly hypothesizing its commercial impact.",
+        whyIncorrect: "Option B is dishonest in this scenario; claiming you 'deliberately' omitted a core currency risk when you actually forgot it looks defensive and untrustworthy under cross-examination."
+      },
+      {
+        id: 5,
+        situation: "You are introducing a complex 4-quadrant slide and want the interviewers to look specifically at the top-right cluster of high-churn accounts.",
+        optA: "Directing your focus to the top-right quadrant, you’ll notice...",
+        optB: "The objective here is to evaluate whether...",
+        correct: "A",
+        whyCorrect: "Option A guides the audience's gaze directly to a specific coordinate on the visual asset during presentation delivery.",
+        whyIncorrect: "Option B frames the overall research thesis or slide problem statement; it does not navigate the audience across visual quadrants."
+      },
+      {
+        id: 6,
+        situation: "You are walking through a cohort retention graph and notice that 90-day retention has stopped increasing and remained completely flat at 42% for four quarters.",
+        optA: "Engagement has largely plateaued, suggesting market saturation.",
+        optB: "There is a steady upward drift across all mature cohorts.",
+        correct: "A",
+        whyCorrect: "Option A accurately characterizes flatlining metrics ('plateaued') and connects it to a sound commercial rationale (saturation).",
+        whyIncorrect: "Option B describes consistent ongoing growth ('steady upward drift'), which is factually opposite to flatlined performance."
+      },
+      {
+        id: 7,
+        situation: "An interviewer challenges: 'Why didn't you control for regional seasonality in this 3-month model?' You intentionally omitted it to keep the preliminary model readable.",
+        optA: "Good catch — that wasn't isolated in this pass because the primary constraint was...",
+        optB: "It's worth noting that this dataset carries a slight bias toward...",
+        correct: "A",
+        whyCorrect: "Option A acknowledges the interviewer's observation and provides the deliberate technical or analytical trade-off reason for omitting the variable.",
+        whyIncorrect: "Option B introduces general dataset composition caveats; it does not answer why you actively chose not to control for an omitted model variable."
+      },
+      {
+        id: 8,
+        situation: "You have limited development resources and need to recommend where engineering should focus their effort next month for maximum return.",
+        optA: "The quickest win with the lowest engineering lift sits in...",
+        optB: "Moving from the diagnostic phase into the commercial impact...",
+        correct: "A",
+        whyCorrect: "Option A provides an actionable, prioritized business recommendation framed through feasibility and ROI.",
+        whyIncorrect: "Option B is purely a navigation transition between slide deck sections; it contains no actionable strategic proposal."
+      },
+      {
+        id: 9,
+        situation: "An interviewer suggests: 'Maybe customers stopped buying because of the server latency spike on Tuesday.' You checked server logs and know latency was completely normal on Tuesday.",
+        optA: "It’s plausible, but the secondary metrics don’t quite corroborate that explanation.",
+        optB: "Fair point. Factoring that in would tighten the margin of error considerably.",
+        correct: "A",
+        whyCorrect: "Option A tactfully counters an interviewer's incorrect alternative hypothesis by referencing empirical secondary data points.",
+        whyIncorrect: "Option B concedes the interviewer's point as true, which is wrong here because your server telemetry directly disproves latency."
+      },
+      {
+        id: 10,
+        situation: "You are beginning your presentation and want to establish the exact business question your analysis answers.",
+        optA: "This slide maps out the core problem statement we are solving for.",
+        optB: "The telemetry on this cohort is relatively sparse, so treat this metric as directional.",
+        correct: "A",
+        whyCorrect: "Option A anchors the session by defining the problem statement and research scope up front.",
+        whyIncorrect: "Option B is a warning about sparse telemetry/data reliability, which belongs in data methodology or caveats, not problem framing."
+      }
+    ,
+      {
+        id: 11,
+        situation: "You are presenting an annual sales chart and want to draw the panel's attention to the divergence between the actual revenue line and the original target baseline.",
+        optA: "If we trace the blue trajectory against the baseline...",
+        optB: "This cohort represents an isolated outlier rather than a systemic trend.",
+        correct: "A",
+        whyCorrect: "Option A guides the audience's visual attention directly along the visual trajectory and comparative baseline on the slide.",
+        whyIncorrect: "Option B is an interpretive claim dismissing a single cohort anomaly; it does not guide visual chart reading or comparative line tracing."
+      },
+      {
+        id: 12,
+        situation: "A technical interviewer questions your data integrity, pointing out that your retention numbers don't show what happens to users after month one.",
+        optA: "This view reflects a 30-day window, meaning long-term retention dynamics aren't fully captured here.",
+        optB: "We see a pronounced surge in user acquisition starting mid-Q2.",
+        correct: "A",
+        whyCorrect: "Option A proactively and transparently defines the analytical boundary of the dataset (a 30-day window limitation).",
+        whyIncorrect: "Option B describes a top-of-funnel acquisition trend spike, which completely ignores the panel's question regarding long-term retention data."
+      },
+      {
+        id: 13,
+        situation: "You are explaining a sudden spike in unsubscribe rates in week 4, but your research proves it was caused by a single broken email template rather than a product-wide failure.",
+        optA: "This cohort represents an isolated outlier rather than a systemic trend.",
+        optB: "There is a steady upward drift across all mature cohorts.",
+        correct: "A",
+        whyCorrect: "Option A correctly classifies the anomaly as an isolated event, preventing the panel from over-extrapolating it into a chronic failure.",
+        whyIncorrect: "Option B describes continuous upward progression over time across mature groups, which contradicts an isolated, single-event spike."
+      },
+      {
+        id: 14,
+        situation: "An interviewer argues that your proposal to build a custom enterprise CRM is far too slow and resource-heavy. You want to prioritize the simplest, highest-return immediate action.",
+        optA: "The quickest win with the lowest engineering lift sits in...",
+        optB: "To anchor this section, let’s look at the underlying driver of...",
+        correct: "A",
+        whyCorrect: "Option A delivers a high-impact, low-effort strategic recommendation that directly resolves concerns about resource constraints.",
+        whyIncorrect: "Option B is introductory section signposting; it introduces background analysis rather than answering an operational prioritization challenge."
+      },
+      {
+        id: 15,
+        situation: "An interviewer asks why you didn't run sentiment analysis on customer support calls, which take place entirely over the phone.",
+        optA: "We don't have visibility into offline touchpoints, which leaves a blind spot around...",
+        optB: "The key takeaway from this visual sits right along the inflection point here.",
+        correct: "A",
+        whyCorrect: "Option A clearly and professionally acknowledges an unmeasured data blind spot due to offline channel limitations.",
+        whyIncorrect: "Option B directs attention to a visual chart feature; it fails to acknowledge the missing voice/offline telemetry."
+      },
+      {
+        id: 16,
+        situation: "A panelist suggests that user sign-ups dropped because your main competitor launched a marketing campaign on the same day, though you don't yet have competitor data to confirm it.",
+        optA: "That hypothesis is definitely worth testing; if true, we’d likely observe...",
+        optB: "My recommendation is to prioritize retention over acquisition, specifically targeting...",
+        correct: "A",
+        whyCorrect: "Option A uses hedged confidence to constructively validate an unverified hypothesis while outlining what data would be required to prove it.",
+        whyIncorrect: "Option B jumps straight into a definitive strategy recommendation, ignoring the interviewer's specific inquiry about the competitor event."
+      },
+      {
+        id: 17,
+        situation: "You want to explain why user activity jumped by 300% for 48 hours during a flash promotion before immediately dropping back down to normal.",
+        optA: "Activity spiked briefly before reverting to historical averages.",
+        optB: "Growth tapered off as customer acquisition costs climbed.",
+        correct: "A",
+        whyCorrect: "Option A accurately captures a sharp, temporary spike followed by an immediate return to the historical baseline.",
+        whyIncorrect: "Option B describes a gradual slowdown in growth caused by rising customer acquisition costs, which does not match a 48-hour flash promotion."
+      },
+      {
+        id: 18,
+        situation: "An executive interrupts to ask why your timeline only projects 6 months ahead when they normally review 3-year roadmaps.",
+        optA: "I see the merit in that perspective, but the risk profile shifts when we account for...",
+        optB: "Conversion experienced a steep drop-off immediately following the update.",
+        correct: "A",
+        whyCorrect: "Option A acknowledges the executive's viewpoint respectfully while defending why shorter planning horizons mitigate uncertainty.",
+        whyIncorrect: "Option B discusses a historical product conversion drop-off, which is completely irrelevant to roadmap duration."
+      },
+      {
+        id: 19,
+        situation: "You are transitioning your audience from reviewing the historical test results into evaluating three proposed product prototypes.",
+        optA: "Having looked at historical performance, let's unpack our future-state options.",
+        optB: "A critical caveat here: the sample leans heavily toward enterprise accounts.",
+        correct: "A",
+        whyCorrect: "Option A is a textbook bridge signpost connecting historical diagnostic findings to forward-looking strategic options.",
+        whyIncorrect: "Option B introduces a dataset demographic limitation; it does not serve as a transitional bridge to future prototypes."
+      },
+      {
+        id: 20,
+        situation: "An interviewer notes that you did not account for seasonal sales tax changes in several regional territories.",
+        optA: "Fair point. Factoring that in would tighten the margin of error considerably.",
+        optB: "Given these bottlenecks, the logical operational response is to...",
+        correct: "A",
+        whyCorrect: "Option A demonstrates polished, non-defensive recovery by acknowledging a legitimate omission and articulating how it refines the model.",
+        whyIncorrect: "Option B proposes operational solutions to existing bottlenecks, evading the panel's direct observation regarding the missed tax variable."
+      }
+    ];
+
+    // State
+    let task1Answers = {};
+    let task2Answers = {};
+
+    function switchTab(tabNum) {
+      document.getElementById('btnTab1').className = tabNum === 1 ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('btnTab2').className = tabNum === 2 ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('btnTab3').className = tabNum === 3 ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('btnTab4').className = tabNum === 4 ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('task1View').style.display = tabNum === 1 ? 'flex' : 'none';
+      document.getElementById('task2View').style.display = tabNum === 2 ? 'flex' : 'none';
+      document.getElementById('task3View').style.display = tabNum === 3 ? 'flex' : 'none';
+      document.getElementById('task4View').style.display = tabNum === 4 ? 'flex' : 'none';
+      updateTotalScore();
+    }
+
+    // Render Task 1
+    function renderTask1() {
+      const container = document.getElementById('task1Cards');
+      container.innerHTML = '';
+
+      task1Items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `t1-card-${item.id}`;
+
+        let catOptions = `<option value="">-- Select Category --</option>`;
+        categories.forEach(c => {
+          catOptions += `<option value="${c}">${c}</option>`;
+        });
+
+        card.innerHTML = `
+          <span class="q-badge">Item ${index + 1} of ${task1Items.length}</span>
+          <div class="context-box"><strong>Context:</strong> ${item.context}</div>
+          <div class="quote-statement">“${item.sentence}”</div>
+          <div class="task1-controls">
+            <select class="cat-select" id="t1-sel-${item.id}">
+              ${catOptions}
+            </select>
+            <button class="btn-check" onclick="checkTask1Item(${item.id})">Check</button>
+          </div>
+          <div class="feedback-box" id="t1-fb-${item.id}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Check individual Task 1 item
+    window.checkTask1Item = function(id) {
+      const item = task1Items.find(i => i.id === id);
+      const select = document.getElementById(`t1-sel-${id}`);
+      const fb = document.getElementById(`t1-fb-${id}`);
+      const chosen = select.value;
+
+      if (!chosen) {
+        alert("Please select a category before checking!");
+        return;
+      }
+
+      if (chosen === item.correctCat) {
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> Exactly belongs in <em>${item.correctCat}</em>.<br>${item.explanation}`;
+        task1Answers[id] = true;
+      } else {
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> You selected: <em>${chosen}</em>.<br>Correct category: <strong>${item.correctCat}</strong>.<br><div class="why-wrong"><strong>Why:</strong> ${item.explanation}</div>`;
+        task1Answers[id] = false;
+      }
+      updateTotalScore();
+    };
+
+    // Render Task 2
+    function renderTask2() {
+      const container = document.getElementById('task2Cards');
+      container.innerHTML = '';
+
+      task2Items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `t2-card-${item.id}`;
+
+        card.innerHTML = `
+          <span class="q-badge">Scenario ${index + 1} of ${task2Items.length}</span>
+          <div class="situation-text">💼 <strong>Situation:</strong> ${item.situation}</div>
+          
+          <div class="options-grid">
+            <div class="option-item" onclick="document.getElementById('t2-rad-${item.id}-A').checked = true">
+              <input type="radio" name="t2-group-${item.id}" id="t2-rad-${item.id}-A" value="A">
+              <label for="t2-rad-${item.id}-A"><strong>Option A:</strong> “${item.optA}”</label>
+            </div>
+            <div class="option-item" onclick="document.getElementById('t2-rad-${item.id}-B').checked = true">
+              <input type="radio" name="t2-group-${item.id}" id="t2-rad-${item.id}-B" value="B">
+              <label for="t2-rad-${item.id}-B"><strong>Option B:</strong> “${item.optB}”</label>
+            </div>
+          </div>
+
+          <button class="btn-check" onclick="checkTask2Item(${item.id})">Check Choice</button>
+          <div class="feedback-box" id="t2-fb-${item.id}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Check individual Task 2 item
+    window.checkTask2Item = function(id) {
+      const item = task2Items.find(i => i.id === id);
+      const radA = document.getElementById(`t2-rad-${id}-A`);
+      const radB = document.getElementById(`t2-rad-${id}-B`);
+      const fb = document.getElementById(`t2-fb-${id}`);
+
+      if (!radA.checked && !radB.checked) {
+        alert("Please select either Option A or Option B before checking!");
+        return;
+      }
+
+      const chosen = radA.checked ? "A" : "B";
+      const isCorrect = (chosen === item.correct);
+
+      if (isCorrect) {
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `
+          <strong>Correct Choice! Option ${item.correct} is the optimal phrase.</strong><br>
+          ${item.whyCorrect}
+          <div class="why-wrong" style="color: #065f46; border-color: rgba(16, 185, 129, 0.3);">
+            <strong>Why the other option fails:</strong> ${item.whyIncorrect}
+          </div>
+        `;
+        task2Answers[id] = true;
+      } else {
+        const otherOpt = item.correct;
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `
+          <strong>Not quite. Option ${chosen} is not appropriate for this situation.</strong><br>
+          ${item.whyIncorrect}
+          <div class="why-wrong">
+            <strong>Why Option ${otherOpt} is correct:</strong> ${item.whyCorrect}
+          </div>
+        `;
+        task2Answers[id] = false;
+      }
+      updateTotalScore();
+    };
+
+    function updateTotalScore() {
+      const correctT1 = Object.values(task1Answers).filter(Boolean).length;
+      const correctT2 = Object.values(task2Answers).filter(Boolean).length;
+      const correctT3 = Object.values(task3Answers).filter(Boolean).length;
+      const correctT4 = Object.values(task4Answers).filter(Boolean).length;
+      const totalCorrect = correctT1 + correctT2 + correctT3 + correctT4;
+      const totalPossible = task1Items.length + task2Items.length + task3Items.length + task4Items.length;
+      document.getElementById('scorePill').innerHTML = `Total Score: <strong>${totalCorrect} / ${totalPossible}</strong> (T1: ${correctT1}/${task1Items.length} | T2: ${correctT2}/${task2Items.length} | T3: ${correctT3}/${task3Items.length} | T4: ${correctT4}/${task4Items.length})`;
+    }
+
+    function resetTask1() {
+      task1Answers = {};
+      renderTask1();
+      updateTotalScore();
+    }
+
+    function resetTask2() {
+      task2Answers = {};
+      renderTask2();
+      updateTotalScore();
+    }
+
+
+    // Task 3 Items: Fill in missing logical keyword
+    const task3Items = [
+    {
+        "id": 1,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "The ________ here is to evaluate whether expanding to Tier-2 cities generates profitable unit economics.",
+        "answer": "objective",
+        "acceptable": [
+            "objective",
+            "goal"
+        ],
+        "hint": "Noun: the intended aim, target, or goal of the slide/analysis.",
+        "explanation": "In executive presentations, 'The objective here is to evaluate whether...' establishes the strategic question up front."
+    },
+    {
+        "id": 2,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "To ________ this section, let’s look at the underlying driver of user retention.",
+        "answer": "anchor",
+        "acceptable": [
+            "anchor"
+        ],
+        "hint": "Verb: to ground, fix, or establish a firm starting point.",
+        "explanation": "'To anchor this section...' is a professional signposting phrase used to establish a firm conceptual baseline."
+    },
+    {
+        "id": 3,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "If we trace the blue ________ against the baseline, the divergence becomes obvious.",
+        "answer": "trajectory",
+        "acceptable": [
+            "trajectory"
+        ],
+        "hint": "Noun: the curved path or line of trend motion across the graph.",
+        "explanation": "'If we trace the blue trajectory against the baseline...' directs visual attention along a specific trend line."
+    },
+    {
+        "id": 4,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "The key takeaway from this visual sits right along the ________ point here.",
+        "answer": "inflection",
+        "acceptable": [
+            "inflection"
+        ],
+        "hint": "Noun: the critical turning point where the direction or curve sharply changes.",
+        "explanation": "An 'inflection point' describes the exact moment of decisive directional change on a visual chart."
+    },
+    {
+        "id": 5,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "Now that we’ve established the baseline, let’s ________ to the root causes.",
+        "answer": "pivot",
+        "acceptable": [
+            "pivot"
+        ],
+        "hint": "Verb: to turn, shift, or transition sharply to a new topic or slide.",
+        "explanation": "'Let’s pivot to...' is the standard executive transition phrase when shifting from one deck section to the next."
+    },
+    {
+        "id": 6,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithBlank": "Having looked at historical performance, let's ________ our future-state options.",
+        "answer": "unpack",
+        "acceptable": [
+            "unpack",
+            "explore"
+        ],
+        "hint": "Verb: to break down, analyze, or examine in detail (metaphor of opening a package).",
+        "explanation": "'Let's unpack our future-state options' is a clean conversational bridge into strategic proposals."
+    },
+    {
+        "id": 7,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "We see a pronounced ________ in user acquisition starting mid-Q2.",
+        "answer": "surge",
+        "acceptable": [
+            "surge",
+            "spike"
+        ],
+        "hint": "Noun: a sudden, powerful upward rush or dramatic increase.",
+        "explanation": "A 'pronounced surge' communicates strong upward acceleration and rapid growth."
+    },
+    {
+        "id": 8,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "Conversion experienced a steep ________ immediately following the update.",
+        "answer": "drop-off",
+        "acceptable": [
+            "drop-off",
+            "dropoff",
+            "drop off"
+        ],
+        "hint": "Compound noun: a sharp decline or sudden falling away.",
+        "explanation": "'A steep drop-off' accurately portrays an immediate, sharp plunge in funnel performance."
+    },
+    {
+        "id": 9,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "Activity spiked briefly before ________ to historical averages.",
+        "answer": "reverting",
+        "acceptable": [
+            "reverting",
+            "returning"
+        ],
+        "hint": "Verb (-ing): going back or returning to a previous state or mean.",
+        "explanation": "'Reverting to historical averages' signals mean reversion after an isolated short-term anomaly."
+    },
+    {
+        "id": 10,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "Engagement has largely ________, suggesting market saturation.",
+        "answer": "plateaued",
+        "acceptable": [
+            "plateaued"
+        ],
+        "hint": "Verb (past/participle): leveled off and stopped increasing or decreasing.",
+        "explanation": "'Largely plateaued' means the metric has flattened out, suggesting growth has reached its limit."
+    },
+    {
+        "id": 11,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "Notice the sharp ________ between top-of-funnel traffic and activated accounts.",
+        "answer": "divergence",
+        "acceptable": [
+            "divergence"
+        ],
+        "hint": "Noun: the process of two lines or trends moving apart in different directions.",
+        "explanation": "'A sharp divergence' highlights an anomaly where two linked metrics uncouple and head in opposite directions."
+    },
+    {
+        "id": 12,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithBlank": "This cohort represents an isolated ________ rather than a systemic trend.",
+        "answer": "outlier",
+        "acceptable": [
+            "outlier"
+        ],
+        "hint": "Noun: a data point or group that differs significantly from all others.",
+        "explanation": "Calling an anomaly an 'isolated outlier' prevents the interview panel from drawing false widespread conclusions."
+    },
+    {
+        "id": 13,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithBlank": "A critical ________ here: the sample leans heavily toward enterprise accounts.",
+        "answer": "caveat",
+        "acceptable": [
+            "caveat"
+        ],
+        "hint": "Noun: a warning, condition, or limitation that must be considered.",
+        "explanation": "'A critical caveat here...' introduces an explicit methodological limitation before interviewers spot it."
+    },
+    {
+        "id": 14,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithBlank": "This analysis ________ toward high-frequency users and may underrepresent casual buyers.",
+        "answer": "skews",
+        "acceptable": [
+            "skews",
+            "leans"
+        ],
+        "hint": "Verb (3rd person): distorts, slants, or biases in a specific direction.",
+        "explanation": "'Skews toward' accurately describes an unbalanced or unrepresentative sample distribution."
+    },
+    {
+        "id": 15,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithBlank": "Because early adopters dominate this sample, the findings carry an inherent ________ bias.",
+        "answer": "survivorship",
+        "acceptable": [
+            "survivorship"
+        ],
+        "hint": "Noun/Adjective: the logical error of focusing only on successful 'survivors' while overlooking those that dropped out.",
+        "explanation": "'Survivorship bias' occurs when churned or dissatisfied users are excluded from the test sample."
+    },
+    {
+        "id": 16,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithBlank": "The telemetry on this cohort is relatively sparse, so treat this metric as ________.",
+        "answer": "directional",
+        "acceptable": [
+            "directional"
+        ],
+        "hint": "Adjective: indicating general trend or trajectory, rather than precise statistical certainty.",
+        "explanation": "Calling a metric 'directional' advises the panel to consider the trend general rather than mathematically precise."
+    },
+    {
+        "id": 17,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithBlank": "We don't have visibility into offline touchpoints, which leaves a ________ spot around in-store conversion.",
+        "answer": "blind",
+        "acceptable": [
+            "blind"
+        ],
+        "hint": "Noun phrase word: an area where one cannot see or obtain information.",
+        "explanation": "A 'blind spot' refers to an uninstrumented data channel where no telemetry exists."
+    },
+    {
+        "id": 18,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithBlank": "Translating these data points into business ________, I recommend rolling out self-serve onboarding.",
+        "answer": "priorities",
+        "acceptable": [
+            "priorities"
+        ],
+        "hint": "Plural noun: key things that are regarded as most important.",
+        "explanation": "'Translating data points into business priorities' pivots cleanly from historical numbers to strategic execution."
+    },
+    {
+        "id": 19,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithBlank": "The data points to three high-impact ________ areas: first, pricing; second, onboarding.",
+        "answer": "leverage",
+        "acceptable": [
+            "leverage"
+        ],
+        "hint": "Noun: strategic power to exert maximum impact with minimum force/input.",
+        "explanation": "'Leverage areas' focuses executive leadership on the highest-return opportunities."
+    },
+    {
+        "id": 20,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithBlank": "To ________ this initiative, I propose phasing the rollout into two milestones.",
+        "answer": "de-risk",
+        "acceptable": [
+            "de-risk",
+            "derisk"
+        ],
+        "hint": "Verb: to reduce or eliminate potential hazards and threats to a project.",
+        "explanation": "'To de-risk this initiative...' frames milestones as protective risk-management controls."
+    },
+    {
+        "id": 21,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithBlank": "The quickest win with the lowest engineering ________ sits in automating email reminders.",
+        "answer": "lift",
+        "acceptable": [
+            "lift",
+            "effort"
+        ],
+        "hint": "Noun: the amount of effort or development work required to build a feature.",
+        "explanation": "'Lowest engineering lift' communicates low development friction and fast time-to-value."
+    },
+    {
+        "id": 22,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "I appreciate that pushback — my ________ for holding this position is that CAC remains low.",
+        "answer": "rationale",
+        "acceptable": [
+            "rationale",
+            "reasoning"
+        ],
+        "hint": "Noun: the underlying reasons or logical basis for an action or belief.",
+        "explanation": "'My rationale for holding this position is...' firmly reasserts your logic without getting argumentative."
+    },
+    {
+        "id": 23,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "That's a valid angle; however, the order of ________ here suggests pricing is the real driver.",
+        "answer": "magnitude",
+        "acceptable": [
+            "magnitude"
+        ],
+        "hint": "Noun: great size, scale, or extent of a mathematical figure.",
+        "explanation": "'Order of magnitude' defends an assumption by emphasizing the massive scale difference between variables."
+    },
+    {
+        "id": 24,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "Good catch — that wasn't isolated in this pass because the primary ________ was compute runtime.",
+        "answer": "constraint",
+        "acceptable": [
+            "constraint",
+            "limitation"
+        ],
+        "hint": "Noun: a restriction, limitation, or tight boundary.",
+        "explanation": "Explaining that an omitted factor was due to a 'primary constraint' shows deliberate prioritization."
+    },
+    {
+        "id": 25,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "I deliberately left out metric X to prioritize the ________-to-noise ratio in this executive view.",
+        "answer": "signal",
+        "acceptable": [
+            "signal"
+        ],
+        "hint": "Noun: useful, meaningful information as opposed to random background noise.",
+        "explanation": "'Signal-to-noise ratio' defends a presentation choice by prioritizing executive clarity over data bloat."
+    },
+    {
+        "id": 26,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "It’s plausible, but the secondary metrics don’t quite ________ that explanation.",
+        "answer": "corroborate",
+        "acceptable": [
+            "corroborate",
+            "support",
+            "confirm"
+        ],
+        "hint": "Verb: to confirm, verify, or give empirical support to a statement.",
+        "explanation": "'Don't quite corroborate' politely counters an interviewer's hypothesis by citing missing supporting evidence."
+    },
+    {
+        "id": 27,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithBlank": "I’d want to ________-test that assumption, but directionally, the current signal points toward churn.",
+        "answer": "stress",
+        "acceptable": [
+            "stress"
+        ],
+        "hint": "Prefix/Noun: testing a model under extreme, harsh conditions to verify its robustness.",
+        "explanation": "'Stress-test that assumption' is a hedged phrase demonstrating openness to rigorous verification."
+    },
+    {
+        "id": 28,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithBlank": "That wasn’t on my ________ in this iteration — thinking about it now, it would likely damp the upside.",
+        "answer": "radar",
+        "acceptable": [
+            "radar"
+        ],
+        "hint": "Noun (metaphor): the screen or awareness zone that detects incoming objects.",
+        "explanation": "'That wasn't on my radar' is an authentic, polished recovery phrase that avoids making up excuses."
+    },
+    {
+        "id": 29,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithBlank": "Fair point. Factoring that in would ________ the margin of error considerably.",
+        "answer": "tighten",
+        "acceptable": [
+            "tighten",
+            "narrow"
+        ],
+        "hint": "Verb: to make narrower, firmer, or more precise.",
+        "explanation": "'Tighten the margin of error' gracefully validates the interviewer's critique while demonstrating analytical maturity."
+    },
+    {
+        "id": 30,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithBlank": "I haven’t ________ that specific scenario, but my initial hypothesis is that it would shift our timeline by two weeks.",
+        "answer": "modeled",
+        "acceptable": [
+            "modeled",
+            "modelled"
+        ],
+        "hint": "Verb (past participle): mathematically simulated or calculated.",
+        "explanation": "'I haven't modeled that specific scenario' cleanly admits an omission before providing an instant estimation."
+    }
+];
+
+    let task3Answers = {};
+
+    function renderTask3() {
+      const container = document.getElementById('task3Cards');
+      container.innerHTML = '';
+
+      task3Items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `t3-card-${item.id}`;
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="q-badge">Sentence ${index + 1} of ${task3Items.length}</span>
+            <span style="font-size:0.75rem; font-weight:800; color:#2563eb; background:#eff6ff; padding:3px 10px; border-radius:6px;">${item.category}</span>
+          </div>
+          <div class="quote-statement" style="margin-bottom:8px;">“${item.sentenceWithBlank}”</div>
+          <div class="hint-chip">💡 <strong>Clue:</strong> ${item.hint}</div>
+          
+          <div class="task3-input-row">
+            <input type="text" class="t3-input" id="t3-in-${item.id}" placeholder="Type the missing word here..." autocomplete="off" spellcheck="false"
+                   onkeydown="if(event.key==='Enter') checkTask3Item(${item.id})">
+            <button class="btn-check" onclick="checkTask3Item(${item.id})">Check</button>
+          </div>
+          <div class="feedback-box" id="t3-fb-${item.id}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.checkTask3Item = function(id) {
+      const item = task3Items.find(i => i.id === id);
+      const input = document.getElementById(`t3-in-${id}`);
+      const fb = document.getElementById(`t3-fb-${id}`);
+      const val = input.value.trim().toLowerCase();
+
+      if (!val) {
+        alert("Please enter the missing word before checking!");
+        return;
+      }
+
+      // Check if user answer matches target answer or any acceptable synonyms/variants
+      const cleanVal = val.replace(/[^a-z0-9\-]/g, '');
+      const isCorrect = item.acceptable.some(acc => acc.toLowerCase().replace(/[^a-z0-9\-]/g, '') === cleanVal);
+
+      if (isCorrect) {
+        input.className = "t3-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> The missing word is <strong>"${item.answer}"</strong>.<br>${item.explanation}`;
+        task3Answers[id] = true;
+      } else {
+        input.className = "t3-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> Your answer: <em>"${input.value.trim()}"</em>.<br>Correct word: <strong>"${item.answer}"</strong>.<br><div class="why-wrong">${item.explanation}</div>`;
+        task3Answers[id] = false;
+      }
+      updateTotalScore();
+    };
+
+    function resetTask3() {
+      task3Answers = {};
+      renderTask3();
+      updateTotalScore();
+    }
+
+
+
+    // Task 4 Items: Spot and correct the single wrong word
+    const task4Items = [
+    {
+        "id": 1,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "The <u>obstacle</u> here is to evaluate whether expanding to Tier-2 cities generates profitable unit economics.",
+        "wrongWord": "obstacle",
+        "correctWord": "objective",
+        "acceptable": [
+            "objective",
+            "goal"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'obstacle'",
+        "explanation": "'Obstacle' means a barrier or problem. When framing the purpose of a slide or business study, the correct executive phrasing is 'The objective here is to evaluate whether...' (or 'goal')."
+    },
+    {
+        "id": 2,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "To <u>chain</u> this section, let’s look at the underlying driver of user retention.",
+        "wrongWord": "chain",
+        "correctWord": "anchor",
+        "acceptable": [
+            "anchor"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'chain'",
+        "explanation": "The standard professional metaphor to ground or establish a baseline is 'To anchor this section, let’s look at...'"
+    },
+    {
+        "id": 3,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "If we trace the blue <u>destination</u> against the baseline, the divergence becomes obvious.",
+        "wrongWord": "destination",
+        "correctWord": "trajectory",
+        "acceptable": [
+            "trajectory"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'destination'",
+        "explanation": "'Destination' refers to an endpoint, whereas the line curve showing trend movement across a visual axis is the 'trajectory'."
+    },
+    {
+        "id": 4,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "The key takeaway from this visual sits right along the <u>infection</u> point here.",
+        "wrongWord": "infection",
+        "correctWord": "inflection",
+        "acceptable": [
+            "inflection"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'infection'",
+        "explanation": "The analytical term for a sharp turning point on a curve or graph is an 'inflection point'."
+    },
+    {
+        "id": 5,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "Now that we’ve established the baseline, let’s <u>pirouette</u> to the root causes.",
+        "wrongWord": "pirouette",
+        "correctWord": "pivot",
+        "acceptable": [
+            "pivot"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'pirouette'",
+        "explanation": "In business communication, 'let’s pivot to...' is the standard phrase for shifting focus between topics or slides."
+    },
+    {
+        "id": 6,
+        "category": "Slide Signposting & Navigation",
+        "sentenceWithWrongWord": "Having looked at historical performance, let's <u>unwrap</u> our future-state options.",
+        "wrongWord": "unwrap",
+        "correctWord": "unpack",
+        "acceptable": [
+            "unpack",
+            "explore"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'unwrap'",
+        "explanation": "The idiomatic executive phrasing is 'let's unpack our future-state options' (meaning to break down and analyze in detail)."
+    },
+    {
+        "id": 7,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "We see a pronounced <u>leak</u> in user acquisition starting mid-Q2.",
+        "wrongWord": "leak",
+        "correctWord": "surge",
+        "acceptable": [
+            "surge",
+            "spike"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'leak'",
+        "explanation": "A 'pronounced surge' is the established term for sudden, strong upward growth in customer acquisition."
+    },
+    {
+        "id": 8,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "Conversion experienced a steep <u>drop-in</u> immediately following the update.",
+        "wrongWord": "drop-in",
+        "correctWord": "drop-off",
+        "acceptable": [
+            "drop-off",
+            "dropoff",
+            "drop off"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'drop-in'",
+        "explanation": "'Drop-in' refers to casual attendance. A sharp decline or plunge in funnel conversion is a 'steep drop-off'."
+    },
+    {
+        "id": 9,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "Activity spiked briefly before <u>converting</u> to historical averages.",
+        "wrongWord": "converting",
+        "correctWord": "reverting",
+        "acceptable": [
+            "reverting",
+            "returning"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'converting'",
+        "explanation": "Returning back to an earlier historical mean or baseline is 'reverting' (mean reversion), not 'converting'."
+    },
+    {
+        "id": 10,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "Engagement has largely <u>paralyzed</u>, suggesting market saturation.",
+        "wrongWord": "paralyzed",
+        "correctWord": "plateaued",
+        "acceptable": [
+            "plateaued"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'paralyzed'",
+        "explanation": "When metrics flatten out and cease climbing or dropping, the professional term is 'has largely plateaued'."
+    },
+    {
+        "id": 11,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "Notice the sharp <u>conversation</u> between top-of-funnel traffic and activated accounts.",
+        "wrongWord": "conversation",
+        "correctWord": "divergence",
+        "acceptable": [
+            "divergence"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'conversation'",
+        "explanation": "When two linked trend lines split and head in opposite directions, it is a 'sharp divergence'."
+    },
+    {
+        "id": 12,
+        "category": "Trend Analysis (Spikes, Dips & Anomalies)",
+        "sentenceWithWrongWord": "This cohort represents an isolated <u>outlaw</u> rather than a systemic trend.",
+        "wrongWord": "outlaw",
+        "correctWord": "outlier",
+        "acceptable": [
+            "outlier"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'outlaw'",
+        "explanation": "The statistical term for an atypical data point that lies outside overall patterns is an 'outlier'."
+    },
+    {
+        "id": 13,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithWrongWord": "A critical <u>cavalry</u> here: the sample leans heavily toward enterprise accounts.",
+        "wrongWord": "cavalry",
+        "correctWord": "caveat",
+        "acceptable": [
+            "caveat"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'cavalry'",
+        "explanation": "The term meaning an explicit warning, condition, or limitation is 'caveat' ('A critical caveat here...')."
+    },
+    {
+        "id": 14,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithWrongWord": "This analysis <u>skates</u> toward high-frequency users and may underrepresent casual buyers.",
+        "wrongWord": "skates",
+        "correctWord": "skews",
+        "acceptable": [
+            "skews",
+            "leans"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'skates'",
+        "explanation": "To describe an unrepresentative demographic slant, the correct term is 'skews toward' (or 'leans toward')."
+    },
+    {
+        "id": 15,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithWrongWord": "Because early adopters dominate this sample, the findings carry an inherent <u>survival</u> bias.",
+        "wrongWord": "survival",
+        "correctWord": "survivorship",
+        "acceptable": [
+            "survivorship"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'survival'",
+        "explanation": "The formal statistical and cognitive term is 'survivorship bias' (not 'survival bias')."
+    },
+    {
+        "id": 16,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithWrongWord": "The telemetry on this cohort is relatively sparse, so treat this metric as <u>direct</u>.",
+        "wrongWord": "direct",
+        "correctWord": "directional",
+        "acceptable": [
+            "directional"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'direct'",
+        "explanation": "In business intelligence, when data indicates general trends rather than pinpoint precision, it is described as 'directional'."
+    },
+    {
+        "id": 17,
+        "category": "Acknowledging Dataset Caveats & Sample Bias",
+        "sentenceWithWrongWord": "We don't have visibility into offline touchpoints, which leaves a <u>deaf</u> spot around in-store conversion.",
+        "wrongWord": "deaf",
+        "correctWord": "blind",
+        "acceptable": [
+            "blind"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'deaf'",
+        "explanation": "The fixed phrase denoting an area without data coverage or visibility is a 'blind spot'."
+    },
+    {
+        "id": 18,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithWrongWord": "Translating these data points into business <u>prior</u>, I recommend rolling out self-serve onboarding.",
+        "wrongWord": "prior",
+        "correctWord": "priorities",
+        "acceptable": [
+            "priorities"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'prior'",
+        "explanation": "The correct plural noun is 'business priorities' ('Translating these data points into business priorities...')."
+    },
+    {
+        "id": 19,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithWrongWord": "The data points to three high-impact <u>lever</u> areas: first, pricing; second, onboarding.",
+        "wrongWord": "lever",
+        "correctWord": "leverage",
+        "acceptable": [
+            "leverage"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'lever'",
+        "explanation": "The standard strategic collocation is 'high-impact leverage areas'."
+    },
+    {
+        "id": 20,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithWrongWord": "To <u>un-risk</u> this initiative, I propose phasing the rollout into two milestones.",
+        "wrongWord": "un-risk",
+        "correctWord": "de-risk",
+        "acceptable": [
+            "de-risk",
+            "derisk"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'un-risk'",
+        "explanation": "The established executive verb for reducing commercial or technical risk is 'to de-risk'."
+    },
+    {
+        "id": 21,
+        "category": "Transitioning to Actionable Recommendations",
+        "sentenceWithWrongWord": "The quickest win with the lowest engineering <u>elevator</u> sits in automating email reminders.",
+        "wrongWord": "elevator",
+        "correctWord": "lift",
+        "acceptable": [
+            "lift",
+            "effort"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'elevator'",
+        "explanation": "In software and product strategy, the amount of developer effort required for a project is called the 'engineering lift'."
+    },
+    {
+        "id": 22,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "I appreciate that pushback — my <u>rational</u> for holding this position is that CAC remains low.",
+        "wrongWord": "rational",
+        "correctWord": "rationale",
+        "acceptable": [
+            "rationale",
+            "reasoning"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'rational'",
+        "explanation": "'Rational' is an adjective. The noun meaning the logical underlying justification is 'rationale'."
+    },
+    {
+        "id": 23,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "That's a valid angle; however, the order of <u>magnet</u> here suggests pricing is the real driver.",
+        "wrongWord": "magnet",
+        "correctWord": "magnitude",
+        "acceptable": [
+            "magnitude"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'magnet'",
+        "explanation": "The mathematical/analytical phrase is 'order of magnitude' (indicating a relative factor of scale, typically 10x)."
+    },
+    {
+        "id": 24,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "Good catch — that wasn't isolated in this pass because the primary <u>constrain</u> was compute runtime.",
+        "wrongWord": "constrain",
+        "correctWord": "constraint",
+        "acceptable": [
+            "constraint",
+            "limitation"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'constrain'",
+        "explanation": "'Constrain' is a verb. The noun form meaning limitation or boundary condition is 'constraint'."
+    },
+    {
+        "id": 25,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "I deliberately left out metric X to prioritize the <u>sign</u>-to-noise ratio in this executive view.",
+        "wrongWord": "sign",
+        "correctWord": "signal",
+        "acceptable": [
+            "signal"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'sign'",
+        "explanation": "The technical and strategic term for meaningful data versus background clutter is 'signal-to-noise ratio'."
+    },
+    {
+        "id": 26,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "It’s plausible, but the secondary metrics don’t quite <u>cooperate</u> that explanation.",
+        "wrongWord": "cooperate",
+        "correctWord": "corroborate",
+        "acceptable": [
+            "corroborate",
+            "support",
+            "confirm"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'cooperate'",
+        "explanation": "'Cooperate' means to work together. The verb meaning to support or confirm an empirical claim is 'corroborate'."
+    },
+    {
+        "id": 27,
+        "category": "Defending Under Pushback (Hedged Confidence)",
+        "sentenceWithWrongWord": "I’d want to <u>press</u>-test that assumption, but directionally, the current signal points toward churn.",
+        "wrongWord": "press",
+        "correctWord": "stress",
+        "acceptable": [
+            "stress"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'press'",
+        "explanation": "The standard term for subjecting a model to extreme scenarios is 'to stress-test'."
+    },
+    {
+        "id": 28,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithWrongWord": "That wasn’t on my <u>sonar</u> in this iteration — thinking about it now, it would likely damp the upside.",
+        "wrongWord": "sonar",
+        "correctWord": "radar",
+        "acceptable": [
+            "radar"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'sonar'",
+        "explanation": "The idiomatic professional phrase for being aware of an issue is 'on my radar' ('That wasn't on my radar in this iteration')."
+    },
+    {
+        "id": 29,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithWrongWord": "Fair point. Factoring that in would <u>straighten</u> the margin of error considerably.",
+        "wrongWord": "straighten",
+        "correctWord": "tighten",
+        "acceptable": [
+            "tighten",
+            "narrow"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'straighten'",
+        "explanation": "When adjusting models makes them more precise or narrows the error band, it 'tightens' the margin of error."
+    },
+    {
+        "id": 30,
+        "category": "Graceful Recovery (When You Missed Something)",
+        "sentenceWithWrongWord": "I haven’t <u>molded</u> that specific scenario, but my initial hypothesis is that it would shift our timeline by two weeks.",
+        "wrongWord": "molded",
+        "correctWord": "modeled",
+        "acceptable": [
+            "modeled",
+            "modelled"
+        ],
+        "prompt": "Find and correct the wrong word (underlined): 'molded'",
+        "explanation": "To simulate or compute scenarios mathematically is to have 'modeled' them (not 'molded')."
+    }
+];
+
+    let task4Answers = {};
+
+    function renderTask4() {
+      const container = document.getElementById('task4Cards');
+      container.innerHTML = '';
+
+      task4Items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `t4-card-${item.id}`;
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="q-badge">Sentence ${index + 1} of ${task4Items.length}</span>
+            <span style="font-size:0.75rem; font-weight:800; color:#2563eb; background:#eff6ff; padding:3px 10px; border-radius:6px;">${item.category}</span>
+          </div>
+          <div class="quote-statement" style="margin-bottom:8px;">“${item.sentenceWithWrongWord}”</div>
+          <div class="hint-chip">⚠️ <strong>Error identified:</strong> Replace the incorrect word <code>${item.wrongWord}</code> with the correct term.</div>
+          
+          <div class="task3-input-row">
+            <input type="text" class="t3-input" id="t4-in-${item.id}" placeholder="Type the correct word here..." autocomplete="off" spellcheck="false"
+                   onkeydown="if(event.key==='Enter') checkTask4Item(${item.id})">
+            <button class="btn-check" onclick="checkTask4Item(${item.id})">Check</button>
+          </div>
+          <div class="feedback-box" id="t4-fb-${item.id}"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.checkTask4Item = function(id) {
+      const item = task4Items.find(i => i.id === id);
+      const input = document.getElementById(`t4-in-${id}`);
+      const fb = document.getElementById(`t4-fb-${id}`);
+      const val = input.value.trim().toLowerCase();
+
+      if (!val) {
+        alert("Please enter the correct replacement word before checking!");
+        return;
+      }
+
+      const cleanVal = val.replace(/[^a-z0-9\-]/g, '');
+      const isCorrect = item.acceptable.some(acc => acc.toLowerCase().replace(/[^a-z0-9\-]/g, '') === cleanVal);
+
+      if (isCorrect) {
+        input.className = "t3-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Well done!</strong> The correct replacement for <em>"${item.wrongWord}"</em> is <strong>"${item.correctWord}"</strong>.<br>${item.explanation}`;
+        task4Answers[id] = true;
+      } else {
+        input.className = "t3-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Not quite.</strong> Your answer: <em>"${input.value.trim()}"</em>.<br>Correct replacement: <strong>"${item.correctWord}"</strong> (replacing <em>"${item.wrongWord}"</em>).<br><div class="why-wrong">${item.explanation}</div>`;
+        task4Answers[id] = false;
+      }
+      updateTotalScore();
+    };
+
+    function resetTask4() {
+      task4Answers = {};
+      renderTask4();
+      updateTotalScore();
+    }
+
+
+    // Initialize
+    renderTask1();
+    renderTask2();
+    renderTask3();
+    renderTask4();
+    updateTotalScore();
+  </script>
+</body>
+</html>

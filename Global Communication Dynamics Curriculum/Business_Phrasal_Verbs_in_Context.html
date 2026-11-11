@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Phrasal Verbs & Prepositions Practice</title>
+    <style>
+        :root {
+            --navy-deep: #0b192c;
+            --navy-dark: #1e3e62;
+            --navy-accent: #002244;
+            --btn-blue: #1d4ed8;
+            --btn-blue-hover: #1e40af;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(11, 25, 44, 0.88);
+            --border-ui: #cbd5e1;
+            --text-dark: #0b192c;
+            --text-muted: #334155;
+            --success-bg: #ecfdf5;
+            --success-border: #6ee7b7;
+            --success-text: #065f46;
+            --error-bg: #fef2f2;
+            --error-border: #fca5a5;
+            --error-text: #991b1b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2.5rem 1rem;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(rgba(11, 25, 44, 0.82), rgba(11, 25, 44, 0.92)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--header-bg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .instructions {
+            color: #e2e8f0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 760px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .instructions strong {
+            color: #93c5fd;
+        }
+
+        .word-bank {
+            background-color: #ffffff;
+            border-left: 5px solid var(--navy-dark);
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .word-bank h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--navy-deep);
+            font-size: 1.1rem;
+        }
+
+        .bank-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 0.3rem 0.65rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 600;
+            color: var(--navy-dark);
+        }
+
+        .exercise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-ui);
+            border-radius: 10px;
+            padding: 1.35rem 1.6rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(6px);
+        }
+
+        .sentence-row {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--navy-deep);
+            font-weight: 500;
+        }
+
+        input.gap-input {
+            width: 130px;
+            padding: 0.35rem 0.6rem;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            background-color: #ffffff;
+            border: 2px solid var(--border-ui);
+            border-radius: 6px;
+            color: var(--navy-deep);
+            outline: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            margin: 0 0.25rem;
+        }
+
+        input.gap-input:focus {
+            border-color: var(--btn-blue);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+        }
+
+        .btn-check {
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.55rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-check:hover {
+            background-color: var(--navy-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 0.85rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            color: var(--error-text);
+        }
+
+        .russian-hint {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-left: 0.4rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Business Phrasal Verbs in Context</h1>
+        <p class="instructions">Fill in the missing prepositions/particles to complete the business email phrasal verbs. Click <strong>Check</strong> under each sentence to verify your answer and see the Russian translation.</p>
+        
+        <div class="word-bank">
+            <h3>Target Phrasal Prepositions & Particles</h3>
+            <div class="bank-tags">
+                <span class="tag">back to</span>
+                <span class="tag">in on</span>
+                <span class="tag">onto / on to</span>
+                <span class="tag">out with</span>
+                <span class="tag">down / with</span>
+                <span class="tag">up to</span>
+                <span class="tag">out on</span>
+                <span class="tag">up</span>
+                <span class="tag">through to</span>
+                <span class="tag">on</span>
+                <span class="tag">off</span>
+                <span class="tag">through</span>
+                <span class="tag">up on</span>
+                <span class="tag">with</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="exercise-list"></div>
+</div>
+
+<script>
+const items = [
+    {
+        id: 1,
+        before: "1. I have received your proposal and will get",
+        gaps: [{ correct: ["back to"], placeholder: "preposition(s)" }],
+        after: "you by the end of the day.",
+        meaning: "get back to (someone) — вернуться с ответом, связаться позже"
+    },
+    {
+        id: 2,
+        before: "2. Please make sure to copy me",
+        gaps: [{ correct: ["in on"], placeholder: "preposition(s)" }],
+        after: "any correspondence with the legal department.",
+        meaning: "copy (someone) in on (something) — поставить кого-то в копию переписки"
+    },
+    {
+        id: 3,
+        before: "3. Could you get",
+        gaps: [{ correct: ["onto", "on to"], placeholder: "preposition" }],
+        after: "the suppliers and find out why the shipment is delayed?",
+        meaning: "get onto / on to (someone) — связаться / выйти на контакт для решения вопроса"
+    },
+    {
+        id: 4,
+        before: "4. Don't worry about the billing conflict; I will sort it",
+        gaps: [{ correct: ["out with"], placeholder: "preposition(s)" }],
+        after: "the finance director.",
+        meaning: "sort (something) out with (someone) — уладить / разрулить что-то с кем-то"
+    },
+    {
+        id: 5,
+        before: "5. The revised product design went",
+        gaps: [
+            { correct: ["down"], placeholder: "particle" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "really well",
+        after: "the stakeholders during Monday's demo.",
+        meaning: "go down well with (someone) — встретить одобрение у кого-то"
+    },
+    {
+        id: 6,
+        before: "6. Once the client reviews the pricing tier, they will come",
+        gaps: [
+            { correct: ["back to"], placeholder: "preposition(s)" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "us",
+        after: "their counteroffer.",
+        meaning: "come back to (someone) with (something) — вернуться с ответом / предложением"
+    },
+    {
+        id: 7,
+        before: "7. Since you know this account best, I'll leave the contract wording",
+        gaps: [{ correct: ["up to", "to"], placeholder: "preposition(s)" }],
+        after: "you.",
+        meaning: "leave (something) up to (someone) — оставить что-то на чьё-то усмотрение"
+    },
+    {
+        id: 8,
+        before: "8. I'd like to sound the board",
+        gaps: [{ correct: ["out on"], placeholder: "preposition(s)" }],
+        after: "our acquisition strategy before making an announcement.",
+        meaning: "sound (someone) out on (something) — прощупать почву, узнать чьё-то мнение"
+    },
+    {
+        id: 9,
+        before: "9. We should meet",
+        gaps: [{ correct: ["up"], placeholder: "particle" }],
+        after: "for lunch next Tuesday to review our quarterly metrics.",
+        meaning: "meet up — встретиться, собраться вместе"
+    },
+    {
+        id: 10,
+        before: "10. The phone line was unstable, so I couldn't get",
+        gaps: [{ correct: ["through to"], placeholder: "preposition(s)" }],
+        after: "the branch manager.",
+        meaning: "get through to (someone) — дозвониться / выйти на связь"
+    },
+    {
+        id: 11,
+        before: "11. Our team is already overstretched, so we simply cannot take",
+        gaps: [{ correct: ["on"], placeholder: "preposition" }],
+        after: "any extra projects right now.",
+        meaning: "take on (something) — браться за дополнительную работу / ответственность"
+    },
+    {
+        id: 12,
+        before: "12. If you are swamped with admin work, I can take that audit report",
+        gaps: [{ correct: ["off"], placeholder: "preposition" }],
+        after: "your hands.",
+        meaning: "take (something) off (someone's) hands — забрать задачу, избавить от хлопот"
+    },
+    {
+        id: 13,
+        before: "13. Please read",
+        gaps: [{ correct: ["through"], placeholder: "preposition" }],
+        after: "the safety guidelines carefully before signing the agreement.",
+        meaning: "read through (something) — внимательно вычитать от начала до конца"
+    },
+    {
+        id: 14,
+        before: "14. Let me finish",
+        gaps: [{ correct: ["off"], placeholder: "particle" }],
+        after: "these invoices before we head to the conference hall.",
+        meaning: "finish (something) off — окончательно завершить / доделать"
+    },
+    {
+        id: 15,
+        before: "15. That consultant gave brilliant advice; we should take him",
+        gaps: [{ correct: ["up on"], placeholder: "preposition(s)" }],
+        after: "his offer to conduct an audit.",
+        meaning: "take (someone) up on (an offer) — принять предложение, поймать на слове"
+    },
+    {
+        id: 16,
+        before: "16. After six straight hours of continuous calls, I could really do",
+        gaps: [{ correct: ["with"], placeholder: "preposition" }],
+        after: "a strong espresso.",
+        meaning: "could do with (something) — не помешало бы, очень пригодилось бы"
+    },
+    {
+        id: 17,
+        before: "17. I have forwarded the query to our technical team; someone will get",
+        gaps: [{ correct: ["back to"], placeholder: "preposition(s)" }],
+        after: "you shortly.",
+        meaning: "get back to (someone) — вернуться с ответом"
+    },
+    {
+        id: 18,
+        before: "18. Remember to copy the project lead",
+        gaps: [{ correct: ["in on"], placeholder: "preposition(s)" }],
+        after: "every single update regarding the budget.",
+        meaning: "copy (someone) in on (something) — поставить в копию"
+    },
+    {
+        id: 19,
+        before: "19. The client hasn't received the quote yet—could you get",
+        gaps: [{ correct: ["onto", "on to"], placeholder: "preposition" }],
+        after: "sales and ask for an update?",
+        meaning: "get onto / on to (someone) — связаться с кем-то для решения вопроса"
+    },
+    {
+        id: 20,
+        before: "20. We managed to sort the shipping discrepancies",
+        gaps: [{ correct: ["out with"], placeholder: "preposition(s)" }],
+        after: "the customs broker.",
+        meaning: "sort (something) out with (someone) — уладить проблему с кем-то"
+    },
+    {
+        id: 21,
+        before: "21. His candid explanation didn't go",
+        gaps: [
+            { correct: ["down"], placeholder: "particle" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "very well",
+        after: "the regional committee.",
+        meaning: "go down well with (someone) — быть принятым / одобренным"
+    },
+    {
+        id: 22,
+        before: "22. The vendor promised to come",
+        gaps: [
+            { correct: ["back to"], placeholder: "preposition(s)" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "us",
+        after: "a revised cost breakdown by noon.",
+        meaning: "come back to (someone) with (something) — вернуться с ответом / материалами"
+    },
+    {
+        id: 23,
+        before: "23. Can we leave it",
+        gaps: [{ correct: ["up to"], placeholder: "preposition(s)" }],
+        after: "the venue coordinator to arrange stage seating?",
+        meaning: "leave it up to (someone) — перепоручить, оставить на усмотрение"
+    },
+    {
+        id: 24,
+        before: "24. Before pitching the merger, let's sound our key investors",
+        gaps: [{ correct: ["out on"], placeholder: "preposition(s)" }],
+        after: "their appetite for expansion.",
+        meaning: "sound (someone) out on (something) — выяснить мнение / прощупать почву"
+    },
+    {
+        id: 25,
+        before: "25. Both negotiating teams agreed to meet",
+        gaps: [{ correct: ["up"], placeholder: "particle" }],
+        after: "in Frankfurt next month.",
+        meaning: "meet up — встретиться лично"
+    },
+    {
+        id: 26,
+        before: "26. I spent nearly forty minutes on hold trying to get",
+        gaps: [{ correct: ["through to"], placeholder: "preposition(s)" }],
+        after: "airline support.",
+        meaning: "get through to (someone) — дозвониться"
+    },
+    {
+        id: 27,
+        before: "27. She was reluctant to take",
+        gaps: [{ correct: ["on"], placeholder: "preposition" }],
+        after: "the role of lead project architect without extra resources.",
+        meaning: "take on (a role/task) — взять на себя роль / ответственность"
+    },
+    {
+        id: 28,
+        before: "28. Thanks for offering to take those tedious data sheets",
+        gaps: [{ correct: ["off"], placeholder: "preposition" }],
+        after: "my hands—it saved my afternoon!",
+        meaning: "take (something) off (someone's) hands — избавить от работы / хлопот"
+    },
+    {
+        id: 29,
+        before: "29. The compliance team spent the whole morning reading",
+        gaps: [{ correct: ["through"], placeholder: "preposition" }],
+        after: "the new privacy regulations.",
+        meaning: "read through (something) — вдумчиво вычитать"
+    },
+    {
+        id: 30,
+        before: "30. As soon as I finish",
+        gaps: [{ correct: ["off"], placeholder: "particle" }],
+        after: "this presentation slide deck, I will join the team debrief.",
+        meaning: "finish (something) off — доделать до конца"
+    },
+    {
+        id: 31,
+        before: "31. You should definitely take Marcus",
+        gaps: [{ correct: ["up on"], placeholder: "preposition(s)" }],
+        after: "his invitation to tour their research facility.",
+        meaning: "take (someone) up on (an offer) — принять предложение"
+    },
+    {
+        id: 32,
+        before: "32. This outdated office equipment is awful; we could really do",
+        gaps: [{ correct: ["with"], placeholder: "preposition" }],
+        after: "faster workstations.",
+        meaning: "could do with (something) — нам бы не помешали..."
+    },
+    {
+        id: 33,
+        before: "33. As soon as we run the diagnostic test, we'll get",
+        gaps: [{ correct: ["back to"], placeholder: "preposition(s)" }],
+        after: "your team with the technical logs.",
+        meaning: "get back to (someone) — вернуться с ответом"
+    },
+    {
+        id: 34,
+        before: "34. Can you copy Sarah",
+        gaps: [{ correct: ["in on"], placeholder: "preposition(s)" }],
+        after: "the email chain so she has visibility over the timeline?",
+        meaning: "copy (someone) in on (something) — поставить в копию"
+    },
+    {
+        id: 35,
+        before: "35. If logistics doesn't respond by 2 PM, I'll get",
+        gaps: [{ correct: ["onto", "on to"], placeholder: "preposition" }],
+        after: "the dispatch head directly.",
+        meaning: "get onto / on to (someone) — связаться для решения вопроса"
+    },
+    {
+        id: 36,
+        before: "36. We need a private room to sort this grievance",
+        gaps: [{ correct: ["out with"], placeholder: "preposition(s)" }],
+        after: "the staff representative.",
+        meaning: "sort (something) out with (someone) — урегулировать с кем-то"
+    },
+    {
+        id: 37,
+        before: "37. Surprisingly, the proposal to freeze departmental bonuses went",
+        gaps: [
+            { correct: ["down"], placeholder: "particle" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "quite well",
+        after: "the senior leadership.",
+        meaning: "go down well with (someone) — быть хорошо воспринятым"
+    },
+    {
+        id: 38,
+        before: "38. Has legal come",
+        gaps: [
+            { correct: ["back to"], placeholder: "preposition(s)" },
+            { correct: ["with"], placeholder: "preposition" }
+        ],
+        textBetween: "you",
+        after: "their edits to the non-disclosure clause?",
+        meaning: "come back to (someone) with (something) — вернуться с правками / ответом"
+    },
+    {
+        id: 39,
+        before: "39. We don't need a committee for this; let's leave it",
+        gaps: [{ correct: ["up to"], placeholder: "preposition(s)" }],
+        after: "the creative director to pick the campaign color palette.",
+        meaning: "leave it up to (someone) — предоставить решение кому-то"
+    },
+    {
+        id: 40,
+        before: "40. I took thirty minutes to sound my colleagues",
+        gaps: [{ correct: ["out on"], placeholder: "preposition(s)" }],
+        after: "the prospective hybrid work policy.",
+        meaning: "sound (someone) out on (something) — прозондировать почву"
+    },
+    {
+        id: 41,
+        before: "41. Let's meet",
+        gaps: [{ correct: ["up"], placeholder: "particle" }],
+        after: "in the breakout area after the all-hands meeting ends.",
+        meaning: "meet up — сойтись, встретиться"
+    },
+    {
+        id: 42,
+        before: "42. Whenever an emergency happens, it's impossible to get",
+        gaps: [{ correct: ["through to"], placeholder: "preposition(s)" }],
+        after: "the server administrator.",
+        meaning: "get through to (someone) — дозвониться / связаться"
+    }
+];
+
+function renderExercises() {
+    const listContainer = document.getElementById("exercise-list");
+    listContainer.innerHTML = items.map(item => {
+        let inputsHtml = "";
+        if (item.gaps.length === 1) {
+            inputsHtml = `
+                ${item.before} 
+                <input type="text" class="gap-input" id="input-${item.id}-0" placeholder="${item.gaps[0].placeholder}" onkeydown="if(event.key==='Enter') checkItem(${item.id})"> 
+                ${item.after}
+            `;
+        } else {
+            inputsHtml = `
+                ${item.before} 
+                <input type="text" class="gap-input" id="input-${item.id}-0" placeholder="${item.gaps[0].placeholder}" onkeydown="if(event.key==='Enter') checkItem(${item.id})"> 
+                ${item.textBetween} 
+                <input type="text" class="gap-input" id="input-${item.id}-1" placeholder="${item.gaps[1].placeholder}" onkeydown="if(event.key==='Enter') checkItem(${item.id})"> 
+                ${item.after}
+            `;
+        }
+
+        return `
+            <div class="exercise-item" id="card-${item.id}">
+                <div class="sentence-row">
+                    ${inputsHtml}
+                </div>
+                <button class="btn-check" onclick="checkItem(${item.id})">Check</button>
+                <div class="feedback" id="feedback-${item.id}"></div>
+            </div>
+        `;
+    }).join("");
+}
+
+function cleanStr(s) {
+    return s.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function checkItem(id) {
+    const item = items.find(x => x.id === id);
+    const feedbackEl = document.getElementById(`feedback-${id}`);
+    
+    let allFilled = true;
+    let allCorrect = true;
+    let expectedList = [];
+
+    for (let i = 0; i < item.gaps.length; i++) {
+        const inputEl = document.getElementById(`input-${id}-${i}`);
+        const userVal = cleanStr(inputEl.value);
+        if (!userVal) {
+            allFilled = false;
+        }
+        const matches = item.gaps[i].correct.map(cleanStr);
+        if (!matches.includes(userVal)) {
+            allCorrect = false;
+        }
+        expectedList.push(item.gaps[i].correct.join(" / "));
+    }
+
+    if (!allFilled) {
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = "<strong>Please fill in all blanks in this sentence.</strong>";
+        return;
+    }
+
+    if (allCorrect) {
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerHTML = `<strong>Correct! 🎉</strong><br><em>${item.meaning}</em>`;
+    } else {
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = `<strong>Not quite.</strong><br><strong>Expected:</strong> "${expectedList.join(' ... ')}"<br><em>${item.meaning}</em>`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderExercises);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Present Simple vs. Present Continuous — Interactive Worksheet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, #E8F2FA 0%, #D4E6F6 100%);
+      color: #0F2342;
+    }
+
+    /* Inline grammar input styling with solid underline and no placeholder dots */
+    .blank-input {
+      display: inline-block;
+      border: none;
+      border-bottom: 2px solid #1B365D;
+      background-color: #EBF4FA;
+      color: #0F2342;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 2px 8px;
+      margin: 2px 4px;
+      border-radius: 6px 6px 0 0;
+      transition: all 0.2s ease;
+      text-align: center;
+      min-width: 96px;
+      max-width: 100%;
+    }
+
+    .blank-input:focus {
+      outline: none;
+      border-bottom-color: #0F2342;
+      background-color: #D6E8F5;
+      box-shadow: 0 2px 0 0 rgba(27, 54, 93, 0.25);
+    }
+
+    .blank-input.correct {
+      border-bottom-color: #15803d;
+      background-color: #dcfce7;
+      color: #14532d;
+    }
+
+    .blank-input.incorrect {
+      border-bottom-color: #b91c1c;
+      background-color: #fee2e2;
+      color: #7f1d1d;
+    }
+
+    .verb-prompt {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1B365D;
+      background-color: #EBF4FA;
+      border: 1px solid #A4C8E1;
+      padding: 1px 8px;
+      border-radius: 9999px;
+      margin: 0 4px 0 1px;
+      white-space: nowrap;
+    }
+
+    .navy-card {
+      background-color: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 4px 16px -2px rgba(15, 35, 66, 0.08);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .explanation-box {
+      animation: slideDown 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Decorative Fixed Background Layer: Tasteful Low-Opacity Student Silhouettes & Study Motifs -->
+  <div aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
+    <!-- Top Left: Student raising hand & reading at desk -->
+    <svg class="absolute top-20 -left-6 w-72 h-72 sm:w-96 sm:h-96 text-[#1B365D] opacity-[0.065]" viewBox="0 0 320 320" fill="currentColor">
+      <!-- Desk -->
+      <rect x="30" y="235" width="190" height="12" rx="6" />
+      <rect x="55" y="247" width="10" height="55" rx="4" />
+      <rect x="185" y="247" width="10" height="55" rx="4" />
+      <!-- Open book on desk -->
+      <path d="M125 225 Q150 215 175 225 L175 233 Q150 223 125 233 Z" />
+      <path d="M175 225 Q200 215 225 225 L225 233 Q200 223 175 233 Z" />
+      <!-- Student torso & head -->
+      <circle cx="95" cy="128" r="24" />
+      <path d="M62 235 L68 175 C70 160 82 154 96 154 C110 154 120 162 124 176 L132 235 Z" />
+      <!-- Raised arm -->
+      <path d="M114 166 L146 112 C150 105 160 109 156 117 L124 180 Z" />
+      <!-- Floating academic icons -->
+      <path d="M235 85 L265 73 L295 85 L265 97 Z" />
+      <path d="M248 92 L248 106 C258 112 272 112 282 106 L282 92" fill="none" stroke="currentColor" stroke-width="4" />
+    </svg>
+
+    <!-- Bottom Right: Two students studying with books & laptop -->
+    <svg class="absolute bottom-6 -right-8 w-80 h-80 sm:w-[28rem] sm:h-[28rem] text-[#1B365D] opacity-[0.065]" viewBox="0 0 360 320" fill="currentColor">
+      <!-- Study table -->
+      <rect x="35" y="240" width="290" height="12" rx="6" />
+      <rect x="65" y="252" width="12" height="55" rx="4" />
+      <rect x="285" y="252" width="12" height="55" rx="4" />
+      <!-- Student 1 (Left, leaning forward reading) -->
+      <circle cx="115" cy="138" r="23" />
+      <path d="M80 240 L86 182 C88 168 100 162 115 162 C130 162 142 170 146 184 L154 240 Z" />
+      <!-- Stack of books in center -->
+      <rect x="165" y="226" width="54" height="10" rx="4" />
+      <rect x="170" y="214" width="48" height="10" rx="4" />
+      <!-- Student 2 (Right, writing notes) -->
+      <circle cx="255" cy="134" r="23" />
+      <path d="M216 240 L224 180 C227 166 239 160 254 160 C269 160 280 168 283 182 L290 240 Z" />
+      <!-- Pencil & notepad accent -->
+      <rect x="205" y="232" width="38" height="6" rx="3" />
+    </svg>
+
+    <!-- Mid Right Subtle Book & Spark Accent -->
+    <svg class="hidden lg:block absolute top-1/3 right-10 w-44 h-44 text-[#1B365D] opacity-[0.055]" viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M25 45 C48 38 68 42 80 52 C92 42 112 38 135 45 L135 120 C112 113 92 117 80 127 C68 117 48 113 25 120 Z" />
+      <line x1="80" y1="52" x2="80" y2="127" />
+      <line x1="42" y1="68" x2="66" y2="66" />
+      <line x1="42" y1="86" x2="66" y2="84" />
+      <line x1="94" y1="66" x2="118" y2="68" />
+      <line x1="94" y1="84" x2="118" y2="86" />
+    </svg>
+
+    <!-- Lower Left Subtle Student Walking with Books -->
+    <svg class="hidden md:block absolute bottom-20 left-8 w-52 h-52 text-[#1B365D] opacity-[0.055]" viewBox="0 0 200 200" fill="currentColor">
+      <circle cx="96" cy="42" r="18" />
+      <path d="M74 126 L78 76 C80 65 88 60 98 60 C108 60 116 66 118 77 L122 126 Z" />
+      <!-- Books held under arm -->
+      <rect x="106" y="88" width="34" height="10" rx="4" transform="rotate(-12 106 88)" />
+      <rect x="108" y="99" width="34" height="10" rx="4" transform="rotate(-12 108 99)" />
+      <!-- Legs -->
+      <path d="M84 126 L72 178 L84 180 L96 132 Z" />
+      <path d="M104 126 L122 176 L110 180 L96 132 Z" />
+    </svg>
+  </div>
+
+  <!-- Navy Blue Header -->
+  <header class="bg-[#1B365D] text-white border-b-4 border-[#A4C8E1] sticky top-0 z-20 shadow-md">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white text-[#1B365D] font-extrabold text-sm shadow-xs">EN</span>
+          <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight">Present Simple vs. Present Continuous</h1>
+        </div>
+        <p class="text-xs sm:text-sm text-[#D6E8F5] mt-1">Fill in each blank and click <strong>Check</strong> after each sentence for instant feedback.</p>
+      </div>
+
+      <!-- Score Pill & Reset Button -->
+      <div class="flex items-center gap-2.5 self-start sm:self-auto">
+        <div class="flex items-center gap-2 bg-[#0F2342] border border-[#A4C8E1]/50 px-3.5 py-1.5 rounded-full">
+          <span class="text-xs font-semibold text-[#A4C8E1] uppercase tracking-wider">Score</span>
+          <span id="headerScoreText" class="text-sm font-bold text-white">0 / 32</span>
+        </div>
+        <button
+          type="button"
+          onclick="openResetModal()"
+          class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-[#A4C8E1]/50 text-xs font-semibold transition cursor-pointer"
+        >
+          Reset All
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- Quick Grammar Reference Strip -->
+    <div class="navy-card border border-[#A4C8E1] rounded-2xl p-4 sm:p-5 mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#1B365D]">Quick Grammar Reference</h2>
+        <span class="text-xs text-slate-500">Both full forms (<em>do not</em>, <em>is doing</em>) and contractions (<em>don't</em>, <em>'s doing</em>) are accepted</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+        <div class="bg-[#EBF4FA] rounded-xl p-3.5 border border-[#D6E8F5]">
+          <span class="font-bold text-[#1B365D] block mb-1">Present Simple (do / does)</span>
+          <p class="text-[#0F2342]/80 leading-relaxed">Habits and routines (<em>always, usually, twice a week, every day</em>), permanent facts, timetables, and stative verbs (<em>know, like, see, think</em>).</p>
+        </div>
+        <div class="bg-[#EBF4FA] rounded-xl p-3.5 border border-[#D6E8F5]">
+          <span class="font-bold text-[#1B365D] block mb-1">Present Continuous (am / is / are + -ing)</span>
+          <p class="text-[#0F2342]/80 leading-relaxed">Actions happening right now (<em>now, right now</em>), temporary situations (<em>this week, this month, today</em>), changing trends, and complaints with <em>always</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Score Summary Banner (Shown when user clicks Check All) -->
+    <div id="resultBanner" class="hidden mb-6 rounded-2xl p-5 border shadow-sm transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 id="resultTitle" class="text-lg font-bold"></h2>
+          <p id="resultSubtitle" class="text-sm mt-0.5"></p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <div id="resultPercentage" class="text-2xl font-extrabold"></div>
+            <div id="resultFraction" class="text-xs font-medium opacity-85"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Worksheet Questions Container -->
+    <div id="worksheetContainer" class="space-y-4">
+      <!-- Sentences will be dynamically rendered here -->
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="mt-8 navy-card border border-[#A4C8E1] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs sm:text-sm text-[#0F2342]/80 text-center sm:text-left">
+        You can check each sentence individually or check all remaining sentences at once.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+        <button
+          type="button"
+          onclick="openResetModal()"
+          class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-[#1B365D] bg-white text-[#1B365D] font-semibold text-sm hover:bg-[#EBF4FA] active:scale-[0.99] transition cursor-pointer"
+        >
+          Reset All
+        </button>
+        <button
+          type="button"
+          onclick="checkAllAnswers()"
+          class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#1B365D] text-white font-semibold text-sm shadow-sm hover:bg-[#0F2342] active:scale-[0.99] transition cursor-pointer flex items-center justify-center gap-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          Check All
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 text-center text-xs text-[#1B365D]/70 font-medium">
+    English Grammar Practice — Present Simple &amp; Present Continuous
+  </footer>
+
+  <!-- Custom Reset Confirmation Modal -->
+  <div id="resetModal" class="hidden fixed inset-0 z-50 bg-[#0F2342]/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-[#A4C8E1]">
+      <h3 class="text-lg font-bold text-[#0F2342]">Reset Worksheet?</h3>
+      <p class="text-sm text-slate-600 mt-1.5">This will clear all your typed answers and reset your score to zero. Are you sure you want to start over?</p>
+      <div class="mt-5 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50 cursor-pointer">
+          Cancel
+        </button>
+        <button type="button" onclick="confirmReset()" class="px-4 py-2 rounded-xl bg-[#1B365D] text-white text-sm font-semibold hover:bg-[#0F2342] cursor-pointer">
+          Yes, Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Complete dataset of all 31 numbered sentences + the dialogue item after #9 (32 items total).
+     * Strictly free of any ellipsis / suspension marks.
+     */
+    const worksheetItems = [
+      {
+        number: "1",
+        segments: [
+          "I ",
+          { id: "q1_1", prompt: "to write", width: 110, answers: ["write"], displayAnswer: "write" },
+          " English exercises twice a week."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>write</em>) because <strong>“twice a week”</strong> describes a regular habit or repeated routine."
+      },
+      {
+        number: "2",
+        segments: [
+          "My friend ",
+          { id: "q2_1", prompt: "to do", width: 110, answers: ["does"], displayAnswer: "does" },
+          " his homework in the afternoon as a rule."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>does</em>) because <strong>“as a rule”</strong> indicates a regular habit, and the subject <em>My friend</em> is 3rd-person singular (he/she)."
+      },
+      {
+        number: "3",
+        segments: [
+          "My sister ",
+          { id: "q3_1", prompt: "to do", width: 130, answers: ["is doing", "'s doing"], displayAnswer: "is doing" },
+          " her homework now."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>is doing</em> / <em>'s doing</em>) because <strong>“now”</strong> shows the action is happening at the moment of speaking."
+      },
+      {
+        number: "4",
+        segments: [
+          "Don’t shout! The baby ",
+          { id: "q4_1", prompt: "to sleep", width: 140, answers: ["is sleeping", "'s sleeping"], displayAnswer: "is sleeping" },
+          "."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>is sleeping</em> / <em>'s sleeping</em>) because <strong>“Don’t shout!”</strong> tells us the baby is sleeping right now at this very moment."
+      },
+      {
+        number: "5",
+        segments: [
+          "The baby always ",
+          { id: "q5_1", prompt: "to sleep", width: 115, answers: ["sleeps"], displayAnswer: "sleeps" },
+          " after dinner."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>sleeps</em>) because <strong>“always”</strong> here describes a normal daily routine (with <em>-s</em> for 3rd-person singular <em>The baby</em>)."
+      },
+      {
+        number: "6",
+        segments: [
+          "What ",
+          { id: "q6_1", prompt: "", width: 96, answers: ["are"], displayAnswer: "are" },
+          " you ",
+          { id: "q6_2", prompt: "to read", width: 120, answers: ["reading"], displayAnswer: "reading" },
+          " now?"
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> question form (<em>What <strong>are</strong> you <strong>reading</strong></em>) because <strong>“now”</strong> asks about an action happening at the present moment."
+      },
+      {
+        number: "7",
+        segments: [
+          "What books ",
+          { id: "q7_1", prompt: "", width: 96, answers: ["do"], displayAnswer: "do" },
+          " you ",
+          { id: "q7_2", prompt: "to read", width: 110, answers: ["read"], displayAnswer: "read" },
+          " for your literature lessons?"
+        ],
+        explanation: "Use the <strong>Present Simple</strong> question form (<em>What books <strong>do</strong> you <strong>read</strong></em>) because this asks about a general, regular activity during literature lessons."
+      },
+      {
+        number: "8",
+        segments: [
+          "What ",
+          { id: "q8_1", prompt: "", width: 98, answers: ["does"], displayAnswer: "does" },
+          " your mother usually ",
+          { id: "q8_2", prompt: "to cook", width: 110, answers: ["cook"], displayAnswer: "cook" },
+          " for lunch?"
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>What <strong>does</strong> your mother usually <strong>cook</strong></em>) because <strong>“usually”</strong> signals a habit, and <em>your mother</em> takes the auxiliary <em>does</em> + base verb <em>cook</em>."
+      },
+      {
+        number: "9",
+        segments: [
+          { id: "q9_1", prompt: "", width: 96, answers: ["Is"], displayAnswer: "Is" },
+          " she ",
+          { id: "q9_2", prompt: "to cook", width: 120, answers: ["cooking"], displayAnswer: "cooking" },
+          " a cake now?"
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> question form (<em><strong>Is</strong> she <strong>cooking</strong></em>) because <strong>“now”</strong> refers to an action happening right at this moment."
+      },
+      {
+        number: "Dialogue",
+        isDialogue: true,
+        segments: [
+          "— ",
+          { id: "qd_1", prompt: "You, to see", width: 140, answers: ["Do you see"], displayAnswer: "Do you see" },
+          " that man over there?<br>",
+          "— Which man? The man in the brown jacket?<br>",
+          "— No, I ",
+          { id: "qd_2", prompt: "to talk", width: 140, answers: ["am talking", "'m talking"], displayAnswer: "am talking" },
+          " about the man who ",
+          { id: "qd_3", prompt: "to wear", width: 140, answers: ["is wearing", "'s wearing"], displayAnswer: "is wearing" },
+          " the blue shirt.<br>",
+          "— Oh, that man!<br>",
+          "— ",
+          { id: "qd_4", prompt: "You, to know", width: 150, answers: ["Do you know"], displayAnswer: "Do you know" },
+          " him?<br>",
+          "— No, I ",
+          { id: "qd_5", prompt: "not to think", width: 150, answers: ["don't think", "do not think"], displayAnswer: "don't think" },
+          " so.<br>",
+          "— I ",
+          { id: "qd_6", prompt: "to know, not", width: 150, answers: ["don't know", "do not know"], displayAnswer: "don't know" },
+          " him either."
+        ],
+        explanation: "<strong>Stative vs. Active verbs in conversation:</strong><br>• <strong>Do you see / Do you know / don't think / don't know:</strong> <em>See</em> (perception), <em>know</em>, and <em>think</em> (expressing an opinion) are <strong>stative verbs</strong>, so they use the <strong>Present Simple</strong>.<br>• <strong>am talking / is wearing:</strong> These describe actions happening right now during the conversation, so they use the <strong>Present Continuous</strong>."
+      },
+      {
+        number: "10",
+        segments: [
+          "My wife normally ",
+          { id: "q10_1", prompt: "work", width: 115, answers: ["works"], displayAnswer: "works" },
+          " at home, but she ",
+          { id: "q10_2", prompt: "spend", width: 140, answers: ["is spending", "'s spending"], displayAnswer: "is spending" },
+          " this month in Italy."
+        ],
+        explanation: "• First blank: <strong>Present Simple</strong> (<em>works</em>) for a permanent routine (<strong>“normally”</strong>).<br>• Second blank: <strong>Present Continuous</strong> (<em>is spending</em> / <em>'s spending</em>) for a <strong>temporary situation</strong> around now (<strong>“this month”</strong>)."
+      },
+      {
+        number: "11",
+        segments: [
+          "Most days, Tom usually ",
+          { id: "q11_1", prompt: "cycle", width: 115, answers: ["cycles"], displayAnswer: "cycles" },
+          " to work."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>cycles</em>) because <strong>“Most days”</strong> and <strong>“usually”</strong> describe a regular habit (with <em>-s</em> for 3rd-person singular <em>Tom</em>)."
+      },
+      {
+        number: "12",
+        segments: [
+          "When ",
+          { id: "q12_1", prompt: "", width: 98, answers: ["does"], displayAnswer: "does" },
+          " the lesson ",
+          { id: "q12_2", prompt: "start", width: 110, answers: ["start"], displayAnswer: "start" },
+          " today?"
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>When <strong>does</strong> the lesson <strong>start</strong></em>) because fixed <strong>timetables and schedules</strong> (such as lessons, trains, or flights) use the Present Simple, even when referring to today."
+      },
+      {
+        number: "13",
+        segments: [
+          "What’s your brother doing? He ",
+          { id: "q13_1", prompt: "do", width: 130, answers: ["is doing", "'s doing"], displayAnswer: "is doing" },
+          " the crossword in the newspaper. He ",
+          { id: "q13_2", prompt: "do", width: 110, answers: ["does"], displayAnswer: "does" },
+          " it every day."
+        ],
+        explanation: "• First blank: <strong>Present Continuous</strong> (<em>is doing</em> / <em>'s doing</em>) answers <em>“What's your brother doing?”</em> right now.<br>• Second blank: <strong>Present Simple</strong> (<em>does</em>) describes a daily habit (<strong>“every day”</strong>)."
+      },
+      {
+        number: "14",
+        segments: [
+          "I’m afraid I’ll lose this game of chess. I ",
+          { id: "q14_1", prompt: "play", width: 140, answers: ["am playing", "'m playing"], displayAnswer: "am playing" },
+          " very badly. I usually ",
+          { id: "q14_2", prompt: "play", width: 110, answers: ["play"], displayAnswer: "play" },
+          " much better."
+        ],
+        explanation: "• First blank: <strong>Present Continuous</strong> (<em>am playing</em> / <em>'m playing</em>) refers to the current game happening right now.<br>• Second blank: <strong>Present Simple</strong> (<em>play</em>) refers to general ability and habit (<strong>“usually”</strong>)."
+      },
+      {
+        number: "15",
+        segments: [
+          "What’s she doing? — She ",
+          { id: "q15_1", prompt: "mend", width: 140, answers: ["is mending", "'s mending"], displayAnswer: "is mending" },
+          " her husband’s socks. She always ",
+          { id: "q15_2", prompt: "mend", width: 115, answers: ["mends"], displayAnswer: "mends" },
+          " them."
+        ],
+        explanation: "• First blank: <strong>Present Continuous</strong> (<em>is mending</em> / <em>'s mending</em>) describes what she is doing at this moment.<br>• Second blank: <strong>Present Simple</strong> (<em>mends</em>) describes a regular habit (<strong>“always”</strong>)."
+      },
+      {
+        number: "16",
+        segments: [
+          "Yes, you can borrow my dictionary. I ",
+          { id: "q16_1", prompt: "use", width: 110, answers: ["use"], displayAnswer: "use" },
+          " it a lot, but I ",
+          { id: "q16_2", prompt: "not / use", width: 160, answers: ["am not using", "'m not using"], displayAnswer: "am not using" },
+          " it now."
+        ],
+        explanation: "• First blank: <strong>Present Simple</strong> (<em>use</em>) expresses a general habit (<strong>“a lot”</strong>).<br>• Second blank: <strong>Present Continuous</strong> (<em>am not using</em> / <em>'m not using</em>) shows it is not in use right <strong>“now”</strong>."
+      },
+      {
+        number: "17",
+        segments: [
+          "We ",
+          { id: "q17_1", prompt: "not travel", width: 160, answers: ["don't travel", "do not travel"], displayAnswer: "don't travel" },
+          " by train very often."
+        ],
+        explanation: "Use the negative <strong>Present Simple</strong> (<em>don't travel</em> / <em>do not travel</em>) because <strong>“very often”</strong> describes how frequently a habit happens."
+      },
+      {
+        number: "18",
+        segments: [
+          "She ",
+          { id: "q18_1", prompt: "be", width: 130, answers: ["is being", "'s being"], displayAnswer: "is being" },
+          " particularly generous this week."
+        ],
+        explanation: "Use <strong>Present Continuous</strong> (<em>is being</em> / <em>'s being</em>) with <em>to be + adjective</em> when someone is acting in an unusual or <strong>temporary way</strong> right now (<strong>“this week”</strong>), different from their usual character."
+      },
+      {
+        number: "19",
+        segments: [
+          "It ",
+          { id: "q19_1", prompt: "snow", width: 140, answers: ["is snowing", "'s snowing"], displayAnswer: "is snowing" },
+          " right now. It’s beautiful! I ",
+          { id: "q19_2", prompt: "like", width: 110, answers: ["like"], displayAnswer: "like" },
+          " this weather."
+        ],
+        explanation: "• First blank: <strong>Present Continuous</strong> (<em>is snowing</em> / <em>'s snowing</em>) because it is happening <strong>“right now”</strong>.<br>• Second blank: <strong>Present Simple</strong> (<em>like</em>) because <em>like</em> is a <strong>stative verb</strong> of feeling/preference and is not used in continuous forms."
+      },
+      {
+        number: "20",
+        segments: [
+          "The river ",
+          { id: "q20_1", prompt: "flow", width: 140, answers: ["is flowing", "'s flowing"], displayAnswer: "is flowing" },
+          " very fast today — faster than usual."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>is flowing</em> / <em>'s flowing</em>) because <strong>“today — faster than usual”</strong> describes a temporary situation happening right now."
+      },
+      {
+        number: "21",
+        segments: [
+          "You ",
+          { id: "q21_1", prompt: "always to complain", width: 205, answers: ["are always complaining", "'re always complaining"], displayAnswer: "are always complaining" },
+          " that waiters are rude!"
+        ],
+        explanation: "Use <strong>Present Continuous + <em>always</em></strong> (<em>are always complaining</em> / <em>'re always complaining</em>) to express <strong>annoyance or criticism</strong> about a repeated, irritating habit."
+      },
+      {
+        number: "22",
+        segments: [
+          "I ",
+          { id: "q22_1", prompt: "walk", width: 110, answers: ["walk"], displayAnswer: "walk" },
+          " to school every day. I ",
+          { id: "q22_2", prompt: "take, not", width: 150, answers: ["don't take", "do not take"], displayAnswer: "don't take" },
+          " the bus."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>walk</em> and <em>don't take</em> / <em>do not take</em>) because <strong>“every day”</strong> indicates a regular daily routine."
+      },
+      {
+        number: "23",
+        segments: [
+          "You ",
+          { id: "q23_1", prompt: "always to borrow", width: 195, answers: ["are always borrowing", "'re always borrowing"], displayAnswer: "are always borrowing" },
+          " money!"
+        ],
+        explanation: "Use <strong>Present Continuous + <em>always</em></strong> (<em>are always borrowing</em> / <em>'re always borrowing</em>) to express <strong>irritation or complaint</strong> about an annoying repeated action."
+      },
+      {
+        number: "24",
+        segments: [
+          "That’s worrying because the number of people without a job ",
+          { id: "q24_1", prompt: "increase", width: 150, answers: ["is increasing", "'s increasing"], displayAnswer: "is increasing" },
+          "."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>is increasing</em> / <em>'s increasing</em>) to describe a <strong>changing or developing trend</strong> happening around now. (Note: <em>“the number of”</em> takes a singular verb <em>is</em>)."
+      },
+      {
+        number: "25",
+        segments: [
+          "Robert is a vegetarian. He ",
+          { id: "q25_1", prompt: "eat, not", width: 160, answers: ["doesn't eat", "does not eat"], displayAnswer: "doesn't eat" },
+          " meat."
+        ],
+        explanation: "Use the negative <strong>Present Simple</strong> (<em>doesn't eat</em> / <em>does not eat</em>) because being a vegetarian is a permanent fact/habit (with <em>doesn't</em> for 3rd-person singular <em>He</em>)."
+      },
+      {
+        number: "26",
+        segments: [
+          { id: "q26_1", prompt: "you, cook", width: 150, answers: ["Do you cook"], displayAnswer: "Do you cook" },
+          " your own dinner every day?"
+        ],
+        explanation: "Use the <strong>Present Simple</strong> question form (<em>Do you cook</em>) because <strong>“every day”</strong> asks about a regular daily habit."
+      },
+      {
+        number: "27",
+        segments: [
+          "Holidays abroad ",
+          { id: "q27_1", prompt: "become", width: 150, answers: ["are becoming", "'re becoming"], displayAnswer: "are becoming" },
+          " increasingly popular."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>are becoming</em> / <em>'re becoming</em>) because <strong>“increasingly popular”</strong> describes a gradual <strong>change or developing trend</strong> happening nowadays."
+      },
+      {
+        number: "28",
+        segments: [
+          "Are you in a hurry? — No, I ",
+          { id: "q28_1", prompt: "walk", width: 140, answers: ["am walking", "'m walking"], displayAnswer: "am walking" },
+          " quickly because I’m cold."
+        ],
+        explanation: "Use the <strong>Present Continuous</strong> (<em>am walking</em> / <em>'m walking</em>) because the speaker is explaining an action happening right now at the moment of speaking."
+      },
+      {
+        number: "29",
+        segments: [
+          "Where’s your father? — He ",
+          { id: "q29_1", prompt: "be", width: 98, answers: ["is", "'s"], displayAnswer: "is" },
+          " in the bathroom. He ",
+          { id: "q29_2", prompt: "shave", width: 140, answers: ["is shaving", "'s shaving"], displayAnswer: "is shaving" },
+          "."
+        ],
+        explanation: "• First blank: <strong>Present Simple</strong> (<em>is</em> / <em>'s</em>) because <em>to be</em> describing location is a stative verb.<br>• Second blank: <strong>Present Continuous</strong> (<em>is shaving</em> / <em>'s shaving</em>) because he is doing that action right now."
+      },
+      {
+        number: "30",
+        segments: [
+          "The neighbours always ",
+          { id: "q30_1", prompt: "slam", width: 115, answers: ["slam", "are slamming", "'re slamming"], displayAnswer: "slam" },
+          " doors and ",
+          { id: "q30_2", prompt: "shout", width: 115, answers: ["shout", "shouting"], displayAnswer: "shout" },
+          " during the night."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>slam</em> and <em>shout</em>) for a regular, repeated habit that happens <strong>“during the night”</strong> (plural subject <em>The neighbours</em> takes the base verb without <em>-s</em>). <em>(Note: Present Continuous “are always slamming and shouting” is also accepted to emphasize annoyance.)</em>"
+      },
+      {
+        number: "31",
+        segments: [
+          "My sister ",
+          { id: "q31_1", prompt: "to take", width: 115, answers: ["takes"], displayAnswer: "takes" },
+          " part in the competitions almost every weekend."
+        ],
+        explanation: "Use the <strong>Present Simple</strong> (<em>takes</em>) because <strong>“almost every weekend”</strong> describes a regular repeated activity (with <em>-s</em> for 3rd-person singular <em>My sister</em>)."
+      }
+    ];
+
+    // Track solved state per sentence item (0..31) for the live score counter
+    const itemSolvedState = new Array(worksheetItems.length).fill(false);
+
+    /**
+     * Normalizes user input and expected answers for flexible comparison:
+     * - Trims leading/trailing whitespace
+     * - Collapses multiple spaces into a single space
+     * - Normalizes curly apostrophes (’) to straight apostrophes (')
+     * - Lowercases for case-insensitive matching
+     */
+    function normalizeAnswer(str) {
+      return str
+        .trim()
+        .replace(/’/g, "'")
+        .replace(/\s+/g, " ")
+        .toLowerCase();
+    }
+
+    /**
+     * Updates the header score pill (Score: X / 32)
+     */
+    function updateScoreHeader() {
+      const solvedCount = itemSolvedState.filter(Boolean).length;
+      const totalItems = worksheetItems.length;
+      document.getElementById("headerScoreText").textContent = `${solvedCount} / ${totalItems}`;
+    }
+
+    /**
+     * Renders all 32 worksheet cards, each with its own individual "Check" button
+     */
+    function renderWorksheet() {
+      const container = document.getElementById("worksheetContainer");
+      container.innerHTML = "";
+      itemSolvedState.fill(false);
+      updateScoreHeader();
+
+      worksheetItems.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.id = `card_${idx}`;
+        card.className = item.isDialogue
+          ? "navy-card border-2 border-[#A4C8E1] rounded-2xl p-4 sm:p-5 transition-all"
+          : "navy-card border border-[#A4C8E1]/80 rounded-2xl p-4 sm:p-5 transition-all";
+
+        // Build inner sentence HTML without any ellipsis/suspension marks
+        let sentenceHtml = "";
+        item.segments.forEach(seg => {
+          if (typeof seg === "string") {
+            sentenceHtml += seg;
+          } else {
+            const promptBadge = seg.prompt
+              ? `<span class="verb-prompt">(${seg.prompt})</span>`
+              : "";
+            sentenceHtml += `
+              <span class="inline-flex flex-wrap items-baseline">
+                <input
+                  type="text"
+                  id="${seg.id}"
+                  data-item-idx="${idx}"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  aria-label="Answer input for ${seg.prompt || 'auxiliary verb'}"
+                  style="width: ${seg.width}px;"
+                  class="blank-input"
+                />${promptBadge}
+              </span>
+            `;
+          }
+        });
+
+        const badgeClasses = item.isDialogue
+          ? "bg-[#1B365D] text-white px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide shrink-0 mt-0.5"
+          : "bg-[#EBF4FA] text-[#1B365D] border border-[#A4C8E1] w-8 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 mt-0.5";
+
+        // Individual Check button placed right at the end of the sentence/item
+        const inlineCheckControls = `
+          <span class="inline-flex items-center gap-2 ml-2 align-middle">
+            <button
+              type="button"
+              id="check_btn_${idx}"
+              onclick="checkSingleItem(${idx})"
+              class="px-3.5 py-1 rounded-lg bg-[#1B365D] hover:bg-[#0F2342] active:scale-[0.98] text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+            >
+              Check
+            </button>
+            <span id="status_badge_${idx}" class="hidden items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              Correct!
+            </span>
+          </span>
+        `;
+
+        card.innerHTML = `
+          <div class="flex items-start gap-3 sm:gap-3.5">
+            <span class="${badgeClasses}">${item.number}</span>
+            <div class="flex-1 text-[#0F2342] text-sm sm:text-base leading-loose">
+              ${sentenceHtml}${inlineCheckControls}
+            </div>
+          </div>
+          <!-- Mistake Explanation Container (hidden until checked and incorrect) -->
+          <div id="exp_${idx}" class="hidden explanation-box mt-3.5 pt-3 border-t border-red-200 bg-red-50/90 rounded-xl p-3.5 text-xs sm:text-sm text-slate-800">
+            <div class="flex items-start gap-2.5">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-700 font-bold text-xs shrink-0 mt-0.5">!</span>
+              <div class="space-y-1.5 flex-1">
+                <div id="exp_ans_${idx}" class="font-semibold text-red-900"></div>
+                <div class="text-slate-700 leading-relaxed">${item.explanation}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      // Attach keyboard Enter support and clear stale status on edit
+      container.querySelectorAll(".blank-input").forEach(input => {
+        const idx = Number(input.dataset.itemIdx);
+
+        input.addEventListener("keydown", e => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            checkSingleItem(idx);
+          }
+        });
+
+        input.addEventListener("input", () => {
+          input.classList.remove("correct", "incorrect");
+          const badge = document.getElementById(`status_badge_${idx}`);
+          if (badge) {
+            badge.classList.add("hidden");
+            badge.classList.remove("inline-flex");
+          }
+        });
+      });
+    }
+
+    /**
+     * Checks a single sentence/item by index, highlights its inputs,
+     * shows/hides its mistake explanation box, and updates the global score.
+     */
+    function checkSingleItem(idx) {
+      const item = worksheetItems[idx];
+      const card = document.getElementById(`card_${idx}`);
+      const expBox = document.getElementById(`exp_${idx}`);
+      const expAns = document.getElementById(`exp_ans_${idx}`);
+      const statusBadge = document.getElementById(`status_badge_${idx}`);
+
+      let itemHasMistake = false;
+      const correctList = [];
+
+      item.segments.forEach(seg => {
+        if (typeof seg === "object") {
+          const inputEl = document.getElementById(seg.id);
+          const userVal = normalizeAnswer(inputEl.value);
+          const isMatch = seg.answers.some(ans => normalizeAnswer(ans) === userVal);
+
+          inputEl.classList.remove("correct", "incorrect");
+          if (isMatch) {
+            inputEl.classList.add("correct");
+          } else {
+            itemHasMistake = true;
+            inputEl.classList.add("incorrect");
+          }
+
+          // Format readable answer string (including contraction alternative if applicable)
+          const altAnswers = seg.answers.filter(
+            a => normalizeAnswer(a) !== normalizeAnswer(seg.displayAnswer)
+          );
+          if (altAnswers.length > 0 && seg.answers.length === 2) {
+            correctList.push(`<strong>${seg.displayAnswer}</strong> <span class="font-normal text-red-800">(or <em>${altAnswers[0]}</em>)</span>`);
+          } else {
+            correctList.push(`<strong>${seg.displayAnswer}</strong>`);
+          }
+        }
+      });
+
+      if (itemHasMistake) {
+        itemSolvedState[idx] = false;
+        card.classList.remove("border-[#A4C8E1]/80", "border-[#A4C8E1]", "border-emerald-400");
+        card.classList.add("border-red-300");
+
+        statusBadge.classList.add("hidden");
+        statusBadge.classList.remove("inline-flex");
+
+        const label = correctList.length > 1 ? "Correct answers:" : "Correct answer:";
+        expAns.innerHTML = `${label} ${correctList.join(" / ")}`;
+        expBox.classList.remove("hidden");
+      } else {
+        itemSolvedState[idx] = true;
+        card.classList.remove("border-[#A4C8E1]/80", "border-[#A4C8E1]", "border-red-300");
+        card.classList.add("border-emerald-400");
+
+        expBox.classList.add("hidden");
+        statusBadge.classList.remove("hidden");
+        statusBadge.classList.add("inline-flex");
+      }
+
+      updateScoreHeader();
+      return !itemHasMistake;
+    }
+
+    /**
+     * Checks all 32 items and displays a summary banner at the top
+     */
+    function checkAllAnswers() {
+      let correctItems = 0;
+      const totalItems = worksheetItems.length;
+
+      worksheetItems.forEach((_, idx) => {
+        if (checkSingleItem(idx)) {
+          correctItems++;
+        }
+      });
+
+      const pct = Math.round((correctItems / totalItems) * 100);
+      const banner = document.getElementById("resultBanner");
+      const title = document.getElementById("resultTitle");
+      const subtitle = document.getElementById("resultSubtitle");
+      const percentageEl = document.getElementById("resultPercentage");
+      const fractionEl = document.getElementById("resultFraction");
+
+      banner.classList.remove(
+        "hidden",
+        "bg-emerald-50", "border-emerald-300", "text-emerald-900",
+        "bg-[#EBF4FA]", "border-[#1B365D]", "text-[#0F2342]",
+        "bg-amber-50", "border-amber-300", "text-amber-900"
+      );
+
+      if (correctItems === totalItems) {
+        banner.classList.add("bg-emerald-50", "border-emerald-300", "text-emerald-900");
+        title.textContent = "Outstanding! Perfect score!";
+        subtitle.textContent = "You mastered every single Present Simple and Present Continuous item.";
+      } else if (pct >= 75) {
+        banner.classList.add("bg-[#EBF4FA]", "border-[#1B365D]", "text-[#0F2342]");
+        title.textContent = "Great job! Almost there.";
+        subtitle.textContent = "Review the grammar explanations below the highlighted sentences and click Check again.";
+      } else {
+        banner.classList.add("bg-amber-50", "border-amber-300", "text-amber-900");
+        title.textContent = "Good effort! Review the grammar tips below.";
+        subtitle.textContent = "Read each explanation under the red sentences, update your answers, and click Check.";
+      }
+
+      percentageEl.textContent = `${pct}%`;
+      fractionEl.textContent = `${correctItems} of ${totalItems} sentences correct`;
+
+      banner.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    /**
+     * Reset confirmation modal controls
+     */
+    function openResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function confirmReset() {
+      closeResetModal();
+      document.getElementById("resultBanner").classList.add("hidden");
+      renderWorksheet();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    window.addEventListener("DOMContentLoaded", renderWorksheet);
+  </script>
+</body>
+</html>

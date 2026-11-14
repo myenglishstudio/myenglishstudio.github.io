@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Explorer 8 — Unit 2: Active Vocabulary & Passive Voice Tests</title>
+    <style>
+        :root {
+            --navy-deep: #0b192c;
+            --navy-dark: #1e3e62;
+            --btn-blue: #1d4ed8;
+            --btn-blue-hover: #1e40af;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --header-bg: rgba(11, 25, 44, 0.92);
+            --border-ui: #cbd5e1;
+            --text-dark: #0b192c;
+            --text-muted: #475569;
+            --success-bg: #ecfdf5;
+            --success-border: #6ee7b7;
+            --success-text: #065f46;
+            --error-bg: #fef2f2;
+            --error-border: #fca5a5;
+            --error-text: #991b1b;
+            --accent-sky: #38bdf8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2rem 1rem 4rem 1rem;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background: linear-gradient(rgba(11, 25, 44, 0.82), rgba(11, 25, 44, 0.92)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--header-bg);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #93c5fd;
+            font-size: 1rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 0.7rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: var(--navy-deep);
+            border-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .test-container {
+            display: none;
+        }
+
+        .test-container.active {
+            display: block;
+        }
+
+        .test-banner {
+            background: var(--navy-dark);
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent-sky);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .test-banner h2 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .test-banner span {
+            font-size: 0.9rem;
+            color: #bae6fd;
+            font-weight: 600;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-ui);
+            border-radius: 12px;
+            padding: 1.6rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.6rem;
+        }
+
+        .task-badge {
+            background: var(--navy-deep);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .task-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            margin: 0;
+        }
+
+        .task-instruction {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .word-bank {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .bank-word {
+            background: #ffffff;
+            border: 1px solid #94a3b8;
+            color: var(--navy-deep);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 5px;
+        }
+
+        .question-row {
+            margin-bottom: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.65;
+            padding: 0.45rem 0.6rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .question-row.row-correct {
+            background-color: var(--success-bg);
+        }
+
+        .question-row.row-incorrect {
+            background-color: var(--error-bg);
+        }
+
+        input[type="text"], select {
+            padding: 0.38rem 0.65rem;
+            font-size: 0.96rem;
+            font-family: inherit;
+            font-weight: 600;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            color: var(--navy-deep);
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--btn-blue);
+        }
+
+        input.inline-gap {
+            width: 155px;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        input.swap-gap {
+            width: 175px;
+            margin-left: 0.5rem;
+        }
+
+        input.full-sentence {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 0.35rem;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        .bold-wrong {
+            font-weight: 800;
+            color: #b91c1c;
+            text-decoration: underline wavy #fca5a5;
+            background: #fee2e2;
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .match-right-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .match-right-box div {
+            margin-bottom: 0.45rem;
+        }
+
+        .btn-check-task {
+            background-color: var(--navy-deep);
+            color: #ffffff;
+            border: none;
+            padding: 0.65rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-check-task:hover {
+            background-color: var(--navy-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+        }
+
+        .task-feedback {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
+        .task-feedback.all-good {
+            display: block;
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+        }
+
+        .task-feedback.has-errors {
+            display: block;
+            background-color: #fffbeb;
+            border: 1px solid #fcd34d;
+            color: #92400e;
+        }
+
+        .mistake-item {
+            margin-top: 0.5rem;
+            padding-left: 0.75rem;
+            border-left: 3px solid #ef4444;
+            color: #7f1d1d;
+        }
+
+        .report-trigger-area {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-report {
+            background: linear-gradient(135deg, #1d4ed8, #0f172a);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 0.95rem 2.2rem;
+            font-size: 1.08rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-report:hover {
+            transform: translateY(-2px);
+        }
+
+        .report-card {
+            display: none;
+            background: #ffffff;
+            border: 2px solid var(--navy-deep);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .report-score-badge {
+            background: var(--navy-deep);
+            color: #38bdf8;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .report-table th, .report-table td {
+            border: 1px solid #cbd5e1;
+            padding: 0.65rem 0.9rem;
+            text-align: left;
+        }
+
+        .report-table th {
+            background: #f1f5f9;
+            color: var(--navy-deep);
+            font-weight: 700;
+        }
+
+        .grade-box {
+            background: #eff6ff;
+            border-left: 5px solid #1d4ed8;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--navy-deep);
+        }
+
+        @media (max-width: 700px) {
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+            input.inline-gap, input.swap-gap {
+                width: 135px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Hello Explorer 8 — Unit 2 Revision Tests</h1>
+        <p class="subtitle">5 Practice Tests • Active Vocabulary from Unit 2 & Passive Voice • Explanations & Final Report</p>
+    </header>
+
+    <div class="tabs-nav" id="tabsNav"></div>
+    <div id="testsRoot"></div>
+</div>
+
+<script>
+const testsData = [
+    {
+        id: 1,
+        title: "Test 1: Road Transport & City Traffic",
+        subtitle: "Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice",
+        task1: {
+            title: "Vocabulary 1: Complete the sentences with these words",
+            bank: ["traffic", "motorway", "petrol station", "lorry", "pavement", "pedestrians"],
+            items: [
+                { before: "1. We stopped at a", after: "to buy fuel and some snacks for the journey.", answer: ["petrol station"], exp: "'Petrol station' (stacja benzynowa) is where you fill up a car." },
+                { before: "2. There is always heavy", after: "in the city centre on Monday mornings.", answer: ["traffic"], exp: "'Traffic' (ruch uliczny) refers to cars and vehicles on the road." },
+                { before: "3. Driving on the", after: "is much faster than using narrow village roads.", answer: ["motorway"], exp: "'Motorway' (autostrada) is a fast, wide road for long-distance travel." },
+                { before: "4. A huge", after: "carrying new cars was moving slowly up the hill.", answer: ["lorry"], exp: "'Lorry' (ciężarówka) is a large vehicle used to transport goods." },
+                { before: "5. Cyclists mustn't ride on the", after: "when there are people walking there.", answer: ["pavement"], exp: "'Pavement' (chodnik) is the path beside a street for people walking." },
+                { before: "6. Cars must stop at the zebra crossing to let", after: "cross the street safely.", answer: ["pedestrians"], exp: "'Pedestrians' (piesi) are people travelling on foot." }
+            ]
+        },
+        task2: {
+            title: "Vocabulary 2: Words in the wrong sentences",
+            instruction: "The words in bold are in the wrong sentences. Write the correct word from the other sentences next to each one.",
+            items: [
+                { text: "1. Turn left at the <span class='bold-wrong'>seatbelt</span> and drive straight towards the museum.", answer: ["roundabout"], exp: "Cars drive around a 'roundabout' (rondo)." },
+                { text: "2. Wait until the <span class='bold-wrong'>helmet</span> turn green before you cross the street.", answer: ["traffic lights"], exp: "'Traffic lights' (sygnalizacja świetlna) change from red to green." },
+                { text: "3. Every passenger in the car must fasten their <span class='bold-wrong'>traffic jam</span> before we set off.", answer: ["seatbelt", "seat belt"], correctWord: "seatbelt", exp: "You fasten your 'seatbelt' (pas bezpieczeństwa) inside a car." },
+                { text: "4. Always wear a <span class='bold-wrong'>bus stop</span> when you ride a bike or a motorbike.", answer: ["helmet"], exp: "A 'helmet' (kask) protects your head." },
+                { text: "5. We were stuck in a <span class='bold-wrong'>rush hour</span> for forty-five minutes because of an accident.", answer: ["traffic jam"], exp: "A 'traffic jam' (korek uliczny) is a long line of vehicles that cannot move." },
+                { text: "6. Buses and trams are always very crowded during the morning <span class='bold-wrong'>roundabout</span>.", answer: ["rush hour"], exp: "'Rush hour' (godziny szczytu) is the busiest time of day on the roads." },
+                { text: "7. Wait for me at the <span class='bold-wrong'>traffic lights</span> in front of the library.", answer: ["bus stop"], exp: "You wait for a bus at a 'bus stop' (przystanek autobusowy)." }
+            ]
+        },
+        task3: {
+            title: "Grammar 1: Change the sentences into the passive voice",
+            instruction: "Rewrite each active sentence in the passive voice. Keep the original tense.",
+            items: [
+                { prompt: "1. People use electric scooters in many Polish cities.", answers: ["electric scooters are used in many polish cities", "electric scooters are used by people in many polish cities"], exp: "Present Simple Passive: plural 'scooters' + 'are used'." },
+                { prompt: "2. Workers built this motorway five years ago.", answers: ["this motorway was built five years ago", "this motorway was built by workers five years ago"], exp: "Past Simple Passive: 'was built' (build–built–built)." },
+                { prompt: "3. The police stopped a speeding lorry yesterday.", answers: ["a speeding lorry was stopped yesterday", "a speeding lorry was stopped by the police yesterday"], exp: "Past Simple Passive: 'was stopped'." },
+                { prompt: "4. Passengers buy bus tickets at the kiosk.", answers: ["bus tickets are bought at the kiosk", "bus tickets are bought by passengers at the kiosk"], exp: "Present Simple Passive: 'are bought' (buy–bought–bought)." },
+                { prompt: "5. Drivers must obey all road signs.", answers: ["all road signs must be obeyed", "all road signs must be obeyed by drivers"], exp: "Modal Passive: must + be + past participle ('must be obeyed')." },
+                { prompt: "6. Heavy snow blocked the mountain road last winter.", answers: ["the mountain road was blocked last winter", "the mountain road was blocked by heavy snow last winter"], exp: "Past Simple Passive: 'was blocked'." }
+            ]
+        },
+        task4: {
+            title: "Vocabulary 3: Match 1–6 with A–F (Unit 2 Transport Phrases)",
+            left: [
+                "1. We missed",
+                "2. He got",
+                "3. My dad picked",
+                "4. Please drop",
+                "5. She goes to school",
+                "6. The car broke"
+            ],
+            right: [
+                "A. me up from swimming practice at 5 p.m.",
+                "B. on foot because she lives five minutes away.",
+                "C. down on the way to the seaside, so we called for help.",
+                "D. the last train and had to wait until morning.",
+                "E. me off outside the cinema before going to work.",
+                "F. off the bus at the wrong stop and got lost."
+            ],
+            answers: ["D", "F", "A", "E", "B", "C"],
+            explanations: [
+                "1-D: 'miss the train' = spóźnić się na pociąg.",
+                "2-F: 'get off the bus' = wysiąść z autobusu.",
+                "3-A: 'pick someone up' = odebrać kogoś samochodem.",
+                "4-E: 'drop someone off' = podwieźć i wysadzić kogoś.",
+                "5-B: 'go on foot' = chodzić pieszo.",
+                "6-C: 'break down' = zepsuć się (o pojeździe)."
+            ]
+        },
+        task5: {
+            title: "Grammar 2: Complete with Past Simple or Future Simple Passive",
+            bank: ["repair", "open", "close", "invent", "replace"],
+            items: [
+                { before: "1. The first bicycle", after: "in the 19th century.", answer: ["was invented"], exp: "Past Simple Passive ('in the 19th century'): was invented." },
+                { before: "2. Main Street", after: "for roadworks next Monday.", answer: ["will be closed"], exp: "Future Simple Passive ('next Monday'): will be closed." },
+                { before: "3. Our family car", after: "at the garage yesterday afternoon.", answer: ["was repaired"], exp: "Past Simple Passive ('yesterday afternoon'): was repaired." },
+                { before: "4. A new cycle path along the river", after: "next spring.", answer: ["will be opened"], exp: "Future Simple Passive ('next spring'): will be opened." },
+                { before: "5. Old diesel buses in our town", after: "with modern electric ones next year.", answer: ["will be replaced"], exp: "Future Simple Passive ('next year'): will be replaced." }
+            ]
+        }
+    },
+    {
+        id: 2,
+        title: "Test 2: Trains, Stations & Coaches",
+        subtitle: "Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice",
+        task1: {
+            title: "Vocabulary 1: Complete the sentences with these words",
+            bank: ["platform", "railway station", "coach", "timetable", "fare", "passengers"],
+            items: [
+                { before: "1. Which", after: "does the express train to Gdańsk leave from?", answer: ["platform"], exp: "'Platform' (peron) is where you get on or off a train." },
+                { before: "2. Travelling by long-distance", after: "is much cheaper than going by train.", answer: ["coach"], exp: "'Coach' (autokar) is a bus used for longer journeys between cities." },
+                { before: "3. Look at the", after: "on the wall to check when the next train arrives.", answer: ["timetable"], exp: "'Timetable' (rozkład jazdy) lists departure and arrival times." },
+                { before: "4. Our", after: "is just opposite the main post office.", answer: ["railway station"], exp: "'Railway station' (dworzec kolejowy) is where trains stop." },
+                { before: "5. All", after: "must show their tickets to the conductor.", answer: ["passengers"], exp: "'Passengers' (pasażerowie) are people travelling on a train, bus, or plane." },
+                { before: "6. The train", after: "for students is 50% cheaper with a valid school ID.", answer: ["fare"], exp: "'Fare' (opłata za przejazd / cena biletu) is the price of a journey." }
+            ]
+        },
+        task2: {
+            title: "Vocabulary 2: Words in the wrong sentences",
+            instruction: "The words in bold are in the wrong sentences. Write the correct word next to the sentence it belongs to.",
+            items: [
+                { text: "1. We bought a <span class='bold-wrong'>bridge</span> ticket because we are coming back on Sunday.", answer: ["return"], exp: "A 'return ticket' (bilet powrotny) covers both going and returning." },
+                { text: "2. I only need a <span class='bold-wrong'>carriage</span> ticket because my dad is driving me home.", answer: ["single"], exp: "A 'single ticket' (bilet w jedną stronę) is for one direction only." },
+                { text: "3. Our reserved seats are in <span class='bold-wrong'>ticket office</span> number 5, next to the restaurant car.", answer: ["carriage"], exp: "A 'carriage' (wagon kolejowy) is a section of a train." },
+                { text: "4. There was a long queue at the <span class='bold-wrong'>commuters</span>, so we bought our tickets online.", answer: ["ticket office"], exp: "You buy tickets at a 'ticket office' (kasa biletowa)." },
+                { text: "5. Every morning thousands of <span class='bold-wrong'>crossroads</span> take the train into Warsaw for work.", answer: ["commuters"], exp: "'Commuters' (osoby dojeżdżające codziennie do pracy/szkoły) travel regularly." },
+                { text: "6. The train crossed a high iron <span class='bold-wrong'>return</span> over the Vistula River.", answer: ["bridge"], exp: "A 'bridge' (most) carries a road or railway over a river." },
+                { text: "7. Turn right at the <span class='bold-wrong'>single</span> just past the bus station.", answer: ["crossroads"], exp: "A 'crossroads' (skrzyżowanie) is where two roads cross." }
+            ]
+        },
+        task3: {
+            title: "Grammar 1: Change the sentences into the passive voice",
+            instruction: "Rewrite each active sentence in the passive voice.",
+            items: [
+                { prompt: "1. A conductor checks tickets on every express train.", answers: ["tickets are checked on every express train", "tickets are checked by a conductor on every express train"], exp: "Present Simple Passive: plural 'tickets' + 'are checked'." },
+                { prompt: "2. Someone left a green rucksack on the platform.", answers: ["a green rucksack was left on the platform"], exp: "Past Simple Passive: 'was left' (leave–left–left)." },
+                { prompt: "3. Passengers can reserve seats online.", answers: ["seats can be reserved online", "seats can be reserved online by passengers"], exp: "Modal Passive: can + be + past participle ('can be reserved')." },
+                { prompt: "4. Bad weather delayed lots of trains yesterday.", answers: ["lots of trains were delayed yesterday", "lots of trains were delayed by bad weather yesterday"], exp: "Past Simple Passive: plural 'trains' + 'were delayed'." },
+                { prompt: "5. They clean the carriages every night.", answers: ["the carriages are cleaned every night"], exp: "Present Simple Passive: plural 'carriages' + 'are cleaned'." },
+                { prompt: "6. The driver stopped the coach outside the railway station.", answers: ["the coach was stopped outside the railway station", "the coach was stopped outside the railway station by the driver"], exp: "Past Simple Passive: 'was stopped'." }
+            ]
+        },
+        task4: {
+            title: "Vocabulary 3: Match 1–6 with A–F (Unit 2 Journey Collocations)",
+            left: [
+                "1. We bought first",
+                "2. She got",
+                "3. I didn't manage to catch",
+                "4. They waved as we drove",
+                "5. My dad dropped",
+                "6. Let's get"
+            ],
+            right: [
+                "A. me off at the railway station.",
+                "B. off towards the motorway.",
+                "C. class tickets for the long journey to Berlin.",
+                "D. on the coach before it leaves!",
+                "E. off the bus quickly at her stop.",
+                "F. the bus, so I was late for school."
+            ],
+            answers: ["C", "E", "F", "B", "A", "D"],
+            explanations: [
+                "1-C: 'first class tickets' = bilety pierwszej klasy.",
+                "2-E: 'get off the bus' = wysiąść z autobusu.",
+                "3-F: 'catch the bus' = zdążyć na autobus.",
+                "4-B: 'drive off' = odjechać.",
+                "5-A: 'drop someone off' = podwieźć i wysadzić kogoś.",
+                "6-D: 'get on the coach' = wsiąść do autokaru."
+            ]
+        },
+        task5: {
+            title: "Grammar 2: Complete with Past Simple or Future Simple Passive",
+            bank: ["build", "announce", "lose", "serve", "upgrade"],
+            items: [
+                { before: "1. The Central Railway Station in Warsaw", after: "in the 1970s.", answer: ["was built"], exp: "Past Simple Passive ('in the 1970s'): was built." },
+                { before: "2. The platform number", after: "on the loudspeaker in a few minutes.", answer: ["will be announced"], exp: "Future Simple Passive ('in a few minutes'): will be announced." },
+                { before: "3. Two suitcases", after: "at the station during our trip last summer.", answer: ["were lost"], exp: "Past Simple Passive ('last summer', plural 'suitcases'): were lost." },
+                { before: "4. Hot drinks and snacks", after: "on tomorrow's express train to Kraków.", answer: ["will be served"], exp: "Future Simple Passive ('tomorrow's express train'): will be served." },
+                { before: "5. All regional railway stations", after: "with new ticket machines next year.", answer: ["will be upgraded"], exp: "Future Simple Passive ('next year'): will be upgraded." }
+            ]
+        }
+    },
+    {
+        id: 3,
+        title: "Test 3: Airports & Air Travel",
+        subtitle: "Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice",
+        task1: {
+            title: "Vocabulary 1: Complete the sentences with these words",
+            bank: ["flight", "delayed", "luggage", "boarding pass", "customs", "departure"],
+            items: [
+                { before: "1. Because of heavy fog, our", after: "to London was two hours late.", answer: ["flight"], exp: "'Flight' (lot) is a journey made by plane." },
+                { before: "2. All morning flights were", after: "due to the snowstorm.", answer: ["delayed"], exp: "'Delayed' (opóźniony) means leaving later than planned." },
+                { before: "3. You can only take one small piece of hand", after: "onto the plane.", answer: ["luggage"], exp: "'Hand luggage' (bagaż podręczny) is carried into the aircraft cabin." },
+                { before: "4. Please show your passport and", after: "before you get on the plane.", answer: ["boarding pass"], exp: "'Boarding pass' (karta pokładowa) is your pass to enter the aircraft." },
+                { before: "5. After landing, we collected our bags and walked through", after: ".", answer: ["customs"], exp: "'Customs' (odprawa celna) is where officials check bags entering a country." },
+                { before: "6. Passengers wait in the", after: "lounge until their plane is ready.", answer: ["departure"], exp: "'Departure lounge' (hala odlotów) is the waiting area at an airport." }
+            ]
+        },
+        task2: {
+            title: "Vocabulary 2: Words in the wrong sentences",
+            instruction: "The words in bold are in the wrong sentences. Write the correct word next to the sentence it belongs to.",
+            items: [
+                { text: "1. The plane accelerated down the <span class='bold-wrong'>passport</span> and took off into the clouds.", answer: ["runway"], exp: "Planes take off and land on a 'runway' (pas startowy)." },
+                { text: "2. The <span class='bold-wrong'>suitcase</span> asked all passengers to fasten their seatbelts before landing.", answer: ["cabin crew"], exp: "'Cabin crew' (personel pokładowy) take care of passengers on a flight." },
+                { text: "3. Flight BA402 is now boarding at <span class='bold-wrong'>arrival</span> 14.", answer: ["gate"], exp: "Passengers walk through a departure 'gate' (wyjście do samolotu) to board." },
+                { text: "4. You cannot travel outside the European Union without a valid <span class='bold-wrong'>runway</span>.", answer: ["passport"], exp: "A 'passport' (paszport) is an official travel document." },
+                { text: "5. She packed her summer clothes and sandals into a large blue <span class='bold-wrong'>terminal</span>.", answer: ["suitcase"], exp: "A 'suitcase' (walizka) is a large bag with a handle used for travelling." },
+                { text: "6. International flights depart from <span class='bold-wrong'>cabin crew</span> 2 at the north end of the airport.", answer: ["terminal"], exp: "A 'terminal' (terminal lotniczy) is a main airport building." },
+                { text: "7. Our parents were waiting for us in the <span class='bold-wrong'>gate</span> hall with flowers.", answer: ["arrival", "arrivals"], correctWord: "arrival", exp: "Passengers enter the 'arrival(s)' hall (hala przylotów) after landing." }
+            ]
+        },
+        task3: {
+            title: "Grammar 1: Change the sentences into the passive voice",
+            instruction: "Rewrite each active sentence in the passive voice.",
+            items: [
+                { prompt: "1. Security officers check all hand luggage at the airport.", answers: ["all hand luggage is checked at the airport", "all hand luggage is checked by security officers at the airport"], exp: "Present Simple Passive: 'luggage' is uncountable, so use 'is checked'." },
+                { prompt: "2. The airline cancelled three flights yesterday.", answers: ["three flights were cancelled yesterday", "three flights were canceled yesterday", "three flights were cancelled by the airline yesterday"], exp: "Past Simple Passive: plural 'flights' + 'were cancelled'." },
+                { prompt: "3. Pilots fly modern passenger planes with computers.", answers: ["modern passenger planes are flown with computers", "modern passenger planes are flown by pilots with computers"], exp: "Present Simple Passive: 'are flown' (fly–flew–flown)." },
+                { prompt: "4. An airport bus took the passengers to the plane.", answers: ["the passengers were taken to the plane", "the passengers were taken to the plane by an airport bus"], exp: "Past Simple Passive: plural 'passengers' + 'were taken' (take–took–taken)." },
+                { prompt: "5. You must show your boarding pass at the gate.", answers: ["your boarding pass must be shown at the gate"], exp: "Modal Passive: must + be + past participle ('must be shown')." },
+                { prompt: "6. The ground staff loaded our suitcases onto the aircraft.", answers: ["our suitcases were loaded onto the aircraft", "our suitcases were loaded onto the aircraft by the ground staff"], exp: "Past Simple Passive: plural 'suitcases' + 'were loaded'." }
+            ]
+        },
+        task4: {
+            title: "Vocabulary 3: Match 1–6 with A–F (Unit 2 Airport & Travel Phrasal Verbs)",
+            left: [
+                "1. Our plane took",
+                "2. We had to check",
+                "3. My parents saw",
+                "4. Let's set",
+                "5. The plane landed",
+                "6. Remember to unpack"
+            ],
+            right: [
+                "A. me off at the airport departure gate.",
+                "B. off early in the morning to catch our flight.",
+                "C. your suitcase as soon as we get home.",
+                "D. off twenty minutes late due to strong winds.",
+                "E. in at the airport desk two hours before the flight.",
+                "F. safely in Warsaw despite the heavy rain."
+            ],
+            answers: ["D", "E", "A", "B", "F", "C"],
+            explanations: [
+                "1-D: 'take off' = wystartować (o samolocie).",
+                "2-E: 'check in' = odprawić się na lotnisku.",
+                "3-A: 'see someone off' = odprowadzić kogoś przed podróżą.",
+                "4-B: 'set off' = wyruszyć w podróż.",
+                "5-F: 'land' = wylądować.",
+                "6-C: 'unpack' = rozpakować (walizkę)."
+            ]
+        },
+        task5: {
+            title: "Grammar 2: Complete with Past Simple or Future Simple Passive",
+            bank: ["build", "announce", "lose", "open", "serve"],
+            items: [
+                { before: "1. This international airport", after: "in 1974.", answer: ["was built"], exp: "Past Simple Passive ('in 1974'): was built." },
+                { before: "2. The gate number for our flight", after: "on the screen in ten minutes.", answer: ["will be announced"], exp: "Future Simple Passive ('in ten minutes'): will be announced." },
+                { before: "3. Unfortunately, my blue suitcase", after: "at the airport yesterday.", answer: ["was lost"], exp: "Past Simple Passive ('yesterday'): was lost." },
+                { before: "4. A new airport terminal", after: "next year.", answer: ["will be opened"], exp: "Future Simple Passive ('next year'): will be opened." },
+                { before: "5. Warm meals", after: "to all passengers during yesterday's flight.", answer: ["were served"], exp: "Past Simple Passive ('yesterday's flight', plural 'meals'): were served." }
+            ]
+        }
+    },
+    {
+        id: 4,
+        title: "Test 4: Holidays, Sightseeing & Sea Travel",
+        subtitle: "Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice",
+        task1: {
+            title: "Vocabulary 1: Complete the sentences with these words",
+            bank: ["abroad", "sightseeing", "souvenirs", "guidebook", "accommodation", "cancelled"],
+            items: [
+                { before: "1. We went", after: "for the first time last summer when we visited Greece.", answer: ["abroad"], exp: "'Go abroad' (wyjechać za granicę) means travelling to another country." },
+                { before: "2. In Rome we spent three days", after: "and visiting famous museums.", answer: ["sightseeing"], exp: "'Sightseeing' (zwiedzanie) is visiting interesting places as a tourist." },
+                { before: "3. I bought some postcards and keyrings as", after: "for my friends.", answer: ["souvenirs"], exp: "'Souvenirs' (pamiątki z podróży) remind you of a holiday." },
+                { before: "4. My dad always buys a", after: "to read about the history of the places we visit.", answer: ["guidebook"], exp: "'Guidebook' (przewodnik turystyczny) gives information for tourists." },
+                { before: "5. Finding cheap", after: "by the sea in July can be quite difficult.", answer: ["accommodation"], exp: "'Accommodation' (zakwaterowanie / nocleg) means a place to stay." },
+                { before: "6. Our boat trip was", after: "because of the strong wind at sea.", answer: ["cancelled", "canceled"], exp: "'Cancelled' (odwołany) means the trip did not happen." }
+            ]
+        },
+        task2: {
+            title: "Vocabulary 2: Words in the wrong sentences",
+            instruction: "The words in bold are in the wrong sentences. Write the correct word next to the sentence it belongs to.",
+            items: [
+                { text: "1. We took a car <span class='bold-wrong'>campsite</span> across the Baltic Sea from Gdynia to Sweden.", answer: ["ferry"], exp: "A 'ferry' (prom) carries passengers and cars across the sea." },
+                { text: "2. Dozens of colourful fishing boats and yachts were parked in the <span class='bold-wrong'>reception</span>.", answer: ["harbour", "harbor"], correctWord: "harbour", exp: "Boats and ships stay safely in a 'harbour' (port / przystań)." },
+                { text: "3. My grandparents went on a two-week <span class='bold-wrong'>ferry</span> around the Mediterranean Sea.", answer: ["cruise"], exp: "A 'cruise' (rejs wycieczkowy) is a holiday on a large ship." },
+                { text: "4. We pitched our tent at a quiet <span class='bold-wrong'>voyage</span> near a forest and a lake.", answer: ["campsite"], exp: "A 'campsite' (pole namiotowe / kemping) is where you stay in a tent." },
+                { text: "5. Teenagers often stay in a <span class='bold-wrong'>harbour</span> because it is much cheaper than a hotel.", answer: ["youth hostel", "hostel"], correctWord: "youth hostel", exp: "A 'youth hostel' (schronisko młodzieżowe) is inexpensive accommodation." },
+                { text: "6. When you arrive at the hotel, ask for your room key at the <span class='bold-wrong'>cruise</span>.", answer: ["reception"], exp: "The 'reception' (recepcja) is the front desk of a hotel." },
+                { text: "7. In the past, a sea <span class='bold-wrong'>youth hostel</span> from Europe to America took several weeks.", answer: ["voyage"], exp: "A 'voyage' (podróż morska / rejs) is a long journey by sea." }
+            ]
+        },
+        task3: {
+            title: "Grammar 1: Change the sentences into the passive voice",
+            instruction: "Rewrite each active sentence in the passive voice.",
+            items: [
+                { prompt: "1. Thousands of tourists visit Kraków every year.", answers: ["kraków is visited every year", "kraków is visited by thousands of tourists every year", "krakow is visited every year", "krakow is visited by thousands of tourists every year"], exp: "Present Simple Passive: 'is visited'." },
+                { prompt: "2. A friendly guide showed us around the castle.", answers: ["we were shown around the castle", "we were shown around the castle by a friendly guide"], exp: "Past Simple Passive: 'we' + 'were shown' (show–showed–shown)." },
+                { prompt: "3. Hotels serve breakfast between 7 and 10 a.m.", answers: ["breakfast is served between 7 and 10 am", "breakfast is served between 7 and 10 a.m."], exp: "Present Simple Passive: 'is served'." },
+                { prompt: "4. My mum booked our holiday online last week.", answers: ["our holiday was booked online last week", "our holiday was booked by my mum online last week"], exp: "Past Simple Passive: 'was booked'." },
+                { prompt: "5. Visitors can buy souvenirs in the museum shop.", answers: ["souvenirs can be bought in the museum shop", "souvenirs can be bought by visitors in the museum shop"], exp: "Modal Passive: can + be + past participle ('can be bought')." },
+                { prompt: "6. Someone stole my camera at the beach yesterday.", answers: ["my camera was stolen at the beach yesterday"], exp: "Past Simple Passive: 'was stolen' (steal–stole–stolen)." }
+            ]
+        },
+        task4: {
+            title: "Vocabulary 3: Match 1–6 with A–F (Unit 2 Holiday Expressions)",
+            left: [
+                "1. We checked",
+                "2. They went",
+                "3. Let's go",
+                "4. We explored",
+                "5. The ship sailed",
+                "6. Can you give"
+            ],
+            right: [
+                "A. camping in the Masurian Lake District last summer.",
+                "B. out of the hotel at 11 a.m. and took a taxi to the station.",
+                "C. the narrow streets of the old town on foot.",
+                "D. out of the harbour early in the morning.",
+                "E. me a hand with these heavy suitcases, please?",
+                "F. sightseeing in London for the whole weekend."
+            ],
+            answers: ["B", "A", "F", "C", "D", "E"],
+            explanations: [
+                "1-B: 'check out of the hotel' = wymeldować się z hotelu.",
+                "2-A: 'go camping' = pojechać pod namiot / na kemping.",
+                "3-F: 'go sightseeing' = pójść zwiedzać.",
+                "4-C: 'explore' = zwiedzać / odkrywać.",
+                "5-D: 'sail' = płynąć (statkiem / żaglowcem).",
+                "6-E: 'give someone a hand' = pomóc komuś."
+            ]
+        },
+        task5: {
+            title: "Grammar 2: Complete with Past Simple or Future Simple Passive",
+            bank: ["build", "organize", "clean", "open", "translate"],
+            items: [
+                { before: "1. Malbork Castle", after: "in the 13th century.", answer: ["was built"], exp: "Past Simple Passive ('in the 13th century'): was built." },
+                { before: "2. All hotel rooms", after: "before the new guests arrive tomorrow.", answer: ["will be cleaned"], exp: "Future Simple Passive ('tomorrow'): will be cleaned." },
+                { before: "3. This city guidebook", after: "into Polish two years ago.", answer: ["was translated"], exp: "Past Simple Passive ('two years ago'): was translated." },
+                { before: "4. Boat trips on the river", after: "for tourists next summer.", answer: ["will be organized", "will be organised"], exp: "Future Simple Passive ('next summer'): will be organized." },
+                { before: "5. A new youth hostel", after: "near the railway station next month.", answer: ["will be opened"], exp: "Future Simple Passive ('next month'): will be opened." }
+            ]
+        }
+    },
+    {
+        id: 5,
+        title: "Test 5: Trips, Expeditions & Unit 2 Core Vocabulary",
+        subtitle: "Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice",
+        task1: {
+            title: "Vocabulary 1: Complete the sentences with these words",
+            bank: ["waterproof", "traditional", "old-fashioned", "destination", "directions", "rucksack"],
+            items: [
+                { before: "1. My jacket isn't", after: ", so I got completely wet in the rain.", answer: ["waterproof"], exp: "'Waterproof' (wodoodporny / przeciwdeszczowy) stops water getting through." },
+                { before: "2. After a five-hour journey, we finally reached our holiday", after: ".", answer: ["destination"], exp: "'Destination' (cel podróży) is the place you are travelling to." },
+                { before: "3. We stopped a police officer to ask for", after: "to the railway station.", answer: ["directions"], exp: "'Directions' (wskazówki drogi) tell you how to get somewhere." },
+                { before: "4. He packed his clothes, a map, and a water bottle into his", after: ".", answer: ["rucksack"], exp: "'Rucksack' (plecak) is a bag carried on your back when travelling." },
+                { before: "5. In the mountain village we tried some", after: "Polish food.", answer: ["traditional"], exp: "'Traditional' (tradycyjny) follows customs from the past." },
+                { before: "6. That paper map looks very", after: "now that everyone uses GPS on their phones.", answer: ["old-fashioned"], exp: "'Old-fashioned' (staromodny) means not modern." }
+            ]
+        },
+        task2: {
+            title: "Vocabulary 2: Words in the wrong sentences",
+            instruction: "The words in bold are in the wrong sentences. Write the correct word next to the sentence it belongs to.",
+            items: [
+                { text: "1. Our class went on a one-day <span class='bold-wrong'>border</span> to the Wieliczka Salt Mine.", answer: ["excursion", "trip"], correctWord: "excursion", exp: "An 'excursion' (wycieczka zorganizowana) is a short trip for pleasure or education." },
+                { text: "2. Marek Kamiński led a famous <span class='bold-wrong'>underground</span> to the North Pole.", answer: ["expedition"], exp: "An 'expedition' (wyprawa) is an organized journey to a distant or dangerous place." },
+                { text: "3. The train <span class='bold-wrong'>excursion</span> from Gdańsk to Zakopane takes over eight hours.", answer: ["journey"], exp: "A 'journey' (podróż) is the act of travelling from one place to another." },
+                { text: "4. We checked the map to find the shortest <span class='bold-wrong'>landmark</span> to the campsite.", answer: ["route"], exp: "A 'route' (trasa / droga) is the way from one place to another." },
+                { text: "5. We showed our passports when we crossed the <span class='bold-wrong'>journey</span> between Poland and Ukraine.", answer: ["border"], exp: "A 'border' (granica) is the dividing line between two countries." },
+                { text: "6. Big Ben is the most famous <span class='bold-wrong'>expedition</span> in London.", answer: ["landmark"], exp: "A 'landmark' (słynny obiekt / punkt orientacyjny) is a well-known building or monument." },
+                { text: "7. Taking the <span class='bold-wrong'>route</span> is the fastest way to travel across London.", answer: ["underground"], exp: "'The underground' (metro) is the railway system under a city." }
+            ]
+        },
+        task3: {
+            title: "Grammar 1: Change the sentences into the passive voice",
+            instruction: "Rewrite each active sentence in the passive voice.",
+            items: [
+                { prompt: "1. Millions of people use the London Underground every day.", answers: ["the london underground is used every day", "the london underground is used by millions of people every day"], exp: "Present Simple Passive: 'is used'." },
+                { prompt: "2. Explorers reached the South Pole in 1911.", answers: ["the south pole was reached in 1911", "the south pole was reached by explorers in 1911"], exp: "Past Simple Passive: 'was reached'." },
+                { prompt: "3. People grow this coffee in Kenya.", answers: ["this coffee is grown in kenya", "this coffee is grown by people in kenya"], exp: "Present Simple Passive: 'is grown' (grow–grew–grown)." },
+                { prompt: "4. They removed all their luggage from the coach.", answers: ["all their luggage was removed from the coach"], exp: "Past Simple Passive: 'luggage' is uncountable, so use 'was removed'." },
+                { prompt: "5. You can only find this species of bird on this island.", answers: ["this species of bird can only be found on this island", "this species of bird can be found only on this island"], exp: "Modal Passive: can + be + past participle ('can only be found')." },
+                { prompt: "6. A local guide showed the tourists the most famous landmarks.", answers: ["the tourists were shown the most famous landmarks", "the most famous landmarks were shown to the tourists"], exp: "Past Simple Passive: 'were shown'." }
+            ]
+        },
+        task4: {
+            title: "Vocabulary 3: Match 1–6 with A–F (Unit 2 Verbs & Expressions)",
+            left: [
+                "1. Have you changed your",
+                "2. Could you give me a",
+                "3. The train arrived",
+                "4. Our flight departs",
+                "5. They removed",
+                "6. We travelled"
+            ],
+            right: [
+                "A. hand with my rucksack, please?",
+                "B. at the railway station right on time.",
+                "C. mind about going camping this weekend?",
+                "D. all their possessions from the room before checking out.",
+                "E. around Europe by train last summer.",
+                "F. from Terminal 1 at 8:30 a.m."
+            ],
+            answers: ["C", "A", "B", "F", "D", "E"],
+            explanations: [
+                "1-C: 'change your mind' = zmienić zdanie.",
+                "2-A: 'give someone a hand' = pomóc komuś.",
+                "3-B: 'arrive at' = przybyć na (stację/lotnisko).",
+                "4-F: 'depart from' = odlatywać / odjeżdżać z.",
+                "5-D: 'remove' = usunąć / zabrać.",
+                "6-E: 'travel around' = podróżować po."
+            ]
+        },
+        task5: {
+            title: "Grammar 2: Complete with Past Simple or Future Simple Passive",
+            bank: ["build", "close", "publish", "send", "use"],
+            items: [
+                { before: "1. This road", after: "before we moved here.", answer: ["was built"], exp: "Past Simple Passive ('before we moved here'): was built." },
+                { before: "2. This old compass", after: "by explorers a hundred years ago.", answer: ["was used"], exp: "Past Simple Passive ('a hundred years ago'): was used." },
+                { before: "3. Next month my travel guidebook", after: "in Poland.", answer: ["will be published"], exp: "Future Simple Passive ('Next month'): will be published." },
+                { before: "4. All the shops and ticket offices", after: "yesterday because of a public holiday.", answer: ["were closed"], exp: "Past Simple Passive ('yesterday', plural 'shops and ticket offices'): were closed." },
+                { before: "5. The parcel with our tickets", after: "to you yesterday, so you will get it tomorrow.", answer: ["was sent"], exp: "Past Simple Passive ('yesterday'): was sent (send–sent–sent)." }
+            ]
+        }
+    }
+];
+
+let activeTestId = 1;
+const testScores = {};
+
+function initApp() {
+    const tabsNav = document.getElementById("tabsNav");
+    const testsRoot = document.getElementById("testsRoot");
+
+    testsData.forEach((test, index) => {
+        testScores[test.id] = {
+            t1: { score: 0, max: test.task1.items.length, attempted: false },
+            t2: { score: 0, max: test.task2.items.length, attempted: false },
+            t3: { score: 0, max: test.task3.items.length, attempted: false },
+            t4: { score: 0, max: test.task4.left.length, attempted: false },
+            t5: { score: 0, max: test.task5.items.length, attempted: false }
+        };
+
+        const btn = document.createElement("button");
+        btn.className = "tab-btn" + (index === 0 ? " active" : "");
+        btn.textContent = `Test ${test.id}`;
+        btn.onclick = () => switchTab(test.id);
+        btn.id = `tab-btn-${test.id}`;
+        tabsNav.appendChild(btn);
+
+        const container = document.createElement("div");
+        container.className = "test-container" + (index === 0 ? " active" : "");
+        container.id = `test-panel-${test.id}`;
+        container.innerHTML = buildTestHTML(test);
+        testsRoot.appendChild(container);
+    });
+}
+
+function switchTab(id) {
+    activeTestId = id;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".test-container").forEach(c => c.classList.remove("active"));
+    document.getElementById(`tab-btn-${id}`).classList.add("active");
+    document.getElementById(`test-panel-${id}`).classList.add("active");
+}
+
+function buildTestHTML(test) {
+    const t1Bank = test.task1.bank.map(w => `<span class="bank-word">${w}</span>`).join("");
+    const t1Rows = test.task1.items.map((it, idx) => `
+        <div class="question-row" id="t${test.id}-t1-row-${idx}">
+            ${it.before} <input type="text" class="inline-gap" id="t${test.id}-t1-in-${idx}" placeholder="..."> ${it.after}
+        </div>
+    `).join("");
+
+    const t2Rows = test.task2.items.map((it, idx) => `
+        <div class="question-row" id="t${test.id}-t2-row-${idx}">
+            ${it.text}
+            <input type="text" class="swap-gap" id="t${test.id}-t2-in-${idx}" placeholder="Correct word...">
+        </div>
+    `).join("");
+
+    const t3Rows = test.task3.items.map((it, idx) => `
+        <div class="question-row" id="t${test.id}-t3-row-${idx}">
+            <div><strong>${it.prompt}</strong></div>
+            <input type="text" class="full-sentence" id="t${test.id}-t3-in-${idx}" placeholder="Write the passive sentence here...">
+        </div>
+    `).join("");
+
+    const letters = ["A", "B", "C", "D", "E", "F"];
+    const t4Left = test.task4.left.map((leftStr, idx) => `
+        <div class="question-row" id="t${test.id}-t4-row-${idx}" style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <span>${leftStr}</span>
+            <select id="t${test.id}-t4-in-${idx}">
+                <option value="">--</option>
+                ${letters.map(l => `<option value="${l}">${l}</option>`).join("")}
+            </select>
+        </div>
+    `).join("");
+    const t4Right = test.task4.right.map(r => `<div><strong>${r.substring(0, 2)}</strong>${r.substring(2)}</div>`).join("");
+
+    const t5Bank = test.task5.bank.map(w => `<span class="bank-word">${w}</span>`).join("");
+    const t5Rows = test.task5.items.map((it, idx) => `
+        <div class="question-row" id="t${test.id}-t5-row-${idx}">
+            ${it.before} <input type="text" class="inline-gap" style="width:185px;" id="t${test.id}-t5-in-${idx}" placeholder="..."> ${it.after}
+        </div>
+    `).join("");
+
+    return `
+        <div class="test-banner">
+            <h2>${test.title}</h2>
+            <span>${test.subtitle}</span>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">Task 1</span>
+                <h3 class="task-title">${test.task1.title}</h3>
+            </div>
+            <div class="word-bank">${t1Bank}</div>
+            ${t1Rows}
+            <button class="btn-check-task" onclick="checkTask1(${test.id})">Check Task 1</button>
+            <div class="task-feedback" id="t${test.id}-t1-fb"></div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">Task 2</span>
+                <h3 class="task-title">${test.task2.title}</h3>
+            </div>
+            <p class="task-instruction">${test.task2.instruction}</p>
+            ${t2Rows}
+            <button class="btn-check-task" onclick="checkTask2(${test.id})">Check Task 2</button>
+            <div class="task-feedback" id="t${test.id}-t2-fb"></div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">Task 3</span>
+                <h3 class="task-title">${test.task3.title}</h3>
+            </div>
+            <p class="task-instruction">${test.task3.instruction}</p>
+            ${t3Rows}
+            <button class="btn-check-task" onclick="checkTask3(${test.id})">Check Task 3</button>
+            <div class="task-feedback" id="t${test.id}-t3-fb"></div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">Task 4</span>
+                <h3 class="task-title">${test.task4.title}</h3>
+            </div>
+            <div class="match-grid">
+                <div>${t4Left}</div>
+                <div class="match-right-box">${t4Right}</div>
+            </div>
+            <button class="btn-check-task" onclick="checkTask4(${test.id})">Check Task 4</button>
+            <div class="task-feedback" id="t${test.id}-t4-fb"></div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-header">
+                <span class="task-badge">Task 5</span>
+                <h3 class="task-title">${test.task5.title}</h3>
+            </div>
+            <div class="word-bank">${t5Bank}</div>
+            ${t5Rows}
+            <button class="btn-check-task" onclick="checkTask5(${test.id})">Check Task 5</button>
+            <div class="task-feedback" id="t${test.id}-t5-fb"></div>
+        </div>
+
+        <div class="report-trigger-area">
+            <button class="btn-report" onclick="generateReport(${test.id})">📊 Generate Final Test ${test.id} Report</button>
+        </div>
+        <div class="report-card" id="report-card-${test.id}"></div>
+    `;
+}
+
+function normalize(str) {
+    return str.trim().toLowerCase()
+        .replace(/[.?!,]/g, "")
+        .replace(/\s+/g, " ");
+}
+
+function renderTaskFeedback(fbEl, score, max, mistakes) {
+    if (mistakes.length === 0) {
+        fbEl.className = "task-feedback all-good";
+        fbEl.innerHTML = `<strong>Excellent! ${score}/${max} correct.</strong> No mistakes found in this task! 🎉`;
+    } else {
+        fbEl.className = "task-feedback has-errors";
+        const mistakeHtml = mistakes.map(m => `<div class="mistake-item">${m}</div>`).join("");
+        fbEl.innerHTML = `<strong>Score: ${score}/${max}. Review your mistakes below:</strong>${mistakeHtml}`;
+    }
+}
+
+function checkTask1(testId) {
+    const test = testsData.find(t => t.id === testId);
+    let score = 0;
+    const mistakes = [];
+
+    test.task1.items.forEach((it, idx) => {
+        const row = document.getElementById(`t${testId}-t1-row-${idx}`);
+        const val = normalize(document.getElementById(`t${testId}-t1-in-${idx}`).value);
+        if (it.answer.includes(val)) {
+            score++;
+            row.className = "question-row row-correct";
+        } else {
+            row.className = "question-row row-incorrect";
+            mistakes.push(`<strong>Item ${idx + 1}:</strong> You wrote <em>"${val || '(empty)'}"</em>. Correct answer: <strong>${it.answer[0]}</strong>. (${it.exp})`);
+        }
+    });
+
+    testScores[testId].t1 = { score, max: test.task1.items.length, attempted: true };
+    renderTaskFeedback(document.getElementById(`t${testId}-t1-fb`), score, test.task1.items.length, mistakes);
+}
+
+function checkTask2(testId) {
+    const test = testsData.find(t => t.id === testId);
+    let score = 0;
+    const mistakes = [];
+
+    test.task2.items.forEach((it, idx) => {
+        const row = document.getElementById(`t${testId}-t2-row-${idx}`);
+        const val = normalize(document.getElementById(`t${testId}-t2-in-${idx}`).value);
+        if (it.answer.includes(val)) {
+            score++;
+            row.className = "question-row row-correct";
+        } else {
+            row.className = "question-row row-incorrect";
+            const expected = it.correctWord || it.answer[0];
+            mistakes.push(`<strong>Item ${idx + 1}:</strong> You wrote <em>"${val || '(empty)'}"</em>. Correct word: <strong>${expected}</strong>. (${it.exp})`);
+        }
+    });
+
+    testScores[testId].t2 = { score, max: test.task2.items.length, attempted: true };
+    renderTaskFeedback(document.getElementById(`t${testId}-t2-fb`), score, test.task2.items.length, mistakes);
+}
+
+function checkTask3(testId) {
+    const test = testsData.find(t => t.id === testId);
+    let score = 0;
+    const mistakes = [];
+
+    test.task3.items.forEach((it, idx) => {
+        const row = document.getElementById(`t${testId}-t3-row-${idx}`);
+        const val = normalize(document.getElementById(`t${testId}-t3-in-${idx}`).value);
+        const valid = it.answers.map(normalize);
+        if (valid.includes(val)) {
+            score++;
+            row.className = "question-row row-correct";
+        } else {
+            row.className = "question-row row-incorrect";
+            const model = it.answers[0].charAt(0).toUpperCase() + it.answers[0].slice(1) + ".";
+            mistakes.push(`<strong>Item ${idx + 1}:</strong> Your answer: <em>"${val || '(empty)'}"</em>.<br>Model passive sentence: <strong>"${model}"</strong> — ${it.exp}`);
+        }
+    });
+
+    testScores[testId].t3 = { score, max: test.task3.items.length, attempted: true };
+    renderTaskFeedback(document.getElementById(`t${testId}-t3-fb`), score, test.task3.items.length, mistakes);
+}
+
+function checkTask4(testId) {
+    const test = testsData.find(t => t.id === testId);
+    let score = 0;
+    const mistakes = [];
+
+    test.task4.answers.forEach((ans, idx) => {
+        const row = document.getElementById(`t${testId}-t4-row-${idx}`);
+        const val = document.getElementById(`t${testId}-t4-in-${idx}`).value;
+        if (val === ans) {
+            score++;
+            row.className = "question-row row-correct";
+        } else {
+            row.className = "question-row row-incorrect";
+            mistakes.push(`<strong>Item ${idx + 1}:</strong> You selected <em>"${val || 'none'}"</em>. Correct match: <strong>${ans}</strong> (${test.task4.explanations[idx]}).`);
+        }
+    });
+
+    testScores[testId].t4 = { score, max: test.task4.answers.length, attempted: true };
+    renderTaskFeedback(document.getElementById(`t${testId}-t4-fb`), score, test.task4.answers.length, mistakes);
+}
+
+function checkTask5(testId) {
+    const test = testsData.find(t => t.id === testId);
+    let score = 0;
+    const mistakes = [];
+
+    test.task5.items.forEach((it, idx) => {
+        const row = document.getElementById(`t${testId}-t5-row-${idx}`);
+        const val = normalize(document.getElementById(`t${testId}-t5-in-${idx}`).value);
+        if (it.answer.includes(val)) {
+            score++;
+            row.className = "question-row row-correct";
+        } else {
+            row.className = "question-row row-incorrect";
+            mistakes.push(`<strong>Item ${idx + 1}:</strong> You wrote <em>"${val || '(empty)'}"</em>. Correct form: <strong>${it.answer[0]}</strong>. (${it.exp})`);
+        }
+    });
+
+    testScores[testId].t5 = { score, max: test.task5.items.length, attempted: true };
+    renderTaskFeedback(document.getElementById(`t${testId}-t5-fb`), score, test.task5.items.length, mistakes);
+}
+
+function generateReport(testId) {
+    checkTask1(testId);
+    checkTask2(testId);
+    checkTask3(testId);
+    checkTask4(testId);
+    checkTask5(testId);
+
+    const sc = testScores[testId];
+    const totalScore = sc.t1.score + sc.t2.score + sc.t3.score + sc.t4.score + sc.t5.score;
+    const totalMax = sc.t1.max + sc.t2.max + sc.t3.max + sc.t4.max + sc.t5.max;
+    const pct = Math.round((totalScore / totalMax) * 100);
+
+    let polishGrade = "";
+    let feedbackMsg = "";
+    if (pct >= 90) {
+        polishGrade = "Celujący / Bardzo dobry (6 / 5)";
+        feedbackMsg = "Outstanding E8 readiness! You have mastered both Hello Explorer 8 Unit 2 active vocabulary and Passive Voice transformations.";
+    } else if (pct >= 75) {
+        polishGrade = "Dobry (4)";
+        feedbackMsg = "Solid performance! Review the highlighted mistake explanations above to eliminate minor spelling or tense errors.";
+    } else if (pct >= 55) {
+        polishGrade = "Dostateczny (3)";
+        feedbackMsg = "Good effort, but pay closer attention to Passive Voice verb forms (be + past participle) and Unit 2 travel vocabulary.";
+    } else {
+        polishGrade = "Dopuszczający / Wymaga powtórki (2 / 1)";
+        feedbackMsg = "Keep practising! Read each explanation carefully, review irregular past participles (V3), and try the test again.";
+    }
+
+    const reportEl = document.getElementById(`report-card-${testId}`);
+    reportEl.style.display = "block";
+    reportEl.innerHTML = `
+        <div class="report-header">
+            <div>
+                <h2 style="margin:0; color:var(--navy-deep);">Final Progress Report — Test ${testId}</h2>
+                <p style="margin:0.25rem 0 0 0; color:var(--text-muted);">Hello Explorer 8 • Unit 2 Active Vocabulary & Passive Voice • E8 Practice</p>
+            </div>
+            <div class="report-score-badge">${totalScore} / ${totalMax} (${pct}%)</div>
+        </div>
+
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Skill Tested</th>
+                    <th>Score</th>
+                    <th>Accuracy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Task 1</td>
+                    <td>Unit 2 Active Vocabulary 1 (Gap-fill)</td>
+                    <td>${sc.t1.score} / ${sc.t1.max}</td>
+                    <td>${Math.round((sc.t1.score / sc.t1.max) * 100)}%</td>
+                </tr>
+                <tr>
+                    <td>Task 2</td>
+                    <td>Unit 2 Active Vocabulary 2 (Swapped Words Correction)</td>
+                    <td>${sc.t2.score} / ${sc.t2.max}</td>
+                    <td>${Math.round((sc.t2.score / sc.t2.max) * 100)}%</td>
+                </tr>
+                <tr>
+                    <td>Task 3</td>
+                    <td>Grammar 1: Active to Passive Transformations</td>
+                    <td>${sc.t3.score} / ${sc.t3.max}</td>
+                    <td>${Math.round((sc.t3.score / sc.t3.max) * 100)}%</td>
+                </tr>
+                <tr>
+                    <td>Task 4</td>
+                    <td>Vocabulary 3: Unit 2 Phrasal Verbs & Collocations</td>
+                    <td>${sc.t4.score} / ${sc.t4.max}</td>
+                    <td>${Math.round((sc.t4.score / sc.t4.max) * 100)}%</td>
+                </tr>
+                <tr>
+                    <td>Task 5</td>
+                    <td>Grammar 2: Past & Future Simple Passive</td>
+                    <td>${sc.t5.score} / ${sc.t5.max}</td>
+                    <td>${Math.round((sc.t5.score / sc.t5.max) * 100)}%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="grade-box">
+            <div>Suggested Polish School Grade: <strong>${polishGrade}</strong></div>
+            <div style="margin-top:0.4rem; font-weight:400;">${feedbackMsg}</div>
+        </div>
+    `;
+    reportEl.scrollIntoView({ behavior: "smooth" });
+}
+
+document.addEventListener("DOMContentLoaded", initApp);
+</script>
+
+</body>
+</html>

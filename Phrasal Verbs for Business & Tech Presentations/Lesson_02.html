@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phrasal Verbs Mastery Suite — Speaking & Discussion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-dark: #0b1325;
+      --navy-primary: #1e3a8a;
+      --navy-light: #2563eb;
+      --snow-blue: #e0f2fe;
+      --snow-light: #f8fafc;
+      --snow-border: #cbd5e1;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --success-green: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --error-red: #dc2626;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-soft: 0 12px 32px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+      background-color: var(--navy-dark);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.5) 0%, rgba(15, 23, 42, 0.9) 65%, rgba(11, 19, 37, 0.98) 100%);
+      padding: 36px 16px 72px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-box {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 860px;
+    }
+
+    .header-box h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .header-box p {
+      color: #94a3b8;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Navigation Tabs */
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--navy-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Score Pill */
+    .scoreboard-pill {
+      background: #ffffff;
+      color: var(--navy-primary);
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 8px 22px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      margin-bottom: 24px;
+    }
+
+    .main-stage {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .instruction-banner {
+      background: var(--snow-blue);
+      border-left: 5px solid var(--navy-light);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      color: var(--navy-dark);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .instruction-banner h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy-primary);
+      margin-bottom: 4px;
+    }
+
+    .instruction-banner p {
+      font-size: 0.94rem;
+      line-height: 1.45;
+      color: #1e293b;
+    }
+
+    .instruction-banner strong {
+      color: var(--navy-primary);
+      font-weight: 800;
+    }
+
+    /* Single Item Card */
+    .single-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+    }
+
+    .progress-bar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #f1f5f9;
+      padding-bottom: 12px;
+    }
+
+    .badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Flashcard Styles (Task 1) */
+    .flashcard-wrapper {
+      perspective: 1000px;
+      cursor: pointer;
+      min-height: 240px;
+      display: flex;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 240px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+      border: 2px solid #bae6fd;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .flashcard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+    }
+
+    .flashcard.flipped {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .fc-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      opacity: 0.75;
+    }
+
+    .fc-main-text {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.45;
+      max-width: 640px;
+    }
+
+    .flashcard.flipped .fc-main-text {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .fc-sub-example {
+      font-size: 0.96rem;
+      font-style: italic;
+      color: #e2e8f0;
+      max-width: 600px;
+      line-height: 1.45;
+      margin-top: 6px;
+    }
+
+    .fc-tap-hint {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      opacity: 0.65;
+    }
+
+    /* Interactive Question Elements */
+    .prompt-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+
+    .prompt-text u {
+      text-decoration: underline;
+      text-decoration-color: var(--error-red);
+      text-decoration-thickness: 2.5px;
+      color: var(--error-red);
+      font-weight: 800;
+      padding: 0 3px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .text-input, .select-input {
+      flex: 1;
+      min-width: 240px;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: 2px solid var(--snow-border);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .text-input:focus, .select-input:focus {
+      border-color: var(--navy-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .text-input.correct-field, .select-input.correct-field {
+      border-color: var(--success-green);
+      background: var(--success-bg);
+      color: var(--success-green);
+    }
+
+    .text-input.incorrect-field, .select-input.incorrect-field {
+      border-color: var(--error-red);
+      background: var(--error-bg);
+      color: var(--error-red);
+    }
+
+    .btn-primary {
+      background: var(--navy-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 13px 28px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--navy-light);
+      transform: translateY(-1px);
+    }
+
+    .feedback-box {
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background: var(--success-bg);
+      border-left: 4px solid var(--success-border);
+      color: #065f46;
+    }
+
+    .feedback-box.incorrect {
+      display: block;
+      background: var(--error-bg);
+      border-left: 4px solid var(--error-border);
+      color: #991b1b;
+    }
+
+    /* Card Bottom Navigation */
+    .card-nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1.5px solid #f1f5f9;
+    }
+
+    .btn-nav {
+      background: #f1f5f9;
+      color: var(--navy-primary);
+      border: 1.5px solid #cbd5e1;
+      border-radius: 9999px;
+      padding: 10px 22px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--snow-blue);
+      border-color: var(--navy-light);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+      .header-box h1 { font-size: 1.7rem; }
+      .single-card { padding: 20px; }
+      .prompt-text { font-size: 1.1rem; }
+      .input-row { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-box">
+    <h1>Phrasal Verbs Interactive Practice</h1>
+    <p>Master all 14 phrasal verbs from your speaking & discussion worksheet step-by-step.</p>
+  </div>
+
+  <!-- 5 Task Tabs -->
+  <div class="tab-nav">
+    <button class="tab-btn active" id="tabBtn1" onclick="selectTask(1)">Task 1: Flashcards</button>
+    <button class="tab-btn" id="tabBtn2" onclick="selectTask(2)">Task 2: Synonyms</button>
+    <button class="tab-btn" id="tabBtn3" onclick="selectTask(3)">Task 3: Missing Preposition</button>
+    <button class="tab-btn" id="tabBtn4" onclick="selectTask(4)">Task 4: Missing Verb</button>
+    <button class="tab-btn" id="tabBtn5" onclick="selectTask(5)">Task 5: Fix Preposition</button>
+  </div>
+
+  <div class="scoreboard-pill" id="globalScore">Progress: 0 / 56 Checked</div>
+
+  <div class="main-stage" id="stageContainer"></div>
+
+  <script>
+    const items = [
+  {
+    "id": 1,
+    "pv": "get by (on)",
+    "verb": "get",
+    "prep": "by",
+    "synonym": "survive / manage financially",
+    "definition": "To manage to live or survive with difficulty, especially having just enough money or resources for basic needs.",
+    "example": "Many people believe that it's acceptable to get by on a minimal wage, as long as it satisfies their basic necessities.",
+    "gap_prep_sentence": "Many people believe that it's acceptable to get ________ on a minimal wage, as long as it satisfies their basic necessities.",
+    "gap_verb_sentence": "Many people believe that it's acceptable to ________ by on a minimal wage, as long as it satisfies their basic necessities.",
+    "wrong_prep_sentence": "Many people believe that it's acceptable to get <u>over</u> on a minimal wage, as long as it satisfies their basic necessities.",
+    "wrong_prep": "over",
+    "explanation": "'Get by (on)' means to survive or manage financially. 'Get over' means to recover from an illness or emotional shock."
+  },
+  {
+    "id": 2,
+    "pv": "call in (on)",
+    "verb": "call",
+    "prep": "in",
+    "synonym": "visit briefly",
+    "definition": "To make a short, casual visit to someone's home or workplace, often without arranging it in advance.",
+    "example": "It's an invasion of privacy for friends to call in on each other unannounced, even if it's meant to show concern.",
+    "gap_prep_sentence": "It's an invasion of privacy for friends to call ________ on each other unannounced, even if it's meant to show concern.",
+    "gap_verb_sentence": "It's an invasion of privacy for friends to ________ in on each other unannounced, even if it's meant to show concern.",
+    "wrong_prep_sentence": "It's an invasion of privacy for friends to call <u>off</u> on each other unannounced, even if it's meant to show concern.",
+    "wrong_prep": "off",
+    "explanation": "'Call in (on someone)' means to pay a brief visit. 'Call off' means to cancel an event or arrangement."
+  },
+  {
+    "id": 3,
+    "pv": "gang up (with)",
+    "verb": "gang",
+    "prep": "up",
+    "synonym": "unite / band together",
+    "definition": "To form a group with others in order to support each other, oppose someone, or act together aggressively.",
+    "example": "Ganging up with like-minded individuals can create echo chambers that stifle diverse perspectives.",
+    "gap_prep_sentence": "Ganging ________ with like-minded individuals can create echo chambers that stifle diverse perspectives.",
+    "gap_verb_sentence": "________ up with like-minded individuals can create echo chambers that stifle diverse perspectives.",
+    "verb_accepted": [
+      "ganging",
+      "gang"
+    ],
+    "wrong_prep_sentence": "Ganging <u>out</u> with like-minded individuals can create echo chambers that stifle diverse perspectives.",
+    "wrong_prep": "out",
+    "explanation": "'Gang up (with)' means to band together as a group. 'Gang out' is not a standard phrasal verb."
+  },
+  {
+    "id": 4,
+    "pv": "go over (to)",
+    "verb": "go",
+    "prep": "over",
+    "synonym": "switch / convert",
+    "definition": "To change one's allegiance, habits, beliefs, or way of life to a different one.",
+    "example": "People should be more open to going over to alternative lifestyles, as traditional norms are often outdated.",
+    "gap_prep_sentence": "People should be more open to going ________ to alternative lifestyles, as traditional norms are often outdated.",
+    "gap_verb_sentence": "People should be more open to ________ over to alternative lifestyles, as traditional norms are often outdated.",
+    "verb_accepted": [
+      "going",
+      "go"
+    ],
+    "wrong_prep_sentence": "People should be more open to going <u>under</u> to alternative lifestyles, as traditional norms are often outdated.",
+    "wrong_prep": "under",
+    "explanation": "'Go over to' means to switch or adopt a new system or lifestyle. 'Go under' means to fail or go bankrupt."
+  },
+  {
+    "id": 5,
+    "pv": "take on",
+    "verb": "take",
+    "prep": "on",
+    "synonym": "accept / undertake",
+    "definition": "To accept a particular job, duty, responsibility, or challenge.",
+    "example": "Taking on multiple jobs to make ends meet is glorified in our society.",
+    "gap_prep_sentence": "Taking ________ multiple jobs to make ends meet is glorified in our society.",
+    "gap_verb_sentence": "________ on multiple jobs to make ends meet is glorified in our society.",
+    "verb_accepted": [
+      "taking",
+      "take"
+    ],
+    "wrong_prep_sentence": "Taking <u>after</u> multiple jobs to make ends meet is glorified in our society.",
+    "wrong_prep": "after",
+    "explanation": "'Take on' means to accept work or responsibilities. 'Take after' means to resemble an older family member."
+  },
+  {
+    "id": 6,
+    "pv": "sail through",
+    "verb": "sail",
+    "prep": "through",
+    "synonym": "succeed easily",
+    "definition": "To succeed very easily and quickly in a test, interview, or difficult situation without facing problems.",
+    "example": "Some employees sail through interviews due to nepotism, while more qualified candidates are overlooked.",
+    "gap_prep_sentence": "Some employees sail ________ interviews due to nepotism, while more qualified candidates are overlooked.",
+    "gap_verb_sentence": "Some employees ________ through interviews due to nepotism, while more qualified candidates are overlooked.",
+    "wrong_prep_sentence": "Some employees sail <u>into</u> interviews due to nepotism, while more qualified candidates are overlooked.",
+    "wrong_prep": "into",
+    "explanation": "'Sail through' means to pass effortlessly. 'Sail into' means to attack or criticize someone forcefully."
+  },
+  {
+    "id": 7,
+    "pv": "fall through",
+    "verb": "fall",
+    "prep": "through",
+    "synonym": "fail / collapse",
+    "definition": "To fail to happen, be completed, or succeed (used for plans, deals, reforms, or arrangements).",
+    "example": "Reforms and initiatives in Europe often fall through because of bureaucratic red tape.",
+    "gap_prep_sentence": "Reforms and initiatives in Europe often fall ________ because of bureaucratic red tape.",
+    "gap_verb_sentence": "Reforms and initiatives in Europe often ________ through because of bureaucratic red tape.",
+    "wrong_prep_sentence": "Reforms and initiatives in Europe often fall <u>out</u> because of bureaucratic red tape.",
+    "wrong_prep": "out",
+    "explanation": "'Fall through' means a plan or initiative fails to materialize. 'Fall out' means to have an argument and stop being friendly."
+  },
+  {
+    "id": 8,
+    "pv": "put out",
+    "verb": "put",
+    "prep": "out",
+    "synonym": "publish / broadcast",
+    "definition": "To publish, broadcast, issue, or make a statement or opinion public.",
+    "example": "Influencers choose to put out controversial opinions to generate publicity.",
+    "gap_prep_sentence": "Influencers choose to put ________ controversial opinions to generate publicity.",
+    "gap_verb_sentence": "Influencers choose to ________ out controversial opinions to generate publicity.",
+    "wrong_prep_sentence": "Influencers choose to put <u>off</u> controversial opinions to generate publicity.",
+    "wrong_prep": "off",
+    "explanation": "'Put out' means to release or broadcast content publicly. 'Put off' means to postpone or discourage."
+  },
+  {
+    "id": 9,
+    "pv": "go off",
+    "verb": "go",
+    "prep": "off",
+    "synonym": "dislike / lose interest",
+    "definition": "To stop liking or lose enthusiasm for someone or something that you previously enjoyed (British English).",
+    "example": "Once a trend becomes mainstream, many individuals go off it.",
+    "gap_prep_sentence": "Once a trend becomes mainstream, many individuals go ________ it.",
+    "gap_verb_sentence": "Once a trend becomes mainstream, many individuals ________ off it.",
+    "wrong_prep_sentence": "Once a trend becomes mainstream, many individuals go <u>into</u> it.",
+    "wrong_prep": "into",
+    "explanation": "'Go off (something)' means to lose interest in it. 'Go into' means to examine in detail or enter a profession."
+  },
+  {
+    "id": 10,
+    "pv": "ask out",
+    "verb": "ask",
+    "prep": "out",
+    "synonym": "invite romantically",
+    "definition": "To invite someone to go to a restaurant, cinema, or event because you want to start a romantic relationship with them.",
+    "example": "In the workplace, asking someone out can blur professional boundaries.",
+    "gap_prep_sentence": "In the workplace, asking someone ________ can blur professional boundaries.",
+    "gap_verb_sentence": "In the workplace, ________ someone out can blur professional boundaries.",
+    "verb_accepted": [
+      "asking",
+      "ask"
+    ],
+    "wrong_prep_sentence": "In the workplace, asking someone <u>over</u> can blur professional boundaries.",
+    "wrong_prep": "over",
+    "explanation": "'Ask someone out' means to invite them on a romantic date. 'Ask someone over' simply means inviting them to your home."
+  },
+  {
+    "id": 11,
+    "pv": "ease up (on)",
+    "verb": "ease",
+    "prep": "up",
+    "synonym": "relax / reduce pressure",
+    "definition": "To become less strict, severe, or intense; to reduce pressure or rigidity.",
+    "example": "Society's refusal to ease up on rigid gender roles has resulted in significant mental health issues.",
+    "gap_prep_sentence": "Society's refusal to ease ________ on rigid gender roles has resulted in significant mental health issues.",
+    "gap_verb_sentence": "Society's refusal to ________ up on rigid gender roles has resulted in significant mental health issues.",
+    "wrong_prep_sentence": "Society's refusal to ease <u>off</u> on rigid gender roles has resulted in significant mental health issues.",
+    "wrong_prep": "off",
+    "explanation": "'Ease up (on)' means to become less strict or reduce pressure on someone/something."
+  },
+  {
+    "id": 12,
+    "pv": "hit on",
+    "verb": "hit",
+    "prep": "on",
+    "synonym": "discover / conceive",
+    "definition": "To think of a good idea, slogan, or solution suddenly or by chance.",
+    "example": "Activist movements sometimes hit on catchy slogans or viral moments but fail to develop sustainable plans.",
+    "gap_prep_sentence": "Activist movements sometimes hit ________ catchy slogans or viral moments but fail to develop sustainable plans.",
+    "gap_verb_sentence": "Activist movements sometimes ________ on catchy slogans or viral moments but fail to develop sustainable plans.",
+    "wrong_prep_sentence": "Activist movements sometimes hit <u>out</u> catchy slogans or viral moments but fail to develop sustainable plans.",
+    "wrong_prep": "out",
+    "explanation": "'Hit on (an idea)' means to discover or come up with it unexpectedly. 'Hit out' means to criticize or attack verbally."
+  },
+  {
+    "id": 13,
+    "pv": "stream into",
+    "verb": "stream",
+    "prep": "into",
+    "synonym": "enter / flood",
+    "definition": "To move or enter somewhere continuously in very large numbers.",
+    "example": "Millions of people stream into online courses, but the lack of regulation raises questions about quality.",
+    "gap_prep_sentence": "Millions of people stream ________ online courses, but the lack of regulation raises questions about quality.",
+    "gap_verb_sentence": "Millions of people ________ into online courses, but the lack of regulation raises questions about quality.",
+    "wrong_prep_sentence": "Millions of people stream <u>away</u> online courses, but the lack of regulation raises questions about quality.",
+    "wrong_prep": "away",
+    "explanation": "'Stream into' means large numbers of people entering or joining continuously."
+  },
+  {
+    "id": 14,
+    "pv": "muck up",
+    "verb": "muck",
+    "prep": "up",
+    "synonym": "ruin / spoil",
+    "definition": "To do something badly, spoil something, or make a mess of a task or situation (informal British English).",
+    "example": "The entertainment industry frequently mucks up cultural representation by promoting stereotypes.",
+    "gap_prep_sentence": "The entertainment industry frequently mucks ________ cultural representation by promoting stereotypes.",
+    "gap_verb_sentence": "The entertainment industry frequently ________ up cultural representation by promoting stereotypes.",
+    "verb_accepted": [
+      "mucks",
+      "muck"
+    ],
+    "wrong_prep_sentence": "The entertainment industry frequently mucks <u>in</u> cultural representation by promoting stereotypes.",
+    "wrong_prep": "in",
+    "explanation": "'Muck up' means to spoil or handle poorly. 'Muck in' means to join in and help with work."
+  }
+];
+
+    let currentTask = 1;
+    let indices = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let isFlipped = false;
+    let scores = { 2: {}, 3: {}, 4: {}, 5: {} };
+    let savedResponses = { 2: {}, 3: {}, 4: {}, 5: {} };
+
+    // Shuffled synonyms list for Task 2 dropdown
+    const synonymOptions = [...items]
+      .map(i => ({ id: i.id, syn: i.synonym }))
+      .sort((a, b) => a.syn.localeCompare(b.syn));
+
+    function selectTask(taskNum) {
+      currentTask = taskNum;
+      isFlipped = false;
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById(`tabBtn${i}`).className = (i === taskNum) ? 'tab-btn active' : 'tab-btn';
+      }
+      renderStage();
+    }
+
+    function prevCard() {
+      if (indices[currentTask] > 0) {
+        indices[currentTask]--;
+        isFlipped = false;
+        renderStage();
+      }
+    }
+
+    function nextCard() {
+      if (indices[currentTask] < items.length - 1) {
+        indices[currentTask]++;
+        isFlipped = false;
+        renderStage();
+      }
+    }
+
+    function toggleFlip() {
+      isFlipped = !isFlipped;
+      renderStage();
+    }
+
+    function updateGlobalScore() {
+      let totalCorrect = 0;
+      for (let t = 2; t <= 5; t++) {
+        totalCorrect += Object.values(scores[t]).filter(Boolean).length;
+      }
+      const maxPoints = items.length * 4;
+      document.getElementById('globalScore').innerHTML = 
+        `Total Score: <strong>${totalCorrect} / ${maxPoints}</strong> &nbsp;|&nbsp; T2: ${Object.values(scores[2]).filter(Boolean).length}/14 &bull; T3: ${Object.values(scores[3]).filter(Boolean).length}/14 &bull; T4: ${Object.values(scores[4]).filter(Boolean).length}/14 &bull; T5: ${Object.values(scores[5]).filter(Boolean).length}/14`;
+    }
+
+    function renderStage() {
+      const stage = document.getElementById('stageContainer');
+      const idx = indices[currentTask];
+      const item = items[idx];
+
+      let instructionHTML = "";
+      let cardBodyHTML = "";
+
+      if (currentTask === 1) {
+        instructionHTML = `
+          <div class="instruction-banner">
+            <h2>Task 1: Definition Flashcards (1 Card at a Time)</h2>
+            <p><strong>What to do:</strong> Read the definition carefully. <strong>Click directly on the card</strong> to flip it over and reveal the English phrasal verb and an example sentence. Use <em>Previous</em> and <em>Next</em> to study all 14 cards.</p>
+          </div>
+        `;
+
+        cardBodyHTML = `
+          <div class="flashcard-wrapper" onclick="toggleFlip()">
+            <div class="flashcard ${isFlipped ? 'flipped' : ''}">
+              ${!isFlipped ? `
+                <div class="fc-label">Definition (Front Side)</div>
+                <div class="fc-main-text">${item.definition}</div>
+                <div class="fc-tap-hint">👆 Click anywhere on this card to flip to the English phrasal verb</div>
+              ` : `
+                <div class="fc-label">English Phrasal Verb (Flip Side)</div>
+                <div class="fc-main-text">${item.pv}</div>
+                <div class="fc-sub-example">“${item.example}”</div>
+                <div class="fc-tap-hint">👆 Click to flip back to the definition</div>
+              `}
+            </div>
+          </div>
+        `;
+      } 
+      else if (currentTask === 2) {
+        instructionHTML = `
+          <div class="instruction-banner">
+            <h2>Task 2: Match Phrasal Verbs with Their Synonyms (1 Word at a Time)</h2>
+            <p><strong>What to do:</strong> Look at the phrasal verb shown below, select its matching synonym from the dropdown menu, and click <strong>"Check"</strong> to see the explanation.</p>
+          </div>
+        `;
+
+        const prevVal = savedResponses[2][item.id] || "";
+        let opts = `<option value="">-- Choose the matching synonym --</option>`;
+        synonymOptions.forEach(opt => {
+          opts += `<option value="${opt.syn}" ${prevVal === opt.syn ? 'selected' : ''}>${opt.syn}</option>`;
+        });
+
+        cardBodyHTML = `
+          <div style="font-size: 0.9rem; font-weight: 700; color: #64748b;">Phrasal Verb:</div>
+          <div class="prompt-text" style="font-size: 1.8rem; color: var(--navy-primary);">${item.pv}</div>
+          <div class="input-row">
+            <select class="select-input" id="inputField">${opts}</select>
+            <button class="btn-primary" onclick="checkTask2()">Check</button>
+          </div>
+          <div class="feedback-box" id="feedbackBox"></div>
+        `;
+      }
+      else if (currentTask === 3) {
+        instructionHTML = `
+          <div class="instruction-banner">
+            <h2>Task 3: Fill in the Gap with the Correct Preposition (1 Sentence at a Time)</h2>
+            <p><strong>What to do:</strong> Read the sentence and type <strong>ONLY the missing preposition / particle</strong> (one word, e.g., <em>by</em>, <em>through</em>, <em>up</em>) into the box. Do <strong>not</strong> write the whole sentence. Click <strong>"Check"</strong>.</p>
+          </div>
+        `;
+
+        const prevVal = savedResponses[3][item.id] || "";
+        cardBodyHTML = `
+          <div class="prompt-text">“${item.gap_prep_sentence}”</div>
+          <div class="input-row">
+            <input type="text" class="text-input" id="inputField" value="${prevVal}" placeholder="Type ONLY the missing preposition (1 word)..." autocomplete="off" onkeydown="if(event.key==='Enter') checkTask3()">
+            <button class="btn-primary" onclick="checkTask3()">Check</button>
+          </div>
+          <div class="feedback-box" id="feedbackBox"></div>
+        `;
+      }
+      else if (currentTask === 4) {
+        instructionHTML = `
+          <div class="instruction-banner">
+            <h2>Task 4: Fill in the Gap with the Correct Verb (1 Sentence at a Time)</h2>
+            <p><strong>What to do:</strong> Read the sentence and type <strong>ONLY the missing verb</strong> in its proper grammatical form (one word, e.g., <em>get</em>, <em>taking</em>, <em>mucks</em>) into the box. Do <strong>not</strong> write the whole sentence. Click <strong>"Check"</strong>.</p>
+          </div>
+        `;
+
+        const prevVal = savedResponses[4][item.id] || "";
+        cardBodyHTML = `
+          <div class="prompt-text">“${item.gap_verb_sentence}”</div>
+          <div class="input-row">
+            <input type="text" class="text-input" id="inputField" value="${prevVal}" placeholder="Type ONLY the missing verb (1 word)..." autocomplete="off" onkeydown="if(event.key==='Enter') checkTask4()">
+            <button class="btn-primary" onclick="checkTask4()">Check</button>
+          </div>
+          <div class="feedback-box" id="feedbackBox"></div>
+        `;
+      }
+      else if (currentTask === 5) {
+        instructionHTML = `
+          <div class="instruction-banner">
+            <h2>Task 5: Correct the Wrong Preposition (1 Sentence at a Time)</h2>
+            <p><strong>What to do:</strong> Each sentence contains an intentional mistake where the <strong>wrong preposition</strong> (underlined in red) is used. Type <strong>ONLY the single correct preposition</strong> that should replace the underlined word. Do <strong>not</strong> rewrite the whole sentence. Click <strong>"Check"</strong>.</p>
+          </div>
+        `;
+
+        const prevVal = savedResponses[5][item.id] || "";
+        cardBodyHTML = `
+          <div class="prompt-text">“${item.wrong_prep_sentence}”</div>
+          <div style="font-size: 0.88rem; color: #64748b; font-weight: 600;">Replace the incorrect underlined preposition <strong>“${item.wrong_prep}”</strong> with the right preposition:</div>
+          <div class="input-row">
+            <input type="text" class="text-input" id="inputField" value="${prevVal}" placeholder="Type ONLY the correct preposition (1 word)..." autocomplete="off" onkeydown="if(event.key==='Enter') checkTask5()">
+            <button class="btn-primary" onclick="checkTask5()">Check</button>
+          </div>
+          <div class="feedback-box" id="feedbackBox"></div>
+        `;
+      }
+
+      stage.innerHTML = `
+        ${instructionHTML}
+        <div class="single-card">
+          <div class="progress-bar-row">
+            <span class="badge">Task ${currentTask} &bull; Item ${idx + 1} of ${items.length}</span>
+            <span style="font-size: 0.85rem; font-weight: 700; color: #64748b;">${idx + 1} / ${items.length}</span>
+          </div>
+          ${cardBodyHTML}
+          <div class="card-nav-footer">
+            <button class="btn-nav" onclick="prevCard()" ${idx === 0 ? 'disabled' : ''}>&larr; Previous</button>
+            <button class="btn-nav" onclick="nextCard()" ${idx === items.length - 1 ? 'disabled' : ''}>Next &rarr;</button>
+          </div>
+        </div>
+      `;
+
+      // Restore feedback state if already checked
+      if (currentTask >= 2 && savedResponses[currentTask][item.id] !== undefined) {
+        if (currentTask === 2) checkTask2(true);
+        if (currentTask === 3) checkTask3(true);
+        if (currentTask === 4) checkTask4(true);
+        if (currentTask === 5) checkTask5(true);
+      }
+    }
+
+    function checkTask2(silent = false) {
+      const item = items[indices[2]];
+      const field = document.getElementById('inputField');
+      const fb = document.getElementById('feedbackBox');
+      const val = field.value;
+
+      if (!val) {
+        if (!silent) alert("Please choose a synonym from the dropdown first!");
+        return;
+      }
+
+      savedResponses[2][item.id] = val;
+      const cleanExp = item.explanation.split('. ')[0] + '.';
+      if (val === item.synonym) {
+        field.className = "select-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> <em>"${item.pv}"</em> means <strong>${item.synonym}</strong>.<br>${cleanExp}`;
+        scores[2][item.id] = true;
+      } else {
+        field.className = "select-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> You chose <em>"${val}"</em>. The correct synonym for <strong>${item.pv}</strong> is <strong>"${item.synonym}"</strong>.<br>${cleanExp}`;
+        scores[2][item.id] = false;
+      }
+      updateGlobalScore();
+    }
+
+    function checkTask3(silent = false) {
+      const item = items[indices[3]];
+      const field = document.getElementById('inputField');
+      const fb = document.getElementById('feedbackBox');
+      const val = field.value.trim().toLowerCase();
+
+      if (!val) {
+        if (!silent) alert("Please write the missing preposition (1 word) first!");
+        return;
+      }
+
+      savedResponses[3][item.id] = field.value.trim();
+      if (val === item.prep.toLowerCase()) {
+        field.className = "text-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> The missing preposition is <strong>"${item.prep}"</strong> (forming <em>${item.pv}</em>).<br>${item.explanation}`;
+        scores[3][item.id] = true;
+      } else {
+        field.className = "text-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> You wrote <em>"${field.value.trim()}"</em>. The correct preposition is <strong>"${item.prep}"</strong> (to form <em>${item.pv}</em>).<br>${item.explanation}`;
+        scores[3][item.id] = false;
+      }
+      updateGlobalScore();
+    }
+
+    function checkTask4(silent = false) {
+      const item = items[indices[4]];
+      const field = document.getElementById('inputField');
+      const fb = document.getElementById('feedbackBox');
+      const val = field.value.trim().toLowerCase();
+
+      if (!val) {
+        if (!silent) alert("Please write the missing verb (1 word) first!");
+        return;
+      }
+
+      savedResponses[4][item.id] = field.value.trim();
+      const acceptedList = item.verb_accepted || [item.verb];
+      const expectedDisplay = acceptedList[0];
+
+      if (acceptedList.includes(val)) {
+        field.className = "text-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> The missing verb is <strong>"${expectedDisplay}"</strong> (from <em>${item.pv}</em>).<br>${item.explanation}`;
+        scores[4][item.id] = true;
+      } else {
+        field.className = "text-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> You wrote <em>"${field.value.trim()}"</em>. The correct verb here is <strong>"${expectedDisplay}"</strong> (from <em>${item.pv}</em>).<br>${item.explanation}`;
+        scores[4][item.id] = false;
+      }
+      updateGlobalScore();
+    }
+
+    function checkTask5(silent = false) {
+      const item = items[indices[5]];
+      const field = document.getElementById('inputField');
+      const fb = document.getElementById('feedbackBox');
+      const val = field.value.trim().toLowerCase();
+
+      if (!val) {
+        if (!silent) alert("Please write the single correct preposition first!");
+        return;
+      }
+
+      savedResponses[5][item.id] = field.value.trim();
+      if (val === item.prep.toLowerCase()) {
+        field.className = "text-input correct-field";
+        fb.className = "feedback-box correct";
+        fb.innerHTML = `<strong>Correct!</strong> Replacing <em>"${item.wrong_prep}"</em> with <strong>"${item.prep}"</strong> forms the accurate phrasal verb <strong>${item.pv}</strong>.<br>${item.explanation}`;
+        scores[5][item.id] = true;
+      } else {
+        field.className = "text-input incorrect-field";
+        fb.className = "feedback-box incorrect";
+        fb.innerHTML = `<strong>Incorrect.</strong> You wrote <em>"${field.value.trim()}"</em>. The wrong preposition <em>"${item.wrong_prep}"</em> should be replaced with <strong>"${item.prep}"</strong> (forming <em>${item.pv}</em>).<br>${item.explanation}`;
+        scores[5][item.id] = false;
+      }
+      updateGlobalScore();
+    }
+
+    // Initialize
+    renderStage();
+    updateGlobalScore();
+  </script>
+</body>
+</html>
